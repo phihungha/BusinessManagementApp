@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         ui:WindowHelper.UseModernWindowStyle="True"
         MinWidth="1000" MinHeight="180"
-        Title="MainWindow" Height="720" Width="1290">
+        Title="MainWindow" Height="720" Width="1290" Background="#FFEDEDED">
     <Grid>
         <local:Workspace />
     </Grid>
