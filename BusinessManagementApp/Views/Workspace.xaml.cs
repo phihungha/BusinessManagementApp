@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessManagementApp.ViewModels;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace BusinessManagementApp.Views
         public Workspace()
         {
             InitializeComponent();
+            DataContext = App.Current.Services.GetRequiredService<WorkspaceVM>();
         }
     }
 }

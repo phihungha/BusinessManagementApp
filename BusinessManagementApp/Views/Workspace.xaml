@@ -4,10 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessManagementApp.Views"
-             xmlns:dialogs="clr-namespace:BusinessManagementApp.Views.Dialogs"
+             xmlns:vm="clr-namespace:BusinessManagementApp.ViewModels"
+             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="1290">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:OverviewVM}">
+            <local:Overview />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:OrdersVM}">
+            <local:Orders />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:EmployeeInfoVM}">
+            <local:EmployeeInfo />
+        </DataTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" />
@@ -19,17 +34,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListBox Background="#FF171F39" Foreground="White" 
-                 ui:ThemeManager.RequestedTheme="Dark">
-            <ListBoxItem>Orders</ListBoxItem>
-            <ListBoxItem>Products</ListBoxItem>
-            <ListBoxItem>Providers</ListBoxItem>
-            <ListBoxItem>Customers</ListBoxItem>
-            <ListBoxItem>Employees Info</ListBoxItem>
-            <ListBoxItem>Salary</ListBoxItem>
-            <ListBoxItem>Overtime</ListBoxItem>
-        </ListBox>
-        
+        <ListBox ItemsSource="{Binding SelectedViewName, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                 SelectedValue="{Binding SelectedViewName}"
+                 SelectedValuePath="Value" DisplayMemberPath="Description"
+                 Background="#FF171F39" Foreground="White" 
+                 ui:ThemeManager.RequestedTheme="Dark" />
+
         <Grid Grid.Row="1" Height="60" Background="{StaticResource PrimaryColorBrush}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -57,6 +67,6 @@
             </Button>
         </Grid>
 
-        <local:EmployeeInfo Grid.Column="1" Grid.RowSpan="2" />
+        <ContentControl Grid.Column="1" Grid.RowSpan="2" Content="{Binding CurrentViewVM}" />
     </Grid>
 </UserControl>
