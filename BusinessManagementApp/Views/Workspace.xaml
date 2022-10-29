@@ -10,6 +10,9 @@
              mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="1290">
     <UserControl.Resources>
+        <converters:ViewNameToString x:Key="ViewNameToStringConverter" />
+        <converters:ViewNameToImageSource x:Key="ViewNameToImageSourceConverter" />
+
         <DataTemplate DataType="{x:Type vm:OverviewVM}">
             <local:Overview />
         </DataTemplate>
@@ -34,11 +37,21 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding SelectedViewName, Converter={converters:EnumToCollection}, Mode=OneTime}"
-                 SelectedValue="{Binding SelectedViewName}"
-                 SelectedValuePath="Value" DisplayMemberPath="Description"
+        <ListBox ItemsSource="{Binding ViewNames}"
+                 SelectedItem="{Binding SelectedViewName}"
                  Background="#FF171F39" Foreground="White" 
-                 ui:ThemeManager.RequestedTheme="Dark" />
+                 ui:ThemeManager.RequestedTheme="Dark">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="8,0,8,0" Orientation="Horizontal">
+                        <Image Source="{Binding Converter={StaticResource ViewNameToImageSourceConverter}}"
+                               VerticalAlignment="Center" Width="18" Margin="15,0,0,0" />
+                        <TextBlock VerticalAlignment="Center" Margin="20,0,0,0" FontSize="13"
+                                   Text="{Binding Converter={StaticResource ViewNameToStringConverter}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <Grid Grid.Row="1" Height="60" Background="{StaticResource PrimaryColorBrush}">
             <Grid.ColumnDefinitions>

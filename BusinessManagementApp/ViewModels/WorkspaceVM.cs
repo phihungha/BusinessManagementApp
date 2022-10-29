@@ -9,13 +9,10 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.ViewModels
 {
-    public enum SidebarNavPageNames
+    public enum ViewName
     {
-        [Description("Overview")]
         Overview,
-        [Description("Orders")]
         Orders,
-        [Description("Employee info")]
         EmployeeInfo
     }
 
@@ -28,8 +25,15 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref currentViewVM, value);
         }
 
-        private SidebarNavPageNames selectedViewName = SidebarNavPageNames.EmployeeInfo;
-        public SidebarNavPageNames SelectedViewName
+        public ViewName[] ViewNames { get; } = new[] 
+        {   
+            ViewName.Overview, 
+            ViewName.Orders, 
+            ViewName.EmployeeInfo 
+        };
+
+        private ViewName selectedViewName = ViewName.Overview;
+        public ViewName SelectedViewName
         {
             get => selectedViewName;
             set
@@ -43,13 +47,13 @@ namespace BusinessManagementApp.ViewModels
         {
             switch (SelectedViewName)
             {
-                case SidebarNavPageNames.Overview:
+                case ViewName.Overview:
                     CurrentViewVM = App.Current.Services.GetRequiredService<OverviewVM>();
                     break;
-                case SidebarNavPageNames.Orders:
+                case ViewName.Orders:
                     CurrentViewVM = App.Current.Services.GetRequiredService<OrdersVM>();
                     break;
-                case SidebarNavPageNames.EmployeeInfo:
+                case ViewName.EmployeeInfo:
                     CurrentViewVM = App.Current.Services.GetRequiredService<EmployeeInfoVM>();
                     break;
             }
