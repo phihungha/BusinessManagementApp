@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DrawingImage x:Key="PlusWhiteIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,5L12,19 M5,12L19,12">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="UserBlackIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M5.3163,19.4384C5.92462,18.0052,7.34492,17,9,17L15,17C16.6551,17,18.0754,18.0052,18.6837,19.4384 M16,9.5C16,11.7091 14.2091,13.5 12,13.5 9.79086,13.5 8,11.7091 8,9.5 8,7.29086 9.79086,5.5 12,5.5 14.2091,5.5 16,7.29086 16,9.5z M22,12C22,17.5228 17.5228,22 12,22 6.47715,22 2,17.5228 2,12 2,6.47715 6.47715,2 12,2 17.5228,2 22,6.47715 22,12z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="SearchWhiteIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M21,21L15.0001,15 M17,10C17,13.866 13.866,17 10,17 6.13401,17 3,13.866 3,10 3,6.13401 6.13401,3 10,3 13.866,3 17,6.13401 17,10z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="LogoutWhiteIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M16,17L21,12 M21,12L16,7 M21,12L9,12 M12,17C12,17.93 12,18.395 11.8978,18.7765 11.6204,19.8117 10.8117,20.6204 9.77646,20.8978 9.39496,21 8.92997,21 8,21L7.5,21C6.10218,21 5.40326,21 4.85195,20.7716 4.11687,20.4672 3.53284,19.8831 3.22836,19.1481 3,18.5967 3,17.8978 3,16.5L3,7.5C3,6.10217 3,5.40326 3.22836,4.85195 3.53284,4.11687 4.11687,3.53284 4.85195,3.22836 5.40326,3 6.10218,3 7.5,3L8,3C8.92997,3 9.39496,3 9.77646,3.10222 10.8117,3.37962 11.6204,4.18827 11.8978,5.22354 12,5.60504 12,6.07003 12,7">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+</ResourceDictionary>
