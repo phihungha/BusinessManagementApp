@@ -18,7 +18,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListBox Background="#FF171F39" Foreground="White">
+        <ListBox Background="#FF171F39" Foreground="White" 
+                 ui:ThemeManager.RequestedTheme="Dark">
             <ListBoxItem>Orders</ListBoxItem>
             <ListBoxItem>Products</ListBoxItem>
             <ListBoxItem>Providers</ListBoxItem>
