@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using BusinessManagementApp.ViewModels;
+using BusinessManagementApp.ViewModels.EditVMs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BusinessManagementApp
@@ -36,6 +37,7 @@ namespace BusinessManagementApp
             services.AddTransient<OverviewVM>();
             services.AddTransient<OrdersVM>();
             services.AddTransient<EmployeeInfoVM>();
+            services.AddTransient<EmployeeInfoEditVM>();
 
             return services.BuildServiceProvider();
         }

@@ -1,4 +1,7 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BusinessManagementApp.ViewModels.EditVMs;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,11 +12,19 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.ViewModels
 {
-    public enum ViewName
+    public enum WorkspaceViewName
     {
         Overview,
         Orders,
-        EmployeeInfo
+        EmployeeInfo,
+        EmployeeInfoEdit
+    }
+
+    public class WorkspaceViewChangeMessage : ValueChangedMessage<WorkspaceViewName>
+    {
+        public WorkspaceViewChangeMessage(WorkspaceViewName viewName) : base(viewName)
+        {
+        }
     }
 
     public class WorkspaceVM : ObservableObject
@@ -25,15 +36,15 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref currentViewVM, value);
         }
 
-        public ViewName[] ViewNames { get; } = new[] 
+        public WorkspaceViewName[] ViewNames { get; } = new[] 
         {   
-            ViewName.Overview, 
-            ViewName.Orders, 
-            ViewName.EmployeeInfo 
+            WorkspaceViewName.Overview, 
+            WorkspaceViewName.Orders, 
+            WorkspaceViewName.EmployeeInfo 
         };
 
-        private ViewName selectedViewName = ViewName.Overview;
-        public ViewName SelectedViewName
+        private WorkspaceViewName selectedViewName = WorkspaceViewName.Overview;
+        public WorkspaceViewName SelectedViewName
         {
             get => selectedViewName;
             set
@@ -43,18 +54,27 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
+        public WorkspaceVM()
+        {
+            WeakReferenceMessenger.Default
+                .Register<WorkspaceViewChangeMessage>(this, (r, m) => { SelectedViewName = m.Value; });
+        }
+
         private void ChangeView()
         {
             switch (SelectedViewName)
             {
-                case ViewName.Overview:
+                case WorkspaceViewName.Overview:
                     CurrentViewVM = App.Current.Services.GetRequiredService<OverviewVM>();
                     break;
-                case ViewName.Orders:
+                case WorkspaceViewName.Orders:
                     CurrentViewVM = App.Current.Services.GetRequiredService<OrdersVM>();
                     break;
-                case ViewName.EmployeeInfo:
+                case WorkspaceViewName.EmployeeInfo:
                     CurrentViewVM = App.Current.Services.GetRequiredService<EmployeeInfoVM>();
+                    break;
+                case WorkspaceViewName.EmployeeInfoEdit:
+                    CurrentViewVM = App.Current.Services.GetRequiredService<EmployeeInfoEditVM>();
                     break;
             }
         }
