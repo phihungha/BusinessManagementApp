@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using BusinessManagementApp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace BusinessManagementApp
 {
@@ -17,27 +18,22 @@ namespace BusinessManagementApp
     {
         public new static App Current => (App)Application.Current;
 
-        public IServiceProvider Services { get; }
+        private readonly IHost _host;
+
+        public IServiceProvider ServiceProvider => _host.Services;
 
         public App()
         {
-            Services = ConfigureServices();
+            _host = CreateHostBuilder().Build();
         }
 
-        /// <summary>
-        /// Setup classes used for dependency injection.
-        /// </summary>
-        /// <returns>DI service provider</returns>
-        private static IServiceProvider ConfigureServices()
+        private IHostBuilder CreateHostBuilder(string[] args = null)
         {
-            var services = new ServiceCollection();
-
-            services.AddTransient<WorkspaceVM>();
-            services.AddTransient<OverviewVM>();
-            services.AddTransient<OrdersVM>();
-            services.AddTransient<EmployeeInfoVM>();
-
-            return services.BuildServiceProvider();
+            return CreateHostBuilder(args)
+                .Application(this)
+                .AddLogging()
+                .AddStores()
+                .AddViewModels();
         }
     }
 }
