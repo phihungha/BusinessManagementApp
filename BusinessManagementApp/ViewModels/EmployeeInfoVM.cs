@@ -16,17 +16,20 @@ namespace BusinessManagementApp.ViewModels
 {
     public class EmployeeInfoVM : ObservableObject
     {
-        public EmployeesRepository employeesRepository = new();
+        public EmployeesRepository employeesRepository;
 
         public ObservableCollection<Employee> Employees { get; set; } = new();
 
         public ICommand AddEmployee { get; private set; }
 
-        public EmployeeInfoVM()
+        public EmployeeInfoVM(EmployeesRepository employeesRepository)
         {
+            this.employeesRepository = employeesRepository;
+
             AddEmployee = new RelayCommand(
                 () => WorkspaceNavUtils.ChangeView(WorkspaceViewName.EmployeeInfoEdit)
                 );
+
             LoadData();
         }
 

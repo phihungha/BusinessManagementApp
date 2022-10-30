@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using BusinessManagementApp.Repositories;
 using BusinessManagementApp.ViewModels;
 using BusinessManagementApp.ViewModels.EditVMs;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +33,8 @@ namespace BusinessManagementApp
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
+
+            services.AddSingleton<EmployeesRepository>();
 
             services.AddTransient<WorkspaceVM>();
             services.AddTransient<OverviewVM>();
