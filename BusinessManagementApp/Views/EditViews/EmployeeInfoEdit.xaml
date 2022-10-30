@@ -124,7 +124,8 @@
                         <TextBlock FontSize="16">Save</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
+                <Button Command="{Binding Cancel}" Margin="5" 
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                         Foreground="White" Background="{StaticResource CancelColorBrush}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
