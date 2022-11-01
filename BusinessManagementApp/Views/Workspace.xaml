@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:views="clr-namespace:BusinessManagementApp.Views"
-             xmlns:editviews="clr-namespace:BusinessManagementApp.Views.EditViews"
+             xmlns:editviews="clr-namespace:BusinessManagementApp.Views.DetailsViews"
              xmlns:vm="clr-namespace:BusinessManagementApp.ViewModels"
              xmlns:editvm="clr-namespace:BusinessManagementApp.ViewModels.EditVMs"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
@@ -27,8 +27,8 @@
             <views:EmployeeInfo />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type editvm:EmployeeInfoEditVM}">
-            <editviews:EmployeeInfoEdit />
+        <DataTemplate DataType="{x:Type editvm:EmployeeInfoDetailsVM}">
+            <editviews:EmployeeInfoDetails />
         </DataTemplate>
     </UserControl.Resources>
     

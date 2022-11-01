@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BusinessManagementApp.Views.EditViews
+namespace BusinessManagementApp.Views.DetailsViews
 {
     /// <summary>
     /// Interaction logic for EmployeeInfoEdit.xaml
     /// </summary>
-    public partial class EmployeeInfoEdit : UserControl
+    public partial class EmployeeInfoDetails : UserControl
     {
-        public EmployeeInfoEdit()
+        public EmployeeInfoDetails()
         {
             InitializeComponent();
         }

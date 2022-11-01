@@ -40,7 +40,7 @@ namespace BusinessManagementApp
             services.AddTransient<OverviewVM>();
             services.AddTransient<OrdersVM>();
             services.AddTransient<EmployeeInfoVM>();
-            services.AddTransient<EmployeeInfoEditVM>();
+            services.AddTransient<EmployeeInfoDetailsVM>();
 
             return services.BuildServiceProvider();
         }

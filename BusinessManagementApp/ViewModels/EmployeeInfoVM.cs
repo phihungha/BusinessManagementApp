@@ -27,7 +27,7 @@ namespace BusinessManagementApp.ViewModels
             this.employeesRepository = employeesRepository;
 
             AddEmployee = new RelayCommand(
-                () => WorkspaceNavUtils.ChangeView(WorkspaceViewName.EmployeeInfoEdit)
+                () => WorkspaceNavUtils.NavigateToWithId(WorkspaceViewName.EmployeeInfoDetails, 1)
                 );
 
             LoadData();

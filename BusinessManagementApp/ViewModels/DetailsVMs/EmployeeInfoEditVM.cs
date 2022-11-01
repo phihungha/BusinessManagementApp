@@ -10,15 +10,27 @@ using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.EditVMs
 {
-    public class EmployeeInfoEditVM : ObservableObject
+    public class EmployeeInfoDetailsVM : DetailsObservableValidator
     {
+        private int id = 0;
+        public int Id
+        {
+            get => id;
+            set => SetProperty(ref id, value);
+        }
+
         public ICommand Cancel { get; private set; }
 
-        public EmployeeInfoEditVM()
+        public EmployeeInfoDetailsVM()
         {
             Cancel = new RelayCommand(
-                () => WorkspaceNavUtils.ChangeView(WorkspaceViewName.EmployeeInfo)
+                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo)
                 );
+        }
+
+        public override void LoadDataFromId(object id)
+        {
+            Id = (int)id;
         }
     }
 }

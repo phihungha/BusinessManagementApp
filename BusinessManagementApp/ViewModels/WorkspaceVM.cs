@@ -1,14 +1,9 @@
 ﻿using BusinessManagementApp.ViewModels.EditVMs;
+using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.ViewModels
 {
@@ -17,20 +12,52 @@ namespace BusinessManagementApp.ViewModels
         Overview,
         Orders,
         EmployeeInfo,
-        EmployeeInfoEdit
+        EmployeeInfoDetails
     }
 
-    public class WorkspaceViewChangeMessage : ValueChangedMessage<WorkspaceViewName>
+    /// <summary>
+    /// Contains the content of a navigation message 
+    /// including name of view to go to and extra message
+    /// </summary>
+    public struct NavigationMessageContent
     {
-        public WorkspaceViewChangeMessage(WorkspaceViewName viewName) : base(viewName)
+        public WorkspaceViewName TargetViewName { get; set; }
+        public object? Extra { get; set; }
+
+        /// <summary>
+        /// Contains the content of a navigation message 
+        /// including name of view to go to and extra message
+        /// </summary>
+        /// <param name="targetViewName">Name of view to go to</param>
+        /// <param name="extra">An object containing extra message</param>
+        public NavigationMessageContent(WorkspaceViewName targetViewName, object? extra)
+        {
+            TargetViewName = targetViewName;
+            Extra = extra;
+        }
+    }
+
+    /// <summary>
+    /// Message to indicate a navigation request to another view on the workspace view.
+    /// </summary>
+    public class WorkspaceNavigationMessage : ValueChangedMessage<NavigationMessageContent>
+    {
+        /// <summary>
+        /// Message to indicate a navigation request to another view on the workspace view.
+        /// </summary>
+        /// <param name="targetViewName">Name of view to go to</param>
+        /// <param name="extra">An object containing extra message</param>
+        public WorkspaceNavigationMessage(WorkspaceViewName targetViewName, object? extra = null)
+            : base(new NavigationMessageContent(targetViewName, extra))
         {
         }
     }
 
     public class WorkspaceVM : ObservableObject
     {
-        private ObservableObject currentViewVM = App.Current.Services.GetRequiredService<OverviewVM>();
-        public ObservableObject CurrentViewVM
+        private ObservableObject? currentViewVM 
+            = App.Current.Services.GetRequiredService<OverviewVM>();
+        public ObservableObject? CurrentViewVM
         {
             get => currentViewVM;
             set => SetProperty(ref currentViewVM, value);
@@ -50,19 +77,33 @@ namespace BusinessManagementApp.ViewModels
             set
             {
                 SetProperty(ref selectedViewName, value);
-                ChangeView();
+                ChangeView(value);
             }
         }
 
         public WorkspaceVM()
         {
-            WeakReferenceMessenger.Default
-                .Register<WorkspaceViewChangeMessage>(this, (r, m) => { SelectedViewName = m.Value; });
+            WeakReferenceMessenger
+                .Default
+                .Register<WorkspaceNavigationMessage>(
+                    this, 
+                    (r, m) => HandleNavigationMessageContent(m.Value)
+                );
         }
 
-        private void ChangeView()
+        private void HandleNavigationMessageContent(NavigationMessageContent content)
         {
-            switch (SelectedViewName)
+            SelectedViewName = content.TargetViewName;
+
+            if (content.Extra == null)
+                ChangeView(content.TargetViewName);
+            else
+                ChangeViewAndPassId(content.TargetViewName, content.Extra);
+        }
+
+        private void ChangeView(WorkspaceViewName targetViewName)
+        {
+            switch (targetViewName)
             {
                 case WorkspaceViewName.Overview:
                     CurrentViewVM = App.Current.Services.GetRequiredService<OverviewVM>();
@@ -73,10 +114,26 @@ namespace BusinessManagementApp.ViewModels
                 case WorkspaceViewName.EmployeeInfo:
                     CurrentViewVM = App.Current.Services.GetRequiredService<EmployeeInfoVM>();
                     break;
-                case WorkspaceViewName.EmployeeInfoEdit:
-                    CurrentViewVM = App.Current.Services.GetRequiredService<EmployeeInfoEditVM>();
+                default:
+                    CurrentViewVM = null;
                     break;
             }
+        }
+
+        private void ChangeViewAndPassId(WorkspaceViewName targetViewName, object id)
+        {
+            DetailsObservableValidator? viewModel = null;
+
+            switch (targetViewName)
+            {
+                case WorkspaceViewName.EmployeeInfoDetails:
+                    viewModel = App.Current.Services.GetRequiredService<EmployeeInfoDetailsVM>();
+                    break;
+            }
+
+            viewModel?.LoadDataFromId(id);
+
+            CurrentViewVM = viewModel;
         }
     }
 }
