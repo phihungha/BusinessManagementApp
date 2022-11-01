@@ -77,7 +77,7 @@ namespace BusinessManagementApp.ViewModels
             set
             {
                 SetProperty(ref selectedViewName, value);
-                ChangeView(value);
+                CurrentViewVM = GetViewModelFromViewName(value);
             }
         }
 
@@ -93,47 +93,33 @@ namespace BusinessManagementApp.ViewModels
 
         private void HandleNavigationMessageContent(NavigationMessageContent content)
         {
-            SelectedViewName = content.TargetViewName;
-
-            if (content.Extra == null)
-                ChangeView(content.TargetViewName);
-            else
-                ChangeViewAndPassId(content.TargetViewName, content.Extra);
+            ObservableObject? viewModel = GetViewModelFromViewName(content.TargetViewName);
+            if (content.Extra != null && viewModel != null)
+                PassExtraToViewModel(viewModel, content.Extra);
+            CurrentViewVM = viewModel;
         }
 
-        private void ChangeView(WorkspaceViewName targetViewName)
+        private ObservableObject? GetViewModelFromViewName(WorkspaceViewName targetViewName)
         {
             switch (targetViewName)
             {
                 case WorkspaceViewName.Overview:
-                    CurrentViewVM = App.Current.Services.GetRequiredService<OverviewVM>();
-                    break;
+                    return App.Current.Services.GetRequiredService<OverviewVM>();
                 case WorkspaceViewName.Orders:
-                    CurrentViewVM = App.Current.Services.GetRequiredService<OrdersVM>();
-                    break;
+                    return App.Current.Services.GetRequiredService<OrdersVM>();
                 case WorkspaceViewName.EmployeeInfo:
-                    CurrentViewVM = App.Current.Services.GetRequiredService<EmployeeInfoVM>();
-                    break;
+                    return App.Current.Services.GetRequiredService<EmployeeInfoVM>();
+                case WorkspaceViewName.EmployeeInfoDetails:
+                    return App.Current.Services.GetRequiredService<EmployeeInfoDetailsVM>();
                 default:
-                    CurrentViewVM = null;
-                    break;
+                    return null;
             }
         }
 
-        private void ChangeViewAndPassId(WorkspaceViewName targetViewName, object id)
+        private void PassExtraToViewModel(ObservableObject viewModel, object id)
         {
-            DetailsObservableValidator? viewModel = null;
-
-            switch (targetViewName)
-            {
-                case WorkspaceViewName.EmployeeInfoDetails:
-                    viewModel = App.Current.Services.GetRequiredService<EmployeeInfoDetailsVM>();
-                    break;
-            }
-
-            viewModel?.LoadDataFromId(id);
-
-            CurrentViewVM = viewModel;
+            var detailsViewModel = (DetailsObservableValidator)viewModel;
+            detailsViewModel?.LoadDataFromId(id);
         }
     }
 }

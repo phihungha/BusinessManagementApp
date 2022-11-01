@@ -18,24 +18,24 @@ namespace BusinessManagementApp.ViewModels
     {
         public EmployeesRepository employeesRepository;
 
-        public ObservableCollection<Employee> Employees { get; set; } = new();
+        public ObservableCollection<Employee> Employees { get; } = new();
 
-        public ICommand AddEmployee { get; private set; }
+        public ICommand AddEmployee { get; }
 
         public EmployeeInfoVM(EmployeesRepository employeesRepository)
         {
             this.employeesRepository = employeesRepository;
 
             AddEmployee = new RelayCommand(
-                () => WorkspaceNavUtils.NavigateToWithId(WorkspaceViewName.EmployeeInfoDetails, 1)
+                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfoDetails)
                 );
 
             LoadData();
         }
 
-        private void LoadData()
+        private async void LoadData()
         {
-            Employees.AddRange(employeesRepository.GetAllEmployees());
+            Employees.AddRange(await employeesRepository.GetAllEmployees());
         }
     }
 }

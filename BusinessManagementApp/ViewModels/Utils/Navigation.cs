@@ -17,14 +17,14 @@ namespace BusinessManagementApp.ViewModels.Utils
         }
 
         /// <summary>
-        /// Navigate to a view and pass it an ID.
+        /// Navigate to a view and send its view model an object.
         /// Used for item details/edit views that need the ID of an item.
         /// </summary>
         /// <param name="viewName">Name of view to go to</param>
-        /// <param name="id">ID value</param>
-        public static void NavigateToWithId(WorkspaceViewName viewName, int id)
+        /// <param name="extra">Object to send to the view model</param>
+        public static void NavigateToWithExtra(WorkspaceViewName viewName, object extra)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, id));
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, extra));
         }
     }
 }
