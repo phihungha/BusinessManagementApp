@@ -28,8 +28,9 @@ namespace BusinessManagementApp.ViewModels.EditVMs
                 );
         }
 
-        public override void LoadDataFromId(object id)
+        public override async void LoadDataFromId(object id)
         {
+            await Task.Delay(2000);
             Id = (int)id;
         }
     }
