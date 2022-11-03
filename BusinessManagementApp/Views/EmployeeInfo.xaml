@@ -8,9 +8,6 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1290">
-    <UserControl.DataContext>
-        <vm:EmployeeInfoVM />
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -29,7 +26,8 @@
                     Employee information
                 </TextBlock>
 
-                <Button Grid.Column="1" HorizontalAlignment="Right" Height="45" 
+                <Button Grid.Column="1" Command="{Binding AddEmployee}" 
+                        HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource PlusWhiteIcon}" Width="20" Margin="0,0,10,0" />

@@ -9,8 +9,10 @@ namespace BusinessManagementApp.Repositories
 {
     public class EmployeesRepository
     {
-        public List<Employee> GetAllEmployees()
+        public async Task<List<Employee>> GetAllEmployees()
         {
+            await Task.Delay(1000);
+
             return new List<Employee>()
             {
                 new Employee()

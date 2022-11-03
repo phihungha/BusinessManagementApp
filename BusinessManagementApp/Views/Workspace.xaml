@@ -3,8 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BusinessManagementApp.Views"
+             xmlns:views="clr-namespace:BusinessManagementApp.Views"
+             xmlns:editviews="clr-namespace:BusinessManagementApp.Views.DetailsViews"
              xmlns:vm="clr-namespace:BusinessManagementApp.ViewModels"
+             xmlns:editvm="clr-namespace:BusinessManagementApp.ViewModels.EditVMs"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d"
@@ -14,15 +16,19 @@
         <converters:ViewNameToImageSource x:Key="ViewNameToImageSourceConverter" />
 
         <DataTemplate DataType="{x:Type vm:OverviewVM}">
-            <local:Overview />
+            <views:Overview />
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:OrdersVM}">
-            <local:Orders />
+            <views:Orders />
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:EmployeeInfoVM}">
-            <local:EmployeeInfo />
+            <views:EmployeeInfo />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:EmployeeInfoDetailsVM}">
+            <editviews:EmployeeInfoDetails />
         </DataTemplate>
     </UserControl.Resources>
     

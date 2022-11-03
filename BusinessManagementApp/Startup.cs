@@ -95,10 +95,13 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
-                service.AddTransient<WorkspaceVM>();
-                service.AddTransient<OverviewVM>();
-                service.AddTransient<OrdersVM>();
-                service.AddTransient<EmployeeInfoVM>();
+                services.AddSingleton<EmployeesRepository>();
+
+                services.AddTransient<WorkspaceVM>();
+                services.AddTransient<OverviewVM>();
+                services.AddTransient<OrdersVM>();
+                services.AddTransient<EmployeeInfoVM>();
+                services.AddTransient<EmployeeInfoDetailsVM>();
             });
             return host;
         }

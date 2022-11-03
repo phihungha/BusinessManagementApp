@@ -12,14 +12,14 @@ namespace BusinessManagementApp.ViewModels.Converters
     {
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var viewName = (ViewName)value;
+            var viewName = (WorkspaceViewName)value;
             switch (viewName)
             {
-                case ViewName.Overview:
+                case WorkspaceViewName.Overview:
                     return "Overview";
-                case ViewName.Orders:
+                case WorkspaceViewName.Orders:
                     return "Orders";
-                case ViewName.EmployeeInfo:
+                case WorkspaceViewName.EmployeeInfo:
                     return "Employee info";
                 default:
                     return null;
@@ -36,14 +36,14 @@ namespace BusinessManagementApp.ViewModels.Converters
     {
         public object? Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var viewName = (ViewName)value;
+            var viewName = (WorkspaceViewName)value;
             switch (viewName)
             {
-                case ViewName.Overview:
+                case WorkspaceViewName.Overview:
                     return App.Current.FindResource("OverviewWhiteIcon");
-                case ViewName.Orders:
+                case WorkspaceViewName.Orders:
                     return App.Current.FindResource("OrderWhiteIcon");
-                case ViewName.EmployeeInfo:
+                case WorkspaceViewName.EmployeeInfo:
                     return App.Current.FindResource("UserWhiteIcon");
                 default:
                     return null;

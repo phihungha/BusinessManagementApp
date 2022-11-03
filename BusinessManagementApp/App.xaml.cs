@@ -5,7 +5,9 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using BusinessManagementApp.Repositories;
 using BusinessManagementApp.ViewModels;
+using BusinessManagementApp.ViewModels.EditVMs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
