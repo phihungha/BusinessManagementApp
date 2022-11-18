@@ -3,13 +3,24 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BusinessManagementApp.Views"
+        xmlns:views="clr-namespace:BusinessManagementApp.Views"
+        xmlns:vm="clr-namespace:BusinessManagementApp.ViewModels"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         ui:WindowHelper.UseModernWindowStyle="True"
         MinWidth="1000" MinHeight="180"
         Title="MainWindow" Height="720" Width="1290" Background="#FFEDEDED">
-    <Grid>
-        <local:Workspace />
-    </Grid>
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:WorkspaceVM}">
+            <views:Workspace />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:LoginVM}">
+            <views:Login />
+        </DataTemplate>
+    </Window.Resources>
+
+    <Border>
+        <ContentControl Content="{Binding CurrentViewVM}" />
+    </Border>
 </Window>

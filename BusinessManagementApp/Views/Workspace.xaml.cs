@@ -25,7 +25,6 @@ namespace BusinessManagementApp.Views
         public Workspace()
         {
             InitializeComponent();
-            DataContext = App.Current.Services.GetRequiredService<WorkspaceVM>();
         }
     }
 }

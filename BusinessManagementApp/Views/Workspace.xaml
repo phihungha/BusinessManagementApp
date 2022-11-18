@@ -77,7 +77,8 @@
                 </TextBlock>
             </ui:SimpleStackPanel>
 
-            <Button Grid.Column="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
+            <Button Command="{Binding Logout}" Grid.Column="2" 
+                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch" 
                     Background="Red" Margin="10,0,0,0">
                 <ui:SimpleStackPanel Spacing="5">
                     <Image Source="{StaticResource LogoutWhiteIcon}" />
