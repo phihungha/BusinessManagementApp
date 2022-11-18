@@ -22,6 +22,13 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref password, value);
         }
 
+        private bool invalidLogin = false;
+        public bool InvalidLogin
+        {
+            get => invalidLogin;
+            set => SetProperty(ref invalidLogin, value);
+        }
+
         public ICommand Login { get; }
 
         public LoginVM() 
@@ -34,6 +41,10 @@ namespace BusinessManagementApp.ViewModels
             if (UserName == "admin" && Password == "1234") 
             {
                 MainWindowNavUtils.NavigateTo(MainWindowViewName.Workspace);
+            }
+            else
+            {
+                InvalidLogin = true;
             }
         }
     }
