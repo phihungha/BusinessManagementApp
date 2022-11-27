@@ -8,11 +8,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Remote;
+using BusinessManagementApp.Repositories;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
 using Newtonsoft.Json;
 using Refit;
 using BusinessManagementApp.ViewModels;
+using BusinessManagementApp.ViewModels.EditVMs;
 
 namespace BusinessManagementApp
 {
@@ -71,6 +73,18 @@ namespace BusinessManagementApp
 
                 service.AddSingleton<IAuthenticator, Authenticator>();
                 service.AddSingleton<ScheluderProvider>();
+
+                var localRemote = new LocalModelRemote();
+                service.AddSingleton<IBillRepository>(localRemote);
+                service.AddSingleton<IContractRepository>(localRemote);
+                service.AddSingleton<ICustomerRepository>(localRemote);
+                service.AddSingleton<IDepartmentRepository>(localRemote);
+                service.AddSingleton<IEmployeeRepository>(localRemote);
+                service.AddSingleton<IPositionRepository>(localRemote);
+                service.AddSingleton<IProductRepository>(localRemote);
+                service.AddSingleton<IRecordRepository>(localRemote);
+                service.AddSingleton<IVoucherRepository>(localRemote);
+
                 //service.Decorate<IModelRemote, CacheModelRemote>();
             });
             return host;
@@ -95,13 +109,13 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
-                services.AddSingleton<EmployeesRepository>();
+                service.AddSingleton<EmployeesRepository>();
 
-                services.AddTransient<WorkspaceVM>();
-                services.AddTransient<OverviewVM>();
-                services.AddTransient<OrdersVM>();
-                services.AddTransient<EmployeeInfoVM>();
-                services.AddTransient<EmployeeInfoDetailsVM>();
+                service.AddTransient<WorkspaceVM>();
+                service.AddTransient<OverviewVM>();
+                service.AddTransient<OrdersVM>();
+                service.AddTransient<EmployeeInfoVM>();
+                service.AddTransient<EmployeeInfoDetailsVM>();
             });
             return host;
         }

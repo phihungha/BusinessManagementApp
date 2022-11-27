@@ -1,4 +1,4 @@
-﻿using BusinessManagementApp.Data;
+﻿using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Repositories;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;

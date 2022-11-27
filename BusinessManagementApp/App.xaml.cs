@@ -31,7 +31,7 @@ namespace BusinessManagementApp
 
         private IHostBuilder CreateHostBuilder(string[] args = null)
         {
-            return CreateHostBuilder(args)
+            return Host.CreateDefaultBuilder(args)
                 .Application(this)
                 .AddLogging()
                 .AddStores()

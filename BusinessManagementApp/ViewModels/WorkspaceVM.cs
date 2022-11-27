@@ -56,7 +56,7 @@ namespace BusinessManagementApp.ViewModels
     public class WorkspaceVM : ObservableObject
     {
         private ObservableObject? currentViewVM 
-            = App.Current.Services.GetRequiredService<OverviewVM>();
+            = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
         public ObservableObject? CurrentViewVM
         {
             get => currentViewVM;
@@ -101,16 +101,17 @@ namespace BusinessManagementApp.ViewModels
 
         private ObservableObject? GetViewModelFromViewName(WorkspaceViewName targetViewName)
         {
+            var serviceProvider = App.Current.ServiceProvider;
             switch (targetViewName)
             {
                 case WorkspaceViewName.Overview:
-                    return App.Current.Services.GetRequiredService<OverviewVM>();
+                    return serviceProvider.GetRequiredService<OverviewVM>();
                 case WorkspaceViewName.Orders:
-                    return App.Current.Services.GetRequiredService<OrdersVM>();
+                    return serviceProvider.GetRequiredService<OrdersVM>();
                 case WorkspaceViewName.EmployeeInfo:
-                    return App.Current.Services.GetRequiredService<EmployeeInfoVM>();
+                    return serviceProvider.GetRequiredService<EmployeeInfoVM>();
                 case WorkspaceViewName.EmployeeInfoDetails:
-                    return App.Current.Services.GetRequiredService<EmployeeInfoDetailsVM>();
+                    return serviceProvider.GetRequiredService<EmployeeInfoDetailsVM>();
                 default:
                     return null;
             }
