@@ -1,9 +1,11 @@
 ﻿using BusinessManagementApp.ViewModels.EditVMs;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
 {
@@ -81,6 +83,8 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
+        public ICommand Logout { get; }
+
         public WorkspaceVM()
         {
             WeakReferenceMessenger
@@ -89,6 +93,8 @@ namespace BusinessManagementApp.ViewModels
                     this, 
                     (r, m) => HandleNavigationMessageContent(m.Value)
                 );
+
+            Logout = new RelayCommand(() => MainWindowNavUtils.NavigateTo(MainWindowViewName.Login));
         }
 
         private void HandleNavigationMessageContent(NavigationMessageContent content)

@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Remote;
-using BusinessManagementApp.Repositories;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
 using Newtonsoft.Json;
@@ -109,8 +108,8 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
-                service.AddSingleton<EmployeesRepository>();
-
+                service.AddTransient<MainWindowVM>();
+                service.AddTransient<LoginVM>();
                 service.AddTransient<WorkspaceVM>();
                 service.AddTransient<OverviewVM>();
                 service.AddTransient<OrdersVM>();

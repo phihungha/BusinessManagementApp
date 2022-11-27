@@ -1,5 +1,4 @@
 ﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Repositories;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -8,21 +7,23 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using BusinessManagementApp.Data.Remote;
 
 namespace BusinessManagementApp.ViewModels
 {
     public class EmployeeInfoVM : ObservableObject
     {
-        public EmployeesRepository employeesRepository;
+        public IEmployeeRepository employeesRepository;
 
         public ObservableCollection<Employee> Employees { get; } = new();
 
         public ICommand AddEmployee { get; }
 
-        public EmployeeInfoVM(EmployeesRepository employeesRepository)
+        public EmployeeInfoVM(IEmployeeRepository employeesRepository)
         {
             this.employeesRepository = employeesRepository;
 
@@ -35,7 +36,7 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
-            Employees.AddRange(await employeesRepository.GetAllEmployees());
+            Employees.AddRange(await employeesRepository.GetEmployees());
         }
     }
 }

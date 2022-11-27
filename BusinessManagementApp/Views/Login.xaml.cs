@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessManagementApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace BusinessManagementApp.Views
         public Login()
         {
             InitializeComponent();
+        }
+
+        private void Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                ((LoginVM)DataContext).Password = ((PasswordBox)sender).Password;
+            }
         }
     }
 }

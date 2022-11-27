@@ -27,4 +27,19 @@ namespace BusinessManagementApp.ViewModels.Utils
             WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, extra));
         }
     }
+
+    /// <summary>
+    /// Methods to navigate to a view on the main window.
+    /// </summary>
+    public class MainWindowNavUtils
+    {
+        /// <summary>
+        /// Navigate to a view.
+        /// </summary>
+        /// <param name="viewName">Name of view to go to</param>
+        public static void NavigateTo(MainWindowViewName viewName)
+        {
+            WeakReferenceMessenger.Default.Send(new MainWindowNavigationMessage(viewName));
+        }
+    }
 }
