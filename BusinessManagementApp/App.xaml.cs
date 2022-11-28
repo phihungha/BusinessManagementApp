@@ -1,9 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.Hosting;
+using System;
 using System.Windows;
-using BusinessManagementApp.ViewModels;
-using BusinessManagementApp.ViewModels.EditVMs;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 namespace BusinessManagementApp
 {
@@ -14,18 +11,18 @@ namespace BusinessManagementApp
     {
         public new static App Current => (App)Application.Current;
 
-        private readonly IHost _host;
+        private readonly IHost host;
 
-        public IServiceProvider ServiceProvider => _host.Services;
+        public IServiceProvider ServiceProvider => host.Services;
 
         public App()
         {
-            _host = CreateHostBuilder().Build();
+            host = CreateHostBuilder().Build();
         }
 
-        private IHostBuilder CreateHostBuilder(string[] args = null)
+        private IHostBuilder CreateHostBuilder()
         {
-            return Host.CreateDefaultBuilder(args)
+            return Host.CreateDefaultBuilder()
                 .Application(this)
                 .AddLogging()
                 .AddStores()

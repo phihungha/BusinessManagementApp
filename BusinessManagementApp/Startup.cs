@@ -1,28 +1,23 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using BusinessManagementApp.Data;
+﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Remote;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
-using Newtonsoft.Json;
-using Refit;
 using BusinessManagementApp.ViewModels;
 using BusinessManagementApp.ViewModels.EditVMs;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Refit;
+using System;
+using System.Windows;
 
 namespace BusinessManagementApp
 {
     public static class Startup
     {
-
         private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false, bool logging = false)
         {
-            String BASE_URL = ""; //TODO
+            string BASE_URL = ""; //TODO
             builder = builder.ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new Uri(BASE_URL);
@@ -118,6 +113,5 @@ namespace BusinessManagementApp
             });
             return host;
         }
-
     }
 }
