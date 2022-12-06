@@ -6,9 +6,7 @@ namespace BusinessManagementApp.Data.Remote
 {
     public interface IAuthRemote
     {
-
         [Post("/login")]
-        IObservable<LoginResponse> login([Body(BodySerializationMethod.UrlEncoded)] LoginRequest request);
-
+        IObservable<LoginResponse> Login([Body(BodySerializationMethod.UrlEncoded)] LoginRequest request);
     }
 }

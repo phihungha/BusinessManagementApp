@@ -8,6 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Common\**" />
+    <EmbeddedResource Remove="Services\Common\**" />
+    <None Remove="Services\Common\**" />
+    <Page Remove="Services\Common\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0" />
@@ -23,7 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Common\" />
     <Folder Include="ViewModels\DialogVMs\" />
     <Folder Include="Services\" />
   </ItemGroup>

@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IEmployeeRepository
+    public interface IEmployeeApi
     {
 
         //Employee
@@ -16,7 +16,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Employee> UpdateEmployee(int EmployeeId, Employee request);
 
-        IObservable<Object> DeleteEmployee(int id);
+        IObservable<object> DeleteEmployee(int id);
 
         //Skill
 

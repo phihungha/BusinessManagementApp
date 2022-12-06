@@ -4,7 +4,6 @@ namespace BusinessManagementApp.Data.Model.Auth
 {
     public class LoginResponse
     {
-
         [JsonProperty("x-access-token")]
         public string? AccessToken { get; set; }
 
@@ -13,6 +12,5 @@ namespace BusinessManagementApp.Data.Model.Auth
 
         [JsonProperty(Required = Required.Always, PropertyName = "authenticated")]
         public bool IsAuthenticated { get; set; } 
-
     }
 }

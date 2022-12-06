@@ -6,20 +6,18 @@ using System.Windows.Threading;
 
 namespace BusinessManagementApp.Utils
 {
-    public class ScheluderProvider
+    public class SchedulerProvider
     {
-
-        private readonly Lazy<SynchronizationContext> _ui = new(() => new DispatcherSynchronizationContext(Application.Current.Dispatcher));
+        private readonly Lazy<SynchronizationContext> ui = new(() => new DispatcherSynchronizationContext(Application.Current.Dispatcher));
 
         public SynchronizationContext UI()
         {
-            return _ui.Value;
+            return ui.Value;
         }
 
         public IScheduler IO()
         {
             return ThreadPoolScheduler.Instance;
         }
-
     }
 }

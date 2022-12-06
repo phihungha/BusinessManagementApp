@@ -21,7 +21,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// Used for item details/edit views that need the ID of an item.
         /// </summary>
         /// <param name="viewName">Name of view to go to</param>
-        /// <param name="extra">Object to send to the view model</param>
+        /// <param name="extra">object to send to the view model</param>
         public static void NavigateToWithExtra(WorkspaceViewName viewName, object extra)
         {
             WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, extra));

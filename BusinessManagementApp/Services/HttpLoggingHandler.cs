@@ -38,7 +38,6 @@ namespace BusinessManagementApp.Services
                     sb.AppendLine($"{msg} From: {req.Method} {req.RequestUri.PathAndQuery} {req.RequestUri.Scheme}/{req.Version}");
                     sb.AppendLine($"{msg} Content:");
                     sb.AppendLine($"{msg} {string.Join("", result.Cast<char>().Take(255))}...");
-
                 }
             }
 
@@ -84,9 +83,9 @@ namespace BusinessManagementApp.Services
             return response;
         }
 
-        readonly string[] types = new[] { "html", "text", "xml", "json", "txt", "x-www-form-urlencoded" };
+        private readonly string[] types = new[] { "html", "text", "xml", "json", "txt", "x-www-form-urlencoded" };
 
-        bool IsTextBasedContentType(HttpHeaders headers)
+        private bool IsTextBasedContentType(HttpHeaders headers)
         {
             IEnumerable<string> values;
             if (!headers.TryGetValues("Content-Type", out values))
@@ -95,6 +94,5 @@ namespace BusinessManagementApp.Services
 
             return types.Any(t => header.Contains(t));
         }
-
     }
 }

@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class Contract
     {
-
         public int Id { get; set; }
 
-        public String EmployeeId { get; set; }
- 
-        public String Name { get; set; }
+        public string EmployeeId { get; set; }
 
-        public String Description { get; set; }
+        public string Name { get; set; }
+
+        public string Description { get; set; }
 
         public ContractType Type { get; set; }
 
@@ -24,6 +19,5 @@ namespace BusinessManagementApp.Data.Model
         public DateTime To { get; set; }
 
         public decimal Salary { get; set; }
-
     }
 }

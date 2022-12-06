@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface ICustomerRepository
+    public interface ICustomerApi
     {
         IObservable<List<Customer>> GetCustomers();
 
@@ -14,6 +14,6 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Customer> UpdateCustomer(int CustomerId, Customer request);
 
-        IObservable<Object> DeleteCustomer(int id);
+        IObservable<object> DeleteCustomer(int id);
     }
 }

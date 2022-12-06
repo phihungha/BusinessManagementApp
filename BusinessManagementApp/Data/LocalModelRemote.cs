@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Data.Remote;
+using System;
+using System.Collections.Generic;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
-    public class LocalModelRemote : IBillRepository, IContractRepository, ICustomerRepository, IEmployeeRepository,
-        IPositionRepository, IDepartmentRepository, IProductRepository, IRecordRepository, IVoucherRepository
+    public class LocalModelRemote : IOrderApi, IContractApi, ICustomerApi, IEmployeeApi,
+        IPositionApi, IDepartmentApi, IProductApi, IRecordApi, IVoucherApi
     {
-        public IObservable<List<Bill>> GetBills()
+        public IObservable<List<Order>> GetBills()
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Bill> GetBill(int id)
+        public IObservable<Order> GetBill(int id)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Bill> SaveBill(Bill bill)
+        public IObservable<Order> SaveBill(Order bill)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Bill> UpdateBill(int billId, Bill request)
+        public IObservable<Order> UpdateBill(int billId, Order request)
         {
             throw new NotImplementedException();
         }

@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IContractRepository
+    public interface IContractApi
     {
         IObservable<List<Contract>> GetContracts();
 
@@ -14,6 +14,6 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Contract> UpdateContract(int ContractId, Contract request);
 
-        IObservable<Object> DeleteContract(int id);
+        IObservable<object> DeleteContract(int id);
     }
 }

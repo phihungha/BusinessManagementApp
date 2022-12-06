@@ -6,21 +6,19 @@ namespace BusinessManagementApp.Services
 {
     public class HttpAuthHandler : DelegatingHandler
     {
-        
-        private readonly LoginSession _loginSession;
-        
+        private readonly LoginSession loginSession;
+
         public HttpAuthHandler(LoginSession loginSession)
         {
-            _loginSession = loginSession;
+            this.loginSession = loginSession;
         }
-        
+
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            request.Headers.Add("x-access-token", _loginSession.AccessToken);
-            request.Headers.Add("x-refresh-token", _loginSession.RefreshToken);
+            request.Headers.Add("x-access-token", loginSession.AccessToken);
+            request.Headers.Add("x-refresh-token", loginSession.RefreshToken);
 
             return await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
         }
-
     }
 }

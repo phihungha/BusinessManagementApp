@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IVoucherRepository
+    public interface IVoucherApi
     {
 
         //VoucherType
@@ -16,7 +16,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<VoucherType> UpdateVoucherType(int VoucherTypeId, VoucherType request);
 
-        IObservable<Object> DeleteVoucherType(int id);
+        IObservable<object> DeleteVoucherType(int id);
 
         //Voucher
         IObservable<List<Voucher>> GetVouchers();
@@ -27,7 +27,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Voucher> UpdateVoucher(int VoucherId, Voucher request);
 
-        IObservable<Object> DeleteVoucher(int id);
+        IObservable<object> DeleteVoucher(int id);
 
     }
 }

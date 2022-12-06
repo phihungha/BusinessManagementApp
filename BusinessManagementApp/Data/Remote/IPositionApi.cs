@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IPositionRepository
+    public interface IPositionApi
     {
         IObservable<List<Position>> GetPositions();
 
@@ -14,6 +14,6 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Position> UpdatePosition(int PositionId, Position request);
 
-        IObservable<Object> DeletePosition(int id);
+        IObservable<object> DeletePosition(int id);
     }
 }

@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IProductRepository
+    public interface IProductApi
     {
 
         //ProductCategory
@@ -16,7 +16,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<ProductCategory> UpdateProductCategory(int ProductCategoryId, ProductCategory request);
 
-        IObservable<Object> DeleteProductCategory(int id);
+        IObservable<object> DeleteProductCategory(int id);
 
         //Product
         IObservable<List<Product>> GetProducts();
@@ -27,7 +27,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Product> UpdateProduct(int ProductId, Product request);
 
-        IObservable<Object> DeleteProduct(int id);
+        IObservable<object> DeleteProduct(int id);
 
         //Provider
         IObservable<List<Provider>> GetProviders();
@@ -38,7 +38,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Provider> UpdateProvider(int ProviderId, Provider request);
 
-        IObservable<Object> DeleteProvider(int id);
+        IObservable<object> DeleteProvider(int id);
 
     }
 }

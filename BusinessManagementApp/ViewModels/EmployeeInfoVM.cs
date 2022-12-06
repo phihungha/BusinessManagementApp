@@ -17,13 +17,13 @@ namespace BusinessManagementApp.ViewModels
 {
     public class EmployeeInfoVM : ObservableObject
     {
-        public IEmployeeRepository employeesRepository;
+        public IEmployeeApi employeesRepository;
 
         public ObservableCollection<Employee> Employees { get; } = new();
 
         public ICommand AddEmployee { get; }
 
-        public EmployeeInfoVM(IEmployeeRepository employeesRepository)
+        public EmployeeInfoVM(IEmployeeApi employeesRepository)
         {
             this.employeesRepository = employeesRepository;
 

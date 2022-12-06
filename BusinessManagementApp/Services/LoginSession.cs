@@ -4,8 +4,8 @@ namespace BusinessManagementApp.Services;
 
 public class LoginSession
 {
-
     private string? _accessToken;
+
     public string? AccessToken
     {
         get => _accessToken;
@@ -17,6 +17,7 @@ public class LoginSession
     }
 
     private string? _refreshToken;
+
     public string? RefreshToken
     {
         get => _refreshToken;
@@ -33,5 +34,4 @@ public class LoginSession
     {
         _logger = logger;
     }
-
 }

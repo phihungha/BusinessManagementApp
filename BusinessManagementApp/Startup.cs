@@ -62,18 +62,18 @@ namespace BusinessManagementApp
                 service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true);
 
                 service.AddSingleton<IAuthenticator, Authenticator>();
-                service.AddSingleton<ScheluderProvider>();
+                service.AddSingleton<SchedulerProvider>();
 
                 var localRemote = new LocalModelRemote();
-                service.AddSingleton<IBillRepository>(localRemote);
-                service.AddSingleton<IContractRepository>(localRemote);
-                service.AddSingleton<ICustomerRepository>(localRemote);
-                service.AddSingleton<IDepartmentRepository>(localRemote);
-                service.AddSingleton<IEmployeeRepository>(localRemote);
-                service.AddSingleton<IPositionRepository>(localRemote);
-                service.AddSingleton<IProductRepository>(localRemote);
-                service.AddSingleton<IRecordRepository>(localRemote);
-                service.AddSingleton<IVoucherRepository>(localRemote);
+                service.AddSingleton<IOrderApi>(localRemote);
+                service.AddSingleton<IContractApi>(localRemote);
+                service.AddSingleton<ICustomerApi>(localRemote);
+                service.AddSingleton<IDepartmentApi>(localRemote);
+                service.AddSingleton<IEmployeeApi>(localRemote);
+                service.AddSingleton<IPositionApi>(localRemote);
+                service.AddSingleton<IProductApi>(localRemote);
+                service.AddSingleton<IRecordApi>(localRemote);
+                service.AddSingleton<IVoucherApi>(localRemote);
             });
             return host;
         }

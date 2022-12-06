@@ -1,30 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data.Model
 {
-    public class Bill
+    public class Order
     {
-
         public int Id { get; set; }
 
         public DateTime CreatedAt { get; set; }
 
-        public String UserId { get; set; }
+        public string UserId { get; set; }
 
-        public String Address { get; set; }
+        public string Address { get; set; }
 
-        public BillStatus Status {
-            get;
-            set;
-        }
+        public OrderStatus Status { get; set; }
 
-        public String CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
-        public List<BillDetail> Details { get; set; }
+        public List<OrderItem> Details { get; set; }
+    }
 
+    public enum OrderStatus
+    {
+        Waiting,
+        Transporting,
+        Success
     }
 }

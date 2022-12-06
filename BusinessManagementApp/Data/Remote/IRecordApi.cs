@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IRecordRepository
+    public interface IRecordApi
     {
 
         //Salary Record
@@ -16,7 +16,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<SalaryRecord> UpdateSalaryRecord(int SalaryRecordId, SalaryRecord request);
 
-        IObservable<Object> DeleteSalaryRecord(int id);
+        IObservable<object> DeleteSalaryRecord(int id);
 
         //Overtime Record
         IObservable<List<OvertimeRecord>> GetOvertimeRecords();
@@ -27,7 +27,7 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<OvertimeRecord> UpdateOvertimeRecord(int OvertimeRecordId, OvertimeRecord request);
 
-        IObservable<Object> DeleteOvertimeRecord(int id);
+        IObservable<object> DeleteOvertimeRecord(int id);
 
     }
 }

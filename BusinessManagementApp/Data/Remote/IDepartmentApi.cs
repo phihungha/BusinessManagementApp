@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Remote
 {
-    public interface IDepartmentRepository
+    public interface IDepartmentApi
     {
         IObservable<List<Department>> GetDepartments();
 
@@ -14,6 +14,6 @@ namespace BusinessManagementApp.Data.Remote
 
         IObservable<Department> UpdateDepartment(int DepartmentId, Department request);
 
-        IObservable<Object> DeleteDepartment(int id);
+        IObservable<object> DeleteDepartment(int id);
     }
 }
