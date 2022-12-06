@@ -3,21 +3,21 @@ using System.Linq;
 
 namespace BusinessManagementApp.ViewModels.ValidationAttributes
 {
-    public sealed class CitizenIdCheckAttribute : ValidationAttribute
+    public sealed class PhoneNumberAttribute : ValidationAttribute
     {
         protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
         {
             if (value == null)
             {
-                return new("Invalid citizen ID");
+                return new("Invalid phone number");
             }
 
-            string citizenId = (string)value;
-            if (citizenId.Length == 12 && citizenId.All(char.IsDigit))
+            string phoneNumber = (string)value;
+            if (phoneNumber.Length == 10 && phoneNumber.All(char.IsDigit))
             {
                 return ValidationResult.Success;
             }
-            return new("Invalid citizen ID");
+            return new("Invalid phone number");
         }
     }
 }

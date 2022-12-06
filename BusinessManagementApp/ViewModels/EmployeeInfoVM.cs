@@ -1,17 +1,15 @@
 ﻿using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.Data.Remote;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using BusinessManagementApp.Data.Remote;
 
 namespace BusinessManagementApp.ViewModels
 {

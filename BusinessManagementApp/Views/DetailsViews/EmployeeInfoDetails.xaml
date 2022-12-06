@@ -43,8 +43,9 @@
             </StackPanel>
 
             <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Identity card number</TextBlock>
-                <TextBox ui:ControlHelper.PlaceholderText="Enter identity card number... (12 digits)" />
+                <TextBlock Style="{StaticResource TextBoxTopLabel}">Citizen ID</TextBlock>
+                <TextBox ui:ControlHelper.PlaceholderText="Enter Citizen ID number... (12 digits)"
+                         Text="{Binding CitizenId}" />
             </StackPanel>
 
             <StackPanel Grid.Row="3" Margin="0,10,0,0">
@@ -72,7 +73,8 @@
 
             <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
                 <TextBlock Style="{StaticResource TextBoxTopLabel}">Phone number</TextBlock>
-                <ui:NumberBox ui:ControlHelper.PlaceholderText="Enter phone number..." />
+                <ui:NumberBox ui:ControlHelper.PlaceholderText="Enter phone number... (10 digits)"
+                              Text="{Binding PhoneNumber}" />
             </StackPanel>
 
             <StackPanel Grid.Row="5" Grid.ColumnSpan="3" Margin="0,10,0,0">

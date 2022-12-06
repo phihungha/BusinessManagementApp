@@ -1,8 +1,10 @@
 ﻿using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +19,33 @@ namespace BusinessManagementApp.ViewModels.EditVMs
         {
             get => id;
             set => SetProperty(ref id, value);
+        }
+
+        private string citizenId = string.Empty;
+
+        [CitizenId]
+        public string CitizenId
+        {
+            get => citizenId;
+            set => SetProperty(ref citizenId, value, true);
+        }
+
+        private string email = string.Empty;
+
+        [EmailAddress]
+        public string Email
+        {
+            get => email;
+            set => SetProperty(ref email, value, true);
+        }
+
+        private string phoneNumber = string.Empty;
+
+        [PhoneNumber]
+        public string PhoneNumber
+        {
+            get => phoneNumber;
+            set => SetProperty(ref phoneNumber, value, true);
         }
 
         public ICommand Cancel { get; private set; }
