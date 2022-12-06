@@ -1,5 +1,5 @@
 ﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Data.Remote;
+using BusinessManagementApp.Data.Api;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -128,7 +128,7 @@ namespace BusinessManagementApp.Data
             throw new NotImplementedException();
         }
 
-        public IObservable<Employee> SaveEmployee(Employee Employee)
+        public IObservable<Employee> AddEmployee(Employee Employee)
         {
             throw new NotImplementedException();
         }

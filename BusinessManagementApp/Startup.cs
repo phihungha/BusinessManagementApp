@@ -1,5 +1,5 @@
 ﻿using BusinessManagementApp.Data;
-using BusinessManagementApp.Data.Remote;
+using BusinessManagementApp.Data.Api;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels;

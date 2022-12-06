@@ -2,7 +2,7 @@
 using BusinessManagementApp.Data.Model.Auth;
 using Refit;
 
-namespace BusinessManagementApp.Data.Remote
+namespace BusinessManagementApp.Data.Api
 {
     public interface IAuthRemote
     {

@@ -1,5 +1,5 @@
 ﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Data.Remote;
+using BusinessManagementApp.Data.Api;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;

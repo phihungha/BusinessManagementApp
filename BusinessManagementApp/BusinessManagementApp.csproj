@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <Folder Include="ViewModels\DialogVMs\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

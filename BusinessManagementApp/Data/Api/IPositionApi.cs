@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System;
 
-namespace BusinessManagementApp.Data.Remote
+namespace BusinessManagementApp.Data.Api
 {
     public interface IPositionApi
     {

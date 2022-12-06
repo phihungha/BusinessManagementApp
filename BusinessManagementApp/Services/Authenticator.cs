@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reactive.Linq;
 using BusinessManagementApp.Data.Model.Auth;
-using BusinessManagementApp.Data.Remote;
+using BusinessManagementApp.Data.Api;
 using BusinessManagementApp.Services;
 using Microsoft.Extensions.Logging;
 
