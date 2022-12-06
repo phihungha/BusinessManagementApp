@@ -17,15 +17,12 @@ namespace BusinessManagementApp
     {
         private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false, bool logging = false)
         {
-            string BASE_URL = ""; //TODO
+            string BASE_URL = "";
             builder = builder.ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new Uri(BASE_URL);
             });
-            if (auth)
-            {
-                // builder.AddHttpMessageHandler<HttpAuthHandler>(); //TODO
-            }
+
             if (logging)
             {
                 builder.AddHttpMessageHandler(() => new HttpLoggingHandler());
@@ -63,7 +60,6 @@ namespace BusinessManagementApp
                 }));
                 service.AddTransient<HttpAuthHandler>();
                 service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true);
-                // service.AddRefitClient<IModelRemote>(settings).ConfigHttpClientBuilder(true, true);
 
                 service.AddSingleton<IAuthenticator, Authenticator>();
                 service.AddSingleton<ScheluderProvider>();
@@ -78,26 +74,9 @@ namespace BusinessManagementApp
                 service.AddSingleton<IProductRepository>(localRemote);
                 service.AddSingleton<IRecordRepository>(localRemote);
                 service.AddSingleton<IVoucherRepository>(localRemote);
-
-                //service.Decorate<IModelRemote, CacheModelRemote>();
             });
             return host;
         }
-
-        /*public static IHostBuilder AddViewStates(this IHostBuilder host)
-        {
-            host.ConfigureServices((context, service) =>
-            {
-                service.AddSingleton<MainViewState>();
-            });
-            return host;
-        }
-
-        private static void AddViewModel<T>(this IServiceCollection c) where T : BaseViewModel
-        {
-            c.AddTransient<T>();
-            c.AddSingleton<ViewModelCreator<T>>(s => s.GetRequiredService<T>);
-        }*/
 
         public static IHostBuilder AddViewModels(this IHostBuilder host)
         {
