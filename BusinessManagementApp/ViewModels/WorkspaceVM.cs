@@ -1,5 +1,8 @@
-﻿using BusinessManagementApp.ViewModels.DetailsVMs;
+﻿using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.DetailsVMs;
 using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.Views.DetailsViews;
+using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -92,20 +95,35 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref currentViewVM, value);
         }
 
-        public WorkspaceViewName[] ViewNames { get; } = new[] 
-        {   
-            WorkspaceViewName.Overview, 
-            WorkspaceViewName.Orders, 
-            WorkspaceViewName.EmployeeInfo 
+        public WorkspaceViewName[] SidebarViewNames { get; } = new[] 
+        {
+            WorkspaceViewName.Bonuses,
+            WorkspaceViewName.BonusTypes,
+            WorkspaceViewName.ContractTypes,
+            WorkspaceViewName.Customers,
+            WorkspaceViewName.Departments,
+            WorkspaceViewName.EmployeeInfo,
+            WorkspaceViewName.Overview,
+            WorkspaceViewName.OvertimeRecords,
+            WorkspaceViewName.Orders,
+            WorkspaceViewName.Positions,
+            WorkspaceViewName.Products,
+            WorkspaceViewName.Providers,
+            WorkspaceViewName.SalaryReport,
+            WorkspaceViewName.SalesReport,
+            WorkspaceViewName.SkillRating,
+            WorkspaceViewName.SkillTypes,
+            WorkspaceViewName.VoucherTypes,
+            WorkspaceViewName.Vouchers,
         };
 
-        private WorkspaceViewName selectedViewName = WorkspaceViewName.Overview;
-        public WorkspaceViewName SelectedViewName
+        private WorkspaceViewName selectedSidebarViewName = WorkspaceViewName.Overview;
+        public WorkspaceViewName SelectedSidebarViewName
         {
-            get => selectedViewName;
+            get => selectedSidebarViewName;
             set
             {
-                SetProperty(ref selectedViewName, value);
+                SetProperty(ref selectedSidebarViewName, value);
                 CurrentViewVM = GetViewModelFromViewName(value);
             }
         }
@@ -147,6 +165,10 @@ namespace BusinessManagementApp.ViewModels
                     return serviceProvider.GetRequiredService<ContractTypesVM>();
                 case WorkspaceViewName.ContractTypeDetails:
                     return serviceProvider.GetRequiredService<ContractTypeDetailsVM>();
+                case WorkspaceViewName.Customers:
+                    return serviceProvider.GetRequiredService<CustomersVM>();
+                case WorkspaceViewName.CustomerDetails:
+                    return serviceProvider.GetRequiredService<CustomerDetailsVM>();
                 case WorkspaceViewName.Departments:
                     return serviceProvider.GetRequiredService<DepartmentsVM>();
                 case WorkspaceViewName.DepartmentDetails:
@@ -181,6 +203,8 @@ namespace BusinessManagementApp.ViewModels
                     return serviceProvider.GetRequiredService<SalaryReportVM>();
                 case WorkspaceViewName.SalesReport:
                     return serviceProvider.GetRequiredService<SalesReportVM>();
+                case WorkspaceViewName.SelectOrderItem:
+                    return serviceProvider.GetRequiredService<SelectOrderItemsVM>();
                 case WorkspaceViewName.SkillRating:
                     return serviceProvider.GetRequiredService<SkillRatingVM>();
                 case WorkspaceViewName.SkillTypes:

@@ -88,6 +88,8 @@ namespace BusinessManagementApp
                 service.AddTransient<BonusTypesVM>();
                 service.AddTransient<ContractTypesVM>();
                 service.AddTransient<ContractTypeDetailsVM>();
+                service.AddTransient<CustomersVM>();
+                service.AddTransient<CustomerDetailsVM>();
                 service.AddTransient<DepartmentsVM>();
                 service.AddTransient<DepartmentDetailsVM>();
                 service.AddTransient<EmployeeInfoVM>();
@@ -105,6 +107,7 @@ namespace BusinessManagementApp
                 service.AddTransient<ProviderDetailsVM>();
                 service.AddTransient<SalaryReportVM>();
                 service.AddTransient<SalesReportVM>();
+                service.AddTransient<SelectOrderItemsVM>();
                 service.AddTransient<SkillRatingVM>();
                 service.AddTransient<SkillTypesVM>();
                 service.AddTransient<VouchersVM>();

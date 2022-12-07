@@ -43,8 +43,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding ViewNames}"
-                 SelectedItem="{Binding SelectedViewName}"
+        <ListBox ItemsSource="{Binding SidebarViewNames}"
+                 SelectedItem="{Binding SelectedSidebarViewName}"
                  Background="#FF171F39" Foreground="White" 
                  ui:ThemeManager.RequestedTheme="Dark">
             <ListBox.ItemTemplate>

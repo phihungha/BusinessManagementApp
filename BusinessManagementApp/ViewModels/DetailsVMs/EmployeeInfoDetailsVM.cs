@@ -58,6 +58,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void ReceiveExtra(object id)
         {
+            await Task.Delay(500);
             Id = (int)id;
         }
     }

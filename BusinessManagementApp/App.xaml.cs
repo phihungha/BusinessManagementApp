@@ -4,9 +4,6 @@ using System.Windows;
 
 namespace BusinessManagementApp
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public new static App Current => (App)Application.Current;
