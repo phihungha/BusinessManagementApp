@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.ViewModels
 {
-    public class OrdersVM : ViewModelBase
+    public class VoucherTypesVM : ViewModelBase
     {
 
     }

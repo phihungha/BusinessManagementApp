@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:BusinessManagementApp.Views"
              xmlns:editviews="clr-namespace:BusinessManagementApp.Views.DetailsViews"
              xmlns:vm="clr-namespace:BusinessManagementApp.ViewModels"
-             xmlns:editvm="clr-namespace:BusinessManagementApp.ViewModels.EditVMs"
+             xmlns:editvm="clr-namespace:BusinessManagementApp.ViewModels.DetailsVMs"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d"

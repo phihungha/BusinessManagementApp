@@ -1,15 +1,13 @@
 ﻿using BusinessManagementApp.ViewModels.Utils;
-using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessManagementApp.ViewModels
+namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
-    public class OrdersVM : ViewModelBase
+    public class PositionDetailsVM : ViewModelBase
     {
-
     }
 }

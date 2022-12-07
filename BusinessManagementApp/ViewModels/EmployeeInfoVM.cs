@@ -1,40 +1,35 @@
-﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Data.Api;
+﻿using BusinessManagementApp.Data;
+using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.ViewModels.ValidationAttributes;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
 {
-    public class EmployeeInfoVM : ObservableObject
+    public class EmployeeInfoVM : ViewModelBase
     {
-        public IEmployeeApi employeesRepository;
+        private EmployeeRepo employeesRepo;
 
         public ObservableCollection<Employee> Employees { get; } = new();
 
         public ICommand AddEmployee { get; }
 
-        public EmployeeInfoVM(IEmployeeApi employeesRepository)
+        public EmployeeInfoVM(EmployeeRepo employeesRepo)
         {
-            this.employeesRepository = employeesRepository;
+            this.employeesRepo = employeesRepo;
 
-            AddEmployee = new RelayCommand(
-                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfoDetails)
-                );
+            AddEmployee = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfoDetails));
 
             LoadData();
         }
 
         private async void LoadData()
         {
-            Employees.AddRange(await employeesRepository.GetEmployees());
+            Employees.AddRange(await employeesRepo.GetEmployees());
         }
     }
 }

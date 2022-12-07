@@ -1,6 +1,5 @@
 ﻿using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
-using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -10,9 +9,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace BusinessManagementApp.ViewModels.EditVMs
+namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
-    public class EmployeeInfoDetailsVM : DetailsObservableValidator
+    public class EmployeeInfoDetailsVM : ViewModelBase
     {
         private int id = 0;
         public int Id
@@ -57,9 +56,8 @@ namespace BusinessManagementApp.ViewModels.EditVMs
                 );
         }
 
-        public override async void LoadDataFromId(object id)
+        public override async void ReceiveExtra(object id)
         {
-            await Task.Delay(2000);
             Id = (int)id;
         }
     }

@@ -3,7 +3,7 @@ using BusinessManagementApp.Data.Api;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels;
-using BusinessManagementApp.ViewModels.EditVMs;
+using BusinessManagementApp.ViewModels.DetailsVMs;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
@@ -48,7 +48,7 @@ namespace BusinessManagementApp
             return host;
         }
 
-        public static IHostBuilder AddStores(this IHostBuilder host)
+        public static IHostBuilder AddApis(this IHostBuilder host)
         {
             host.ConfigureServices((context, service) =>
             {
@@ -63,17 +63,15 @@ namespace BusinessManagementApp
 
                 service.AddSingleton<IAuthenticator, Authenticator>();
                 service.AddSingleton<SchedulerProvider>();
+            });
+            return host;
+        }
 
-                var localRemote = new LocalModelRemote();
-                service.AddSingleton<IOrderApi>(localRemote);
-                service.AddSingleton<IContractApi>(localRemote);
-                service.AddSingleton<ICustomerApi>(localRemote);
-                service.AddSingleton<IDepartmentApi>(localRemote);
-                service.AddSingleton<IEmployeeApi>(localRemote);
-                service.AddSingleton<IPositionApi>(localRemote);
-                service.AddSingleton<IProductApi>(localRemote);
-                service.AddSingleton<IRecordApi>(localRemote);
-                service.AddSingleton<IVoucherApi>(localRemote);
+        public static IHostBuilder AddRepositories(this IHostBuilder host)
+        {
+            host.ConfigureServices((context, service) =>
+            {
+                service.AddSingleton<EmployeeRepo>();
             });
             return host;
         }

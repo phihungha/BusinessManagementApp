@@ -25,7 +25,8 @@ namespace BusinessManagementApp
             return Host.CreateDefaultBuilder()
                 .Application(this)
                 .AddLogging()
-                .AddStores()
+                .AddApis()
+                .AddRepositories()
                 .AddViewModels();
         }
     }
