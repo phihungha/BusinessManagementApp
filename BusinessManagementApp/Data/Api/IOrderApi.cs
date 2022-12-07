@@ -9,15 +9,20 @@ namespace BusinessManagementApp.Data.Api
     {
 
         //Bill
-        IObservable<List<Order>> GetBills();
-        
-        IObservable<Order> GetBill(int id);
-        
-        IObservable<Order> SaveBill(Order bill);
-        
-        IObservable<Order> UpdateBill(int billId, Order request);
-        
-        IObservable<object> DeleteBill(int id);
+        [Get("/")]
+        IObservable<List<Order>> GetOrders();
+
+        [Get("/{id}")]
+        IObservable<Order> GetOrder(int id);
+
+        [Post("/")]
+        IObservable<Order> SaveOrder(Order Order);
+
+        [Patch("/{id}")]
+        IObservable<Order> UpdateOrder(int OrderId, Order request);
+
+        [Delete("/{id}")]
+        IObservable<object> DeleteOrder(int id);
         //BillDetail
 
     }
