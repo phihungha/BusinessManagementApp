@@ -83,10 +83,34 @@ namespace BusinessManagementApp
                 service.AddTransient<MainWindowVM>();
                 service.AddTransient<LoginVM>();
                 service.AddTransient<WorkspaceVM>();
-                service.AddTransient<OverviewVM>();
-                service.AddTransient<OrdersVM>();
+
+                service.AddTransient<BonusesVM>();
+                service.AddTransient<BonusTypesVM>();
+                service.AddTransient<ContractTypesVM>();
+                service.AddTransient<ContractTypeDetailsVM>();
+                service.AddTransient<DepartmentsVM>();
+                service.AddTransient<DepartmentDetailsVM>();
                 service.AddTransient<EmployeeInfoVM>();
                 service.AddTransient<EmployeeInfoDetailsVM>();
+                service.AddTransient<OrdersVM>();
+                service.AddTransient<OrderDetailsVM>();
+                service.AddTransient<OvertimeRecordsVM>();
+                service.AddTransient<OvertimeRecordDetailsVM>();
+                service.AddTransient<OverviewVM>();
+                service.AddTransient<PositionsVM>();
+                service.AddTransient<PositionDetailsVM>();
+                service.AddTransient<ProductsVM>();
+                service.AddTransient<ProductDetailsVM>();
+                service.AddTransient<ProvidersVM>();
+                service.AddTransient<ProviderDetailsVM>();
+                service.AddTransient<SalaryReportVM>();
+                service.AddTransient<SalesReportVM>();
+                service.AddTransient<SkillRatingVM>();
+                service.AddTransient<SkillTypesVM>();
+                service.AddTransient<VouchersVM>();
+                service.AddTransient<VoucherDetailsVM>();
+                service.AddTransient<VoucherTypesVM>();
+                service.AddTransient<VoucherTypeDetailsVM>();
             });
             return host;
         }
