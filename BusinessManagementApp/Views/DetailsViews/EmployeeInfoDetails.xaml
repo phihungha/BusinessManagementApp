@@ -7,134 +7,121 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              d:DesignWidth="1290" d:DesignHeight="720">
-    <Border Padding="15">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-            <Border Grid.ColumnSpan="3" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
-                <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
-                    New employee
-                </TextBlock>
-            </Border>
+        <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
+            <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
+                New employee
+            </TextBlock>
+        </Border>
 
-            <StackPanel Grid.Row="1">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
-                <TextBox Text="{Binding Id}" IsReadOnly="True" />
-            </StackPanel>
+        <StackPanel Grid.Row="1" Width="150" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
+            <TextBox Text="{Binding Id}" IsReadOnly="True" />
+        </StackPanel>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="10,0,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
-                <TextBox ui:ControlHelper.PlaceholderText="Enter name..." />
-            </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
+            <TextBox ui:ControlHelper.PlaceholderText="Enter name..." />
+        </StackPanel>
 
-            <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Citizen ID</TextBlock>
-                <TextBox ui:ControlHelper.PlaceholderText="Enter Citizen ID number... (12 digits)"
-                         Text="{Binding CitizenId}" />
-            </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Citizen ID</TextBlock>
+            <TextBox ui:ControlHelper.PlaceholderText="Enter Citizen ID number... (12 digits)"
+                        Text="{Binding CitizenId}" />
+        </StackPanel>
 
-            <StackPanel Grid.Row="3" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Gender</TextBlock>
-                <ComboBox SelectedIndex="0"  HorizontalAlignment="Stretch">
-                    <ComboBoxItem>Male</ComboBoxItem>
-                    <ComboBoxItem>Female</ComboBoxItem>
-                    <ComboBoxItem>Others</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
+        <StackPanel Grid.Row="3" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Gender</TextBlock>
+            <ComboBox SelectedIndex="0"  HorizontalAlignment="Stretch">
+                <ComboBoxItem>Male</ComboBoxItem>
+                <ComboBoxItem>Female</ComboBoxItem>
+                <ComboBoxItem>Others</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
 
-            <StackPanel Grid.Row="3" Grid.Column="1" Margin="10,10,10,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Birth date</TextBlock>
-                <DatePicker HorizontalAlignment="Stretch" />
-            </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Margin="0,10,0,5" Width="250">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Birth date</TextBlock>
+            <DatePicker HorizontalAlignment="Stretch" />
+        </StackPanel>
 
-            <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Qualification</TextBlock>
-                <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch">
-                    <ComboBoxItem>High school</ComboBoxItem>
-                    <ComboBoxItem>Vocational</ComboBoxItem>
-                    <ComboBoxItem>University</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="3" Margin="0,10,0,0" 
+                    Width="250" HorizontalAlignment="Right">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Qualification</TextBlock>
+            <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch">
+                <ComboBoxItem>High school</ComboBoxItem>
+                <ComboBoxItem>Vocational</ComboBoxItem>
+                <ComboBoxItem>University</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
 
-            <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Phone number</TextBlock>
-                <ui:NumberBox ui:ControlHelper.PlaceholderText="Enter phone number... (10 digits)"
-                              Text="{Binding PhoneNumber}" />
-            </StackPanel>
+        <StackPanel Grid.Row="4" Margin="0,5,15,0">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Phone number</TextBlock>
+            <ui:NumberBox ui:ControlHelper.PlaceholderText="Enter phone number... (10 digits)"
+                            Text="{Binding PhoneNumber}" />
+        </StackPanel>
 
-            <StackPanel Grid.Row="5" Grid.ColumnSpan="3" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Address</TextBlock>
-                <TextBox ui:ControlHelper.PlaceholderText="Enter address..." />
-            </StackPanel>
+        <StackPanel Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,5,0,0">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Email</TextBlock>
+            <ui:NumberBox ui:ControlHelper.PlaceholderText="Enter email..."
+                            Text="{Binding Email}" />
+        </StackPanel>
 
-            <StackPanel Grid.Row="6" Grid.Column="0" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Position</TextBlock>
-                <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch">
-                    <ComboBoxItem>Sales</ComboBoxItem>
-                    <ComboBoxItem>Sales manager</ComboBoxItem>
-                    <ComboBoxItem>HR manager</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="3" Margin="0,10,0,0">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Address</TextBlock>
+            <TextBox ui:ControlHelper.PlaceholderText="Enter address..." />
+        </StackPanel>
 
-            <StackPanel Grid.Row="6" Grid.Column="1" Margin="10,10,10,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Department</TextBlock>
-                <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch">
-                    <ComboBoxItem>HR</ComboBoxItem>
-                    <ComboBoxItem>IT</ComboBoxItem>
-                    <ComboBoxItem>Sales</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
+        <StackPanel Grid.Row="6" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Department</TextBlock>
+            <ComboBox SelectedIndex="0" HorizontalAlignment="Stretch">
+                <ComboBoxItem>HR</ComboBoxItem>
+                <ComboBoxItem>IT</ComboBoxItem>
+                <ComboBoxItem>Sales</ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
 
-            <StackPanel Grid.Row="6" Grid.Column="2" Margin="0,10,0,0">
-                <TextBlock Style="{StaticResource TextBoxTopLabel}">Contract type</TextBlock>
-                <ComboBox SelectedIndex="0"  HorizontalAlignment="Stretch">
-                    <ComboBoxItem>6 months</ComboBoxItem>
-                    <ComboBoxItem>1 year</ComboBoxItem>
-                    <ComboBoxItem>Permanent</ComboBoxItem>
-                </ComboBox>
-            </StackPanel>
-
-            <UniformGrid Grid.Row="7" Grid.ColumnSpan="3" Columns="3"
-                         VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                         Width="350" Height="55">
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
-                        Foreground="White" Background="{StaticResource DangerColorBrush}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                        <TextBlock FontSize="16">Delete</TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
-                        Foreground="White" Background="{StaticResource PrimaryColorBrush}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                        <TextBlock FontSize="16">Save</TextBlock>
-                    </StackPanel>
-                </Button>
-                <Button Command="{Binding Cancel}" Margin="5" 
-                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                        Foreground="White" Background="{StaticResource CancelColorBrush}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                        <TextBlock FontSize="16">Cancel</TextBlock>
-                    </StackPanel>
-                </Button>
-            </UniformGrid>
-        </Grid>
-    </Border>
+        <UniformGrid Grid.Row="7" Grid.ColumnSpan="4" Columns="3"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                        Width="350" Height="55">
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
+                    Foreground="White" Background="{StaticResource DangerColorBrush}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">Delete</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
+                    Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">Save</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding Cancel}" Margin="5" 
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                    Foreground="White" Background="{StaticResource CancelColorBrush}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">Cancel</TextBlock>
+                </StackPanel>
+            </Button>
+        </UniformGrid>
+    </Grid>
 </UserControl>

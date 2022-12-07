@@ -8,7 +8,7 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         ui:WindowHelper.UseModernWindowStyle="True"
-        MinWidth="1000" MinHeight="180"
+        MinWidth="1100" MinHeight="180"
         Title="MainWindow" Height="720" Width="1290" Background="#FFEDEDED">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:WorkspaceVM}">
