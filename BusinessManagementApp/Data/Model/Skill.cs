@@ -1,11 +1,15 @@
-﻿namespace BusinessManagementApp.Data.Model
+﻿using System;
+
+namespace BusinessManagementApp.Data.Model
 {
     public class Skill
     {
-        public int Id { get; set; }
+        public string EmployeeId { get; set; } = "";
 
-        public string Name { get; set; }
+        public string SkillId { get; set; } = "";
 
-        public string Description { get; set; }
+        public int Level { get; set; } = 0;
+
+        public DateTime UpdatedAt { get; set; } = new();
     }
 }
