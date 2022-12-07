@@ -1,10 +1,19 @@
-﻿namespace BusinessManagementApp.Data.Model
+﻿using System;
+
+namespace BusinessManagementApp.Data.Model
 {
-    public enum ContractType
+    public class ContractType
     {
-        INTERN, 
-        ONE_YEAR, 
-        THREE_YEAR, 
-        PERMANENT
+
+        public String Id { get; set; }
+
+        public String Name { get; set; }
+
+        public String Description { get; set; }
+
+        public decimal BaseSalary { get; set; }
+
+        public int Period { get; set; }
+
     }
 }
