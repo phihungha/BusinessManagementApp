@@ -92,6 +92,52 @@ namespace BusinessManagementApp.ViewModels.Converters
                 case WorkspaceViewName.EmployeeInfo:
                     return App.Current.FindResource("UserWhiteIcon");
 
+                case WorkspaceViewName.Vouchers:
+                    return App.Current.FindResource("VouchersWhiteIcon");
+
+                case WorkspaceViewName.SalesReport:
+                    return App.Current.FindResource("SalesReportWhiteIcon");
+
+                case WorkspaceViewName.OvertimeRecords:
+                    return App.Current.FindResource("OvertimeRecordsWhiteIcon");
+
+                case WorkspaceViewName.SkillTypes:
+                    return App.Current.FindResource("SkillTypesWhiteIcon");
+
+                case WorkspaceViewName.SkillRating:
+                    return App.Current.FindResource("SkillRatingWhiteIcon");
+
+                case WorkspaceViewName.SalaryReport:
+                    return App.Current.FindResource("SalaryReportWhiteIcon");
+
+                case WorkspaceViewName.VoucherTypes:
+                    return App.Current.FindResource("VoucherTypesWhiteIcon");
+
+                case WorkspaceViewName.Products:
+                    return App.Current.FindResource("ProductsWhiteIcon");
+
+                case WorkspaceViewName.Bonuses:
+                    return App.Current.FindResource("BonusesWhiteIcon");
+
+                case WorkspaceViewName.BonusTypes:
+                    return App.Current.FindResource("BonusTypesWhiteIcon");
+
+                case WorkspaceViewName.Providers:
+                    return App.Current.FindResource("ProvidersWhiteIcon");
+
+                case WorkspaceViewName.Positions:
+                    return App.Current.FindResource("PositionsWhiteIcon");
+
+                case WorkspaceViewName.Customers:
+                    return App.Current.FindResource("CustomersWhiteIcon");
+
+                case WorkspaceViewName.ContractTypes:
+                    return App.Current.FindResource("ContractTypesWhiteIcon");
+
+                case WorkspaceViewName.Departments:
+                    return App.Current.FindResource("DepartmentsWhiteIcon");
+
+
                 default:
                     return null;
             }
