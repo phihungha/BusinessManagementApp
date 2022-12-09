@@ -7,8 +7,6 @@ namespace BusinessManagementApp.Data.Api
 {
     public interface IOrderApi
     {
-
-        //Bill
         [Get("/")]
         IObservable<List<Order>> GetOrders();
 

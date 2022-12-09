@@ -7,8 +7,6 @@ namespace BusinessManagementApp.Data.Api
 {
     public interface IEmployeeApi
     {
-
-        //Employee
         [Get("/")]
         IObservable<List<Employee>> GetEmployees();
 
