@@ -20,7 +20,22 @@ namespace BusinessManagementApp.Data
 
         public IObservable<Employee> GetEmployee(int id)
         {
-            throw new NotImplementedException();
+            var employee = new Employee()
+            {
+                Id = id,
+                Name = "Nguyen Van A",
+                Gender = "Male",
+                CitizenId = "123456789000",
+                BirthDate = new DateTime(1999, 3, 5),
+                Position = "IT manager",
+                Department = "IT",
+                PhoneNumber = "0123456789",
+                Email = "vana@gmail.com",
+                Address = "118 Le Hong Phong",
+                Qualification = "University"
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(employee));
         }
 
         public IObservable<List<Employee>> GetEmployees()
@@ -60,12 +75,12 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(employees));
         }
 
-        public IObservable<Employee> AddEmployee(Employee Employee)
+        public IObservable<Employee> AddEmployee(Employee employee)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Employee> UpdateEmployee(int employeeId, Employee request)
+        public IObservable<Employee> UpdateEmployee(int employeeId, Employee employee)
         {
             throw new NotImplementedException();
         }

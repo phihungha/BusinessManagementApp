@@ -1,11 +1,11 @@
-﻿using BusinessManagementApp.ViewModels.Utils;
+﻿using BusinessManagementApp.Data;
+using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -13,11 +13,29 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class EmployeeInfoDetailsVM : ViewModelBase
     {
+        #region Dependencies
+        private EmployeeRepo employeeRepo;
+        #endregion
+
+        // Model object
+        private Employee employee = new();
+
+        #region Input properties
         private int id = 0;
+
         public int Id
         {
             get => id;
-            set => SetProperty(ref id, value);
+            private set => SetProperty(ref id, value);
+        }
+
+        private string name = "";
+
+        [Required]
+        public string Name
+        {
+            get => name;
+            set => SetProperty(ref name, value);
         }
 
         private string citizenId = string.Empty;
@@ -27,6 +45,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             get => citizenId;
             set => SetProperty(ref citizenId, value, true);
+        }
+
+        private DateTime birthDate = new DateTime(2000, 1, 1);
+
+        public DateTime BirthDate
+        {
+            get => birthDate;
+            set => SetProperty(ref birthDate, value, true);
         }
 
         private string email = string.Empty;
@@ -47,10 +73,48 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref phoneNumber, value, true);
         }
 
-        public ICommand Cancel { get; private set; }
+        private string address = string.Empty;
 
-        public EmployeeInfoDetailsVM()
+        [Required]
+        public string Address
         {
+            get => address;
+            set => SetProperty(ref address, value, true);
+        }
+        #endregion
+
+        private bool isEditMode = false;
+
+        #region Button enable/disable logic
+        private bool canSave = true;
+
+        public bool CanSave
+        {
+            get => canSave;
+            private set => SetProperty(ref canSave, value);
+        }
+
+        private bool canDelete = false;
+
+        public bool CanDelete
+        {
+            get => canDelete;
+            private set => SetProperty(ref canDelete, value);
+        }
+        #endregion
+
+        #region Commands for buttons
+        public ICommand Save { get; private set; }
+        public ICommand Delete { get; private set; }
+        public ICommand Cancel { get; private set; }
+        #endregion
+
+        public EmployeeInfoDetailsVM(EmployeeRepo employeeRepo)
+        {
+            this.employeeRepo = employeeRepo;
+
+            Save = new AsyncRelayCommand(SaveEmployee);
+            Delete = new AsyncRelayCommand(DeleteEmployee);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo)
                 );
@@ -58,8 +122,53 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void ReceiveExtra(object id)
         {
-            await Task.Delay(500);
-            Id = (int)id;
+            CanDelete = true;
+            isEditMode = true;
+
+            CanSave = false;
+            await LoadEmployee((int)id);
+            CanSave = true;
+        }
+
+        private async Task LoadEmployee(int id)
+        {
+            employee = await employeeRepo.GetEmployee(id);
+            Id = employee.Id;
+            Name = employee.Name;
+            CitizenId = employee.CitizenId;
+            BirthDate = employee.BirthDate;
+            PhoneNumber = employee.PhoneNumber;
+            Email = employee.Email;
+            Address = employee.Address;
+        }
+
+        private async Task SaveEmployee()
+        {
+            ValidateAllProperties();
+            if (HasErrors)
+                return;
+
+            employee.Id = Id;
+            employee.Name = Name;
+            employee.CitizenId = CitizenId;
+            employee.BirthDate = BirthDate;
+            employee.PhoneNumber = PhoneNumber;
+            employee.Email = Email;
+            employee.Address = Address;
+
+            if (isEditMode)
+            {
+                await employeeRepo.UpdateEmployee(Id, employee);
+            }
+            else
+            {
+                await employeeRepo.AddEmployee(employee);
+            }
+        }
+
+        private async Task DeleteEmployee()
+        {
+            await employeeRepo.DeleteEmployee(Id);
         }
     }
 }
