@@ -1,8 +1,5 @@
-﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.ViewModels.DetailsVMs;
+﻿using BusinessManagementApp.ViewModels.DetailsVMs;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views.DetailsViews;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -48,7 +45,7 @@ namespace BusinessManagementApp.ViewModels
     }
 
     /// <summary>
-    /// Contains the content of a navigation message 
+    /// Contains the content of a navigation message
     /// including name of view to go to and extra message
     /// </summary>
     public struct NavigationMessageContent
@@ -57,7 +54,7 @@ namespace BusinessManagementApp.ViewModels
         public object? Extra { get; set; }
 
         /// <summary>
-        /// Contains the content of a navigation message 
+        /// Contains the content of a navigation message
         /// including name of view to go to and extra message
         /// </summary>
         /// <param name="targetViewName">Name of view to go to</param>
@@ -87,37 +84,41 @@ namespace BusinessManagementApp.ViewModels
 
     public class WorkspaceVM : ObservableObject
     {
-        private ObservableObject? currentViewVM 
+        private ObservableObject? currentViewVM
             = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
+
         public ObservableObject? CurrentViewVM
         {
             get => currentViewVM;
             set => SetProperty(ref currentViewVM, value);
         }
 
-        public WorkspaceViewName[] SidebarViewNames { get; } = new[] 
+        public WorkspaceViewName[] SidebarViewNames { get; } = new[]
         {
-            WorkspaceViewName.Bonuses,
-            WorkspaceViewName.BonusTypes,
-            WorkspaceViewName.ContractTypes,
-            WorkspaceViewName.Customers,
-            WorkspaceViewName.Departments,
-            WorkspaceViewName.EmployeeInfo,
             WorkspaceViewName.Overview,
-            WorkspaceViewName.OvertimeRecords,
             WorkspaceViewName.Orders,
-            WorkspaceViewName.Positions,
+            WorkspaceViewName.Vouchers,
+            WorkspaceViewName.Customers,
             WorkspaceViewName.Products,
             WorkspaceViewName.Providers,
-            WorkspaceViewName.SalaryReport,
             WorkspaceViewName.SalesReport,
+
+            WorkspaceViewName.EmployeeInfo,
+            WorkspaceViewName.SalaryReport,
+            WorkspaceViewName.OvertimeRecords,
+            WorkspaceViewName.Bonuses,
             WorkspaceViewName.SkillRating,
-            WorkspaceViewName.SkillTypes,
+
             WorkspaceViewName.VoucherTypes,
-            WorkspaceViewName.Vouchers,
+            WorkspaceViewName.BonusTypes,
+            WorkspaceViewName.ContractTypes,
+            WorkspaceViewName.Positions,
+            WorkspaceViewName.Departments,
+            WorkspaceViewName.SkillTypes,
         };
 
         private WorkspaceViewName selectedSidebarViewName = WorkspaceViewName.Overview;
+
         public WorkspaceViewName SelectedSidebarViewName
         {
             get => selectedSidebarViewName;
@@ -135,7 +136,7 @@ namespace BusinessManagementApp.ViewModels
             WeakReferenceMessenger
                 .Default
                 .Register<WorkspaceNavigationMessage>(
-                    this, 
+                    this,
                     (r, m) => HandleNavigationMessageContent(m.Value)
                 );
 
@@ -159,64 +160,94 @@ namespace BusinessManagementApp.ViewModels
             {
                 case WorkspaceViewName.Bonuses:
                     return serviceProvider.GetRequiredService<BonusesVM>();
+
                 case WorkspaceViewName.BonusTypes:
                     return serviceProvider.GetRequiredService<BonusTypesVM>();
+
                 case WorkspaceViewName.ContractTypes:
                     return serviceProvider.GetRequiredService<ContractTypesVM>();
+
                 case WorkspaceViewName.ContractTypeDetails:
                     return serviceProvider.GetRequiredService<ContractTypeDetailsVM>();
+
                 case WorkspaceViewName.Customers:
                     return serviceProvider.GetRequiredService<CustomersVM>();
+
                 case WorkspaceViewName.CustomerDetails:
                     return serviceProvider.GetRequiredService<CustomerDetailsVM>();
+
                 case WorkspaceViewName.Departments:
                     return serviceProvider.GetRequiredService<DepartmentsVM>();
+
                 case WorkspaceViewName.DepartmentDetails:
                     return serviceProvider.GetRequiredService<DepartmentDetailsVM>();
+
                 case WorkspaceViewName.EmployeeInfo:
                     return serviceProvider.GetRequiredService<EmployeeInfoVM>();
+
                 case WorkspaceViewName.EmployeeInfoDetails:
                     return serviceProvider.GetRequiredService<EmployeeInfoDetailsVM>();
+
                 case WorkspaceViewName.Orders:
                     return serviceProvider.GetRequiredService<OrdersVM>();
+
                 case WorkspaceViewName.OrderDetails:
                     return serviceProvider.GetRequiredService<OrderDetailsVM>();
+
                 case WorkspaceViewName.OvertimeRecords:
                     return serviceProvider.GetRequiredService<OvertimeRecordsVM>();
+
                 case WorkspaceViewName.OvertimeRecordDetails:
                     return serviceProvider.GetRequiredService<OvertimeRecordDetailsVM>();
+
                 case WorkspaceViewName.Overview:
                     return serviceProvider.GetRequiredService<OverviewVM>();
+
                 case WorkspaceViewName.Positions:
                     return serviceProvider.GetRequiredService<PositionsVM>();
+
                 case WorkspaceViewName.PositionDetails:
                     return serviceProvider.GetRequiredService<PositionDetailsVM>();
+
                 case WorkspaceViewName.Products:
                     return serviceProvider.GetRequiredService<ProductsVM>();
+
                 case WorkspaceViewName.ProductDetails:
                     return serviceProvider.GetRequiredService<ProductDetailsVM>();
+
                 case WorkspaceViewName.Providers:
                     return serviceProvider.GetRequiredService<ProvidersVM>();
+
                 case WorkspaceViewName.ProviderDetails:
                     return serviceProvider.GetRequiredService<ProviderDetailsVM>();
+
                 case WorkspaceViewName.SalaryReport:
                     return serviceProvider.GetRequiredService<SalaryReportVM>();
+
                 case WorkspaceViewName.SalesReport:
                     return serviceProvider.GetRequiredService<SalesReportVM>();
+
                 case WorkspaceViewName.SelectOrderItem:
                     return serviceProvider.GetRequiredService<SelectOrderItemsVM>();
+
                 case WorkspaceViewName.SkillRating:
                     return serviceProvider.GetRequiredService<SkillRatingVM>();
+
                 case WorkspaceViewName.SkillTypes:
                     return serviceProvider.GetRequiredService<SkillTypesVM>();
+
                 case WorkspaceViewName.Vouchers:
                     return serviceProvider.GetRequiredService<VouchersVM>();
+
                 case WorkspaceViewName.VoucherDetails:
                     return serviceProvider.GetRequiredService<VoucherDetailsVM>();
+
                 case WorkspaceViewName.VoucherTypes:
                     return serviceProvider.GetRequiredService<VoucherTypesVM>();
+
                 case WorkspaceViewName.VoucherTypeDetails:
                     return serviceProvider.GetRequiredService<VoucherTypeDetailsVM>();
+
                 default:
                     throw new ArgumentException("Invalid view model name");
             }
