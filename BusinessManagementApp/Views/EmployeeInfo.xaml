@@ -8,14 +8,14 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1290">
-    <Grid>
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource ViewTitleBorder}"  Margin="15,15,15,0">
+        <Border Style="{StaticResource ViewTitleBorder}">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
@@ -37,7 +37,7 @@
             </Grid>
         </Border>
 
-        <StackPanel Grid.Row="1" Height="Auto" Orientation="Horizontal" VerticalAlignment="Center" Margin="15,20,15,0">
+        <StackPanel Grid.Row="1" Height="Auto" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0">
             <TextBox Width="300" ui:ControlHelper.PlaceholderText="Search..." />
             <Button Margin="10,0,0,0" Background="{StaticResource PrimaryColorBrush}">
                 <Image Source="{StaticResource SearchWhiteIcon}" />
