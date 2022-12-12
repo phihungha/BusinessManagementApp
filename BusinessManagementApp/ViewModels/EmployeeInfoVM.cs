@@ -43,10 +43,14 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
+        // Declare dependencies (e.g repositories) to use as constructor parameters
+        // Go into Startup.cs to add new depencencies if needed
         public EmployeeInfoVM(EmployeeRepo employeesRepo)
         {
             this.employeesRepo = employeesRepo;
 
+            // DataGrid accesses the ObservableCollection of model objects
+            // indirectly via a ICollectionView to support filtering.
             var collectionViewSource = new CollectionViewSource() { Source = employees };
             EmployeesView = collectionViewSource.View;
             EmployeesView.Filter = FilterList;
@@ -54,6 +58,7 @@ namespace BusinessManagementApp.ViewModels
             AddEmployee = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfoDetails));
             Search = new RelayCommand(() => EmployeesView.Refresh());
             Edit = new RelayCommand<string>(id => OpenDetailsView(id));
+
             LoadData();
         }
 

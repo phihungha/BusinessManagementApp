@@ -7,7 +7,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
@@ -15,9 +14,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class EmployeeInfoDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private EmployeeRepo employeeRepo;
+        private DepartmentsRepo departmentsRepo;
 
         #endregion Dependencies
 
@@ -25,6 +26,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private Employee employee = new();
 
         // Properties for inputs on the screen
+        // Remember to declare validation attributes when appropriate.
+        // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
+        // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private string id = "";
@@ -136,9 +141,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public EmployeeInfoDetailsVM(EmployeeRepo employeeRepo)
+        // Declare dependencies (e.g repositories) to use as constructor parameters
+        // Go into Startup.cs to add new depencencies if needed
+        public EmployeeInfoDetailsVM(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo)
         {
             this.employeeRepo = employeeRepo;
+            this.departmentsRepo = departmentsRepo;
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new AsyncRelayCommand(DeleteEmployee);
@@ -147,6 +155,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 );
         }
 
+        // Extra object passed in navigation is received here.
+        // This is mostly to get the ID from list view to load the model object.
         public override async void ReceiveExtra(object id)
         {
             CanDelete = true;

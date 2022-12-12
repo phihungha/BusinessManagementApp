@@ -72,6 +72,7 @@ namespace BusinessManagementApp
             host.ConfigureServices((context, service) =>
             {
                 service.AddSingleton<EmployeeRepo>();
+                service.AddSingleton<DepartmentsRepo>();
             });
             return host;
         }

@@ -70,6 +70,8 @@
                 <DataGridTextColumn Header="Birth date" Binding="{Binding BirthDate, StringFormat='d'}" Width="150" />
                 <DataGridTextColumn Header="Position" Binding="{Binding CurrentPosition.Name}" Width="*" />
                 <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}" Width="*" />
+
+                <!-- Edit button -->
                 <DataGridTemplateColumn Width="60" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
