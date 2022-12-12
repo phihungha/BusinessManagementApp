@@ -11,15 +11,15 @@ namespace BusinessManagementApp.Data.Api
         IObservable<List<Employee>> GetEmployees();
 
         [Get("/{id}")]
-        IObservable<Employee> GetEmployee(int id);
+        IObservable<Employee> GetEmployee(string id);
 
         [Post("/")]
         IObservable<Employee> SaveEmployee(Employee Employee);
 
         [Patch("/{id}")]
-        IObservable<Employee> UpdateEmployee(int EmployeeId, Employee request);
+        IObservable<Employee> UpdateEmployee(string id, Employee request);
 
         [Delete("/{id}")]
-        IObservable<object> DeleteEmployee(int id);
+        IObservable<object> DeleteEmployee(string id);
     }
 }
