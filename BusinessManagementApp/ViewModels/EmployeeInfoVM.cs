@@ -63,16 +63,16 @@ namespace BusinessManagementApp.ViewModels
             switch (SearchBy)
             {
                 case EmployeeInfoSearchBy.Name:
-                    return employee.Name.Contains(SearchText);
+                    return employee.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
                 case EmployeeInfoSearchBy.Id:
-                    return employee.Id.Contains(SearchText);
+                    return employee.Id.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
                 case EmployeeInfoSearchBy.CitizenId:
-                    return employee.CitizenId.Contains(SearchText);
+                    return employee.CitizenId.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
                 case EmployeeInfoSearchBy.PhoneNumber:
-                    return employee.PhoneNumber.Contains(SearchText);
+                    return employee.PhoneNumber.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
                 default:
                     return false;
