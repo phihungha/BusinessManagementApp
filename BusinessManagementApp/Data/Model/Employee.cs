@@ -25,7 +25,7 @@ namespace BusinessManagementApp.Data.Model
 
         public Department Department { get; set; }
 
-        public PositionRecord CurrentPosition { get; set; }
+        public Position CurrentPosition { get; set; }
 
         public List<PositionRecord> PositionRecords { get; set; }
 

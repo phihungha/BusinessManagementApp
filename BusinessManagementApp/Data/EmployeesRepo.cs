@@ -31,12 +31,7 @@ namespace BusinessManagementApp.Data
                 Email = "NguyenA@gmail.com",
                 Address = "178 Nguyen Trai, Binh Duong",
                 Department = new Department { Name = "Sales" },
-                CurrentPosition = new PositionRecord()
-                {
-                    StartDate = new DateTime(2001, 5, 5),
-                    EndDate = new DateTime(2022, 5, 5),
-                    Position = new Position { Name = "Sales manager" }
-                },
+                CurrentPosition = new Position() { Name = "Sales manager" },
                 PositionRecords = new List<PositionRecord>
                 {
                     new PositionRecord()
@@ -77,14 +72,10 @@ namespace BusinessManagementApp.Data
                     Name = "Nguyen Van A",
                     Gender = Gender.Male,
                     CitizenId = "123456789000",
+                    BirthDate = new DateTime(1975, 5, 5),
                     PhoneNumber = "0123456789",
                     Department = new Department { Name = "Sales" },
-                    CurrentPosition = new PositionRecord()
-                    {
-                        StartDate = new DateTime(2001, 5, 5),
-                        EndDate = new DateTime(2022, 5, 5),
-                        Position = new Position { Name = "Sales manager" }
-                    },
+                    CurrentPosition = new Position() { Name = "Sales manager" }
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(employees));

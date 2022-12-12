@@ -7,20 +7,26 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class EmployeeInfoDetailsVM : ViewModelBase
     {
+        // Declare dependencies such as repositories here.
         #region Dependencies
+
         private EmployeeRepo employeeRepo;
-        #endregion
+
+        #endregion Dependencies
 
         // Model object
         private Employee employee = new();
 
+        // Properties for inputs on the screen
         #region Input properties
+
         private string id = "";
 
         public string Id
@@ -47,12 +53,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref citizenId, value, true);
         }
 
+        private Gender gender = Gender.Male;
+
+        public Gender Gender
+        {
+            get => gender;
+            set => SetProperty(ref gender, value, true);
+        }
+
         private DateTime birthDate = new DateTime(2000, 1, 1);
 
         public DateTime BirthDate
         {
             get => birthDate;
             set => SetProperty(ref birthDate, value, true);
+        }
+
+        private string education = string.Empty;
+
+        public string Education
+        {
+            get => education;
+            set => SetProperty(ref education, value, true);
         }
 
         private string email = string.Empty;
@@ -81,11 +103,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => address;
             set => SetProperty(ref address, value, true);
         }
-        #endregion
+
+        #endregion Input properties
 
         private bool isEditMode = false;
 
         #region Button enable/disable logic
+
         private bool canSave = true;
 
         public bool CanSave
@@ -101,13 +125,16 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canDelete;
             private set => SetProperty(ref canDelete, value);
         }
-        #endregion
+
+        #endregion Button enable/disable logic
 
         #region Commands for buttons
+
         public ICommand Save { get; private set; }
         public ICommand Delete { get; private set; }
         public ICommand Cancel { get; private set; }
-        #endregion
+
+        #endregion Commands for buttons
 
         public EmployeeInfoDetailsVM(EmployeeRepo employeeRepo)
         {
@@ -137,6 +164,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Name = employee.Name;
             CitizenId = employee.CitizenId;
             BirthDate = employee.BirthDate;
+            Education = employee.Education;
             PhoneNumber = employee.PhoneNumber;
             Email = employee.Email;
             Address = employee.Address;
