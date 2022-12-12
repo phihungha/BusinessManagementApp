@@ -21,9 +21,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private Employee employee = new();
 
         #region Input properties
-        private int id = 0;
+        private string id = "";
 
-        public int Id
+        public string Id
         {
             get => id;
             private set => SetProperty(ref id, value);
@@ -126,11 +126,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             isEditMode = true;
 
             CanSave = false;
-            await LoadEmployee((int)id);
+            await LoadEmployee((string)id);
             CanSave = true;
         }
 
-        private async Task LoadEmployee(int id)
+        private async Task LoadEmployee(string id)
         {
             employee = await employeeRepo.GetEmployee(id);
             Id = employee.Id;

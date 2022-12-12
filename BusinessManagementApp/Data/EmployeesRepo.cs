@@ -13,12 +13,12 @@ namespace BusinessManagementApp.Data
         {
         }
 
-        public IObservable<object> DeleteEmployee(int id)
+        public IObservable<object> DeleteEmployee(string id)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<Employee> GetEmployee(int id)
+        public IObservable<Employee> GetEmployee(string id)
         {
             var employee = new Employee()
             {
@@ -44,7 +44,7 @@ namespace BusinessManagementApp.Data
             {
                 new Employee()
                 {
-                    Id = 1,
+                    Id = "1",
                     Name = "Nguyen Van A",
                     Gender = "Male",
                     BirthDate = new DateTime(1999, 3, 5),
@@ -54,7 +54,7 @@ namespace BusinessManagementApp.Data
 
                 new Employee()
                 {
-                    Id = 2,
+                    Id = "2",
                     Name = "Nguyen Van B",
                     Gender = "Female",
                     BirthDate = new DateTime(1986, 12, 5),
@@ -64,7 +64,7 @@ namespace BusinessManagementApp.Data
 
                 new Employee()
                 {
-                    Id = 3,
+                    Id = "3",
                     Name = "Nguyen Van C",
                     Gender = "Male",
                     BirthDate = new DateTime(1994, 4, 12),
@@ -80,7 +80,7 @@ namespace BusinessManagementApp.Data
             throw new NotImplementedException();
         }
 
-        public IObservable<Employee> UpdateEmployee(int employeeId, Employee employee)
+        public IObservable<Employee> UpdateEmployee(string employeeId, Employee employee)
         {
             throw new NotImplementedException();
         }

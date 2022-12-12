@@ -4,7 +4,7 @@ namespace BusinessManagementApp.Data.Model
 {
     public class Employee
     {
-        public int Id { get; set; } = 0;
+        public string Id { get; set; } = "";
 
         public string Name { get; set; } = "";
 
