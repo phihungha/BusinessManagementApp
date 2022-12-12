@@ -41,6 +41,7 @@ namespace BusinessManagementApp.ViewModels
 
         public ICommand AddEmployee { get; }
         public ICommand Search { get; }
+        public ICommand Edit { get; }
 
         public EmployeeInfoVM(EmployeeRepo employeesRepo)
         {
@@ -52,7 +53,7 @@ namespace BusinessManagementApp.ViewModels
 
             AddEmployee = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfoDetails));
             Search = new RelayCommand(() => EmployeesView.Refresh());
-
+            Edit = new RelayCommand<string>(id => OpenDetailsView(id));
             LoadData();
         }
 
@@ -77,6 +78,16 @@ namespace BusinessManagementApp.ViewModels
                 default:
                     return false;
             }
+        }
+
+        private void OpenDetailsView(string? id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentException("ID is null");
+            }
+
+            WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.EmployeeInfoDetails, id);
         }
 
         private async void LoadData()
