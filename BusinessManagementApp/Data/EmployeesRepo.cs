@@ -8,10 +8,6 @@ namespace BusinessManagementApp.Data
 {
     public class EmployeeRepo
     {
-        public EmployeeRepo()
-        {
-        }
-
         public IObservable<object> DeleteEmployee(string id)
         {
             throw new NotImplementedException();
@@ -74,8 +70,20 @@ namespace BusinessManagementApp.Data
                     CitizenId = "123456789000",
                     BirthDate = new DateTime(1975, 5, 5),
                     PhoneNumber = "0123456789",
-                    Department = new Department { Name = "Sales" },
+                    Department = new Department { Id = 1, Name = "Sales" },
                     CurrentPosition = new Position() { Name = "Sales manager" }
+                },
+
+                new Employee()
+                {
+                    Id = "2",
+                    Name = "Mai Thi Xuan",
+                    Gender = Gender.Female,
+                    CitizenId = "123456789001",
+                    BirthDate = new DateTime(1975, 5, 5),
+                    PhoneNumber = "0123456780",
+                    Department = new Department { Id = 2, Name = "Human resources" },
+                    CurrentPosition = new Position() { Name = "HR manager" }
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(employees));
