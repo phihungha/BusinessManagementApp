@@ -2,7 +2,7 @@
 {
     public class SalaryRecord
     {
-        public string EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
         public int Month { get; set; }
 

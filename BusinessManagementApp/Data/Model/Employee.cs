@@ -23,14 +23,14 @@ namespace BusinessManagementApp.Data.Model
 
         public string Address { get; set; }
 
-        public List<PositionRecord> PositionRecords { get; set; }
+        public Department Department { get; set; }
 
-        public List<Skill> Skills { get; set; }
+        public PositionRecord CurrentPosition { get; set; }
+
+        public List<PositionRecord> PositionRecords { get; set; }
 
         public List<Contract> Contracts { get; set; }
 
         public DateTime? TerminationDate { get; set; }
-
-        public Department Department { get; set; }
     }
 }

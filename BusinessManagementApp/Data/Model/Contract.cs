@@ -14,7 +14,7 @@ namespace BusinessManagementApp.Data.Model
 
         public DateTime From { get; set; }
 
-        public DateTime To { get; set; }
+        public DateTime? To { get; set; }
     }
 
     public class ContractType
@@ -27,6 +27,6 @@ namespace BusinessManagementApp.Data.Model
 
         public decimal BaseSalary { get; set; }
 
-        public DateTime Period { get; set; }
+        public DateTime? Period { get; set; }
     }
 }

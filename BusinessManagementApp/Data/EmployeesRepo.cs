@@ -1,5 +1,4 @@
-﻿using BusinessManagementApp.Data.Api;
-using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
@@ -22,17 +21,47 @@ namespace BusinessManagementApp.Data
         {
             var employee = new Employee()
             {
-                Id = id,
+                Id = "1",
                 Name = "Nguyen Van A",
-                Gender = "Male",
+                Gender = Gender.Male,
                 CitizenId = "123456789000",
-                BirthDate = new DateTime(1999, 3, 5),
-                Position = "IT manager",
-                Department = "IT",
+                BirthDate = new DateTime(1975, 5, 5),
+                Education = "Bach Khoa Universitys",
                 PhoneNumber = "0123456789",
-                Email = "vana@gmail.com",
-                Address = "118 Le Hong Phong",
-                Qualification = "University"
+                Email = "NguyenA@gmail.com",
+                Address = "178 Nguyen Trai, Binh Duong",
+                Department = new Department { Name = "Sales" },
+                CurrentPosition = new PositionRecord()
+                {
+                    StartDate = new DateTime(2001, 5, 5),
+                    EndDate = new DateTime(2022, 5, 5),
+                    Position = new Position { Name = "Sales manager" }
+                },
+                PositionRecords = new List<PositionRecord>
+                {
+                    new PositionRecord()
+                    {
+                        StartDate = new DateTime(1995, 5, 5),
+                        EndDate = new DateTime(2001, 5, 5),
+                        Position = new Position { Name = "Sales" }
+                    },
+
+                    new PositionRecord()
+                    {
+                        StartDate = new DateTime(2001, 5, 5),
+                        EndDate = new DateTime(2022, 5, 5),
+                        Position = new Position { Name = "Sales manager" }
+                    }
+                },
+                Contracts = new List<Contract>
+                {
+                    new Contract()
+                    {
+                        From = new DateTime(1995, 5, 5),
+                        To = new DateTime(2001,5,5),
+                        Type = new ContractType() { Name = "Permanent" }
+                    }
+                },
             };
 
             return Observable.FromAsync(() => Task.FromResult(employee));
@@ -46,30 +75,16 @@ namespace BusinessManagementApp.Data
                 {
                     Id = "1",
                     Name = "Nguyen Van A",
-                    Gender = "Male",
-                    BirthDate = new DateTime(1999, 3, 5),
-                    Position = "IT manager",
-                    Department = "IT"
-                },
-
-                new Employee()
-                {
-                    Id = "2",
-                    Name = "Nguyen Van B",
-                    Gender = "Female",
-                    BirthDate = new DateTime(1986, 12, 5),
-                    Position = "HR manager",
-                    Department = "Human resources"
-                },
-
-                new Employee()
-                {
-                    Id = "3",
-                    Name = "Nguyen Van C",
-                    Gender = "Male",
-                    BirthDate = new DateTime(1994, 4, 12),
-                    Position = "Sales",
-                    Department = "Sales"
+                    Gender = Gender.Male,
+                    CitizenId = "123456789000",
+                    PhoneNumber = "0123456789",
+                    Department = new Department { Name = "Sales" },
+                    CurrentPosition = new PositionRecord()
+                    {
+                        StartDate = new DateTime(2001, 5, 5),
+                        EndDate = new DateTime(2022, 5, 5),
+                        Position = new Position { Name = "Sales manager" }
+                    },
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(employees));
