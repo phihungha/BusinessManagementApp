@@ -6,18 +6,27 @@ namespace BusinessManagementApp.Data.Model
     {
         public int Id { get; set; }
 
-        public string EmployeeId { get; set; }
+        public Employee Employee { get; set; }
 
-        public string Name { get; set; }
-
-        public string Description { get; set; }
+        public Employee CompanyRepresentative { get; set; }
 
         public ContractType Type { get; set; }
 
         public DateTime From { get; set; }
 
         public DateTime To { get; set; }
+    }
 
-        public decimal Salary { get; set; }
+    public class ContractType
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public decimal BaseSalary { get; set; }
+
+        public DateTime Period { get; set; }
     }
 }

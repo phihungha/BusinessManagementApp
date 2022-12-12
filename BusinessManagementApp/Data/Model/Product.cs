@@ -14,6 +14,15 @@
 
         public int Stock { get; set; }
 
-        public int[] Categories { get; set; }
+        public ProductCategory Category { get; set; }
+    }
+
+    public class ProductCategory
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
     }
 }

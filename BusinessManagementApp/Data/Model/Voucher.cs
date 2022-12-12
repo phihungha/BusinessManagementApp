@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace BusinessManagementApp.Data.Model
 {
@@ -6,10 +8,36 @@ namespace BusinessManagementApp.Data.Model
     {
         public string Code { get; set; }
 
-        public int TypeId { get; set; }
+        public VoucherType Type { get; set; }
 
         public DateTime ReleaseDate { get; set; }
 
-        public DateTime ExpiredDate { get; set; }
+        public DateTime ExpiryDate { get; set; }
+    }
+
+    public class VoucherType
+    {
+        public int Id { get; set; }
+
+        public string Name { get; set; }
+
+        public string Description { get; set; }
+
+        public DiscountType DiscountType { get; set; }
+
+        public double DiscountValue { get; set; }
+
+        public decimal MinNetPrice { get; set; }
+
+        public List<Product> AppliedProducts { get; set; }
+    }
+
+    public enum DiscountType
+    {
+        [Description("Percentage")]
+        Percent,
+
+        [Description("Raw value")]
+        Raw
     }
 }

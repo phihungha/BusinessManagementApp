@@ -8,10 +8,12 @@
 
         public int Year { get; set; }
 
-        public decimal BasicSalary { get; set; }
+        public decimal BaseSalary { get; set; }
 
-        public byte BonusType { get; set; }
+        public decimal SupplementSalary { get; set; }
 
-        public decimal Bonus { get; set; }
+        public decimal BonusSalary { get; set; }
+
+        public decimal TotalSalary { get; set; }
     }
 }
