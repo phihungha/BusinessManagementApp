@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BusinessManagementApp.Views.DetailsViews
 {
     /// <summary>
-    /// Interaction logic for EmployeeInfoEdit.xaml
+    /// Interaction logic for ContractTypeDetails.xaml
     /// </summary>
-    public partial class EmployeeInfoDetails : UserControl
+    public partial class ContractTypeDetails : UserControl
     {
-        public EmployeeInfoDetails()
+        public ContractTypeDetails()
         {
             InitializeComponent();
         }

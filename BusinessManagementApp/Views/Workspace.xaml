@@ -86,6 +86,62 @@
         <DataTemplate DataType="{x:Type vm:VoucherTypesVM}">
             <views:VoucherTypes />
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:ContractTypeDetailsVM}">
+            <editviews:ContractTypeDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:CustomerDetailsVM}">
+            <editviews:CustomerDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:DepartmentDetailsVM}">
+            <editviews:DepartmentDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:EmployeeDetailsVM}">
+            <editviews:EmployeeDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:OrderDetailsVM}">
+            <editviews:OrderDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:OvertimeRecordDetailsVM}">
+            <editviews:OvertimeRecordDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:PositionDetailsVM}">
+            <editviews:PositionDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:ProductDetailsVM}">
+            <editviews:ProductDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:ProviderDetailsVM}">
+            <editviews:ProviderDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:SelectOrderItemsVM}">
+            <editviews:SelectOrderItems />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:SkillRatingDetailsVM}">
+            <editviews:SkillRatingDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:SkillTypeDetailsVM}">
+            <editviews:SkillTypeDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:VoucherDetailsVM}">
+            <editviews:VoucherDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:VoucherTypeDetailsVM}">
+            <editviews:VoucherTypeDetails />
+        </DataTemplate>
     </UserControl.Resources>
     
     <Grid>
