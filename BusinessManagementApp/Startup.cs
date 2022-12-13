@@ -94,7 +94,7 @@ namespace BusinessManagementApp
                 service.AddTransient<DepartmentsVM>();
                 service.AddTransient<DepartmentDetailsVM>();
                 service.AddTransient<EmployeesVM>();
-                service.AddTransient<EmployeeDetails>();
+                service.AddTransient<EmployeeDetailsVM>();
                 service.AddTransient<OrdersVM>();
                 service.AddTransient<OrderDetailsVM>();
                 service.AddTransient<OvertimeRecordsVM>();

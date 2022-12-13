@@ -37,7 +37,9 @@ namespace BusinessManagementApp.ViewModels
         SalesReport,
         SelectOrderItem,
         SkillRating,
+        SkillRatingDetails,
         SkillTypes,
+        SkillTypeDetails,
         VoucherTypes,
         VoucherTypeDetails,
         Vouchers,
@@ -186,7 +188,7 @@ namespace BusinessManagementApp.ViewModels
                     return serviceProvider.GetRequiredService<EmployeesVM>();
 
                 case WorkspaceViewName.EmployeeInfoDetails:
-                    return serviceProvider.GetRequiredService<EmployeeDetails>();
+                    return serviceProvider.GetRequiredService<EmployeeDetailsVM>();
 
                 case WorkspaceViewName.Orders:
                     return serviceProvider.GetRequiredService<OrdersVM>();
@@ -233,8 +235,14 @@ namespace BusinessManagementApp.ViewModels
                 case WorkspaceViewName.SkillRating:
                     return serviceProvider.GetRequiredService<SkillRatingVM>();
 
+                case WorkspaceViewName.SkillRatingDetails:
+                    return serviceProvider.GetRequiredService<SkillRatingDetailsVM>();
+
                 case WorkspaceViewName.SkillTypes:
                     return serviceProvider.GetRequiredService<SkillTypesVM>();
+
+                case WorkspaceViewName.SkillTypeDetails:
+                    return serviceProvider.GetRequiredService<SkillTypeDetailsVM>();
 
                 case WorkspaceViewName.Vouchers:
                     return serviceProvider.GetRequiredService<VouchersVM>();

@@ -15,20 +15,76 @@
         <converters:ViewNameToString x:Key="ViewNameToStringConverter" />
         <converters:ViewNameToImageSource x:Key="ViewNameToImageSourceConverter" />
 
-        <DataTemplate DataType="{x:Type vm:OverviewVM}">
-            <views:Overview />
+        <DataTemplate DataType="{x:Type vm:BonusesVM}">
+            <views:Bonuses />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:BonusTypesVM}">
+            <views:BonusTypes />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:ContractTypesVM}">
+            <views:ContractTypes />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:CustomersVM}">
+            <views:Customers />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:DepartmentsVM}">
+            <views:Departments />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:EmployeesVM}">
+            <views:Employees />
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:OrdersVM}">
             <views:Orders />
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type vm:EmployeeInfoVM}">
-            <views:EmployeeInfo />
+        <DataTemplate DataType="{x:Type vm:OvertimeRecordsVM}">
+            <views:OvertimeRecords />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:OverviewVM}">
+            <views:Overview />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type editvm:EmployeeInfoDetailsVM}">
-            <editviews:EmployeeInfoDetails />
+        <DataTemplate DataType="{x:Type vm:PositionsVM}">
+            <views:Positions />
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type vm:ProductsVM}">
+            <views:Products />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:ProvidersVM}">
+            <views:Providers />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SalaryReportVM}">
+            <views:SalaryReport />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SalesReportVM}">
+            <views:SalesReport />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SkillRatingVM}">
+            <views:SkillRating />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:SkillTypesVM}">
+            <views:SkillTypes />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VouchersVM}">
+            <views:Vouchers />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:VoucherTypesVM}">
+            <views:VoucherTypes />
         </DataTemplate>
     </UserControl.Resources>
     

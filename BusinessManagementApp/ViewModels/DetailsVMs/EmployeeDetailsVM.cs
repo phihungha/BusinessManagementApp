@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
-    public class EmployeeDetails : ViewModelBase
+    public class EmployeeDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
         #region Dependencies
@@ -162,7 +162,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public EmployeeDetails(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo)
+        public EmployeeDetailsVM(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo)
         {
             this.employeeRepo = employeeRepo;
             this.departmentsRepo = departmentsRepo;
