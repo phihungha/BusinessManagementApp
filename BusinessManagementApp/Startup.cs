@@ -67,12 +67,24 @@ namespace BusinessManagementApp
             return host;
         }
 
+        // Add new repositories here.
         public static IHostBuilder AddRepositories(this IHostBuilder host)
         {
             host.ConfigureServices((context, service) =>
             {
-                service.AddSingleton<EmployeeRepo>();
+                service.AddSingleton<ContractTypesRepo>();
+                service.AddSingleton<CustomersRepo>();
                 service.AddSingleton<DepartmentsRepo>();
+                service.AddSingleton<EmployeeRepo>();
+                service.AddSingleton<OrdersRepo>();
+                service.AddSingleton<OvertimeRecordsRepo>();
+                service.AddSingleton<PositionsRepo>();
+                service.AddSingleton<ProductsRepo>();
+                service.AddSingleton<SalaryRecordsRepo>();
+                service.AddSingleton<SkillsRepo>();
+                service.AddSingleton<SkillTypesRepo>();
+                service.AddSingleton<VouchersRepo>();
+                service.AddSingleton<VoucherTypesRepo>();
             });
             return host;
         }
@@ -110,7 +122,9 @@ namespace BusinessManagementApp
                 service.AddTransient<SalesReportVM>();
                 service.AddTransient<SelectOrderItemsVM>();
                 service.AddTransient<SkillRatingVM>();
+                service.AddTransient<SkillRatingDetailsVM>();
                 service.AddTransient<SkillTypesVM>();
+                service.AddTransient<SkillTypeDetailsVM>();
                 service.AddTransient<VouchersVM>();
                 service.AddTransient<VoucherDetailsVM>();
                 service.AddTransient<VoucherTypesVM>();
