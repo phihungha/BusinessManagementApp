@@ -72,7 +72,7 @@
                 <DataGridTextColumn Header="Department" Binding="{Binding Department.Name}" Width="*" />
 
                 <!-- Edit button -->
-                <DataGridTemplateColumn Width="60" >
+                <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Background="{StaticResource PrimaryColorBrush}" 

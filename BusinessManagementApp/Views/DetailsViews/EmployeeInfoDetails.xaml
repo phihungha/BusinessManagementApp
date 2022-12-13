@@ -90,7 +90,11 @@
 
         <StackPanel Grid.Row="7" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Department</TextBlock>
-            <ComboBox HorizontalAlignment="Stretch" />
+            <ComboBox HorizontalAlignment="Stretch"
+                      ItemsSource="{Binding Departments}"
+                      SelectedItem="{Binding Department}"
+                      SelectedIndex="0"
+                      DisplayMemberPath="Name" />
         </StackPanel>
 
         <UniformGrid Grid.Row="8" Grid.ColumnSpan="4" Columns="3"

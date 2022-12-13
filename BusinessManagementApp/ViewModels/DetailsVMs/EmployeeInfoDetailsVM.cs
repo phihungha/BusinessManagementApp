@@ -1,9 +1,11 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -24,6 +26,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Model object
         private Employee employee = new();
+
+        #region Combobox items
+        public ObservableCollection<Department> Departments { get; } = new();
+        #endregion
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
@@ -109,13 +115,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref address, value, true);
         }
 
+        private Department department = new();
+
+        public Department Department
+        {
+            get => department;
+            set => SetProperty(ref department, value);
+        }
+
         #endregion Input properties
 
         private bool isEditMode = false;
 
         #region Button enable/disable logic
 
-        private bool canSave = true;
+        private bool canSave = false;
 
         public bool CanSave
         {
@@ -162,8 +176,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             CanDelete = true;
             isEditMode = true;
 
-            CanSave = false;
+            Departments.AddRange(await departmentsRepo.GetDepartments());
             await LoadEmployee((string)id);
+
             CanSave = true;
         }
 
@@ -178,6 +193,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             PhoneNumber = employee.PhoneNumber;
             Email = employee.Email;
             Address = employee.Address;
+            Department = employee.Department;
         }
 
         private async Task SaveEmployee()

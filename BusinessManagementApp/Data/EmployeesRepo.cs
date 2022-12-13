@@ -26,7 +26,7 @@ namespace BusinessManagementApp.Data
                 PhoneNumber = "0123456789",
                 Email = "NguyenA@gmail.com",
                 Address = "178 Nguyen Trai, Binh Duong",
-                Department = new Department { Name = "Sales" },
+                Department = new Department { Id = 2, Name = "Human resources" },
                 CurrentPosition = new Position() { Name = "Sales manager" },
                 PositionRecords = new List<PositionRecord>
                 {
