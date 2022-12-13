@@ -52,6 +52,7 @@
                 Search by
             </TextBlock>
 
+            <!-- Bind to an enum property as follow: -->
             <ComboBox Margin="10,0,0,0" Width="190"
                       ItemsSource="{Binding SearchBy, Converter={converters:EnumToCollection}, Mode=OneTime}"
                       SelectedValuePath="Value"
