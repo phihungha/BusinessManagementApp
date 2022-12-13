@@ -27,7 +27,7 @@ namespace BusinessManagementApp.ViewModels
         PhoneNumber
     }
 
-    public class EmployeeInfoVM : ViewModelBase
+    public class EmployeesVM : ViewModelBase
     {
         private EmployeeRepo employeesRepo;
 
@@ -45,7 +45,7 @@ namespace BusinessManagementApp.ViewModels
 
         // Declare dependencies (e.g repositories) to use as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public EmployeeInfoVM(EmployeeRepo employeesRepo)
+        public EmployeesVM(EmployeeRepo employeesRepo)
         {
             this.employeesRepo = employeesRepo;
 

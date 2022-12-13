@@ -183,10 +183,10 @@ namespace BusinessManagementApp.ViewModels
                     return serviceProvider.GetRequiredService<DepartmentDetailsVM>();
 
                 case WorkspaceViewName.EmployeeInfo:
-                    return serviceProvider.GetRequiredService<EmployeeInfoVM>();
+                    return serviceProvider.GetRequiredService<EmployeesVM>();
 
                 case WorkspaceViewName.EmployeeInfoDetails:
-                    return serviceProvider.GetRequiredService<EmployeeInfoDetailsVM>();
+                    return serviceProvider.GetRequiredService<EmployeeDetails>();
 
                 case WorkspaceViewName.Orders:
                     return serviceProvider.GetRequiredService<OrdersVM>();
