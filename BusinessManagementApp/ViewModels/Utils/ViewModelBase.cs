@@ -9,11 +9,11 @@ namespace BusinessManagementApp.ViewModels.Utils
     public abstract class ViewModelBase : ObservableValidator
     {
         /// <summary>
-        /// Extra object from navigation will be passed 
-        /// into the view model via this method.
+        /// Begin loading data for the view model.
+        /// Can accept an extra object (e.g. ID of a selected item)
         /// </summary>
         /// <param name="obj">Extra object</param>
-        public virtual void ReceiveExtra(object obj)
+        public virtual void LoadData(object? obj = null)
         { 
         }
     }

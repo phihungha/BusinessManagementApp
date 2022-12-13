@@ -146,9 +146,9 @@ namespace BusinessManagementApp.ViewModels
         private void HandleNavigationMessageContent(NavigationMessageContent content)
         {
             ViewModelBase viewModel = GetViewModelFromViewName(content.TargetViewName);
-            if (content.Extra != null && viewModel != null)
+            if (viewModel != null)
             {
-                viewModel.ReceiveExtra(content.Extra);
+                viewModel.LoadData(content.Extra);
             }
             CurrentViewVM = viewModel;
         }

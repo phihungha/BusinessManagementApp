@@ -16,16 +16,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class EmployeeInfoDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
-
         #region Dependencies
 
         private EmployeeRepo employeeRepo;
         private DepartmentsRepo departmentsRepo;
 
         #endregion Dependencies
-
-        // Model object
-        private Employee employee = new();
 
         #region Combobox items
         public ObservableCollection<Department> Departments { get; } = new();
@@ -35,10 +31,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
-
         #region Input properties
 
-        private string id = "";
+        private string id = string.Empty;
 
         public string Id
         {
@@ -46,7 +41,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             private set => SetProperty(ref id, value);
         }
 
-        private string name = "";
+        private string name = string.Empty;
 
         [Required]
         public string Name
@@ -125,9 +120,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Input properties
 
+        #region Button enable/disable logic
+
         private bool isEditMode = false;
 
-        #region Button enable/disable logic
+        private bool IsEditMode
+        {
+            get => isEditMode;
+            set
+            {
+                SetProperty(ref isEditMode, value);
+                CanDelete = value;
+            }
+        }
 
         private bool canSave = false;
 
@@ -155,7 +160,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        // Declare dependencies (e.g repositories) to use as constructor parameters
+        // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
         public EmployeeInfoDetailsVM(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo)
         {
@@ -169,22 +174,24 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 );
         }
 
-        // Extra object passed in navigation is received here.
-        // This is mostly to get the ID from list view to load the model object.
-        public override async void ReceiveExtra(object id)
+        // Load data from repositories here.
+        // An object passed when navigating to this screen is also received here.
+        public override async void LoadData(object? id = null)
         {
-            CanDelete = true;
-            isEditMode = true;
-
             Departments.AddRange(await departmentsRepo.GetDepartments());
-            await LoadEmployee((string)id);
+
+            if (id != null)
+            {
+                IsEditMode = true;
+                await LoadEmployee((string)id);
+            }
 
             CanSave = true;
         }
 
         private async Task LoadEmployee(string id)
         {
-            employee = await employeeRepo.GetEmployee(id);
+            Employee employee = await employeeRepo.GetEmployee(id);
             Id = employee.Id;
             Name = employee.Name;
             CitizenId = employee.CitizenId;
@@ -202,15 +209,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             if (HasErrors)
                 return;
 
-            employee.Id = Id;
-            employee.Name = Name;
-            employee.CitizenId = CitizenId;
-            employee.BirthDate = BirthDate;
-            employee.PhoneNumber = PhoneNumber;
-            employee.Email = Email;
-            employee.Address = Address;
+            var employee = new Employee()
+            {
+                Id = Id,
+                Name = Name,
+                CitizenId = CitizenId,
+                BirthDate = BirthDate,
+                PhoneNumber = PhoneNumber,
+                Email = Email,
+                Address = Address,
+                Department = Department
+            };
 
-            if (isEditMode)
+            if (IsEditMode)
             {
                 await employeeRepo.UpdateEmployee(Id, employee);
             }
