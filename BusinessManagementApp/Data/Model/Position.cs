@@ -31,6 +31,8 @@ namespace BusinessManagementApp.Data.Model
 
         public DateTime? EndDate { get; set; }
 
+        public bool IsCurrent { get; set; }
+
         public Position Position { get; set; }
     }
 

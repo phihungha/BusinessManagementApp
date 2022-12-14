@@ -22,4 +22,8 @@
         <Setter Property="FontWeight" Value="Bold" />
         <Setter Property="Foreground" Value="#00a6ff" />
     </Style>
+
+    <Style TargetType="TextBlock" x:Key="CurrentRecordItem">
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
 </ResourceDictionary>

@@ -22,6 +22,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private EmployeeRepo employeesRepo;
         private DepartmentsRepo departmentsRepo;
         private PositionsRepo positionsRepo;
+        private ContractTypesRepo contractTypesRepo;
 
         #endregion Dependencies
 
@@ -29,6 +30,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public ObservableCollection<Department> Departments { get; } = new();
         public ObservableCollection<Position> Positions { get; } = new();
+        public ObservableCollection<ContractType> ContractTypes { get; } = new();
 
         #endregion Combobox items
 
@@ -137,6 +139,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public ObservableCollection<PositionRecord> PositionRecords { get; } = new();
 
+        public ObservableCollection<Contract> Contracts { get; } = new();
+
         #endregion Input properties
 
         #region Button enable/disable logic
@@ -181,11 +185,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public EmployeeDetailsVM(EmployeeRepo employeesRepo, DepartmentsRepo departmentsRepo, PositionsRepo positionsRepo)
+        public EmployeeDetailsVM(EmployeeRepo employeesRepo,
+                                 DepartmentsRepo departmentsRepo,
+                                 PositionsRepo positionsRepo,
+                                 ContractTypesRepo contractTypesRepo)
         {
             this.employeesRepo = employeesRepo;
             this.departmentsRepo = departmentsRepo;
             this.positionsRepo = positionsRepo;
+            this.contractTypesRepo = contractTypesRepo;
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new AsyncRelayCommand(DeleteEmployee);
@@ -200,6 +208,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             Departments.AddRange(await departmentsRepo.GetDepartments());
             Positions.AddRange(await positionsRepo.GetPositions());
+            ContractTypes.AddRange(await contractTypesRepo.GetContractTypes());
 
             if (id != null)
             {
@@ -224,6 +233,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Department = employee.Department;
             Position = employee.CurrentPosition;
             PositionRecords.AddRange(employee.PositionRecords);
+            Contracts.AddRange(employee.Contracts);
         }
 
         private async Task SaveEmployee()

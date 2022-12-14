@@ -32,21 +32,24 @@ namespace BusinessManagementApp.Data
                 {
                     new PositionRecord()
                     {
-                        StartDate = new DateTime(2022, 5, 6),
+                        StartDate = new DateTime(2020, 5, 5),
+                        IsCurrent = true,
                         Position = new Position { Name = "Director" }
                     },
 
                     new PositionRecord()
                     {
-                        StartDate = new DateTime(2001, 5, 5),
-                        EndDate = new DateTime(2022, 5, 5),
+                        StartDate = new DateTime(2015, 5, 5),
+                        EndDate = new DateTime(2020, 5, 5),
+                        IsCurrent = false,
                         Position = new Position { Name = "Sales manager" }
                     },
 
                     new PositionRecord()
                     {
-                        StartDate = new DateTime(1995, 5, 5),
-                        EndDate = new DateTime(2001, 5, 5),
+                        StartDate = new DateTime(2011, 5, 5),
+                        EndDate = new DateTime(2015, 5, 5),
+                        IsCurrent = false,
                         Position = new Position { Name = "Sales" }
                     }
                 },
@@ -54,9 +57,19 @@ namespace BusinessManagementApp.Data
                 {
                     new Contract()
                     {
-                        From = new DateTime(1995, 5, 5),
-                        To = new DateTime(2001,5,5),
+                        Id = 1,
+                        StartDate = new DateTime(2021, 5, 5),
+                        IsCurrent = true,
                         Type = new ContractType() { Name = "Permanent" }
+                    },
+
+                    new Contract()
+                    {
+                        Id = 2,
+                        StartDate = new DateTime(2011, 5, 5),
+                        EndDate = new DateTime(2021,5,5),
+                        IsCurrent = false,
+                        Type = new ContractType() { Name = "10 years" }
                     }
                 },
             };
