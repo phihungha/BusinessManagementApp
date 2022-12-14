@@ -148,7 +148,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             var contracttype = new ContractType()
             {
-                Id = Id,
+                Id = int.Parse(Id),
                 Name = Name,
                 Period = int.Parse(Period),
                 BaseSalary= decimal.Parse(BaseSalary),

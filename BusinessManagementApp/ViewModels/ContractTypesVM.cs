@@ -45,10 +45,10 @@ namespace BusinessManagementApp.ViewModels
             var collectionViewSource = new CollectionViewSource() { Source = contracttypes };
             ContractTypesView = collectionViewSource.View;
             ContractTypesView.Filter = FilterList;
-
+            
             AddContractType = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ContractTypeDetails));
             Search = new RelayCommand(() => ContractTypesView.Refresh());
-            Edit = new RelayCommand<string>(id => OpenDetailsView(id));
+            Edit = new RelayCommand<int>(id => OpenDetailsView(id.ToString()));
             LoadData();
         }
         private bool FilterList(object item)
@@ -67,7 +67,7 @@ namespace BusinessManagementApp.ViewModels
                     return false;
             }
         }
-        private void OpenDetailsView(string id)
+        private void OpenDetailsView(string? id)
         {
             if (id == null)
             {

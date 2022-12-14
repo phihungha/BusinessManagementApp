@@ -4,7 +4,7 @@ namespace BusinessManagementApp.Data.Model
 {
     public class Contract
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public Employee Employee { get; set; }
 
@@ -19,7 +19,7 @@ namespace BusinessManagementApp.Data.Model
 
     public class ContractType
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
 

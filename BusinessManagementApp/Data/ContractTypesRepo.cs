@@ -18,7 +18,7 @@ namespace BusinessManagementApp.Data
         {
             var contracttype = new ContractType()
             {
-                Id ="1",
+                Id = 1,
                 Name = "Permanent",
                 BaseSalary = 60,
                 Period = 50
@@ -31,17 +31,17 @@ namespace BusinessManagementApp.Data
             {
                 new ContractType()
                 {
-                    Id = "1",
+                    Id = 1,
                     Name = "1 month",
                     BaseSalary = 60,
                     Period= 50
                 },
                 new ContractType()
                 {
-                    Id = "1",
+                    Id = 2,
                     Name = "2 month",
                     BaseSalary = 50,
-                    Period= 100
+                    Period = 100
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(contracttypes));
