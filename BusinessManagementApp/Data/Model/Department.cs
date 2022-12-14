@@ -14,7 +14,8 @@ namespace BusinessManagementApp.Data.Model
 
         public Employee Head { get; set; }
 
-        // Supports WPF ComboBox binding
+        // Supports WPF ComboBox binding. 
+        // Comparing Id is usually enough.
         public bool Equals(Department? other)
         {
             if (other == null) return false;

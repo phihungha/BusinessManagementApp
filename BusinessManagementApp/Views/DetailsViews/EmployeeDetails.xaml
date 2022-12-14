@@ -52,6 +52,7 @@
 
         <StackPanel Grid.Row="3" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Gender</TextBlock>
+            <!-- Example of a combobox that binds to an enum property -->
             <ComboBox HorizontalAlignment="Stretch"
                       ItemsSource="{Binding Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
                       SelectedValuePath="Value"
@@ -90,6 +91,7 @@
 
         <StackPanel Grid.Row="7" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Department</TextBlock>
+            <!-- Example of a combobox that binds to a non-enum property -->
             <ComboBox HorizontalAlignment="Stretch"
                       ItemsSource="{Binding Departments}"
                       SelectedItem="{Binding Department}"

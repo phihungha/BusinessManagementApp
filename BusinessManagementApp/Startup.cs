@@ -80,6 +80,7 @@ namespace BusinessManagementApp
                 service.AddSingleton<OvertimeRecordsRepo>();
                 service.AddSingleton<PositionsRepo>();
                 service.AddSingleton<ProductsRepo>();
+                service.AddSingleton<ProvidersRepo>();
                 service.AddSingleton<SalaryRecordsRepo>();
                 service.AddSingleton<SkillsRepo>();
                 service.AddSingleton<SkillTypesRepo>();
