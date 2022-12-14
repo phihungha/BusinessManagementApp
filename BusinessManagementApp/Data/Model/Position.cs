@@ -29,7 +29,7 @@ namespace BusinessManagementApp.Data.Model
 
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public Position Position { get; set; }
     }

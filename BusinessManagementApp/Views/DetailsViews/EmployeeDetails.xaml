@@ -144,17 +144,29 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <TextBlock FontSize="16" Text="{Binding Position.Name}" />
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Text="{Binding StartDate, StringFormat=From {0:d}}" />
-                                    <TextBlock Margin="5,0,0,0" Text="{Binding EndDate, StringFormat=to {0:d}}" />
+                                    <TextBlock Style="{Binding EndDate, Converter={converters:PositionEndDateToStyle}}" 
+                                               FontSize="16" Text="{Binding Position.Name}" />
+                                    <TextBlock Visibility="{Binding EndDate, Converter={converters:PositionEndDateToVisibility}}" 
+                                               Margin="5,0,0,0" Style="{StaticResource CurrentPositionItem}" FontSize="16">
+                                        (Current)
+                                    </TextBlock>
+                                </StackPanel>
+                                
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{Binding EndDate, Converter={converters:PositionEndDateToStyle}}" 
+                                               Text="{Binding StartDate, StringFormat=From {0:d}}" />
+                                    <TextBlock Style="{Binding EndDate, Converter={converters:PositionEndDateToStyle}}"
+                                               Margin="5,0,0,0" 
+                                               Text="{Binding EndDate, Converter={converters:PositionEndDateToString}, 
+                                                      StringFormat=to {0}}" />
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <UniformGrid Grid.Row="12" Grid.ColumnSpan="4" Columns="3"
+                <UniformGrid Grid.Row="12" Grid.ColumnSpan="4" Columns="3" Margin="0,10,0,0"
                      VerticalAlignment="Bottom" HorizontalAlignment="Right"
                      Width="350" Height="55">
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
