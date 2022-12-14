@@ -10,7 +10,7 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -127,10 +127,11 @@
                     <ComboBox Width="250"
                               ItemsSource="{Binding Positions}"
                               SelectedItem="{Binding Position}"
+                              SelectedIndex="0"
                               DisplayMemberPath="Name" />
                 </StackPanel>
 
-                <ListView Grid.Row="11" Grid.ColumnSpan="3" MaxHeight="100"
+                <ListView Grid.Row="11" Grid.ColumnSpan="3" MaxHeight="200"
                           HorizontalAlignment="Stretch" Margin="0,15,0,0"
                           ItemsSource="{Binding PositionRecords}">
                     <ListView.ItemContainerStyle>
@@ -152,20 +153,20 @@
                         <DataTemplate>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}" 
+                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                FontSize="16" Text="{Binding Position.Name}" />
                                     <TextBlock Visibility="{Binding IsCurrent,Converter={StaticResource BoolToVisibilityConverter}}"
                                                Margin="5,0,0,0" Style="{StaticResource CurrentRecordItem}" FontSize="16">
                                         (Current)
                                     </TextBlock>
                                 </StackPanel>
-                                
+
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}" 
+                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                Text="{Binding StartDate, StringFormat=From {0:d}}" />
                                     <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
-                                               Margin="5,0,0,0" 
-                                               Text="{Binding EndDate, Converter={converters:RecordItemEndDateToString}, 
+                                               Margin="5,0,0,0"
+                                               Text="{Binding EndDate, Converter={converters:RecordItemEndDateToString},
                                                       StringFormat=to {0}}" />
                                 </StackPanel>
                             </StackPanel>
@@ -177,12 +178,75 @@
                     Contract
                 </TextBlock>
 
-                <StackPanel Grid.Row="13" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"
-                    Orientation="Horizontal" Margin="0,15,0,0">
-                    
+                <StackPanel Grid.Row="13" Grid.ColumnSpan="3" Margin="0,15,0,0" 
+                            HorizontalAlignment="Left" Width="450">
+                    <UniformGrid Columns="3" HorizontalAlignment="Stretch">
+                        <Button Command="{Binding ToggleNewContractEditor}" Margin="0,0,5,0"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource PlusWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                                <TextBlock FontSize="13">New</TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Command="{Binding RenewCurrentContract}" Margin="0,0,5,0"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Foreground="White" Background="#00e823">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource ClockRefreshIcon}" Width="15" Margin="0,0,10,0" />
+                                <TextBlock FontSize="13">Re-new current</TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                        <Button Command="{Binding TerminateCurrentContract}"
+                                HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                Foreground="White" Background="{StaticResource DangerColorBrush}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                                <TextBlock FontSize="13">Terminate current</TextBlock>
+                            </StackPanel>
+                        </Button>
+                    </UniformGrid>
+
+                    <Grid Margin="0,15,0,0" Visibility="{Binding NewContractEditorDisplayed, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Style="{StaticResource TextBoxLeftLabel}">
+                            Contract type
+                        </TextBlock>
+                        <ComboBox Grid.Column="1" HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding ContractTypes}"
+                                  SelectedItem="{Binding NewContractType}"
+                                  SelectedIndex="0"
+                                  DisplayMemberPath="Name" />
+
+                        <TextBlock Grid.Row="1" Style="{StaticResource TextBoxLeftLabel}">
+                            Start date
+                        </TextBlock>
+                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    SelectedDate="{Binding NewContractStartDate}" />
+
+                        <TextBlock Grid.Row="2" Style="{StaticResource TextBoxLeftLabel}">
+                            End date
+                        </TextBlock>
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"
+                                 Text="{Binding NewContractEndDate, StringFormat=d}"
+                                 IsReadOnly="True" />
+                    </Grid>
                 </StackPanel>
 
-                <ListView Grid.Row="14" Grid.ColumnSpan="3" MaxHeight="100"
+                <ListView Grid.Row="14" Grid.ColumnSpan="3" MaxHeight="200"
                           HorizontalAlignment="Stretch" Margin="0,15,0,0"
                           ItemsSource="{Binding Contracts}">
                     <ListView.ItemContainerStyle>
@@ -204,9 +268,9 @@
                         <DataTemplate>
                             <StackPanel>
                                 <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
-                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}" 
+                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                FontSize="16" Text="{Binding Id, StringFormat=#{0}}" />
-                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}" 
+                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                FontSize="16" Text="{Binding Type.Name}" />
                                     <TextBlock Visibility="{Binding IsCurrent,Converter={StaticResource BoolToVisibilityConverter}}"
                                                Style="{StaticResource CurrentRecordItem}" FontSize="16">
@@ -215,11 +279,11 @@
                                 </ui:SimpleStackPanel>
 
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}" 
+                                    <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                Text="{Binding StartDate, StringFormat=From {0:d}}" />
                                     <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
-                                               Margin="5,0,0,0" 
-                                               Text="{Binding EndDate, Converter={converters:RecordItemEndDateToString}, 
+                                               Margin="5,0,0,0"
+                                               Text="{Binding EndDate, Converter={converters:RecordItemEndDateToString},
                                                       StringFormat=to {0}}" />
                                 </StackPanel>
                             </StackPanel>
@@ -228,27 +292,29 @@
                 </ListView>
 
                 <UniformGrid Grid.Row="15" Grid.ColumnSpan="4" Columns="3" Margin="0,10,0,0"
-                     VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                     Width="350" Height="55">
+                             VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                             Width="350" Height="55">
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                    Foreground="White" Background="{StaticResource DangerColorBrush}"
-                    Command="{Binding Delete}" IsEnabled="{Binding CanDelete}">
+                            Foreground="White" Background="{StaticResource DangerColorBrush}"
+                            Command="{Binding Delete}" IsEnabled="{Binding CanDelete}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
                             <TextBlock FontSize="16">Delete</TextBlock>
                         </StackPanel>
                     </Button>
+
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                    Command="{Binding Save}" IsEnabled="{Binding CanSave}">
+                            Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                            Command="{Binding Save}" IsEnabled="{Binding CanSave}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
                             <TextBlock FontSize="16">Save</TextBlock>
                         </StackPanel>
                     </Button>
+
                     <Button Command="{Binding Cancel}" Margin="5"
-                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    Foreground="White" Background="{StaticResource CancelColorBrush}">
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Foreground="White" Background="{StaticResource CancelColorBrush}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
                             <TextBlock FontSize="16">Cancel</TextBlock>

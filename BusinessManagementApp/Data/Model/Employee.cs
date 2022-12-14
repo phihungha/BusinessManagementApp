@@ -29,6 +29,8 @@ namespace BusinessManagementApp.Data.Model
 
         public List<PositionRecord> PositionRecords { get; set; }
 
+        public Contract CurrentContract { get; set; }
+
         public List<Contract> Contracts { get; set; }
 
         public DateTime? TerminationDate { get; set; }

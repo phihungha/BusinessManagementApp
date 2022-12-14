@@ -28,6 +28,13 @@ namespace BusinessManagementApp.Data
                 Address = "178 Nguyen Trai, Binh Duong",
                 Department = new Department { Id = 2, Name = "Human resources" },
                 CurrentPosition = new Position() { Id = 4, Name = "Director" },
+                CurrentContract = new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2021, 5, 5),
+                    IsCurrent = true,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
                 PositionRecords = new List<PositionRecord>
                 {
                     new PositionRecord()
@@ -57,7 +64,7 @@ namespace BusinessManagementApp.Data
                 {
                     new Contract()
                     {
-                        Id = 1,
+                        Id = 2,
                         StartDate = new DateTime(2021, 5, 5),
                         IsCurrent = true,
                         Type = new ContractType() { Name = "Permanent" }
@@ -65,7 +72,7 @@ namespace BusinessManagementApp.Data
 
                     new Contract()
                     {
-                        Id = 2,
+                        Id = 1,
                         StartDate = new DateTime(2011, 5, 5),
                         EndDate = new DateTime(2021,5,5),
                         IsCurrent = false,

@@ -173,9 +173,22 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             private set => SetProperty(ref canDelete, value);
         }
 
+        private bool newContractEditorDisplayed = false;
+
+        public bool NewContractEditorDisplayed
+        {
+            get => newContractEditorDisplayed;
+            private set => SetProperty(ref newContractEditorDisplayed, value);
+        }
+
         #endregion Button enable/disable logic
 
         #region Commands for buttons
+
+        public ICommand ToggleNewContractEditor { get; private set; }
+        public ICommand CreateNewContract { get; private set; }
+        public ICommand RenewCurrentContract { get; private set; }
+        public ICommand TerminateCurrentContract { get; private set; }
 
         public ICommand Save { get; private set; }
         public ICommand Delete { get; private set; }
@@ -194,6 +207,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.departmentsRepo = departmentsRepo;
             this.positionsRepo = positionsRepo;
             this.contractTypesRepo = contractTypesRepo;
+
+            ToggleNewContractEditor = new RelayCommand(
+                () => NewContractEditorDisplayed = !NewContractEditorDisplayed
+                );
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new AsyncRelayCommand(DeleteEmployee);
