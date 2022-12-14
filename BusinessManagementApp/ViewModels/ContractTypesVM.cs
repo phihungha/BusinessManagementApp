@@ -2,7 +2,6 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
@@ -21,6 +20,7 @@ namespace BusinessManagementApp.ViewModels
         [Description("Name")]
         Name,
     }
+
     public class ContractTypesVM : ViewModelBase
     {
         private ContractTypesRepo contracttypesRepo;
@@ -36,6 +36,7 @@ namespace BusinessManagementApp.ViewModels
         public ICommand AddContractType { get; }
         public ICommand Search { get; }
         public ICommand Edit { get; }
+
         public ContractTypesVM(ContractTypesRepo contracttypesRepo)
         {
             this.contracttypesRepo = contracttypesRepo;
@@ -45,12 +46,14 @@ namespace BusinessManagementApp.ViewModels
             var collectionViewSource = new CollectionViewSource() { Source = contracttypes };
             ContractTypesView = collectionViewSource.View;
             ContractTypesView.Filter = FilterList;
-            
+
             AddContractType = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ContractTypeDetails));
             Search = new RelayCommand(() => ContractTypesView.Refresh());
-            Edit = new RelayCommand<int>(id => OpenDetailsView(id.ToString()));
+            Edit = new RelayCommand<int?>(id => OpenDetailsView(id));
+
             LoadData();
         }
+
         private bool FilterList(object item)
         {
             var contracttype = (ContractType)item;
@@ -67,7 +70,8 @@ namespace BusinessManagementApp.ViewModels
                     return false;
             }
         }
-        private void OpenDetailsView(string? id)
+
+        private void OpenDetailsView(int? id)
         {
             if (id == null)
             {
@@ -82,5 +86,4 @@ namespace BusinessManagementApp.ViewModels
             contracttypes.AddRange(await contracttypesRepo.GetContractTypes());
         }
     }
-
 }

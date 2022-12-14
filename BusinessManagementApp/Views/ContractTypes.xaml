@@ -70,14 +70,13 @@
                 <DataGridTextColumn Header="Base Salary" Binding="{Binding BaseSalary}" Width="300" />
                 <DataGridTextColumn Header="Period" Binding="{Binding Period}" Width="*" />
 
-
                 <!-- Edit button -->
                 <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Background="{StaticResource PrimaryColorBrush}" 
                                     Margin="5" HorizontalAlignment="Center"
-                                    Command="{Binding Path=DataContext.Edit,
+                                    Command="{Binding DataContext.Edit,
                                               RelativeSource= {RelativeSource FindAncestor,
                                                                AncestorType={x:Type DataGrid}}}"
                                     CommandParameter="{Binding Id}">

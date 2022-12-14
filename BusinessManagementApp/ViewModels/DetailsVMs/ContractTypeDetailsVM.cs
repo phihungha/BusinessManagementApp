@@ -1,11 +1,9 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -16,22 +14,23 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class ContractTypeDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private ContractTypesRepo contracttypeRepo;
 
         #endregion Dependencies
 
-
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
-        private string id = string.Empty;
+        private int id = 0;
 
-        public string Id
+        public int Id
         {
             get => id;
             private set => SetProperty(ref id, value);
@@ -47,6 +46,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private string baseSalary = string.Empty;
+
         [BaseSalary]
         public string BaseSalary
         {
@@ -55,6 +55,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private string period = string.Empty;
+
         [Period]
         public string Period
         {
@@ -121,20 +122,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
-
             if (id != null)
             {
                 IsEditMode = true;
-                await LoadContractType((string)id);
+                await LoadContractType((int)id);
             }
 
             CanSave = true;
         }
 
-        private async Task LoadContractType(string id)
+        private async Task LoadContractType(int id)
         {
             ContractType contractType = await contracttypeRepo.GetContractType(id);
-            Id = contractType.Id.ToString();
+            Id = contractType.Id;
             Name = contractType.Name;
             BaseSalary = contractType.BaseSalary.ToString();
             Period = contractType.Period.ToString();
@@ -148,10 +148,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             var contracttype = new ContractType()
             {
-                Id = int.Parse(Id),
+                Id = Id,
                 Name = Name,
                 Period = int.Parse(Period),
-                BaseSalary= decimal.Parse(BaseSalary),
+                BaseSalary = decimal.Parse(BaseSalary),
             };
 
             if (IsEditMode)

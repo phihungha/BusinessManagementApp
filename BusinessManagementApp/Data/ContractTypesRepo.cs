@@ -1,20 +1,19 @@
 ﻿using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class ContractTypesRepo
     {
-        public IObservable<object> DeleteContractType(string id)
+        public IObservable<object> DeleteContractType(int id)
         {
             throw new NotImplementedException();
         }
-        public IObservable<ContractType> GetContractType(string name)
+
+        public IObservable<ContractType> GetContractType(int id)
         {
             var contracttype = new ContractType()
             {
@@ -25,6 +24,7 @@ namespace BusinessManagementApp.Data
             };
             return Observable.FromAsync(() => Task.FromResult(contracttype));
         }
+
         public IObservable<List<ContractType>> GetContractTypes()
         {
             var contracttypes = new List<ContractType>()
@@ -46,12 +46,13 @@ namespace BusinessManagementApp.Data
             };
             return Observable.FromAsync(() => Task.FromResult(contracttypes));
         }
+
         public IObservable<ContractType> AddContractType(ContractType contracttype)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<ContractType> UpdateContractType(string contracttypeId, ContractType contracttype)
+        public IObservable<ContractType> UpdateContractType(int contracttypeId, ContractType contracttype)
         {
             throw new NotImplementedException();
         }
