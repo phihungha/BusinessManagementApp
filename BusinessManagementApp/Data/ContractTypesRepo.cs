@@ -15,19 +15,19 @@ namespace BusinessManagementApp.Data
 
         public IObservable<ContractType> GetContractType(int id)
         {
-            var contracttype = new ContractType()
+            var contractType = new ContractType()
             {
                 Id = 1,
                 Name = "Permanent",
                 BaseSalary = 60,
                 Period = 50
             };
-            return Observable.FromAsync(() => Task.FromResult(contracttype));
+            return Observable.FromAsync(() => Task.FromResult(contractType));
         }
 
         public IObservable<List<ContractType>> GetContractTypes()
         {
-            var contracttypes = new List<ContractType>()
+            var contractTypes = new List<ContractType>()
             {
                 new ContractType()
                 {
@@ -44,15 +44,15 @@ namespace BusinessManagementApp.Data
                     Period = 100
                 }
             };
-            return Observable.FromAsync(() => Task.FromResult(contracttypes));
+            return Observable.FromAsync(() => Task.FromResult(contractTypes));
         }
 
-        public IObservable<ContractType> AddContractType(ContractType contracttype)
+        public IObservable<ContractType> AddContractType(ContractType contractType)
         {
             throw new NotImplementedException();
         }
 
-        public IObservable<ContractType> UpdateContractType(int contracttypeId, ContractType contracttype)
+        public IObservable<ContractType> UpdateContractType(int contractTypeId, ContractType contractType)
         {
             throw new NotImplementedException();
         }

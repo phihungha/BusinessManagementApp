@@ -23,7 +23,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class ContractTypesVM : ViewModelBase
     {
-        private ContractTypesRepo contracttypesRepo;
+        private ContractTypesRepo contractTypesRepo;
 
         private ObservableCollection<ContractType> contracttypes { get; } = new();
 
@@ -37,9 +37,9 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public ContractTypesVM(ContractTypesRepo contracttypesRepo)
+        public ContractTypesVM(ContractTypesRepo contractTypesRepo)
         {
-            this.contracttypesRepo = contracttypesRepo;
+            this.contractTypesRepo = contractTypesRepo;
 
             // DataGrid accesses the ObservableCollection of model objects
             // indirectly via a ICollectionView to support filtering.
@@ -56,15 +56,15 @@ namespace BusinessManagementApp.ViewModels
 
         private bool FilterList(object item)
         {
-            var contracttype = (ContractType)item;
+            var contractType = (ContractType)item;
 
             switch (SearchBy)
             {
                 case ContractTypeInfoSearchBy.Name:
-                    return contracttype.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+                    return contractType.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
                 case ContractTypeInfoSearchBy.Id:
-                    return contracttype.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+                    return contractType.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
                 default:
                     return false;
@@ -83,7 +83,7 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
-            contracttypes.AddRange(await contracttypesRepo.GetContractTypes());
+            contracttypes.AddRange(await contractTypesRepo.GetContractTypes());
         }
     }
 }

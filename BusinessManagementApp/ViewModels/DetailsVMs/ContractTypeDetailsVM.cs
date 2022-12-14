@@ -17,7 +17,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #region Dependencies
 
-        private ContractTypesRepo contracttypeRepo;
+        private ContractTypesRepo contractTypesRepo;
 
         #endregion Dependencies
 
@@ -107,9 +107,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public ContractTypeDetailsVM(ContractTypesRepo contracttypeRepo)
+        public ContractTypeDetailsVM(ContractTypesRepo contractTypesRepo)
         {
-            this.contracttypeRepo = contracttypeRepo;
+            this.contractTypesRepo = contractTypesRepo;
 
             Save = new AsyncRelayCommand(SaveContractType);
             Delete = new AsyncRelayCommand(DeleteContractType);
@@ -133,7 +133,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task LoadContractType(int id)
         {
-            ContractType contractType = await contracttypeRepo.GetContractType(id);
+            ContractType contractType = await contractTypesRepo.GetContractType(id);
             Id = contractType.Id;
             Name = contractType.Name;
             BaseSalary = contractType.BaseSalary.ToString();
@@ -156,17 +156,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             if (IsEditMode)
             {
-                await contracttypeRepo.UpdateContractType(Id, contracttype);
+                await contractTypesRepo.UpdateContractType(Id, contracttype);
             }
             else
             {
-                await contracttypeRepo.AddContractType(contracttype);
+                await contractTypesRepo.AddContractType(contracttype);
             }
         }
 
         private async Task DeleteContractType()
         {
-            await contracttypeRepo.DeleteContractType(Id);
+            await contractTypesRepo.DeleteContractType(Id);
         }
     }
 }
