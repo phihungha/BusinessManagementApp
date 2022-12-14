@@ -20,6 +20,6 @@
     <Style x:Key="ViewTitleText" TargetType="TextBlock">
         <Setter Property="FontSize" Value="35" />
         <Setter Property="FontWeight" Value="Bold" />
-        <Setter Property="Foreground" Value="{StaticResource PrimaryColorBrush}" />
+        <Setter Property="Foreground" Value="#00a6ff" />
     </Style>
 </ResourceDictionary>
