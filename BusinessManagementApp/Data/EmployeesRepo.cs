@@ -27,14 +27,13 @@ namespace BusinessManagementApp.Data
                 Email = "NguyenA@gmail.com",
                 Address = "178 Nguyen Trai, Binh Duong",
                 Department = new Department { Id = 2, Name = "Human resources" },
-                CurrentPosition = new Position() { Name = "Sales manager" },
+                CurrentPosition = new Position() { Id = 4, Name = "Director" },
                 PositionRecords = new List<PositionRecord>
                 {
                     new PositionRecord()
                     {
-                        StartDate = new DateTime(1995, 5, 5),
-                        EndDate = new DateTime(2001, 5, 5),
-                        Position = new Position { Name = "Sales" }
+                        StartDate = new DateTime(2022, 5, 6),
+                        Position = new Position { Name = "Director" }
                     },
 
                     new PositionRecord()
@@ -42,6 +41,13 @@ namespace BusinessManagementApp.Data
                         StartDate = new DateTime(2001, 5, 5),
                         EndDate = new DateTime(2022, 5, 5),
                         Position = new Position { Name = "Sales manager" }
+                    },
+
+                    new PositionRecord()
+                    {
+                        StartDate = new DateTime(1995, 5, 5),
+                        EndDate = new DateTime(2001, 5, 5),
+                        Position = new Position { Name = "Sales" }
                     }
                 },
                 Contracts = new List<Contract>

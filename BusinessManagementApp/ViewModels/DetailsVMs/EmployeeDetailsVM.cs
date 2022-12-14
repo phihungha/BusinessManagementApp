@@ -1,7 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -16,21 +16,27 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class EmployeeDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
-        private EmployeeRepo employeeRepo;
+        private EmployeeRepo employeesRepo;
         private DepartmentsRepo departmentsRepo;
+        private PositionsRepo positionsRepo;
 
         #endregion Dependencies
 
         #region Combobox items
+
         public ObservableCollection<Department> Departments { get; } = new();
-        #endregion
+        public ObservableCollection<Position> Positions { get; } = new();
+
+        #endregion Combobox items
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private string id = string.Empty;
@@ -121,6 +127,16 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref department, value);
         }
 
+        private Position position = new();
+
+        public Position Position
+        {
+            get => position;
+            set => SetProperty(ref position, value);
+        }
+
+        public ObservableCollection<PositionRecord> PositionRecords { get; } = new();
+
         #endregion Input properties
 
         #region Button enable/disable logic
@@ -165,10 +181,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public EmployeeDetailsVM(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo)
+        public EmployeeDetailsVM(EmployeeRepo employeesRepo, DepartmentsRepo departmentsRepo, PositionsRepo positionsRepo)
         {
-            this.employeeRepo = employeeRepo;
+            this.employeesRepo = employeesRepo;
             this.departmentsRepo = departmentsRepo;
+            this.positionsRepo = positionsRepo;
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new AsyncRelayCommand(DeleteEmployee);
@@ -182,6 +199,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public override async void LoadData(object? id = null)
         {
             Departments.AddRange(await departmentsRepo.GetDepartments());
+            Positions.AddRange(await positionsRepo.GetPositions());
 
             if (id != null)
             {
@@ -194,7 +212,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task LoadEmployee(string id)
         {
-            Employee employee = await employeeRepo.GetEmployee(id);
+            Employee employee = await employeesRepo.GetEmployee(id);
             Id = employee.Id;
             Name = employee.Name;
             CitizenId = employee.CitizenId;
@@ -204,6 +222,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Email = employee.Email;
             Address = employee.Address;
             Department = employee.Department;
+            Position = employee.CurrentPosition;
+            PositionRecords.AddRange(employee.PositionRecords);
         }
 
         private async Task SaveEmployee()
@@ -221,16 +241,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 PhoneNumber = PhoneNumber,
                 Email = Email,
                 Address = Address,
-                Department = Department
+                Department = Department,
+                CurrentPosition = Position
             };
 
             if (IsEditMode)
             {
-                await employeeRepo.UpdateEmployee(Id, employee);
+                await employeesRepo.UpdateEmployee(Id, employee);
             }
             else
             {
-                await employeeRepo.AddEmployee(employee);
+                await employeesRepo.AddEmployee(employee);
             }
 
             // Navigate back to list screen
@@ -239,7 +260,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task DeleteEmployee()
         {
-            await employeeRepo.DeleteEmployee(Id);
+            await employeesRepo.DeleteEmployee(Id);
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
     }
