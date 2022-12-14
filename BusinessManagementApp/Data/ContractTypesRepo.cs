@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data
 {
     public class ContractTypesRepo
     {
-        public IObservable<object> DeleteContractType(int id)
+        public IObservable<object> DeleteContractType(string id)
         {
             throw new NotImplementedException();
         }
@@ -18,10 +18,10 @@ namespace BusinessManagementApp.Data
         {
             var contracttype = new ContractType()
             {
-                Id = 1,
+                Id ="1",
                 Name = "Permanent",
                 BaseSalary = 60,
-                Period = new DateTime(2022, 12, 30)
+                Period = 50
             };
             return Observable.FromAsync(() => Task.FromResult(contracttype));
         }
@@ -31,17 +31,17 @@ namespace BusinessManagementApp.Data
             {
                 new ContractType()
                 {
-                    Id = 1,
+                    Id = "1",
                     Name = "1 month",
                     BaseSalary = 60,
-                    Period= new DateTime(2022, 12, 30)
+                    Period= 50
                 },
                 new ContractType()
                 {
-                    Id = 2,
+                    Id = "1",
                     Name = "2 month",
                     BaseSalary = 50,
-                    Period= new DateTime(2022, 12, 31)
+                    Period= 100
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(contracttypes));

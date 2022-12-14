@@ -49,7 +49,6 @@ namespace BusinessManagementApp.ViewModels
             AddContractType = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ContractTypeDetails));
             Search = new RelayCommand(() => ContractTypesView.Refresh());
             Edit = new RelayCommand<string>(id => OpenDetailsView(id));
-
             LoadData();
         }
         private bool FilterList(object item)
@@ -68,7 +67,7 @@ namespace BusinessManagementApp.ViewModels
                     return false;
             }
         }
-        private void OpenDetailsView(string? id)
+        private void OpenDetailsView(string id)
         {
             if (id == null)
             {
