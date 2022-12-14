@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
-    public class ProviderRepo
+    public class ProvidersRepo
     {
         public IObservable<object> DeleteProvider(int id)
         {

@@ -24,7 +24,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class ProvidersVM : ViewModelBase
     {
-        private ProviderRepo providerRepo;
+        private ProvidersRepo providerRepo;
 
         private ObservableCollection<Provider> providers { get; } = new();
 
@@ -40,7 +40,7 @@ namespace BusinessManagementApp.ViewModels
 
         // Declare dependencies (e.g repositories) to use as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public ProvidersVM(ProviderRepo providerRepo)
+        public ProvidersVM(ProvidersRepo providerRepo)
         {
             this.providerRepo = providerRepo;
 
