@@ -92,6 +92,7 @@ namespace BusinessManagementApp.ViewModels
                 throw new ArgumentException("ID is null");
             }
 
+            // Navigate to details screen
             WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.EmployeeInfoDetails, id);
         }
 

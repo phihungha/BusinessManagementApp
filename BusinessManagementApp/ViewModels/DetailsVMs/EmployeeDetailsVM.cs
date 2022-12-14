@@ -112,6 +112,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private Department department = new();
 
+        // Binding combobox directly to non-enum properties will only work
+        // when the class implements IEquatable.
+        // Check Department class for an example.
         public Department Department
         {
             get => department;
@@ -229,11 +232,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await employeeRepo.AddEmployee(employee);
             }
+
+            // Navigate back to list screen
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
 
         private async Task DeleteEmployee()
         {
             await employeeRepo.DeleteEmployee(Id);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
     }
 }
