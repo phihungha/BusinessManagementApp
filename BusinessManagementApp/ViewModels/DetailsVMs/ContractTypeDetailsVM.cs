@@ -45,19 +45,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref name, value);
         }
 
-        private string baseSalary = string.Empty;
+        private decimal baseSalary = 1000000;
 
         [BaseSalary]
-        public string BaseSalary
+        public decimal BaseSalary
         {
             get => baseSalary;
             set => SetProperty(ref baseSalary, value, true);
         }
 
-        private string period = string.Empty;
+        private int period = 30;
 
         [Period]
-        public string Period
+        public int Period
         {
             get => period;
             set => SetProperty(ref period, value, true);
@@ -136,8 +136,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             ContractType contractType = await contractTypesRepo.GetContractType(id);
             Id = contractType.Id;
             Name = contractType.Name;
-            BaseSalary = contractType.BaseSalary.ToString();
-            Period = contractType.Period.ToString();
+            BaseSalary = contractType.BaseSalary;
+            Period = Period;
         }
 
         private async Task SaveContractType()
@@ -150,8 +150,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 Id = Id,
                 Name = Name,
-                Period = int.Parse(Period),
-                BaseSalary = decimal.Parse(BaseSalary),
+                Period = Period,
+                BaseSalary = BaseSalary,
             };
 
             if (IsEditMode)

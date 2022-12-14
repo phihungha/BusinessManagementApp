@@ -13,8 +13,7 @@ namespace BusinessManagementApp.ViewModels.ValidationAttributes
                 return new("Invalid period");
             }
 
-            int period = 0;
-            int.TryParse((string)value, out period);
+            int period = (int)value;
             if (period > 0)
             {
                 return ValidationResult.Success;

@@ -13,8 +13,7 @@ namespace BusinessManagementApp.ViewModels.ValidationAttributes
                 return new("Invalid base salary");
             }
 
-            decimal baseSalary = 0;
-            decimal.TryParse((string)value, out baseSalary); 
+            decimal baseSalary = (decimal)value;
             if (baseSalary > 0)
             {
                 return ValidationResult.Success;
