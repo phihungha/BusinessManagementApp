@@ -43,14 +43,12 @@
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="1" Margin="0,10,15,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Base Salary</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter base salary"
-                     Text="{Binding BaseSalary}" />
+            <ui:NumberBox Minimum="1000" Text="{Binding BaseSalary}" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1" Margin="0,10,0,0"  >
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Period</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter period by day"
-                     Text="{Binding Period}" />
+            <ui:NumberBox Minimum="1" Text="{Binding Period}" />
         </StackPanel>
 
 
