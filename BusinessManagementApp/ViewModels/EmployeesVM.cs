@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+using BusinessManagementApp.Data.Api;
 
 namespace BusinessManagementApp.ViewModels
 {
@@ -30,6 +31,7 @@ namespace BusinessManagementApp.ViewModels
     public class EmployeesVM : ViewModelBase
     {
         private EmployeeRepo employeesRepo;
+        private readonly IEmployeeApi employeeApi;
 
         private ObservableCollection<Employee> employees { get; } = new();
 
@@ -45,9 +47,10 @@ namespace BusinessManagementApp.ViewModels
 
         // Declare dependencies (e.g repositories) to use as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public EmployeesVM(EmployeeRepo employeesRepo)
+        public EmployeesVM(EmployeeRepo employeesRepo, IEmployeeApi employeeApi)
         {
             this.employeesRepo = employeesRepo;
+            this.employeeApi = employeeApi;
 
             // DataGrid accesses the ObservableCollection of model objects
             // indirectly via a ICollectionView to support filtering.
@@ -97,7 +100,9 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
-            employees.AddRange(await employeesRepo.GetEmployees());
+            // employees.AddRange(await employeesRepo.GetEmployees());
+            employees.AddRange(await employeeApi.GetEmployees());
         }
+
     }
 }
