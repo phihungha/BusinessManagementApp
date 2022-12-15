@@ -50,7 +50,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private string unit = string.Empty;
 
-        [CitizenId]
         public string Unit
         {
             get => unit;
