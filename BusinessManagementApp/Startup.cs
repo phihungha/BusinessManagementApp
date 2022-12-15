@@ -15,9 +15,11 @@ namespace BusinessManagementApp
 {
     public static class Startup
     {
-        private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false, bool logging = false)
+        private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false,
+            bool logging = false, string subUrl = "api")
         {
-            string BASE_URL = "";
+            string BASE_URL = "https://evident-castle-371707.as.r.appspot.com/" + subUrl;
+            BASE_URL = BASE_URL.EndsWith("/") ? BASE_URL : BASE_URL + "/";
             builder = builder.ConfigureHttpClient(c =>
             {
                 c.BaseAddress = new Uri(BASE_URL);
@@ -59,7 +61,17 @@ namespace BusinessManagementApp
                     NullValueHandling = NullValueHandling.Ignore
                 }));
                 service.AddTransient<HttpAuthHandler>();
-                service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true);
+                service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true, "");
+
+                service.AddRefitClient<IContractApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<ICustomerApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IDepartmentApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IEmployeeApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IOrderApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IPositionApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IProductApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IRecordApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IVoucherApi>(settings).ConfigHttpClientBuilder(true, true);
 
                 service.AddSingleton<IAuthenticator, Authenticator>();
                 service.AddSingleton<SchedulerProvider>();
