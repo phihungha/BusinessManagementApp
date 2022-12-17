@@ -1,11 +1,11 @@
-﻿using System.Reactive.Linq;
-using System.Threading.Tasks;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model.Auth;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using BusinessManagementApp.Data.Api;
-using BusinessManagementApp.Data.Model.Auth;
 
 namespace BusinessManagementApp.ViewModels
 {
