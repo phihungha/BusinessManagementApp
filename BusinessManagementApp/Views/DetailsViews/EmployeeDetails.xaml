@@ -166,7 +166,7 @@
                                                Text="{Binding StartDate, StringFormat=From {0:d}}" />
                                     <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                Margin="5,0,0,0"
-                                               Text="{Binding EndDate, Converter={converters:RecordItemEndDateToString},
+                                               Text="{Binding EndDate, Converter={converters:PositionEndDateToString},
                                                       StringFormat=to {0}}" />
                                 </StackPanel>
                             </StackPanel>
@@ -180,7 +180,8 @@
 
                 <StackPanel Grid.Row="13" Grid.ColumnSpan="3" Margin="0,15,0,0" 
                             HorizontalAlignment="Left" Width="450">
-                    <UniformGrid Columns="3" HorizontalAlignment="Stretch">
+                    <UniformGrid Columns="3" HorizontalAlignment="Stretch"
+                                 Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
                         <Button Command="{Binding ToggleNewContractEditor}" Margin="0,0,5,0"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                                 Foreground="White" Background="{StaticResource PrimaryColorBrush}">
@@ -192,8 +193,7 @@
 
                         <Button Command="{Binding RenewCurrentContract}" Margin="0,0,5,0"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                Foreground="White" Background="#00e823"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
+                                Foreground="White" Background="#00e823">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource ClockRefreshIcon}" Width="15" Margin="0,0,10,0" />
                                 <TextBlock FontSize="13">Re-new current</TextBlock>
@@ -202,8 +202,7 @@
 
                         <Button Command="{Binding TerminateCurrentContract}"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                Foreground="White" Background="{StaticResource DangerColorBrush}"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
+                                Foreground="White" Background="{StaticResource DangerColorBrush}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
                                 <TextBlock FontSize="13">Terminate current</TextBlock>
@@ -245,18 +244,14 @@
                             End date
                         </TextBlock>
                         <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"
-                                 Text="{Binding NewContractEndDate, Converter={converters:NewContractEndDateToString}}"
+                                 Text="{Binding NewContractEndDate, Converter={converters:ContractEndDateToString}}"
                                  IsReadOnly="True" />
 
                         <Button Grid.Row="3" Margin="0,10,0,0" Command="{Binding CreateNewContract}" 
-                                Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                                Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                                Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
                             Create
                         </Button>
-                        <TextBlock Grid.Row="3" Grid.Column="1" VerticalAlignment="Center"  Margin="0,10,0,0"
-                                   Style="{StaticResource NoteLabel}"
-                                   Visibility="{Binding CreateContractOnSave, Converter={StaticResource BoolToVisibilityConverter}}">
-                            Will create on save!
-                        </TextBlock>
                     </Grid>
                 </StackPanel>
 
@@ -297,7 +292,7 @@
                                                Text="{Binding StartDate, StringFormat=From {0:d}}" />
                                     <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                Margin="5,0,0,0"
-                                               Text="{Binding EndDate, Converter={converters:RecordItemEndDateToString},
+                                               Text="{Binding EndDate, Converter={converters:ContractEndDateToString},
                                                       StringFormat=to {0}}" />
                                 </StackPanel>
                             </StackPanel>

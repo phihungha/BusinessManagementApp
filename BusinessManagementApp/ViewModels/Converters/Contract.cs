@@ -5,16 +5,16 @@ using System.Windows.Markup;
 
 namespace BusinessManagementApp.ViewModels.Converters
 {
-    public class NewContractEndDateToString : MarkupExtension, IValueConverter
+    [ValueConversion(typeof(DateTime?), typeof(string))]
+    public class ContractEndDateToString : MarkupExtension, IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var endDate = (DateTime?)value;
-            if (endDate == null)
+            if (value == null)
             {
-                return "Forever";
+                return "Indeterminate";
             }
-            return ((DateTime)endDate).ToString("d");
+            return ((DateTime)value).ToString("d");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

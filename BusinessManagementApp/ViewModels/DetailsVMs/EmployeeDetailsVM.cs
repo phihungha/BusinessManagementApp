@@ -27,8 +27,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Dependencies
 
-        private Contract? newContract = null;
-
         #region Combobox items
 
         public ObservableCollection<Department> Departments { get; } = new();
@@ -193,9 +191,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public bool IsEditMode
         {
             get => isEditMode;
-            set
+            private set
             {
                 SetProperty(ref isEditMode, value);
+                NewContractEditorDisplayed = !value;
             }
         }
 
@@ -207,20 +206,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             private set => SetProperty(ref canSave, value);
         }
 
-        private bool newContractEditorDisplayed = false;
+        private bool newContractEditorDisplayed = true;
 
         public bool NewContractEditorDisplayed
         {
             get => newContractEditorDisplayed;
             private set => SetProperty(ref newContractEditorDisplayed, value);
-        }
-
-        private bool createContractOnSave = false;
-
-        public bool CreateContractOnSave
-        {
-            get => createContractOnSave;
-            set => SetProperty(ref createContractOnSave, value);
         }
 
         #endregion Button enable/disable logic
@@ -299,6 +290,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             PositionRecords.AddRange(employee.PositionRecords);
             Contracts.AddRange(employee.Contracts);
             Contract = employee.CurrentContract;
+
+            // Edit the latest contract if it is not yet active
+            if (!Contracts.First().IsCurrent)
+            {
+                Contract latestContract = Contracts.Last();
+                NewContractType = latestContract.Type;
+                NewContractStartDate = latestContract.StartDate;
+            }
         }
 
         private DateTime? CalculateNewContractEndDate(DateTime startDate, ContractType type)
@@ -323,15 +322,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 EndDate = NewContractEndDate
             };
 
-            if (IsEditMode)
-            {
-                Contracts.ClearAndAddRange(await employeesRepo.AddContract(contract));
-            }
-            else
-            {
-                newContract = contract;
-                CreateContractOnSave = true;
-            }
+            Contracts.ClearAndAddRange(await employeesRepo.AddContract(contract));
         }
 
         private void ExecuteRenewCurrentContract()
@@ -375,10 +366,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             else
             {
                 await employeesRepo.AddEmployee(employee);
-                if (newContract != null)
-                {
-                    await employeesRepo.AddContract(contract);
-                }
+                await ExecuteCreateNewContract();
             }
 
             // Navigate back to list screen

@@ -127,6 +127,7 @@ namespace BusinessManagementApp.Data
 
         public IObservable<List<Contract>> AddContract(Contract contract)
         {
+            contract.Id = 3;
             var contracts = new List<Contract>
             {
                 contract,
