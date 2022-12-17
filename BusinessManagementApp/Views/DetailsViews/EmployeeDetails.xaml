@@ -235,14 +235,19 @@
                         </TextBlock>
                         <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"
                                     HorizontalAlignment="Stretch"
-                                    SelectedDate="{Binding NewContractStartDate}" />
+                                    SelectedDate="{Binding NewContractStartDate}"
+                                    DisplayDateStart="{Binding Contract.EndDate}" />
 
                         <TextBlock Grid.Row="2" Style="{StaticResource TextBoxLeftLabel}">
                             End date
                         </TextBlock>
                         <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"
-                                 Text="{Binding NewContractEndDate, StringFormat=d}"
+                                 Text="{Binding NewContractEndDate, Converter={converters:NewContractEndDateToString}}"
                                  IsReadOnly="True" />
+
+                        <Button Grid.Row="3" Command="{Binding CreateNewContract}" Background="{StaticResource PrimaryColorBrush}">
+                            Create
+                        </Button>
                     </Grid>
                 </StackPanel>
 

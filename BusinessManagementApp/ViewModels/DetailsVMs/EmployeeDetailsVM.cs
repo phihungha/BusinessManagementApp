@@ -7,6 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -141,6 +142,46 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public ObservableCollection<Contract> Contracts { get; } = new();
 
+        private Contract contract = new();
+
+        public Contract Contract
+        {
+            get => contract;
+            set => SetProperty(ref contract, value);
+        }
+
+        private ContractType newContractType = new();
+
+        public ContractType NewContractType
+        {
+            get => newContractType;
+            set 
+            {
+                SetProperty(ref newContractType, value);
+                CalculateNewContractEndDate(NewContractStartDate, value);
+            }
+        }
+
+        private DateTime newContractStartDate = DateTime.Now.Date;
+
+        public DateTime NewContractStartDate
+        {
+            get => newContractStartDate;
+            set
+            {
+                SetProperty(ref newContractStartDate, value);
+                CalculateNewContractEndDate(value, NewContractType);
+            }
+        }
+
+        private DateTime? newContractEndDate = new();
+
+        public DateTime? NewContractEndDate
+        {
+            get => newContractEndDate;
+            set => SetProperty(ref newContractEndDate, value);
+        }
+
         #endregion Input properties
 
         #region Button enable/disable logic
@@ -211,6 +252,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             ToggleNewContractEditor = new RelayCommand(
                 () => NewContractEditorDisplayed = !NewContractEditorDisplayed
                 );
+            CreateNewContract = new AsyncRelayCommand(RequestCreateNewContract);
+            RenewCurrentContract = new RelayCommand(RequestRenewCurrentContract);
+            TerminateCurrentContract = new RelayCommand(RequestTerminateCurrentContract);
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new AsyncRelayCommand(DeleteEmployee);
@@ -226,6 +270,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Departments.AddRange(await departmentsRepo.GetDepartments());
             Positions.AddRange(await positionsRepo.GetPositions());
             ContractTypes.AddRange(await contractTypesRepo.GetContractTypes());
+
+            NewContractType = ContractTypes.First();
 
             if (id != null)
             {
@@ -251,6 +297,47 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Position = employee.CurrentPosition;
             PositionRecords.AddRange(employee.PositionRecords);
             Contracts.AddRange(employee.Contracts);
+            Contract = employee.CurrentContract;
+        }
+
+        private DateTime? CalculateNewContractEndDate(DateTime startDate, ContractType type)
+        {
+            if (type.Period != null)
+            {
+                return startDate.AddDays((double)type.Period);
+            }
+            return null;
+        }
+
+        private async Task RequestCreateNewContract()
+        {
+            var newContract = new Contract()
+            {
+                EmployeeId = Id,
+                // TODO: Use current logged in user id
+                CompanyRepresentativeEmployeeId = "0",
+                Type = NewContractType,
+                IsCurrent = false,
+                StartDate = NewContractStartDate,
+                EndDate = NewContractEndDate
+            };
+            newContract = await employeesRepo.AddContract(newContract);
+            Contracts.Add(newContract);
+        }
+
+        private void RequestRenewCurrentContract()
+        {
+            if (Contract.EndDate == null)
+                throw new InvalidOperationException("Cannot renew a permanent contract. Consider terminate it then create a new one.");
+
+            NewContractType = Contract.Type;
+            NewContractStartDate = (DateTime)Contract.EndDate;
+            NewContractEditorDisplayed = true;
+        }
+
+        private void RequestTerminateCurrentContract()
+        {
+            
         }
 
         private async Task SaveEmployee()

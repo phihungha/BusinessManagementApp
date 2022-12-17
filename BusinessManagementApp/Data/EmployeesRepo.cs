@@ -124,5 +124,15 @@ namespace BusinessManagementApp.Data
         {
             throw new NotImplementedException();
         }
+
+        public IObservable<Contract> AddContract(Contract contract)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IObservable<Contract> TerminateCurrentContract(string employeeId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

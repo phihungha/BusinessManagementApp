@@ -6,9 +6,9 @@ namespace BusinessManagementApp.Data.Model
     {
         public int Id { get; set; }
 
-        public Employee Employee { get; set; }
+        public string EmployeeId { get; set; }
 
-        public Employee CompanyRepresentative { get; set; }
+        public string CompanyRepresentativeEmployeeId { get; set; }
 
         public ContractType Type { get; set; }
 
