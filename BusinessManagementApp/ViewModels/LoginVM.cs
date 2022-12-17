@@ -1,6 +1,10 @@
-﻿using BusinessManagementApp.ViewModels.Utils;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model.Auth;
+using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
@@ -33,14 +37,23 @@ namespace BusinessManagementApp.ViewModels
 
         public ICommand Login { get; }
 
-        public LoginVM()
+        private readonly IAuthRemote authRemote;
+
+        public LoginVM(IAuthRemote authRemote)
         {
-            Login = new RelayCommand(CheckLogin);
+            this.authRemote = authRemote;
+            Login = new AsyncRelayCommand(CheckLogin);
         }
 
-        private void CheckLogin()
+        private async Task CheckLogin()
         {
-            if (UserName == "admin" && Password == "1234")
+            //Default user: admin - 113
+            var response = await this.authRemote.Login(new LoginRequest()
+            {
+                Username = UserName,
+                Password = Password,
+            });
+            if (response.IsAuthenticated)
             {
                 MainWindowNavUtils.NavigateTo(MainWindowViewName.Workspace);
             }
