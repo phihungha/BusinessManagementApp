@@ -18,11 +18,11 @@ namespace BusinessManagementApp
         private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false,
             bool logging = false, string subUrl = "api")
         {
-            string BASE_URL = "https://evident-castle-371707.as.r.appspot.com/" + subUrl;
-            BASE_URL = BASE_URL.EndsWith("/") ? BASE_URL : BASE_URL + "/";
+            string BaseApiUrl = "https://evident-castle-371707.as.r.appspot.com/" + subUrl;
+            BaseApiUrl = BaseApiUrl.EndsWith("/") ? BaseApiUrl : BaseApiUrl + "/";
             builder = builder.ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri(BASE_URL);
+                c.BaseAddress = new Uri(BaseApiUrl);
             });
 
             if (logging)
