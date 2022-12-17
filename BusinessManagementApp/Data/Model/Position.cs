@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Model
 {
-    public class Position
+    public class Position : IEquatable<Position>
     {
         public int Id { get; set; }
 
@@ -14,6 +14,13 @@ namespace BusinessManagementApp.Data.Model
         public decimal SupplementSalary { get; set; }
 
         public List<Permission> Permissions { get; set; }
+
+        public bool Equals(Position? other)
+        {
+            if (other == null) return false;
+
+            return Id == other.Id;
+        }
     }
 
     public class PositionRecord
@@ -22,7 +29,9 @@ namespace BusinessManagementApp.Data.Model
 
         public DateTime StartDate { get; set; }
 
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
+
+        public bool IsCurrent { get; set; }
 
         public Position Position { get; set; }
     }
