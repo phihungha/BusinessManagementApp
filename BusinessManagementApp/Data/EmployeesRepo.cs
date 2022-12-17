@@ -125,14 +125,58 @@ namespace BusinessManagementApp.Data
             throw new NotImplementedException();
         }
 
-        public IObservable<Contract> AddContract(Contract contract)
+        public IObservable<List<Contract>> AddContract(Contract contract)
         {
-            throw new NotImplementedException();
+            var contracts = new List<Contract>
+            {
+                contract,
+
+                new Contract()
+                {
+                    Id = 2,
+                    StartDate = new DateTime(2021, 5, 5),
+                    EndDate = DateTime.Now.Date,
+                    IsCurrent = true,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
+
+                new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2011, 5, 5),
+                    EndDate = new DateTime(2021,5,5),
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "10 years" }
+                }
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(contracts));
         }
 
-        public IObservable<Contract> TerminateCurrentContract(string employeeId)
+        public IObservable<List<Contract>> TerminateCurrentContract(string employeeId)
         {
-            throw new NotImplementedException();
+            var contracts = new List<Contract>
+            {
+                new Contract()
+                {
+                    Id = 2,
+                    StartDate = new DateTime(2021, 5, 5),
+                    EndDate = DateTime.Now.Date,
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
+
+                new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2011, 5, 5),
+                    EndDate = new DateTime(2021,5,5),
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "10 years" }
+                }
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(contracts));
         }
     }
 }

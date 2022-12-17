@@ -27,6 +27,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Dependencies
 
+        private Contract? newContract = null;
+
         #region Combobox items
 
         public ObservableCollection<Department> Departments { get; } = new();
@@ -155,10 +157,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ContractType NewContractType
         {
             get => newContractType;
-            set 
+            set
             {
                 SetProperty(ref newContractType, value);
-                CalculateNewContractEndDate(NewContractStartDate, value);
+                NewContractEndDate = CalculateNewContractEndDate(NewContractStartDate, value);
             }
         }
 
@@ -170,7 +172,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set
             {
                 SetProperty(ref newContractStartDate, value);
-                CalculateNewContractEndDate(value, NewContractType);
+                NewContractEndDate = CalculateNewContractEndDate(value, NewContractType);
             }
         }
 
@@ -188,13 +190,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private bool isEditMode = false;
 
-        private bool IsEditMode
+        public bool IsEditMode
         {
             get => isEditMode;
             set
             {
                 SetProperty(ref isEditMode, value);
-                CanDelete = value;
             }
         }
 
@@ -206,20 +207,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             private set => SetProperty(ref canSave, value);
         }
 
-        private bool canDelete = false;
-
-        public bool CanDelete
-        {
-            get => canDelete;
-            private set => SetProperty(ref canDelete, value);
-        }
-
         private bool newContractEditorDisplayed = false;
 
         public bool NewContractEditorDisplayed
         {
             get => newContractEditorDisplayed;
             private set => SetProperty(ref newContractEditorDisplayed, value);
+        }
+
+        private bool createContractOnSave = false;
+
+        public bool CreateContractOnSave
+        {
+            get => createContractOnSave;
+            set => SetProperty(ref createContractOnSave, value);
         }
 
         #endregion Button enable/disable logic
@@ -252,9 +253,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             ToggleNewContractEditor = new RelayCommand(
                 () => NewContractEditorDisplayed = !NewContractEditorDisplayed
                 );
-            CreateNewContract = new AsyncRelayCommand(RequestCreateNewContract);
-            RenewCurrentContract = new RelayCommand(RequestRenewCurrentContract);
-            TerminateCurrentContract = new RelayCommand(RequestTerminateCurrentContract);
+            CreateNewContract = new AsyncRelayCommand(ExecuteCreateNewContract);
+            RenewCurrentContract = new RelayCommand(ExecuteRenewCurrentContract);
+            TerminateCurrentContract = new AsyncRelayCommand(ExecuteTerminateCurrentContract);
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new AsyncRelayCommand(DeleteEmployee);
@@ -309,9 +310,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             return null;
         }
 
-        private async Task RequestCreateNewContract()
+        private async Task ExecuteCreateNewContract()
         {
-            var newContract = new Contract()
+            var contract = new Contract()
             {
                 EmployeeId = Id,
                 // TODO: Use current logged in user id
@@ -321,11 +322,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 StartDate = NewContractStartDate,
                 EndDate = NewContractEndDate
             };
-            newContract = await employeesRepo.AddContract(newContract);
-            Contracts.Add(newContract);
+
+            if (IsEditMode)
+            {
+                Contracts.ClearAndAddRange(await employeesRepo.AddContract(contract));
+            }
+            else
+            {
+                newContract = contract;
+                CreateContractOnSave = true;
+            }
         }
 
-        private void RequestRenewCurrentContract()
+        private void ExecuteRenewCurrentContract()
         {
             if (Contract.EndDate == null)
                 throw new InvalidOperationException("Cannot renew a permanent contract. Consider terminate it then create a new one.");
@@ -335,9 +344,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             NewContractEditorDisplayed = true;
         }
 
-        private void RequestTerminateCurrentContract()
+        private async Task ExecuteTerminateCurrentContract()
         {
-            
+            Contracts.ClearAndAddRange(await employeesRepo.TerminateCurrentContract(Id));
         }
 
         private async Task SaveEmployee()
@@ -366,6 +375,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             else
             {
                 await employeesRepo.AddEmployee(employee);
+                if (newContract != null)
+                {
+                    await employeesRepo.AddContract(contract);
+                }
             }
 
             // Navigate back to list screen

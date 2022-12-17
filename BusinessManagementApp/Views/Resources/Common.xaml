@@ -26,4 +26,9 @@
     <Style TargetType="TextBlock" x:Key="CurrentRecordItem">
         <Setter Property="FontWeight" Value="Bold" />
     </Style>
+
+    <Style TargetType="TextBlock" x:Key="NoteLabel">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="#00a6ff" />
+    </Style>
 </ResourceDictionary>

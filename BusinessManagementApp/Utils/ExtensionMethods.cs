@@ -18,5 +18,17 @@ namespace BusinessManagementApp.Utils
                 observableCollection.Add(item);
             }
         }
+
+        /// <summary>
+        /// Clear then add all objects from items to the end of ObservableCollection.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="observableCollection">Collection to add into</param>
+        /// <param name="items">Items to add</param>
+        public static void ClearAndAddRange<T>(this ObservableCollection<T> observableCollection, IEnumerable<T> items)
+        {
+            observableCollection.Clear();
+            observableCollection.AddRange(items);
+        }
     }
 }
