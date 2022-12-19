@@ -60,7 +60,7 @@
             <TextBlock Style="{StaticResource TextBoxTopLabel}"> Header </TextBlock>
             <ComboBox HorizontalAlignment="Stretch" 
                       ItemsSource="{Binding Employees}"
-                      SelectedItem="{Binding Employee}"
+                      SelectedItem="{Binding Head}"
                       SelectedIndex="0"
                       DisplayMemberPath="Name" />
         </StackPanel>

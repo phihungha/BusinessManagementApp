@@ -60,7 +60,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => description;
             set => SetProperty(ref description, value, true);
         }
-
+        private decimal minNetPrice = 10000;
+        public decimal MinNetPrice
+        {
+            get => minNetPrice;
+            set => SetProperty(ref minNetPrice, value, true);
+        }
 
         private DiscountType discountType = DiscountType.Percent;
 
@@ -164,6 +169,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             DiscountType = voucherType.DiscountType;    
             DiscountValue = voucherType.DiscountValue;
             AppliedProducts = voucherType.AppliedProducts;
+            MinNetPrice = voucherType.MinNetPrice;
+            
         }
 
         private async Task SaveVoucherType()
@@ -180,6 +187,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 DiscountValue = DiscountValue,
                 AppliedProducts =AppliedProducts,
                 DiscountType = DiscountType,
+                MinNetPrice = MinNetPrice
             };
 
             if (IsEditMode)
