@@ -33,8 +33,8 @@ namespace BusinessManagementApp.Data
                     BaseSalary = 1000,
                     SupplementSalary = 2000,
                     BonusSalary = 1000,
-                    Month = 3,
-                    Year = 2023,
+                    Month = DateTime.Now.Month,
+                    Year = DateTime.Now.Year,
                     TotalSalary = 4000
                 },
 
@@ -54,8 +54,8 @@ namespace BusinessManagementApp.Data
                     BaseSalary = 1000,
                     SupplementSalary = 1000,
                     BonusSalary = 1000,
-                    Month = 3,
-                    Year = 2023,
+                    Month = DateTime.Now.Month,
+                    Year = DateTime.Now.Year,
                     TotalSalary = 3000
                 },
 

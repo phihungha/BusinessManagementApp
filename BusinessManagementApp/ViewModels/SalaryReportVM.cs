@@ -56,7 +56,7 @@ namespace BusinessManagementApp.ViewModels
 
         public ICommand Search { get; }
 
-        private decimal selectedmonth = 1;
+        private decimal selectedmonth = DateTime.Now.Month;
 
         public decimal SelectedMonth
         {
@@ -64,7 +64,7 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref selectedmonth, value, true);
         }
 
-        private decimal selectedyear = 1;
+        private decimal selectedyear = DateTime.Now.Year;
 
         public decimal SelectedYear
         {

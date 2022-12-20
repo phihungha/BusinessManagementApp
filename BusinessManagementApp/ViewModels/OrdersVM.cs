@@ -46,7 +46,7 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        private DateTime selectedCreation = new DateTime(1, 1, 1);
+        private DateTime selectedCreation = DateTime.Now;
 
         public DateTime SelectedCreation
         {
@@ -54,7 +54,7 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref selectedCreation, value, true);
         }
 
-        private DateTime selectedCompletion = new DateTime(1, 1, 2);
+        private DateTime selectedCompletion = DateTime.Now.AddDays(1);
 
         public DateTime SelectedCompletion
         {
@@ -80,7 +80,7 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var order = (Order)item;
-            bool kqDate = (order.CreationTime == selectedCreation) && (order.CompletionTime == selectedCompletion);
+            bool kqDate = (order.CreationTime.Date == selectedCreation.Date) && (order.CompletionTime.Date == selectedCompletion.Date);
 
             switch (SearchBy)
             {

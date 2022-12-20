@@ -20,8 +20,8 @@ namespace BusinessManagementApp.Data
             var order = new Order()
             {
                 Id = 1,
-                CreationTime = new DateTime(2022, 1, 1),
-                CompletionTime = new DateTime(2022, 1, 2),
+                CreationTime = DateTime.Now,
+                CompletionTime = DateTime.Now.AddDays(1),
                 EmployeeInCharge = new Employee()
                 {
                     Id = "1",
@@ -75,8 +75,8 @@ namespace BusinessManagementApp.Data
                 new Order()
                 {
                     Id = 1,
-                    CreationTime = new DateTime(2022, 1, 1),
-                    CompletionTime = new DateTime(2022, 1, 2),
+                    CreationTime = DateTime.Now,
+                    CompletionTime = DateTime.Now.AddDays(1),
                     EmployeeInCharge = new Employee()
                     {
                         Id = "1",
@@ -123,8 +123,8 @@ namespace BusinessManagementApp.Data
                 new Order()
                 {
                     Id = 2,
-                    CreationTime = new DateTime(2022, 2, 1),
-                    CompletionTime = new DateTime(2022, 3, 2),
+                    CreationTime = DateTime.Now,
+                    CompletionTime = DateTime.Now.AddDays(1),
                     EmployeeInCharge = new Employee()
                     {
                         Id = "2",
