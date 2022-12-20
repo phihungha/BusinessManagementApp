@@ -2,6 +2,7 @@
 {
     public class SalaryRecord
     {
+        // Only returns Id, Name
         public Employee Employee { get; set; }
 
         public int Month { get; set; }
