@@ -20,7 +20,7 @@ namespace BusinessManagementApp.Data.Model
 
         public int NumOfOvertimeDays { get; set; }
 
-        public int AvgOvertimeDuration { get; set; }
+        public double AvgOvertimeDuration { get; set; }
 
         public decimal TotalOvertimePay { get; set; }
     }
