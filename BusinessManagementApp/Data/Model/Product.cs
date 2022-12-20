@@ -14,6 +14,7 @@
 
         public int Stock { get; set; }
 
+        // Only returns Id and Name
         public ProductCategory Category { get; set; }
     }
 

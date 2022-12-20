@@ -13,8 +13,6 @@ namespace BusinessManagementApp.Data.Model
 
         public decimal SupplementSalary { get; set; }
 
-        public List<Permission> Permissions { get; set; }
-
         public bool Equals(Position? other)
         {
             if (other == null) return false;

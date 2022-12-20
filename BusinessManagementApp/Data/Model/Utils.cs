@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data.Model
         [Description("Female")]
         Female,
 
-        [Description("Female")]
+        [Description("Other")]
         Other
     }
 }

@@ -3,6 +3,14 @@ using System.ComponentModel;
 
 namespace BusinessManagementApp.Data.Model
 {
+    public class SkillOverview
+    {
+        // Only returns Id, Name
+        public Employee Employee { get; set; }
+
+        public DateTime UpdatedAt { get; set; }
+    }
+
     public class Skill
     {
         public string EmployeeId { get; set; }

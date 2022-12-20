@@ -14,6 +14,8 @@
 
         public decimal BonusSalary { get; set; }
 
+        public decimal TotalOvertimePay { get; set; }
+
         public decimal TotalSalary { get; set; }
     }
 }
