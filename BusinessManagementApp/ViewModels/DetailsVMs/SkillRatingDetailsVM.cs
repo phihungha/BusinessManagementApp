@@ -14,8 +14,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class SkillRatingDetailsVM : ViewModelBase
     {
-        // Declare dependencies such as repositories here.
-
         #region Dependencies
 
         private SkillsRepo skillsRepo;
