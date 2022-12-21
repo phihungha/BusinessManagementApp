@@ -30,6 +30,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private Data oldData;
         private Data data;
 
+        private decimal OvertimeHourlyRate { get; }
+        public int MinOvertimeHour { get; }
+        public int MaxOvertimeHour { get; }
+
         public int Day { get; }
 
         public bool IsEnabled { get; set; } = false;
@@ -59,17 +63,27 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public int NumberOfHours
         {
             get => numberOfHours;
-            set => SetProperty(ref numberOfHours, value);
+            set
+            {
+                SetProperty(ref numberOfHours, value);
+                Pay = OvertimeHourlyRate * value;
+            }
         }
 
-        public int MinOvertimeHour { get; }
-        public int MaxOvertimeHour { get; }
+        private decimal pay;
+
+        public decimal Pay
+        {
+            get => pay;
+            set => SetProperty(ref pay, value);
+        }
 
         private bool isEditing = false;
 
-        public OvertimeRecordVM(int day, int minOvertimeHour, int maxOvertimeHour)
+        public OvertimeRecordVM(int day, int minOvertimeHour, int maxOvertimeHour, decimal overtimeHourlyRate)
         {
             Day = day;
+            OvertimeHourlyRate = overtimeHourlyRate;
             MinOvertimeHour = minOvertimeHour;
             MaxOvertimeHour = maxOvertimeHour;
 
@@ -139,8 +153,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private int minOvertimeHour = -1;
-
         private int maxOvertimeHour = -1;
+        private decimal overtimeHourlyRate = -1;
 
         #region Button enable/disable logic
 
@@ -167,6 +181,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             minOvertimeHour = configRepo.Config.MinOvertimeHour;
             maxOvertimeHour = configRepo.Config.MaxOvertimeHour;
+            overtimeHourlyRate = configRepo.Config.OvertimeHourlyRate;
 
             Save = new AsyncRelayCommand(SaveOvertimeRecords);
             Cancel = new RelayCommand(
@@ -197,7 +212,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             int numberOfDaysInMonth = DateTime.DaysInMonth(CurrentMonthYear.Year, CurrentMonthYear.Month);
             for (int day = 1; day < numberOfDaysInMonth; day++)
             {
-                var recordVM = new OvertimeRecordVM(day, minOvertimeHour, maxOvertimeHour);
+                var recordVM = new OvertimeRecordVM(day, minOvertimeHour, maxOvertimeHour, overtimeHourlyRate);
 
                 OvertimeRecord? record = records.Find(i => i.Date.Day == day);
                 if (record != null)

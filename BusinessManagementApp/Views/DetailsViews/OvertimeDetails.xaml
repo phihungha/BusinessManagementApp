@@ -65,6 +65,9 @@
 
                     <DataGridTextColumn Header="Number of hours" IsReadOnly="True"
                                         Binding="{Binding NumberOfHours}" Width="*" />
+
+                    <DataGridTextColumn Header="Pay" IsReadOnly="True" 
+                                        Binding="{Binding Pay, StringFormat=c}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
 
