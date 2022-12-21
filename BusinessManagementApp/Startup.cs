@@ -89,7 +89,7 @@ namespace BusinessManagementApp
                 service.AddSingleton<DepartmentsRepo>();
                 service.AddSingleton<EmployeeRepo>();
                 service.AddSingleton<OrdersRepo>();
-                service.AddSingleton<OvertimeRecordsRepo>();
+                service.AddSingleton<OvertimeRepo>();
                 service.AddSingleton<PositionsRepo>();
                 service.AddSingleton<ProductsRepo>();
                 service.AddSingleton<ProvidersRepo>();
@@ -122,8 +122,8 @@ namespace BusinessManagementApp
                 service.AddTransient<EmployeeDetailsVM>();
                 service.AddTransient<OrdersVM>();
                 service.AddTransient<OrderDetailsVM>();
-                service.AddTransient<OvertimeRecordsVM>();
-                service.AddTransient<OvertimeRecordDetailsVM>();
+                service.AddTransient<OvertimeVM>();
+                service.AddTransient<OvertimeDetailsVM>();
                 service.AddTransient<OverviewVM>();
                 service.AddTransient<PositionsVM>();
                 service.AddTransient<PositionDetailsVM>();

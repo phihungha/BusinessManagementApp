@@ -9,13 +9,15 @@ namespace BusinessManagementApp.Data.Model
 
         public DateTime Date { get; set; }
 
-        public int From { get; set; }
+        public int StartHour { get; set; }
 
-        public int To { get; set; }
+        public int EndHour { get; set; }
     }
 
     public class OvertimeOverview
     {
+        public DateTime MonthYear { get; set; }
+
         // Only returns Id and Name
         public Employee Employee { get; set; }
 
