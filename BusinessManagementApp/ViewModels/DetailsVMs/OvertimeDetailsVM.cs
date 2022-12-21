@@ -75,8 +75,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             data = new Data()
             {
-                StartHour = 17,
-                EndHour = 18
+                StartHour = MinOvertimeHour,
+                EndHour = MaxOvertimeHour
             };
             oldData = data;
             NumberOfHours = EndHour - StartHour;
