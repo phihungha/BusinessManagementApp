@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Model
 {
@@ -23,5 +24,8 @@ namespace BusinessManagementApp.Data.Model
         public double AvgOvertimeDuration { get; set; }
 
         public decimal TotalOvertimePay { get; set; }
+
+        // Only returns when getting details
+        public List<OvertimeRecord> Records { get; set; }
     }
 }

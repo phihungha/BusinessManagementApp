@@ -28,28 +28,33 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(overviews));
         }
 
-        public IObservable<List<Skill>> GetSkills(string employeeId)
+        public IObservable<SkillOverview> GetSkillDetails(string employeeId)
         {
-            var skills = new List<Skill>()
+            var overview = new SkillOverview()
             {
-                new Skill()
+                Employee = new Employee() { Id = "1", Name = "Nguyen Van A" },
+                UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55),
+                Skills = new List<Skill>()
                 {
-                    EmployeeId = "1",
-                    SkillType = new SkillType() { Id = 1, Name = "IT" },
-                    Level = SkillLevel.Excellent,
-                    UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55)
-                },
+                    new Skill()
+                    {
+                        EmployeeId = "1",
+                        SkillType = new SkillType() { Id = 1, Name = "IT", Description = "Proficiency at using IT equipments and software." },
+                        Level = SkillLevel.Excellent,
+                        UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55)
+                    },
 
                 new Skill()
-                {
-                    EmployeeId = "1",
-                    SkillType = new SkillType() { Id = 2, Name = "English" },
-                    Level = SkillLevel.Excellent,
-                    UpdatedAt = new DateTime(2022, 11, 10, 13, 45, 55)
+                    {
+                        EmployeeId = "1",
+                        SkillType = new SkillType() { Id = 2, Name = "English", Description = "Proficiency at speaking, reading, listening, writing English." },
+                        Level = SkillLevel.Excellent,
+                        UpdatedAt = new DateTime(2022, 11, 10, 13, 45, 55)
+                    }
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(skills));
+            return Observable.FromAsync(() => Task.FromResult(overview));
         }
 
         public IObservable<List<Skill>> UpdateSkills(string employeeId, List<Skill> skills)

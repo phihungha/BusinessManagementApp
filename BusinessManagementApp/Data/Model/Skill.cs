@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace BusinessManagementApp.Data.Model
@@ -9,6 +10,9 @@ namespace BusinessManagementApp.Data.Model
         public Employee Employee { get; set; }
 
         public DateTime UpdatedAt { get; set; }
+
+        // Only returns when getting details
+        public List<Skill> Skills { get; set; }
     }
 
     public class Skill
