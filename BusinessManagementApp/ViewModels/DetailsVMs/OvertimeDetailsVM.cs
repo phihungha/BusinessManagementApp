@@ -138,9 +138,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref currentMonthYear, value);
         }
 
-        private int minOvertimeHour = 17;
+        private int minOvertimeHour = -1;
 
-        private int maxOvertimeHour = 20;
+        private int maxOvertimeHour = -1;
 
         #region Button enable/disable logic
 
@@ -170,7 +170,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             Save = new AsyncRelayCommand(SaveOvertimeRecords);
             Cancel = new RelayCommand(
-                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.SkillRating)
+                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Overtime)
                 );
         }
 

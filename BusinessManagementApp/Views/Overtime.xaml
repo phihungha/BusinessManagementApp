@@ -74,7 +74,7 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Employee.Name}" Width="*" />
                 <DataGridTextColumn Header="Number of overtime days" Binding="{Binding NumOfOvertimeDays}" Width="200" />
                 <DataGridTextColumn Header="Average overtime duration" Binding="{Binding AvgOvertimeDuration}" Width="200" />
-                <DataGridTextColumn Header="Total overtime pay" Binding="{Binding AvgOvertimeDuration}" Width="200" />
+                <DataGridTextColumn Header="Total overtime pay" Binding="{Binding TotalOvertimePay, StringFormat=c}" Width="200" />
 
                 <!-- Rate button -->
                 <DataGridTemplateColumn Width="60">
