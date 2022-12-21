@@ -44,11 +44,11 @@ namespace BusinessManagementApp.Data
                         UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55)
                     },
 
-                new Skill()
+                    new Skill()
                     {
                         EmployeeId = "1",
                         SkillType = new SkillType() { Id = 2, Name = "English", Description = "Proficiency at speaking, reading, listening, writing English." },
-                        Level = SkillLevel.Excellent,
+                        Level = SkillLevel.Unrated,
                         UpdatedAt = new DateTime(2022, 11, 10, 13, 45, 55)
                     }
                 }

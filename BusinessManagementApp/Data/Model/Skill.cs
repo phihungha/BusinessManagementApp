@@ -37,6 +37,9 @@ namespace BusinessManagementApp.Data.Model
 
     public enum SkillLevel
     {
+        [Description("Unrated")]
+        Unrated,
+
         [Description("Acceptable")]
         Acceptable,
 
