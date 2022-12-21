@@ -33,7 +33,7 @@
                 <ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="Margin" Value="0,10,0,10" />
-                        
+
                         <!-- Disable selection and add line between items -->
                         <Setter Property="Template">
                             <Setter.Value>
@@ -51,13 +51,15 @@
                     <DataTemplate>
                         <ui:SimpleStackPanel Spacing="10">
                             <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Text="{Binding SkillType.Name}" />
+                                <TextBlock VerticalAlignment="Center" FontWeight="Bold"
+                                           FontSize="16" Text="{Binding SkillType.Name}" />
                                 <ComboBox ItemsSource="{Binding Level, Converter={converters:EnumToCollection}, Mode=OneTime}"
-                                            SelectedValuePath="Value"
-                                            DisplayMemberPath="Description"
-                                            SelectedValue="{Binding Level}" />
+                                          SelectedValuePath="Value"
+                                          DisplayMemberPath="Description"
+                                          SelectedValue="{Binding Level}" />
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="{Binding UpdatedAt, StringFormat=(Last updated at {0})}" />
                             </ui:SimpleStackPanel>
-                            <TextBlock Text="{Binding UpdatedAt, StringFormat=Last updated at {0}}" />
                             <TextBlock Text="{Binding SkillType.Description}" />
                         </ui:SimpleStackPanel>
                     </DataTemplate>

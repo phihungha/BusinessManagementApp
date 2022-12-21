@@ -9,7 +9,6 @@ using System.ComponentModel;
 using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
-using BusinessManagementApp.Data.Api;
 
 namespace BusinessManagementApp.ViewModels
 {
@@ -67,6 +66,11 @@ namespace BusinessManagementApp.ViewModels
         {
             var employee = (Employee)item;
 
+            if (SearchText == null)
+            {
+                return true;
+            }
+
             switch (SearchBy)
             {
                 case EmployeeInfoSearchBy.Name:
@@ -101,6 +105,5 @@ namespace BusinessManagementApp.ViewModels
         {
             employees.AddRange(await employeesRepo.GetEmployees());
         }
-
     }
 }
