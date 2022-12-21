@@ -1,6 +1,5 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -22,34 +21,35 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
     public class OvertimeRecordVM : ViewModelBase, IEditableObject
     {
-        private OvertimeRecord oldOvertimeRecord;
-        public OvertimeRecord OvertimeRecord { get; private set; }
-
-        public int Day
+        private class Data
         {
-            get => OvertimeRecord.Date.Day;
-            set => SetProperty(OvertimeRecord.Date.Day, value, OvertimeRecord,
-                               (model, name) => model.Date = new DateTime(name, model.Date.Month, model.Date.Year));
+            public int StartHour { get; set; }
+            public int EndHour { get; set; }
         }
+
+        private Data oldData;
+        private Data data;
+
+        public int Day { get; }
+
+        public bool IsEnabled { get; set; } = false;
 
         public int StartHour
         {
-            get => OvertimeRecord.StartHour;
+            get => data.StartHour;
             set
             {
-                SetProperty(OvertimeRecord.StartHour, value, OvertimeRecord,
-                            (model, val) => model.StartHour = val);
+                SetProperty(data.StartHour, value, data, (model, val) => model.StartHour = val);
                 NumberOfHours = EndHour - StartHour;
             }
         }
 
         public int EndHour
         {
-            get => OvertimeRecord.EndHour;
+            get => data.EndHour;
             set
             {
-                SetProperty(OvertimeRecord.EndHour, value, OvertimeRecord,
-                            (model, val) => model.EndHour = val);
+                SetProperty(data.EndHour, value, data, (model, val) => model.EndHour = val);
                 NumberOfHours = EndHour - StartHour;
             }
         }
@@ -62,24 +62,23 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref numberOfHours, value);
         }
 
+        public int MinOvertimeHour { get; }
+        public int MaxOvertimeHour { get; }
+
         private bool isEditing = false;
 
-        public OvertimeRecordVM()
+        public OvertimeRecordVM(int day, int minOvertimeHour, int maxOvertimeHour)
         {
-            OvertimeRecord = new OvertimeRecord()
+            Day = day;
+            MinOvertimeHour = minOvertimeHour;
+            MaxOvertimeHour = maxOvertimeHour;
+
+            data = new Data()
             {
-                Date = DateTime.Now.Date,
                 StartHour = 17,
                 EndHour = 18
             };
-            oldOvertimeRecord = OvertimeRecord;
-            NumberOfHours = EndHour - StartHour;
-        }
-
-        public OvertimeRecordVM(OvertimeRecord record)
-        {
-            OvertimeRecord = record;
-            oldOvertimeRecord = OvertimeRecord;
+            oldData = data;
             NumberOfHours = EndHour - StartHour;
         }
 
@@ -87,7 +86,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             if (!isEditing)
             {
-                oldOvertimeRecord = OvertimeRecord;
+                oldData = data;
                 isEditing = true;
             }
         }
@@ -96,7 +95,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             if (isEditing)
             {
-                OvertimeRecord = oldOvertimeRecord;
+                data = oldData;
                 isEditing = false;
             }
         }
@@ -105,7 +104,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             if (isEditing)
             {
-                oldOvertimeRecord = OvertimeRecord;
+                oldData = data;
                 isEditing = false;
             }
         }
@@ -120,6 +119,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Dependencies
 
         public ObservableCollection<OvertimeRecordVM> OvertimeRecordVMs { get; } = new();
+
+        public int SelectedRecordIndex { get; } = DateTime.Now.Day - 1;
 
         private Employee currentEmployee = new();
 
@@ -136,6 +137,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => currentMonthYear;
             set => SetProperty(ref currentMonthYear, value);
         }
+
+        private int minHour = 17;
+
+        private int maxHour = 20;
 
         #region Button enable/disable logic
 
@@ -177,25 +182,43 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             OvertimeOverview overview = await overtimeRepo.GetOvertimeDetails(parameter.EmployeeId,
                                                                               parameter.MonthYear.Year,
                                                                               parameter.MonthYear.Month);
-            LoadOvertimeRecordVMsFromModels(overview.Records);
             CurrentEmployee = overview.Employee;
             CurrentMonthYear = parameter.MonthYear;
+            LoadOvertimeRecordVMs(overview.Records);
 
             CanSave = true;
         }
 
-        private void LoadOvertimeRecordVMsFromModels(List<OvertimeRecord> records)
+        private void LoadOvertimeRecordVMs(List<OvertimeRecord> records)
         {
-            List<OvertimeRecordVM> viewModels = records
-                .Select(i => new OvertimeRecordVM(i))
-                .ToList();
-            OvertimeRecordVMs.AddRange(viewModels);
+            int numberOfDaysInMonth = DateTime.DaysInMonth(CurrentMonthYear.Year, CurrentMonthYear.Month);
+            for (int day = 1; day < numberOfDaysInMonth; day++)
+            {
+                var recordVM = new OvertimeRecordVM(day, minHour, maxHour);
+
+                OvertimeRecord? record = records.Find(i => i.Date.Day == day);
+                if (record != null)
+                {
+                    recordVM.IsEnabled = true;
+                    recordVM.StartHour = record.StartHour;
+                    recordVM.EndHour = record.EndHour;
+                }
+
+                OvertimeRecordVMs.Add(recordVM);
+            }
         }
 
         private async Task SaveOvertimeRecords()
         {
             List<OvertimeRecord> records = OvertimeRecordVMs
-                .Select(i => i.OvertimeRecord)
+                .Where(i => i.IsEnabled)
+                .Select(i => new OvertimeRecord() 
+                { 
+                    EmployeeId = currentEmployee.Id,
+                    Date = new DateTime(CurrentMonthYear.Year, CurrentMonthYear.Month, i.Day), 
+                    StartHour = i.StartHour,
+                    EndHour = i.EndHour 
+                })
                 .ToList();
             await overtimeRepo.UpdateOvertimeRecords(CurrentEmployee.Id, records);
 

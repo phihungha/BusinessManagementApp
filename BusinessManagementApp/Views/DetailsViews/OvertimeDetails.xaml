@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <Border Style="{StaticResource ViewTitleBorder}">
-            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
+            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
                 <TextBlock Style="{StaticResource ViewTitleText}">
                     Overtime records of
                 </TextBlock>
@@ -35,13 +35,35 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <DataGrid ItemsSource="{Binding OvertimeRecordVMs}" 
-                      Margin="0,15,0,0" AutoGenerateColumns="False">
+            <DataGrid ItemsSource="{Binding OvertimeRecordVMs}"
+                      SelectedIndex="{Binding SelectedRecordIndex, Mode=OneTime}"
+                      Margin="0,15,0,0" GridLinesVisibility="None"
+                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Day" Binding="{Binding Day}" Width="*" />
-                    <DataGridTextColumn Header="Start hour" Binding="{Binding StartHour}" Width="*" />
-                    <DataGridTextColumn Header="End hour" Binding="{Binding EndHour}" Width="*" />
-                    <DataGridTextColumn Header="Number of hours" IsReadOnly="True" 
+                    <DataGridTextColumn Header="Day" IsReadOnly="True" FontWeight="Bold"
+                                        Binding="{Binding Day, StringFormat=Day {0}}" Width="*" />
+
+                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding IsEnabled}" Width="*" />
+
+                    <DataGridTemplateColumn Width="*" Header="Start hour">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:NumberBox Margin="10" Value="{Binding StartHour, UpdateSourceTrigger=PropertyChanged}"
+                                              Minimum="{Binding MinOvertimeHour}" Maximum="{Binding EndHour}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Width="*" Header="End hour">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:NumberBox Margin="10" Value="{Binding EndHour, UpdateSourceTrigger=PropertyChanged}"
+                                              Minimum="{Binding StartHour}" Maximum="{Binding MaxOvertimeHour}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Number of hours" IsReadOnly="True"
                                         Binding="{Binding NumberOfHours}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
