@@ -17,14 +17,14 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource ViewTitleBorder}"  Margin="20">
+        <Border Style="{StaticResource ViewTitleBorder}"  Margin="15,15,20,15">
             <TextBlock Style="{StaticResource ViewTitleText}">
                 New employee
             </TextBlock>
         </Border>
 
         <ScrollViewer Grid.Row="1">
-            <Grid Margin="20">
+            <Grid Margin="15,15,20,15">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
