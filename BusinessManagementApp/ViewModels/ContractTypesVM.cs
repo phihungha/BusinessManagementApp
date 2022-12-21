@@ -57,7 +57,8 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var contractType = (ContractType)item;
-
+            if (SearchText == null)
+                return true;
             switch (SearchBy)
             {
                 case ContractTypeInfoSearchBy.Name:

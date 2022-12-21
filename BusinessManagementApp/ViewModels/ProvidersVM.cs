@@ -60,6 +60,8 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var provider = (Provider)item;
+            if (SearchText == null)
+                return true;
 
             switch (SearchBy)
             {

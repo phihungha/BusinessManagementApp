@@ -61,7 +61,8 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var voucherType = (VoucherType)item;
-
+            if (SearchText == null)
+                return true;
             switch (SearchBy)
             {
                 case VoucherTypeInfoSearchBy.Name:

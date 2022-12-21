@@ -60,7 +60,8 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var skillType = (SkillType)item;
-
+            if (SearchText == null)
+                return true;
             switch (SearchBy)
             {
                 case SkillTypeInfoSearchBy.Name:

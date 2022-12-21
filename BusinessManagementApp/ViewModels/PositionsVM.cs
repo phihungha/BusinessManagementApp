@@ -60,7 +60,8 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var position = (Position)item;
-
+            if (SearchText == null)
+                return true;
             switch (SearchBy)
             {
                 case PositionInfoSearchBy.Name:

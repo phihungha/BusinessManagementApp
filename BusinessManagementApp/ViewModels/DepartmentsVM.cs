@@ -66,7 +66,8 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var department = (Department)item;
-
+            if (SearchText == null)
+                return true;
             switch (SearchBy)
             {
                 case DepartmentInfoSearchBy.Name:
