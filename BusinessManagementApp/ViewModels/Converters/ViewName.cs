@@ -32,7 +32,7 @@ namespace BusinessManagementApp.ViewModels.Converters
                 case WorkspaceViewName.Orders:
                     return "Orders";
 
-                case WorkspaceViewName.OvertimeRecords:
+                case WorkspaceViewName.Overtime:
                     return "Overtime records";
 
                 case WorkspaceViewName.Overview:
@@ -98,7 +98,7 @@ namespace BusinessManagementApp.ViewModels.Converters
                 case WorkspaceViewName.SalesReport:
                     return App.Current.FindResource("SalesReportWhiteIcon");
 
-                case WorkspaceViewName.OvertimeRecords:
+                case WorkspaceViewName.Overtime:
                     return App.Current.FindResource("OvertimeRecordsWhiteIcon");
 
                 case WorkspaceViewName.SkillTypes:

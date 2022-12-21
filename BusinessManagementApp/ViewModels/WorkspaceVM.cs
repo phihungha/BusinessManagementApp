@@ -23,8 +23,8 @@ namespace BusinessManagementApp.ViewModels
         EmployeeInfo,
         EmployeeInfoDetails,
         Overview,
-        OvertimeRecords,
-        OvertimeRecordDetails,
+        Overtime,
+        OvertimeDetails,
         Orders,
         OrderDetails,
         Positions,
@@ -107,7 +107,7 @@ namespace BusinessManagementApp.ViewModels
 
             WorkspaceViewName.EmployeeInfo,
             WorkspaceViewName.SalaryReport,
-            WorkspaceViewName.OvertimeRecords,
+            WorkspaceViewName.Overtime,
             WorkspaceViewName.Bonuses,
             WorkspaceViewName.SkillRating,
 
@@ -196,11 +196,11 @@ namespace BusinessManagementApp.ViewModels
                 case WorkspaceViewName.OrderDetails:
                     return serviceProvider.GetRequiredService<OrderDetailsVM>();
 
-                case WorkspaceViewName.OvertimeRecords:
-                    return serviceProvider.GetRequiredService<OvertimeRecordsVM>();
+                case WorkspaceViewName.Overtime:
+                    return serviceProvider.GetRequiredService<OvertimeVM>();
 
-                case WorkspaceViewName.OvertimeRecordDetails:
-                    return serviceProvider.GetRequiredService<OvertimeRecordDetailsVM>();
+                case WorkspaceViewName.OvertimeDetails:
+                    return serviceProvider.GetRequiredService<OvertimeDetailsVM>();
 
                 case WorkspaceViewName.Overview:
                     return serviceProvider.GetRequiredService<OverviewVM>();

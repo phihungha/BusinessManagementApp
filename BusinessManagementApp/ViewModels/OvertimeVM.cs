@@ -22,7 +22,7 @@ namespace BusinessManagementApp.ViewModels
         Name
     }
 
-    public class OvertimeRecordsVM : ViewModelBase
+    public class OvertimeVM : ViewModelBase
     {
         private OvertimeRecordsRepo overtimeRecordsRepo;
 
@@ -65,7 +65,7 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public OvertimeRecordsVM(OvertimeRecordsRepo overtimeRecordsRepo)
+        public OvertimeVM(OvertimeRecordsRepo overtimeRecordsRepo)
         {
             this.overtimeRecordsRepo = overtimeRecordsRepo;
 
@@ -109,7 +109,7 @@ namespace BusinessManagementApp.ViewModels
             }
 
             // Navigate to details screen
-            WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.OvertimeRecordDetails, id);
+            WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.OvertimeDetails, id);
         }
 
         private async void LoadData()

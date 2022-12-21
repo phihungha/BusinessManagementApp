@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BusinessManagementApp.Views
+namespace BusinessManagementApp.Views.DetailsViews
 {
     /// <summary>
-    /// Interaction logic for OvertimeRecords.xaml
+    /// Interaction logic for OvertimeRecordDetails.xaml
     /// </summary>
-    public partial class OvertimeRecords : UserControl
+    public partial class OvertimeDetails : UserControl
     {
-        public OvertimeRecords()
+        public OvertimeDetails()
         {
             InitializeComponent();
         }
