@@ -39,7 +39,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="ListViewItem">
                                     <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
-                                        <ContentPresenter Margin="0,0,0,10" />
+                                        <ContentPresenter Margin="0,0,0,15" />
                                     </Border>
                                 </ControlTemplate>
                             </Setter.Value>
@@ -50,16 +50,14 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ui:SimpleStackPanel Spacing="10">
-                            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
-                                <TextBlock VerticalAlignment="Center" FontWeight="Bold"
-                                           FontSize="16" Text="{Binding SkillType.Name}" />
-                                <ComboBox ItemsSource="{Binding Level, Converter={converters:EnumToCollection}, Mode=OneTime}"
-                                          SelectedValuePath="Value"
-                                          DisplayMemberPath="Description"
-                                          SelectedValue="{Binding Level}" />
-                                <TextBlock VerticalAlignment="Center"
-                                           Text="{Binding UpdatedAt, StringFormat=(Last updated at {0})}" />
-                            </ui:SimpleStackPanel>
+                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="20" 
+                                       Text="{Binding SkillType.Name, StringFormat={}{0} skill}" />
+                            <ComboBox ItemsSource="{Binding Level, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                                       SelectedValuePath="Value"
+                                       DisplayMemberPath="Description"
+                                       SelectedValue="{Binding Level}" />
+                            <TextBlock VerticalAlignment="Center"
+                                        Text="{Binding UpdatedAt, StringFormat=(Last updated at {0})}" />
                             <TextBlock Text="{Binding SkillType.Description}" />
                         </ui:SimpleStackPanel>
                     </DataTemplate>
