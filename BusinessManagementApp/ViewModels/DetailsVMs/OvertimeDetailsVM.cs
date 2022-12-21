@@ -11,11 +11,16 @@ using System.Threading.Tasks;
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
 
+    public class OvertimeRecordVM : ViewModelBase
+    {
+
+    }
+
     public class OvertimeDetailsVM : ViewModelBase
     {
         #region Dependencies
 
-        private OvertimeRecordsRepo overtimeRecordsRepo;
+        private OvertimeRepo overtimeRecordsRepo;
 
         #endregion Dependencies
 
