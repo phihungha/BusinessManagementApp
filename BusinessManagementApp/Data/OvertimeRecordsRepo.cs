@@ -10,49 +10,63 @@ namespace BusinessManagementApp.Data
     {
         public IObservable<List<OvertimeOverview>> GetOvertimeOverviews(int year, int month)
         {
-            var overviews = new List<OvertimeOverview>()
+            var overviews = new List<OvertimeOverview>();
+            if (year == 2022 && month == 12)
             {
-                new OvertimeOverview()
+                overviews = new List<OvertimeOverview>()
                 {
-                    Employee = new Employee() { Id = "1", Name = "Nguyen Van A"},
-                    NumOfOvertimeDays = 2,
-                    AvgOvertimeDuration = 1.5,
-                    TotalOvertimePay = 500_000
-                },
-                new OvertimeOverview()
-                {
-                    Employee = new Employee() { Id = "2", Name = "Mai Thi Xuan"},
-                    NumOfOvertimeDays = 0,
-                    AvgOvertimeDuration = 0,
-                    TotalOvertimePay = 0
-                }
-            };
+                    new OvertimeOverview()
+                    {
+                        MonthYear = new DateTime(2022, 12, 1),
+                        Employee = new Employee() { Id = "1", Name = "Nguyen Van A"},
+                        NumOfOvertimeDays = 2,
+                        AvgOvertimeDuration = 1.5,
+                        TotalOvertimePay = 500_000
+                    },
+                    new OvertimeOverview()
+                    {
+                        MonthYear = new DateTime(2022, 12, 1),
+                        Employee = new Employee() { Id = "2", Name = "Mai Thi Xuan"},
+                        NumOfOvertimeDays = 0,
+                        AvgOvertimeDuration = 0,
+                        TotalOvertimePay = 0
+                    }
+                };
+            }
 
             return Observable.FromAsync(() => Task.FromResult(overviews));
         }
 
-        public IObservable<List<OvertimeRecord>> GetSkills(string employeeId)
+        public IObservable<OvertimeOverview> GetOvertimeDetails(string employeeId, int year, int month)
         {
-            var records = new List<OvertimeRecord>()
+            var overview = new OvertimeOverview()
             {
-                new OvertimeRecord()
+                MonthYear = new DateTime(2022, 12, 1),
+                Employee = new Employee() { Id = "1", Name = "Nguyen Van A" },
+                NumOfOvertimeDays = 2,
+                AvgOvertimeDuration = 1.5,
+                TotalOvertimePay = 500_000,
+                Records = new List<OvertimeRecord>()
                 {
-                    EmployeeId = "1",
-                    Date = new DateTime(2022, 12, 2),
-                    From = 17,
-                    To = 18
-                },
+                    new OvertimeRecord()
+                    {
+                        EmployeeId = "1",
+                        Date = new DateTime(2022, 12, 2),
+                        From = 17,
+                        To = 18
+                    },
 
-                new OvertimeRecord()
-                {
-                    EmployeeId = "1",
-                    Date = new DateTime(2022, 12, 18),
-                    From = 17,
-                    To = 19
+                    new OvertimeRecord()
+                    {
+                        EmployeeId = "1",
+                        Date = new DateTime(2022, 12, 18),
+                        From = 17,
+                        To = 19
+                    }
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(records));
+            return Observable.FromAsync(() => Task.FromResult(overview));
         }
 
         public IObservable<List<OvertimeRecord>> UpdateOvertimeRecords(string employeeId, List<OvertimeRecord> records)

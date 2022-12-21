@@ -16,6 +16,8 @@ namespace BusinessManagementApp.Data.Model
 
     public class OvertimeOverview
     {
+        public DateTime MonthYear { get; set; }
+
         // Only returns Id and Name
         public Employee Employee { get; set; }
 
