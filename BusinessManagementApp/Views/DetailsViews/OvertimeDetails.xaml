@@ -33,6 +33,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <DataGrid ItemsSource="{Binding OvertimeRecordVMs}"
@@ -49,7 +50,8 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ui:NumberBox Margin="10" Value="{Binding StartHour, UpdateSourceTrigger=PropertyChanged}"
-                                              Minimum="{Binding MinOvertimeHour}" Maximum="{Binding EndHour}" />
+                                              Minimum="{Binding MinOvertimeHour}" Maximum="{Binding EndHour}"
+                                              IsEnabled="{Binding IsEnabled}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -58,18 +60,22 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <ui:NumberBox Margin="10" Value="{Binding EndHour, UpdateSourceTrigger=PropertyChanged}"
-                                              Minimum="{Binding StartHour}" Maximum="{Binding MaxOvertimeHour}" />
+                                              Minimum="{Binding StartHour}" Maximum="{Binding MaxOvertimeHour}"
+                                              IsEnabled="{Binding IsEnabled}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
                     <DataGridTextColumn Header="Number of hours" IsReadOnly="True"
-                                        Binding="{Binding NumberOfHours}" Width="*" />
+                                        Binding="{Binding NumOfHours}" Width="*" />
 
-                    <DataGridTextColumn Header="Pay" IsReadOnly="True" 
-                                        Binding="{Binding Pay, StringFormat=c}" Width="*" />
+                    <DataGridTextColumn Header="Overtime pay" IsReadOnly="True"
+                                        Binding="{Binding OvertimePay, StringFormat=c}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
+
+            <TextBlock Grid.Row="1" Margin="0,20,0,0" FontSize="20" FontWeight="Bold"
+                       Text="{Binding TotalOvertimePay, StringFormat=Total overtime pay: {0:c}}" />
 
             <UniformGrid Grid.Row="2" Columns="2" Margin="0,10,0,0"
                          VerticalAlignment="Bottom" HorizontalAlignment="Right"
