@@ -44,30 +44,14 @@
                     <DataGridTextColumn Header="Day" IsReadOnly="True" FontWeight="Bold"
                                         Binding="{Binding Day, StringFormat=Day {0}}" Width="*" />
 
-                    <DataGridCheckBoxColumn Header="Enabled" Binding="{Binding IsEnabled}" Width="*" />
-
-                    <DataGridTemplateColumn Width="*" Header="Start hour">
+                    <DataGridTemplateColumn Width="*" Header="Number of overtime hours">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <ui:NumberBox Margin="10" Value="{Binding StartHour, UpdateSourceTrigger=PropertyChanged}"
-                                              Minimum="{Binding MinOvertimeHour}" Maximum="{Binding EndHour}"
-                                              IsEnabled="{Binding IsEnabled}" />
+                                <ui:NumberBox Margin="10" Value="{Binding NumOfHours, UpdateSourceTrigger=PropertyChanged}"
+                                              Minimum="0" Maximum="{Binding MaxNumOfOvertimeHours}" />
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-
-                    <DataGridTemplateColumn Width="*" Header="End hour">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <ui:NumberBox Margin="10" Value="{Binding EndHour, UpdateSourceTrigger=PropertyChanged}"
-                                              Minimum="{Binding StartHour}" Maximum="{Binding MaxOvertimeHour}"
-                                              IsEnabled="{Binding IsEnabled}" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-
-                    <DataGridTextColumn Header="Number of hours" IsReadOnly="True"
-                                        Binding="{Binding NumOfHours}" Width="*" />
 
                     <DataGridTextColumn Header="Overtime pay" IsReadOnly="True"
                                         Binding="{Binding OvertimePay, StringFormat=c}" Width="*" />

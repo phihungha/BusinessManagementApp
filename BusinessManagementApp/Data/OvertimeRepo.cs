@@ -45,23 +45,21 @@ namespace BusinessManagementApp.Data
                 Employee = new Employee() { Id = "1", Name = "Nguyen Van A" },
                 NumOfOvertimeDays = 2,
                 AvgOvertimeDuration = 1.5,
-                TotalOvertimePay = 500_000,
+                TotalOvertimePay = 200_000,
                 Records = new List<OvertimeRecord>()
                 {
                     new OvertimeRecord()
                     {
                         EmployeeId = "1",
                         Date = new DateTime(2022, 12, 2),
-                        StartHour = 17,
-                        EndHour = 18
+                        NumOfHours = 2,
                     },
 
                     new OvertimeRecord()
                     {
                         EmployeeId = "1",
                         Date = new DateTime(2022, 12, 18),
-                        StartHour = 17,
-                        EndHour = 19
+                        NumOfHours = 1,
                     }
                 }
             };
