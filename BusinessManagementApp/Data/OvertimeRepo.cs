@@ -52,16 +52,16 @@ namespace BusinessManagementApp.Data
                     {
                         EmployeeId = "1",
                         Date = new DateTime(2022, 12, 2),
-                        From = 17,
-                        To = 18
+                        StartHour = 17,
+                        EndHour = 18
                     },
 
                     new OvertimeRecord()
                     {
                         EmployeeId = "1",
                         Date = new DateTime(2022, 12, 18),
-                        From = 17,
-                        To = 19
+                        StartHour = 17,
+                        EndHour = 19
                     }
                 }
             };

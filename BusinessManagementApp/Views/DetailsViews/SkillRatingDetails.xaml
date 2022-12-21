@@ -16,10 +16,12 @@
         <Border Style="{StaticResource ViewTitleBorder}">
             <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
                 <TextBlock Style="{StaticResource ViewTitleText}">
-                 Rate the skills of
+                    Rate the skills of
                 </TextBlock>
-                <TextBlock Style="{StaticResource ViewTitleText}" Text="{Binding CurrentEmployee.Name}" />
-                <TextBlock Style="{StaticResource ViewTitleText}" Text="{Binding CurrentEmployee.Id, StringFormat=(#{0})}" />
+                <TextBlock Style="{StaticResource ViewTitleText}" 
+                           Text="{Binding CurrentEmployee.Name}" />
+                <TextBlock Style="{StaticResource ViewTitleText}" 
+                           Text="{Binding CurrentEmployee.Id, StringFormat=(#{0})}" />
             </ui:SimpleStackPanel>
         </Border>
 

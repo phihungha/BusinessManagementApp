@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.DetailsVMs;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -105,11 +106,16 @@ namespace BusinessManagementApp.ViewModels
         {
             if (id == null)
             {
-                throw new ArgumentException("ID is null");
+                throw new ArgumentNullException(nameof(id));
             }
 
-            // Navigate to details screen
-            WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.OvertimeDetails, id);
+            var parameter = new OvertimeDetailsParameter()
+            {
+                MonthYear = new DateTime(Year, Month, 1),
+                EmployeeId = id
+            };
+
+            WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.OvertimeDetails, parameter);
         }
 
         private async void LoadData()
