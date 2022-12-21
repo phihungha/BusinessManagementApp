@@ -138,9 +138,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref currentMonthYear, value);
         }
 
-        private int minHour = 17;
+        private int minOvertimeHour = 17;
 
-        private int maxHour = 20;
+        private int maxOvertimeHour = 20;
 
         #region Button enable/disable logic
 
@@ -161,9 +161,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public OvertimeDetailsVM(OvertimeRepo overtimeRepo)
+        public OvertimeDetailsVM(OvertimeRepo overtimeRepo, ConfigRepo configRepo)
         {
             this.overtimeRepo = overtimeRepo;
+
+            minOvertimeHour = configRepo.Config.MinOvertimeHour;
+            maxOvertimeHour = configRepo.Config.MaxOvertimeHour;
 
             Save = new AsyncRelayCommand(SaveOvertimeRecords);
             Cancel = new RelayCommand(
@@ -194,7 +197,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             int numberOfDaysInMonth = DateTime.DaysInMonth(CurrentMonthYear.Year, CurrentMonthYear.Month);
             for (int day = 1; day < numberOfDaysInMonth; day++)
             {
-                var recordVM = new OvertimeRecordVM(day, minHour, maxHour);
+                var recordVM = new OvertimeRecordVM(day, minOvertimeHour, maxOvertimeHour);
 
                 OvertimeRecord? record = records.Find(i => i.Date.Day == day);
                 if (record != null)

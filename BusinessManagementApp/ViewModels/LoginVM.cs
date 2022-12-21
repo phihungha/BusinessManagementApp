@@ -1,4 +1,5 @@
-﻿using BusinessManagementApp.Data.Api;
+﻿using BusinessManagementApp.Data;
+using BusinessManagementApp.Data.Api;
 using BusinessManagementApp.Data.Model.Auth;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -11,6 +12,9 @@ namespace BusinessManagementApp.ViewModels
 {
     public class LoginVM : ObservableObject
     {
+        private readonly IAuthRemote authRemote;
+        private readonly ConfigRepo configRepo;
+
         private string userName = "";
 
         public string UserName
@@ -37,25 +41,26 @@ namespace BusinessManagementApp.ViewModels
 
         public ICommand Login { get; }
 
-        private readonly IAuthRemote authRemote;
-
-        public LoginVM(IAuthRemote authRemote)
+        public LoginVM(IAuthRemote authRemote, ConfigRepo configRepo)
         {
             this.authRemote = authRemote;
+            this.configRepo = configRepo;
             Login = new AsyncRelayCommand(CheckLogin);
         }
 
         private async Task CheckLogin()
         {
             //Default user: admin - 113
-            var response = await this.authRemote.Login(new LoginRequest()
+            var response = await authRemote.Login(new LoginRequest()
             {
                 Username = UserName,
                 Password = Password,
             });
+
             if (response.IsAuthenticated)
             {
                 MainWindowNavUtils.NavigateTo(MainWindowViewName.Workspace);
+                configRepo.LoadConfig();
             }
             else
             {
