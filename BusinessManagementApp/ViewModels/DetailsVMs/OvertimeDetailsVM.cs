@@ -212,12 +212,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             List<OvertimeRecord> records = OvertimeRecordVMs
                 .Where(i => i.IsEnabled)
-                .Select(i => new OvertimeRecord() 
-                { 
+                .Select(i => new OvertimeRecord()
+                {
                     EmployeeId = currentEmployee.Id,
-                    Date = new DateTime(CurrentMonthYear.Year, CurrentMonthYear.Month, i.Day), 
+                    Date = new DateTime(CurrentMonthYear.Year, CurrentMonthYear.Month, i.Day),
                     StartHour = i.StartHour,
-                    EndHour = i.EndHour 
+                    EndHour = i.EndHour
                 })
                 .ToList();
             await overtimeRepo.UpdateOvertimeRecords(CurrentEmployee.Id, records);
