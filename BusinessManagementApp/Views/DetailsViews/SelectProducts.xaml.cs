@@ -30,6 +30,9 @@ namespace BusinessManagementApp.Views.DetailsViews
         // ListBox doesn't support binding with SelectedItems so an event handler is needed
         private void ProductsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (DataContext == null)
+                return;
+
             var viewModel = (SelectProductsVM)DataContext;
             viewModel.SelectedProducts = ProductsListBox.SelectedItems.OfType<Product>().ToList();
         }

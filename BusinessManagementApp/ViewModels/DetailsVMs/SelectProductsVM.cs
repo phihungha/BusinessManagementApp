@@ -89,8 +89,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Select = new RelayCommand(() => WorkspaceNavUtils.NavigateBackWithExtra(SelectedProducts));
             Search = new RelayCommand(() => ProductsView.Refresh());
             Cancel = new RelayCommand(() => WorkspaceNavUtils.NavigateBack());
-
-            LoadData();
         }
 
         private bool FilterList(object item)
@@ -118,7 +116,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
         }
 
-        public override async void LoadData(object? input = null)
+        public override async void LoadData(object? input)
         {
             if (input == null)
             {

@@ -102,10 +102,10 @@ namespace BusinessManagementApp.ViewModels
     {
         private Stack<ViewModelBase> navigationBackstack = new();
 
-        private ObservableObject? currentViewVM
+        private ViewModelBase currentViewVM
             = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
 
-        public ObservableObject? CurrentViewVM
+        public ViewModelBase CurrentViewVM
         {
             get => currentViewVM;
             set => SetProperty(ref currentViewVM, value);
@@ -174,14 +174,15 @@ namespace BusinessManagementApp.ViewModels
             }
             var viewName = (WorkspaceViewName)content.TargetViewName;
 
+            if (content.SaveOnBackstack)
+            {
+                navigationBackstack.Push(CurrentViewVM);
+            }
+
             ViewModelBase viewModel = GetViewModelFromViewName(viewName);
             viewModel.LoadData(content.Extra);
             CurrentViewVM = viewModel;
             
-            if (content.SaveOnBackstack)
-            {
-                navigationBackstack.Push(viewModel);
-            }
         }
 
         private void HandleBackNavigationMessage(WorkspaceBackNavigationMessage message)
