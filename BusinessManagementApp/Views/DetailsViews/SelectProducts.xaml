@@ -53,7 +53,7 @@
                      Margin="0,20,0,0" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
-                        <Setter Property="Margin" Value="0,5,0,5" />
+                        <Setter Property="Margin" Value="0,2,0,2" />
                     </Style>
                 </ListBox.ItemContainerStyle>
 
@@ -67,6 +67,7 @@
 
                             <ui:SimpleStackPanel Spacing="3">
                                 <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Name}" />
+                                <TextBlock FontSize="13" Text="{Binding Id, StringFormat=ID: {0}}" />
                                 <TextBlock FontSize="13" Text="{Binding Category.Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Description}" />
                             </ui:SimpleStackPanel>
