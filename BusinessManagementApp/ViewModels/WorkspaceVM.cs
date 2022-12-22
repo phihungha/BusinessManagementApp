@@ -35,7 +35,7 @@ namespace BusinessManagementApp.ViewModels
         ProviderDetails,
         SalaryReport,
         SalesReport,
-        SelectOrderItem,
+        SelectProducts,
         SkillRating,
         SkillRatingDetails,
         SkillTypes,
@@ -87,7 +87,7 @@ namespace BusinessManagementApp.ViewModels
     public class WorkspaceVM : ObservableObject
     {
         private ObservableObject? currentViewVM
-            = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
+            = App.Current.ServiceProvider.GetRequiredService<SelectProductsVM>();
 
         public ObservableObject? CurrentViewVM
         {
@@ -229,7 +229,7 @@ namespace BusinessManagementApp.ViewModels
                 case WorkspaceViewName.SalesReport:
                     return serviceProvider.GetRequiredService<SalesReportVM>();
 
-                case WorkspaceViewName.SelectOrderItem:
+                case WorkspaceViewName.SelectProducts:
                     return serviceProvider.GetRequiredService<SelectProductsVM>();
 
                 case WorkspaceViewName.SkillRating:

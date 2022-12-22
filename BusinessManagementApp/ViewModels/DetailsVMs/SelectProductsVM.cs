@@ -1,15 +1,32 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.Views;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reactive.Linq;
+using System.Windows.Data;
+using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
+    public enum SelectProductsSearchBy
+    {
+        [Description("ID")]
+        Id,
+
+        [Description("Name")]
+        Name,
+
+        [Description("Description")]
+        Description
+    }
+
     public class SelectProductsVM : ViewModelBase
     {
         #region Dependencies
@@ -18,7 +35,25 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Dependencies
 
-        public ObservableCollection<Product> Products { get; } = new();
+        private ObservableCollection<Product> products { get; } = new();
+
+        public ICollectionView ProductsView { get; }
+
+        public string SearchText { get; set; } = string.Empty;
+
+        public SelectProductsSearchBy SearchBy { get; set; } = SelectProductsSearchBy.Name;
+
+        private List<Product> selectedProducts;
+
+        public List<Product> SelectedProducts
+        {
+            get => selectedProducts;
+            set
+            {
+                selectedProducts = value;
+                CalculateTotalPrice();
+            }
+        }
 
         private string title = "";
 
@@ -36,10 +71,74 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref totalPrice, value);
         }
 
-        public SelectProductsVM(ProductsRepo productsRepo) 
+        #region Commands for buttons
+
+        public ICommand Search { get; }
+        public ICommand Select { get; private set; }
+        public ICommand Cancel { get; private set; }
+
+        #endregion Commands for buttons
+
+        public SelectProductsVM(ProductsRepo productsRepo)
         {
             this.productsRepo = productsRepo;
 
+            var collectionViewSource = new CollectionViewSource() { Source = products };
+            ProductsView = collectionViewSource.View;
+            ProductsView.Filter = FilterList;
+
+            Select = new RelayCommand(ReturnSelectedProducts);
+            Search = new RelayCommand(() => ProductsView.Refresh());
+            // TODO: Return to previous screen
+
+            LoadData();
+        }
+
+        private bool FilterList(object item)
+        {
+            var product = (Product)item;
+
+            if (SearchText == null)
+            {
+                return true;
+            }
+
+            switch (SearchBy)
+            {
+                case SelectProductsSearchBy.Name:
+                    return product.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                case SelectProductsSearchBy.Id:
+                    return product.Id.ToString() == SearchText;
+
+                case SelectProductsSearchBy.Description:
+                    return product.Description.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                default:
+                    return false;
+            }
+        }
+
+        public override async void LoadData(object? input = null)
+        {
+            if (input == null)
+            {
+                input = "testing";
+                // throw new ArgumentNullException(nameof(input));
+            }
+
+            Title = (string)input;
+            products.AddRange(await productsRepo.GetAvailableProducts());
+        }
+
+        private void CalculateTotalPrice()
+        {
+            TotalPrice = SelectedProducts.Sum(i => i.Price);
+        }
+
+        private void ReturnSelectedProducts()
+        {
+            // TODO: Returns previous screen
         }
     }
 }

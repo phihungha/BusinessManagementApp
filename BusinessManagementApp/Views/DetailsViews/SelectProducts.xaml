@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="BusinessManagementApp.Views.DetailsViews.SelectOrderItems"
+﻿<UserControl x:Class="BusinessManagementApp.Views.DetailsViews.SelectProducts"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -37,7 +37,7 @@
                 </Button>
 
                 <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
-                Search by
+                    Search by
                 </TextBlock>
 
                 <!-- Bind to an enum property as follow: -->
@@ -48,32 +48,32 @@
                       SelectedValue="{Binding SearchBy}" />
             </StackPanel>
 
-            <ListBox Grid.Row="1" ItemsSource="{Binding Products}"
-                     SelectionMode="Multiple" SelectedItem="{Binding SelectedProducts}"
+            <ListBox Grid.Row="1" x:Name="ProductsListBox" ItemsSource="{Binding ProductsView}"
+                     SelectionMode="Multiple" SelectionChanged="ProductsListBox_SelectionChanged"
                      Margin="0,20,0,0" HorizontalContentAlignment="Stretch">
                 <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Margin" Value="0,10,0,10" />
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="0,5,0,5" />
                     </Style>
                 </ListBox.ItemContainerStyle>
 
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Grid>
+                        <Grid Margin="7">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <ui:SimpleStackPanel Spacing="6">
+                            <ui:SimpleStackPanel Spacing="3">
                                 <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Category.Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Description}" />
                             </ui:SimpleStackPanel>
 
-                            <ui:SimpleStackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="6">
+                            <ui:SimpleStackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
                                 <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Price, StringFormat=c}" />
-                                <TextBlock FontSize="13" Text="{Binding Stock, StringFormat=Stock: {0}}" />
+                                <TextBlock FontSize="13" Text="{Binding Stock, StringFormat={}{0} remaining(s)}" />
                             </ui:SimpleStackPanel>
                         </Grid>
                     </DataTemplate>
@@ -91,7 +91,7 @@
                          Width="350" Height="55">
                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                        Command="{Binding Save}" IsEnabled="{Binding CanSave}">
+                        Command="{Binding Select}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
                         <TextBlock FontSize="16">Select</TextBlock>
