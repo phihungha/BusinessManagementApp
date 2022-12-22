@@ -6,15 +6,17 @@ namespace BusinessManagementApp.Data.Model
     {
         public int Id { get; set; }
 
-        public Employee Employee { get; set; }
+        public string EmployeeId { get; set; }
 
-        public Employee CompanyRepresentative { get; set; }
+        public string CompanyRepresentativeEmployeeId { get; set; }
 
         public ContractType Type { get; set; }
 
-        public DateTime From { get; set; }
+        public bool IsCurrent { get; set; }
 
-        public DateTime? To { get; set; }
+        public DateTime StartDate { get; set; }
+
+        public DateTime? EndDate { get; set; }
     }
 
     public class ContractType
@@ -27,6 +29,6 @@ namespace BusinessManagementApp.Data.Model
 
         public decimal BaseSalary { get; set; }
 
-        public DateTime? Period { get; set; }
+        public int? Period { get; set; }
     }
 }

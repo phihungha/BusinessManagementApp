@@ -23,11 +23,14 @@ namespace BusinessManagementApp.Data.Model
 
         public string Address { get; set; }
 
+        // Only include Id and Name
         public Department Department { get; set; }
 
         public Position CurrentPosition { get; set; }
 
         public List<PositionRecord> PositionRecords { get; set; }
+
+        public Contract CurrentContract { get; set; }
 
         public List<Contract> Contracts { get; set; }
 

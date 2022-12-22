@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Data;
 using BusinessManagementApp.ViewModels.Utils;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

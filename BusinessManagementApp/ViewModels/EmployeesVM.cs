@@ -66,6 +66,11 @@ namespace BusinessManagementApp.ViewModels
         {
             var employee = (Employee)item;
 
+            if (SearchText == null)
+            {
+                return true;
+            }
+
             switch (SearchBy)
             {
                 case EmployeeInfoSearchBy.Name:
