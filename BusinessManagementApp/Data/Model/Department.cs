@@ -12,6 +12,7 @@ namespace BusinessManagementApp.Data.Model
 
         public string PhoneNumber { get; set; }
 
+        // Only include Id and Name
         public Employee Head { get; set; }
 
         // Supports WPF ComboBox binding. 

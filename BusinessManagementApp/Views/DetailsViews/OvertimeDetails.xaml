@@ -1,27 +1,31 @@
-﻿<UserControl x:Class="BusinessManagementApp.Views.DetailsViews.SkillRatingDetails"
+﻿<UserControl x:Class="BusinessManagementApp.Views.DetailsViews.OvertimeDetails"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignWidth="1290" d:DesignHeight="720">
-    <Grid Margin="15">
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid  Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
 
         <Border Style="{StaticResource ViewTitleBorder}">
-            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
+            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="10">
                 <TextBlock Style="{StaticResource ViewTitleText}">
-                    Rate the skills of
+                    Overtime records of
                 </TextBlock>
                 <TextBlock Style="{StaticResource ViewTitleText}"
                            Text="{Binding CurrentEmployee.Name}" />
                 <TextBlock Style="{StaticResource ViewTitleText}"
                            Text="{Binding CurrentEmployee.Id, StringFormat=(#{0})}" />
+                <TextBlock Style="{StaticResource ViewTitleText}">
+                    for
+                </TextBlock>
+                <TextBlock Style="{StaticResource ViewTitleText}"
+                           Text="{Binding CurrentMonthYear, StringFormat=MM/yyyy}" />
             </ui:SimpleStackPanel>
         </Border>
 
@@ -32,43 +36,32 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ListView ItemsSource="{Binding Skills}" HorizontalContentAlignment="Stretch">
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListViewItem">
-                        <Setter Property="Margin" Value="0,10,0,10" />
+            <DataGrid ItemsSource="{Binding OvertimeRecordVMs}"
+                      SelectedIndex="{Binding SelectedRecordIndex, Mode=OneTime}"
+                      Margin="0,15,0,0" GridLinesVisibility="None"
+                      AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Day" IsReadOnly="True" FontWeight="Bold"
+                                        Binding="{Binding Day, StringFormat=Day {0}}" Width="*" />
 
-                        <!-- Disable selection and add line between items -->
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="ListViewItem">
-                                    <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
-                                        <ContentPresenter Margin="0,0,0,15" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </ListView.ItemContainerStyle>
+                    <DataGridTemplateColumn Width="*" Header="Number of overtime hours">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <ui:NumberBox Margin="10" Value="{Binding NumOfHours, UpdateSourceTrigger=PropertyChanged}"
+                                              Minimum="0" Maximum="{Binding MaxNumOfOvertimeHours}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ui:SimpleStackPanel Spacing="10">
-                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
-                                       Text="{Binding SkillType.Name, StringFormat={}{0} skill}" />
-                            <ComboBox ItemsSource="{Binding Level, Converter={converters:EnumToCollection}, Mode=OneTime}"
-                                       SelectedValuePath="Value"
-                                       DisplayMemberPath="Description"
-                                       SelectedValue="{Binding Level}" />
-                            <TextBlock Text="{Binding SkillType.Description}" />
-                        </ui:SimpleStackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                    <DataGridTextColumn Header="Overtime pay" IsReadOnly="True"
+                                        Binding="{Binding OvertimePay, StringFormat=c}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
 
             <ui:SimpleStackPanel Grid.Row="1" Margin="0,20,0,0" Orientation="Horizontal" Spacing="8">
-                <TextBlock FontSize="20" FontWeight="Bold">Last updated at:</TextBlock>
+                <TextBlock FontSize="20" FontWeight="Bold">Total overtime pay:</TextBlock>
                 <TextBlock FontSize="20" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}"
-                           Text="{Binding LastUpdatedTime}" />
+                           Text="{Binding TotalOvertimePay, StringFormat=c}" />
             </ui:SimpleStackPanel>
 
             <UniformGrid Grid.Row="2" Columns="2" Margin="0,10,0,0"

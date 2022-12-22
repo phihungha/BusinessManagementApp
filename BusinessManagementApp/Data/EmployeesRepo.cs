@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data
     {
         public IObservable<object> DeleteEmployee(string id)
         {
-            throw new NotImplementedException();
+            return Observable.FromAsync(() => Task.FromResult(new object()));
         }
 
         public IObservable<Employee> GetEmployee(string id)
@@ -27,30 +27,56 @@ namespace BusinessManagementApp.Data
                 Email = "NguyenA@gmail.com",
                 Address = "178 Nguyen Trai, Binh Duong",
                 Department = new Department { Id = 2, Name = "Human resources" },
-                CurrentPosition = new Position() { Name = "Sales manager" },
+                CurrentPosition = new Position() { Id = 4, Name = "Director" },
+                CurrentContract = new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2021, 5, 5),
+                    IsCurrent = true,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
                 PositionRecords = new List<PositionRecord>
                 {
                     new PositionRecord()
                     {
-                        StartDate = new DateTime(1995, 5, 5),
-                        EndDate = new DateTime(2001, 5, 5),
-                        Position = new Position { Name = "Sales" }
+                        StartDate = new DateTime(2020, 5, 5),
+                        IsCurrent = true,
+                        Position = new Position { Name = "Director" }
                     },
 
                     new PositionRecord()
                     {
-                        StartDate = new DateTime(2001, 5, 5),
-                        EndDate = new DateTime(2022, 5, 5),
+                        StartDate = new DateTime(2015, 5, 5),
+                        EndDate = new DateTime(2020, 5, 5),
+                        IsCurrent = false,
                         Position = new Position { Name = "Sales manager" }
+                    },
+
+                    new PositionRecord()
+                    {
+                        StartDate = new DateTime(2011, 5, 5),
+                        EndDate = new DateTime(2015, 5, 5),
+                        IsCurrent = false,
+                        Position = new Position { Name = "Sales" }
                     }
                 },
                 Contracts = new List<Contract>
                 {
                     new Contract()
                     {
-                        From = new DateTime(1995, 5, 5),
-                        To = new DateTime(2001,5,5),
+                        Id = 2,
+                        StartDate = new DateTime(2021, 5, 5),
+                        IsCurrent = true,
                         Type = new ContractType() { Name = "Permanent" }
+                    },
+
+                    new Contract()
+                    {
+                        Id = 1,
+                        StartDate = new DateTime(2011, 5, 5),
+                        EndDate = new DateTime(2021,5,5),
+                        IsCurrent = false,
+                        Type = new ContractType() { Name = "10 years" }
                     }
                 },
             };
@@ -91,12 +117,67 @@ namespace BusinessManagementApp.Data
 
         public IObservable<Employee> AddEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            return Observable.FromAsync(() => Task.FromResult(employee));
         }
 
         public IObservable<Employee> UpdateEmployee(string employeeId, Employee employee)
         {
-            throw new NotImplementedException();
+            return Observable.FromAsync(() => Task.FromResult(employee));
+        }
+
+        public IObservable<List<Contract>> AddContract(Contract contract)
+        {
+            contract.Id = 3;
+            var contracts = new List<Contract>
+            {
+                contract,
+
+                new Contract()
+                {
+                    Id = 2,
+                    StartDate = new DateTime(2021, 5, 5),
+                    EndDate = DateTime.Now.Date,
+                    IsCurrent = true,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
+
+                new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2011, 5, 5),
+                    EndDate = new DateTime(2021,5,5),
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "10 years" }
+                }
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(contracts));
+        }
+
+        public IObservable<List<Contract>> TerminateCurrentContract(string employeeId)
+        {
+            var contracts = new List<Contract>
+            {
+                new Contract()
+                {
+                    Id = 2,
+                    StartDate = new DateTime(2021, 5, 5),
+                    EndDate = DateTime.Now.Date,
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
+
+                new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2011, 5, 5),
+                    EndDate = new DateTime(2021,5,5),
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "10 years" }
+                }
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(contracts));
         }
     }
 }

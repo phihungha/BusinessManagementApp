@@ -11,6 +11,7 @@ namespace BusinessManagementApp.Data.Model
 
         public DateTime CompletionTime { get; set; }
 
+        // Only include Id and Name
         public Employee EmployeeInCharge { get; set; }
 
         public Customer Customer { get; set; }
@@ -19,10 +20,12 @@ namespace BusinessManagementApp.Data.Model
 
         public OrderStatus Status { get; set; }
 
+        // Only return when getting details
         public List<OrderItem> Items { get; set; }
 
         public decimal TotalPrice { get; set; }
 
+        // Only return when getting details
         public List<Voucher> AppliedVouchers { get; set; }
              
         // Price after discount, before tax

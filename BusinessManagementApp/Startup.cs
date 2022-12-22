@@ -15,12 +15,14 @@ namespace BusinessManagementApp
 {
     public static class Startup
     {
-        private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false, bool logging = false)
+        private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false,
+            bool logging = false, string subUrl = "api")
         {
-            string BASE_URL = "";
+            string BaseApiUrl = "https://evident-castle-371707.as.r.appspot.com/" + subUrl;
+            BaseApiUrl = BaseApiUrl.EndsWith("/") ? BaseApiUrl : BaseApiUrl + "/";
             builder = builder.ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri(BASE_URL);
+                c.BaseAddress = new Uri(BaseApiUrl);
             });
 
             if (logging)
@@ -59,7 +61,17 @@ namespace BusinessManagementApp
                     NullValueHandling = NullValueHandling.Ignore
                 }));
                 service.AddTransient<HttpAuthHandler>();
-                service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true);
+                service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true, "");
+
+                service.AddRefitClient<IContractApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<ICustomerApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IDepartmentApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IEmployeeApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IOrderApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IPositionApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IProductApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IRecordApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IVoucherApi>(settings).ConfigHttpClientBuilder(true, true);
 
                 service.AddSingleton<IAuthenticator, Authenticator>();
                 service.AddSingleton<SchedulerProvider>();
@@ -72,12 +84,13 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
+                service.AddSingleton<ConfigRepo>();
                 service.AddSingleton<ContractTypesRepo>();
                 service.AddSingleton<CustomersRepo>();
                 service.AddSingleton<DepartmentsRepo>();
                 service.AddSingleton<EmployeeRepo>();
                 service.AddSingleton<OrdersRepo>();
-                service.AddSingleton<OvertimeRecordsRepo>();
+                service.AddSingleton<OvertimeRepo>();
                 service.AddSingleton<PositionsRepo>();
                 service.AddSingleton<ProductsRepo>();
                 service.AddSingleton<ProvidersRepo>();
@@ -110,8 +123,8 @@ namespace BusinessManagementApp
                 service.AddTransient<EmployeeDetailsVM>();
                 service.AddTransient<OrdersVM>();
                 service.AddTransient<OrderDetailsVM>();
-                service.AddTransient<OvertimeRecordsVM>();
-                service.AddTransient<OvertimeRecordDetailsVM>();
+                service.AddTransient<OvertimeVM>();
+                service.AddTransient<OvertimeDetailsVM>();
                 service.AddTransient<OverviewVM>();
                 service.AddTransient<PositionsVM>();
                 service.AddTransient<PositionDetailsVM>();
@@ -121,7 +134,7 @@ namespace BusinessManagementApp
                 service.AddTransient<ProviderDetailsVM>();
                 service.AddTransient<SalaryReportVM>();
                 service.AddTransient<SalesReportVM>();
-                service.AddTransient<SelectOrderItemsVM>();
+                service.AddTransient<SelectProductsVM>();
                 service.AddTransient<SkillRatingVM>();
                 service.AddTransient<SkillRatingDetailsVM>();
                 service.AddTransient<SkillTypesVM>();

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BusinessManagementApp.Views.DetailsViews
+namespace BusinessManagementApp.Views
 {
     /// <summary>
-    /// Interaction logic for SelectOrderItems.xaml
+    /// Interaction logic for OvertimeRecords.xaml
     /// </summary>
-    public partial class SelectOrderItems : UserControl
+    public partial class Overtime : UserControl
     {
-        public SelectOrderItems()
+        public Overtime()
         {
             InitializeComponent();
         }

@@ -1,8 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace BusinessManagementApp.Data.Model
 {
+    public class SkillOverview
+    {
+        // Only returns Id, Name
+        public Employee Employee { get; set; }
+
+        public DateTime LastUpdatedTime { get; set; }
+
+        // Only returns when getting details
+        public List<Skill> Skills { get; set; }
+    }
+
     public class Skill
     {
         public string EmployeeId { get; set; }
@@ -11,7 +23,7 @@ namespace BusinessManagementApp.Data.Model
 
         public SkillLevel Level { get; set; }
 
-        public DateTime UpdatedAt { get; set; }
+        public DateTime LastUpdatedTime { get; set; }
     }
 
     public class SkillType
@@ -25,6 +37,9 @@ namespace BusinessManagementApp.Data.Model
 
     public enum SkillLevel
     {
+        [Description("Unrated")]
+        Unrated,
+
         [Description("Acceptable")]
         Acceptable,
 

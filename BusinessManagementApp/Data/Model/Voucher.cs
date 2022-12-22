@@ -8,6 +8,7 @@ namespace BusinessManagementApp.Data.Model
     {
         public string Code { get; set; }
 
+        // Only returns Id, Name
         public VoucherType Type { get; set; }
 
         public DateTime ReleaseDate { get; set; }
@@ -29,6 +30,7 @@ namespace BusinessManagementApp.Data.Model
 
         public decimal MinNetPrice { get; set; }
 
+        // Only return Id and Name
         public List<Product> AppliedProducts { get; set; }
     }
 

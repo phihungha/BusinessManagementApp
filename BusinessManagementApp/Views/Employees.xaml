@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
+                <TextBlock Style="{StaticResource ViewTitleText}">
                     Employee information
                 </TextBlock>
 

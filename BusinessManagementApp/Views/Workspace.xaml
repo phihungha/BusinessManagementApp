@@ -43,8 +43,8 @@
             <views:Orders />
         </DataTemplate>
         
-        <DataTemplate DataType="{x:Type vm:OvertimeRecordsVM}">
-            <views:OvertimeRecords />
+        <DataTemplate DataType="{x:Type vm:OvertimeVM}">
+            <views:Overtime />
         </DataTemplate>
         
         <DataTemplate DataType="{x:Type vm:OverviewVM}">
@@ -107,8 +107,8 @@
             <editviews:OrderDetails />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type editvm:OvertimeRecordDetailsVM}">
-            <editviews:OvertimeRecordDetails />
+        <DataTemplate DataType="{x:Type editvm:OvertimeDetailsVM}">
+            <editviews:OvertimeDetails />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type editvm:PositionDetailsVM}">
@@ -123,8 +123,8 @@
             <editviews:ProviderDetails />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type editvm:SelectOrderItemsVM}">
-            <editviews:SelectOrderItems />
+        <DataTemplate DataType="{x:Type editvm:SelectProductsVM}">
+            <editviews:SelectProducts />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type editvm:SkillRatingDetailsVM}">
