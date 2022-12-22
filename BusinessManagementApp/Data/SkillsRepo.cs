@@ -15,13 +15,13 @@ namespace BusinessManagementApp.Data
                 new SkillOverview()
                 {
                     Employee = new Employee() { Id = "1", Name = "Nguyen Van A" },
-                    UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55)
+                    LastUpdatedTime = new DateTime(2022, 11, 12, 13, 45, 55)
                 },
 
                 new SkillOverview()
                 {
                     Employee = new Employee() { Id = "2", Name = "Mai Thi Xuan" },
-                    UpdatedAt = new DateTime(2022, 11, 15, 17, 11, 12)
+                    LastUpdatedTime = new DateTime(2022, 11, 15, 17, 11, 12)
                 },
             };
 
@@ -33,7 +33,7 @@ namespace BusinessManagementApp.Data
             var overview = new SkillOverview()
             {
                 Employee = new Employee() { Id = "1", Name = "Nguyen Van A" },
-                UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55),
+                LastUpdatedTime = new DateTime(2022, 11, 12, 13, 45, 55),
                 Skills = new List<Skill>()
                 {
                     new Skill()
@@ -41,7 +41,7 @@ namespace BusinessManagementApp.Data
                         EmployeeId = "1",
                         SkillType = new SkillType() { Id = 1, Name = "IT", Description = "Proficiency at using IT equipments and software." },
                         Level = SkillLevel.Excellent,
-                        UpdatedAt = new DateTime(2022, 11, 12, 13, 45, 55)
+                        LastUpdatedTime = new DateTime(2022, 11, 12, 13, 45, 55)
                     },
 
                     new Skill()
@@ -49,7 +49,7 @@ namespace BusinessManagementApp.Data
                         EmployeeId = "1",
                         SkillType = new SkillType() { Id = 2, Name = "English", Description = "Proficiency at speaking, reading, listening, writing English." },
                         Level = SkillLevel.Unrated,
-                        UpdatedAt = new DateTime(2022, 11, 10, 13, 45, 55)
+                        LastUpdatedTime = new DateTime(2022, 11, 10, 13, 45, 55)
                     }
                 }
             };

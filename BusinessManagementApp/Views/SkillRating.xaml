@@ -56,7 +56,7 @@
                 <!-- Set the columns to display here. -->
                 <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="50" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Employee.Name}" Width="*" />
-                <DataGridTextColumn Header="Last updated at" Binding="{Binding UpdatedAt}" Width="300" />
+                <DataGridTextColumn Header="Last updated at" Binding="{Binding LastUpdatedTime}" Width="300" />
 
                 <!-- Rate button -->
                 <DataGridTemplateColumn Width="60">

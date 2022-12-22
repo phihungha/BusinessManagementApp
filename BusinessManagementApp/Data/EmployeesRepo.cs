@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data
     {
         public IObservable<object> DeleteEmployee(string id)
         {
-            throw new NotImplementedException();
+            return Observable.FromAsync(() => Task.FromResult(new object()));
         }
 
         public IObservable<Employee> GetEmployee(string id)
@@ -117,12 +117,12 @@ namespace BusinessManagementApp.Data
 
         public IObservable<Employee> AddEmployee(Employee employee)
         {
-            throw new NotImplementedException();
+            return Observable.FromAsync(() => Task.FromResult(employee));
         }
 
         public IObservable<Employee> UpdateEmployee(string employeeId, Employee employee)
         {
-            throw new NotImplementedException();
+            return Observable.FromAsync(() => Task.FromResult(employee));
         }
 
         public IObservable<List<Contract>> AddContract(Contract contract)

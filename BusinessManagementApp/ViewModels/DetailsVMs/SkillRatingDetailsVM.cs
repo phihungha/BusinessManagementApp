@@ -30,6 +30,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref currentEmployee, value);
         }
 
+        private DateTime lastUpdatedTime = new();
+
+        public DateTime LastUpdatedTime
+        {
+            get => lastUpdatedTime;
+            set => SetProperty(ref lastUpdatedTime, value);
+        }
+
         #region Button enable/disable logic
 
         private bool canSave = false;
@@ -69,6 +77,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             SkillOverview overview = await skillsRepo.GetSkillDetails((string)id);
             Skills.AddRange(overview.Skills);
             CurrentEmployee = overview.Employee;
+            LastUpdatedTime = overview.LastUpdatedTime;
 
             CanSave = true;
         }
