@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Messaging;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
@@ -52,8 +53,9 @@ namespace BusinessManagementApp.ViewModels
     /// </summary>
     public struct NavigationMessageContent
     {
-        public WorkspaceViewName TargetViewName { get; set; }
+        public WorkspaceViewName? TargetViewName { get; set; }
         public object? Extra { get; set; }
+        public bool SaveOnBackstack { get; set; }
 
         /// <summary>
         /// Contains the content of a navigation message
@@ -61,10 +63,11 @@ namespace BusinessManagementApp.ViewModels
         /// </summary>
         /// <param name="targetViewName">Name of view to go to</param>
         /// <param name="extra">An object containing extra message</param>
-        public NavigationMessageContent(WorkspaceViewName targetViewName, object? extra)
+        public NavigationMessageContent(WorkspaceViewName? targetViewName, bool saveOnBackstack, object? extra)
         {
             TargetViewName = targetViewName;
             Extra = extra;
+            SaveOnBackstack = saveOnBackstack;
         }
     }
 
@@ -78,16 +81,29 @@ namespace BusinessManagementApp.ViewModels
         /// </summary>
         /// <param name="targetViewName">Name of view to go to</param>
         /// <param name="extra">An object containing extra message</param>
-        public WorkspaceNavigationMessage(WorkspaceViewName targetViewName, object? extra = null)
-            : base(new NavigationMessageContent(targetViewName, extra))
+        public WorkspaceNavigationMessage(WorkspaceViewName targetViewName, bool saveOnBackstack, object? extra = null)
+            : base(new NavigationMessageContent(targetViewName, saveOnBackstack, extra))
+        {
+        }
+    }
+
+    /// <summary>
+    /// Message to indicate a navigation request to return to the previous view.
+    /// </summary>
+    public class WorkspaceBackNavigationMessage : ValueChangedMessage<NavigationMessageContent>
+    {
+        public WorkspaceBackNavigationMessage(object? extra = null)
+            : base(new NavigationMessageContent(null, false, extra))
         {
         }
     }
 
     public class WorkspaceVM : ObservableObject
     {
+        private Stack<ViewModelBase> navigationBackstack = new();
+
         private ObservableObject? currentViewVM
-            = App.Current.ServiceProvider.GetRequiredService<SelectProductsVM>();
+            = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
 
         public ObservableObject? CurrentViewVM
         {
@@ -138,20 +154,41 @@ namespace BusinessManagementApp.ViewModels
             WeakReferenceMessenger
                 .Default
                 .Register<WorkspaceNavigationMessage>(
-                    this,
-                    (r, m) => HandleNavigationMessageContent(m.Value)
-                );
+                    this, (r, m) => HandleNavigationMessage(m));
+
+            WeakReferenceMessenger
+                .Default
+                .Register<WorkspaceBackNavigationMessage>(
+                    this, (r, m) => HandleBackNavigationMessage(m));
 
             Logout = new RelayCommand(() => MainWindowNavUtils.NavigateTo(MainWindowViewName.Login));
         }
 
-        private void HandleNavigationMessageContent(NavigationMessageContent content)
+        private void HandleNavigationMessage(WorkspaceNavigationMessage message)
         {
-            ViewModelBase viewModel = GetViewModelFromViewName(content.TargetViewName);
-            if (viewModel != null)
+            NavigationMessageContent content = message.Value;
+
+            if (content.TargetViewName == null)
             {
-                viewModel.LoadData(content.Extra);
+                throw new ArgumentNullException(nameof(content.TargetViewName));
             }
+            var viewName = (WorkspaceViewName)content.TargetViewName;
+
+            ViewModelBase viewModel = GetViewModelFromViewName(viewName);
+            viewModel.LoadData(content.Extra);
+            CurrentViewVM = viewModel;
+            
+            if (content.SaveOnBackstack)
+            {
+                navigationBackstack.Push(viewModel);
+            }
+        }
+
+        private void HandleBackNavigationMessage(WorkspaceBackNavigationMessage message)
+        {
+            ViewModelBase viewModel = navigationBackstack.Pop();
+            NavigationMessageContent content = message.Value;
+            viewModel.OnBack(content.Extra);
             CurrentViewVM = viewModel;
         }
 

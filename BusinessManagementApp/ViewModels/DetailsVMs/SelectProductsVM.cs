@@ -42,7 +42,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public SelectProductsSearchBy SearchBy { get; set; } = SelectProductsSearchBy.Name;
 
-        private List<Product> selectedProducts;
+        private List<Product> selectedProducts = new();
 
         public List<Product> SelectedProducts
         {
@@ -86,9 +86,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             ProductsView = collectionViewSource.View;
             ProductsView.Filter = FilterList;
 
-            Select = new RelayCommand(ReturnSelectedProducts);
+            Select = new RelayCommand(() => WorkspaceNavUtils.NavigateBackWithExtra(SelectedProducts));
             Search = new RelayCommand(() => ProductsView.Refresh());
-            // TODO: Return to previous screen
+            Cancel = new RelayCommand(() => WorkspaceNavUtils.NavigateBack());
 
             LoadData();
         }
@@ -122,8 +122,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             if (input == null)
             {
-                input = "testing";
-                // throw new ArgumentNullException(nameof(input));
+                throw new ArgumentNullException(nameof(input));
             }
 
             Title = (string)input;
@@ -137,7 +136,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private void ReturnSelectedProducts()
         {
-            // TODO: Returns previous screen
+            WorkspaceNavUtils.NavigateBackWithExtra(SelectedProducts);
         }
     }
 }

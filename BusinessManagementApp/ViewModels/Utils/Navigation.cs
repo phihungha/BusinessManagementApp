@@ -13,7 +13,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// <param name="viewName">Name of view to go to</param>
         public static void NavigateTo(WorkspaceViewName viewName)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName));
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, false));
         }
 
         /// <summary>
@@ -21,10 +21,39 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// Used for item details/edit views that need the ID of an item.
         /// </summary>
         /// <param name="viewName">Name of view to go to</param>
-        /// <param name="extra">object to send to the view model</param>
+        /// <param name="extra">Object to send to the view model</param>
         public static void NavigateToWithExtra(WorkspaceViewName viewName, object extra)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, extra));
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, false, extra));
+        }
+
+        /// <summary>
+        /// Navigate to a view, send its view model an object, 
+        /// and save current view on the backstack.
+        /// </summary>
+        /// <param name="viewName">Name of view to go to</param>
+        /// <param name="extra">Object to send to the view model</param>
+        public static void NavigateToWithExtraAndBackstack(WorkspaceViewName viewName, object extra)
+        {
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, true, extra));
+        }
+
+        /// <summary>
+        /// Navigate back to the previous view.
+        /// </summary>
+        public static void NavigateBack()
+        {
+            WeakReferenceMessenger.Default.Send(new WorkspaceBackNavigationMessage());
+        }
+
+        /// <summary>
+        /// Navigate back to the previous view and send it an object.
+        /// Used for item selection views that returns selected items to the previous view.
+        /// </summary>
+        /// <param name="extra">Object to send to the view model</param>
+        public static void NavigateBackWithExtra(object extra)
+        {
+            WeakReferenceMessenger.Default.Send(new WorkspaceBackNavigationMessage(extra));
         }
     }
 
