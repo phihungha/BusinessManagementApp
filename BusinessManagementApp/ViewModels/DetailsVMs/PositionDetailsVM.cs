@@ -149,7 +149,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Name = position.Name;
             Description = position.Description;
             SupplementSalary = position.SupplementSalary;
-            Permissions = position.Permissions;
         }
 
         private async Task SavePosition()
@@ -164,7 +163,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Name = Name,
                 Description = Description,
                 SupplementSalary = SupplementSalary,    
-                Permissions = Permissions,  
             };
 
             if (IsEditMode)

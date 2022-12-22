@@ -21,7 +21,6 @@ namespace BusinessManagementApp.Data
                 Name = "director",
                 Description = "a",
                 SupplementSalary = 100000,
-                Permissions = new List<Permission>(),
             };
 
             return Observable.FromAsync(() => Task.FromResult(position));
@@ -34,19 +33,24 @@ namespace BusinessManagementApp.Data
                 new Position()
                 {
                     Id = 1,
-                    Name = "director",
+                    Name = "Director",
                     Description = "a",
                     SupplementSalary = 100000,
-                    Permissions = new List<Permission>(),
                 },
 
                 new Position()
                 {
                     Id = 2,
-                    Name = "worker",
+                    Name = "Sales",
                     Description = "b",
                     SupplementSalary = 500000,
-                    Permissions = new List<Permission>(),
+                },
+                new Position()
+                {
+                    Id = 3,
+                    Name = "Sales manager",
+                    Description = "b",
+                    SupplementSalary = 500000,
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(positions));
