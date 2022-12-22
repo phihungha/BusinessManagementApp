@@ -92,6 +92,11 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(products));
         }
 
+        public IObservable<List<Product>> GetAvailableProducts()
+        {
+            return GetProducts();
+        }
+
         public IObservable<Employee> AddProduct(Product product)
         {
             throw new NotImplementedException();
