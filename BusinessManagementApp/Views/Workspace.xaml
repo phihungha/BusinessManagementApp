@@ -123,8 +123,8 @@
             <editviews:ProviderDetails />
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type editvm:SelectOrderItemsVM}">
-            <editviews:SelectOrderItems />
+        <DataTemplate DataType="{x:Type editvm:SelectProductsVM}">
+            <editviews:SelectProducts />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type editvm:SkillRatingDetailsVM}">

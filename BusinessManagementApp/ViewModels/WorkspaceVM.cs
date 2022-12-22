@@ -230,7 +230,7 @@ namespace BusinessManagementApp.ViewModels
                     return serviceProvider.GetRequiredService<SalesReportVM>();
 
                 case WorkspaceViewName.SelectOrderItem:
-                    return serviceProvider.GetRequiredService<SelectOrderItemsVM>();
+                    return serviceProvider.GetRequiredService<SelectProductsVM>();
 
                 case WorkspaceViewName.SkillRating:
                     return serviceProvider.GetRequiredService<SkillRatingVM>();

@@ -134,7 +134,7 @@ namespace BusinessManagementApp
                 service.AddTransient<ProviderDetailsVM>();
                 service.AddTransient<SalaryReportVM>();
                 service.AddTransient<SalesReportVM>();
-                service.AddTransient<SelectOrderItemsVM>();
+                service.AddTransient<SelectProductsVM>();
                 service.AddTransient<SkillRatingVM>();
                 service.AddTransient<SkillRatingDetailsVM>();
                 service.AddTransient<SkillTypesVM>();

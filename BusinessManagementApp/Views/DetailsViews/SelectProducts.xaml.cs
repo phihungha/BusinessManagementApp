@@ -18,9 +18,9 @@ namespace BusinessManagementApp.Views.DetailsViews
     /// <summary>
     /// Interaction logic for SelectOrderItems.xaml
     /// </summary>
-    public partial class SelectOrderItems : UserControl
+    public partial class SelectProducts : UserControl
     {
-        public SelectOrderItems()
+        public SelectProducts()
         {
             InitializeComponent();
         }

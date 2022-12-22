@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
              d:DesignWidth="1290" d:DesignHeight="720">
-    <Grid  Margin="15">
+    <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
@@ -18,9 +18,9 @@
                 <TextBlock Style="{StaticResource ViewTitleText}">
                     Rate the skills of
                 </TextBlock>
-                <TextBlock Style="{StaticResource ViewTitleText}" 
+                <TextBlock Style="{StaticResource ViewTitleText}"
                            Text="{Binding CurrentEmployee.Name}" />
-                <TextBlock Style="{StaticResource ViewTitleText}" 
+                <TextBlock Style="{StaticResource ViewTitleText}"
                            Text="{Binding CurrentEmployee.Id, StringFormat=(#{0})}" />
             </ui:SimpleStackPanel>
         </Border>
@@ -53,7 +53,7 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ui:SimpleStackPanel Spacing="10">
-                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="20" 
+                            <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="20"
                                        Text="{Binding SkillType.Name, StringFormat={}{0} skill}" />
                             <ComboBox ItemsSource="{Binding Level, Converter={converters:EnumToCollection}, Mode=OneTime}"
                                        SelectedValuePath="Value"

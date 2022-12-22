@@ -123,7 +123,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref currentMonthYear, value);
         }
 
-        private decimal totalOvertimePay = -1;
+        private decimal totalOvertimePay = 0;
 
         public decimal TotalOvertimePay
         {
@@ -131,8 +131,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref totalOvertimePay, value);
         }
 
-        public int MaxNumOfOvertimeHours = -1;
-        public decimal OvertimeHourlyRate = -1;
+        public int MaxNumOfOvertimeHours = 0;
+        public decimal OvertimeHourlyRate = 0;
 
         #region Button enable/disable logic
 
