@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive.Linq;
+using System.Timers;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
@@ -35,6 +36,16 @@ namespace BusinessManagementApp.ViewModels
 
         public IEnumerable<ISeries> TodayRevenue { get; }
 
+        private Timer currentTimeTimer = new();
+
+        private DateTime currentTime = DateTime.Now;
+
+        public DateTime CurrentTime
+        {
+            get => currentTime;
+            set => SetProperty(ref currentTime, value);
+        }
+
         public ICommand NewOrder { get; }
 
         public OverviewVM(OverviewRepo overviewRepo)
@@ -43,10 +54,13 @@ namespace BusinessManagementApp.ViewModels
 
             NewOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.OrderDetails));
 
+            currentTimeTimer.Interval = 1;
+            currentTimeTimer.Elapsed += CurrentTimeTimer_Elapsed;
+            currentTimeTimer.Enabled = true;
+
             NumOfPendingOrders = new GaugeBuilder()
                 .WithInnerRadius(75)
                 .WithBackgroundInnerRadius(75)
-                .WithBackground(new SolidColorPaint(new SKColor(100, 181, 246, 90)))
                 .WithLabelsSize(50)
                 .WithLabelsPosition(PolarLabelsPosition.ChartCenter)
                 .AddValue(numOfPendingOrders, "Number of pending orders", SKColors.Orange, SKColors.Orange)
@@ -72,6 +86,11 @@ namespace BusinessManagementApp.ViewModels
                 .BuildSeries();
 
             LoadData();
+        }
+
+        private void CurrentTimeTimer_Elapsed(object? sender, ElapsedEventArgs e)
+        {
+            CurrentTime = DateTime.Now;
         }
 
         private async void LoadData()
