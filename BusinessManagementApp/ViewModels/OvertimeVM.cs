@@ -25,7 +25,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class OvertimeVM : ViewModelBase
     {
-        private OvertimeRepo overtimeRecordsRepo;
+        private OvertimeRepo overtimeRepo;
 
         private ObservableCollection<OvertimeOverview> overtimeOverviews { get; } = new();
 
@@ -68,7 +68,7 @@ namespace BusinessManagementApp.ViewModels
 
         public OvertimeVM(OvertimeRepo overtimeRecordsRepo)
         {
-            this.overtimeRecordsRepo = overtimeRecordsRepo;
+            this.overtimeRepo = overtimeRecordsRepo;
 
             var collectionViewSource = new CollectionViewSource() { Source = overtimeOverviews };
             OvertimeOverviewView = collectionViewSource.View;
@@ -120,7 +120,7 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
-            overtimeOverviews.ClearAndAddRange(await overtimeRecordsRepo.GetOvertimeOverviews(Year, Month));
+            overtimeOverviews.ClearAndAddRange(await overtimeRepo.GetOvertimeOverviews(Year, Month));
         }
     }
 }

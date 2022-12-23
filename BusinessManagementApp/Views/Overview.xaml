@@ -1,12 +1,133 @@
 ﻿<UserControl x:Class="BusinessManagementApp.Views.Overview"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BusinessManagementApp.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             mc:Ignorable="d"
+             d:DesignHeight="720" d:DesignWidth="1290">
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Grid.ColumnSpan="3" Height="55" Background="Black">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Foreground="White" FontSize="20">
+                    Welcome, Ha Phi Hung!
+                </TextBlock>
+            </Border>
+
+            <Grid Grid.Row="1" Margin="15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <Border Style="{StaticResource FancyBorder}">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20">23/12/2022 17:23</TextBlock>
+                </Border>
+
+                <UniformGrid Grid.Row="1" Columns="3" Margin="0,15,0,0">
+                    <Border Style="{StaticResource FancyBorder}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                   FontWeight="Bold" Foreground="Orange">
+                                PENDING ORDERS
+                            </TextBlock>
+
+                            <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding NumOfPendingOrders}"
+                                      TooltipPosition="Hidden" Total="30"
+                                      InitialRotation="-225" MaxAngle="270" />
+                        </Grid>
+                    </Border>
+
+                    <Border Margin="15,0,0,0" Style="{StaticResource FancyBorder}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                   FontWeight="Bold" Foreground="Green">
+                                TOTAL STOCK
+                            </TextBlock>
+
+                            <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding TotalStock}"
+                                      TooltipPosition="Hidden" Total="200"
+                                      InitialRotation="-225" MaxAngle="270" />
+                        </Grid>
+                    </Border>
+
+                    <Border Margin="15,0,0,0" Style="{StaticResource FancyBorder}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                   FontWeight="Bold" Foreground="Red">
+                                TODAY'S REVENUE
+                            </TextBlock>
+
+                            <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding TodayRevenue}"
+                                      TooltipPosition="Hidden" Total="10000000"
+                                      InitialRotation="-225" MaxAngle="270" />
+                        </Grid>
+                    </Border>
+                </UniformGrid>
+
+                <Border Grid.Row="2" Margin="0,15,0,0" Style="{StaticResource FancyBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18"
+                                   FontWeight="Bold" Foreground="Orange">
+                                PENDING ORDER LIST
+                        </TextBlock>
+
+                        <Button Grid.Column="1" Command="{Binding NewOrder}" 
+                                HorizontalAlignment="Right" Height="45"
+                                Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{StaticResource PlusWhiteIcon}" Width="20" Margin="0,0,10,0" />
+                                <TextBlock FontSize="16">New order</TextBlock>
+                            </StackPanel>
+                        </Button>
+
+                        <DataGrid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,20,0,0"
+                                  ItemsSource="{Binding PendingOrders}" AutoGenerateColumns="False" 
+                                  IsReadOnly="True">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="*" />
+                                <DataGridTextColumn Header="Created at" Binding="{Binding CreationTime}" Width="*" />
+                                <DataGridTextColumn Header="Customer's name" Binding="{Binding Customer.Name}" Width="*" />
+                                <DataGridTextColumn Header="Customer's phone number" Binding="{Binding Customer.Phone}" Width="*" />
+                                <DataGridTextColumn Header="Total amount" Binding="{Binding TotalAmount, StringFormat=c}" Width="*" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>
