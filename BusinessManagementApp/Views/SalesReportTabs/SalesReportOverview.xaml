@@ -28,7 +28,9 @@
                     </TextBlock>
 
                     <lvc:CartesianChart Grid.Row="1" Margin="0,10,0,0"
-                                        Series="{Binding NumOfPendingOrders}" />
+                                        Series="{Binding RevenueByDay}"
+                                        XAxes="{Binding RevenueByDayXAxis}"
+                                        YAxes="{Binding RevenueByDayYAxis}" />
                 </Grid>
             </Border>
 

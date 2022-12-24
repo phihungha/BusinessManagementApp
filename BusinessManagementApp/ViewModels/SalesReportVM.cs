@@ -7,6 +7,7 @@ using LiveChartsCore;
 using LiveChartsCore.Defaults;
 using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,9 @@ namespace BusinessManagementApp.ViewModels
         #region Stats
 
         private ObservableCollection<decimal> revenueByDay = new();
-        public IEnumerable<ISeries> RevenuePerDay { get; }
+        public IEnumerable<ISeries> RevenueByDay { get; }
+        public IEnumerable<Axis> RevenueByDayXAxis { get; }
+        public IEnumerable<Axis> RevenueByDayYAxis { get; }
 
         private ObservableValue totalRevenue = new() { Value = 0 };
         public IEnumerable<ISeries> TotalRevenue { get; }
@@ -102,6 +105,33 @@ namespace BusinessManagementApp.ViewModels
             this.salesReportRepo = salesReportRepo;
 
             Generate = new RelayCommand(LoadData);
+
+            RevenueByDay = new ISeries[]
+            {
+                new LineSeries<decimal>
+                {
+                    Values = revenueByDay,
+                    Stroke = new SolidColorPaint(SKColors.Blue) { StrokeThickness = 2 }
+                }
+            };
+
+            RevenueByDayXAxis = new Axis[]
+            {
+                new Axis()
+                {
+                    Labels = Enumerable.Range(1, DateTime.DaysInMonth(Year, Month))
+                                .Select(i => i.ToString())
+                                .ToArray()
+                }
+            };
+
+            RevenueByDayYAxis = new Axis[]
+            {
+                new Axis()
+                {
+                    Labeler = Labelers.Currency
+                }
+            };
 
             TotalRevenue = new GaugeBuilder()
                 .WithInnerRadius(GaugeInnerRadius)
