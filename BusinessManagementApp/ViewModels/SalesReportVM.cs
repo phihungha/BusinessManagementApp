@@ -54,7 +54,6 @@ namespace BusinessManagementApp.ViewModels
 
         public ObservableCollection<ProductCategoryStats> ProductCategoryStatsCollection { get; } = new();
         public IEnumerable<ISeries> ProductCategoryStats { get; private set; }
-        public SolidColorPaint ProductCategoryLegendBackgroundPaint { get; } = new(new SKColor(0, 0, 0));
 
         private ObservableCollection<ProductStats> productStats = new();
         public IEnumerable<ISeries> ProductStats { get; }
