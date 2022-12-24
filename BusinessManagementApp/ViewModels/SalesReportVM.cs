@@ -55,14 +55,11 @@ namespace BusinessManagementApp.ViewModels
         public ObservableCollection<ProductCategoryStats> ProductCategoryStatsCollection { get; } = new();
         public IEnumerable<ISeries> ProductCategoryStats { get; private set; }
 
-        private ObservableCollection<ProductStats> productStats = new();
-        public IEnumerable<ISeries> ProductStats { get; }
+        public ObservableCollection<ProductStats> ProductStats { get; } = new();
 
-        private ObservableCollection<CustomerStats> customerStats = new();
-        public IEnumerable<ISeries> CustomerStats { get; }
+        public ObservableCollection<CustomerStats> CustomerStats { get; } = new();
 
-        private ObservableCollection<EmployeeStats> employeeStats = new();
-        public IEnumerable<ISeries> EmployeeStats { get; }
+        public ObservableCollection<EmployeeStats> EmployeeStats { get; } = new();
 
         #endregion Stats
 
@@ -183,9 +180,9 @@ namespace BusinessManagementApp.ViewModels
             numOfOrdersCanceled.Value = stats.NumOfOrdersCanceled;
             numOfOrdersMade.Value = stats.NumOfOrdersMade;
             ProductCategoryStatsCollection.ClearAndAddRange(stats.ProductCategoryStats);
-            productStats.ClearAndAddRange(stats.ProductStats);
-            employeeStats.ClearAndAddRange(stats.EmployeeStats);
-            customerStats.ClearAndAddRange(stats.CustomerStats);
+            ProductStats.ClearAndAddRange(stats.ProductStats);
+            EmployeeStats.ClearAndAddRange(stats.EmployeeStats);
+            CustomerStats.ClearAndAddRange(stats.CustomerStats);
             LoadProductCategoryPieChart();
         }
 
