@@ -37,6 +37,18 @@
             <TabItem Header="Overview">
                 <sales:SalesReportOverview />
             </TabItem>
+
+            <TabItem Header="Customers">
+                <sales:SalesReportCustomer />
+            </TabItem>
+
+            <TabItem Header="Products">
+                <sales:SalesReportProducts />
+            </TabItem>
+
+            <TabItem Header="Employees">
+                <sales:SalesReportEmployees />
+            </TabItem>
         </TabControl>
     </Grid>
 </UserControl>
