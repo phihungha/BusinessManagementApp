@@ -60,12 +60,12 @@
         <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Permission</TextBlock>
             <StackPanel>
-                <CheckBox Content="Can view and change everything"  IsChecked="{Binding CanManageAll, Mode=OneWay}" ></CheckBox>
-                <CheckBox Content="Can manage orders (place, edit, cancel orders)" IsChecked="{Binding CanManageOrders, Mode=OneWay}"></CheckBox>
-                <CheckBox Content="Can manage sales-related info (products, providers, sales report)" IsChecked="{Binding CanManageSales, Mode=OneWay}"></CheckBox>
-                <CheckBox Content="Can view sales-related info (products, providers, sales report)" IsChecked="{Binding CanViewSales, Mode=OneWay}"></CheckBox>
-                <CheckBox Content="Can view HR-related info  (salary, overtime, skills, bonus)" IsChecked="{Binding CanViewHr, Mode=OneWay}"></CheckBox>
-                <CheckBox Content="Can manage HR-related  (salary, overtime, skills, bonus)" IsChecked="{Binding CanManageHr, Mode=OneWay}"></CheckBox>
+                <CheckBox Content="Can view and change everything"  IsChecked="{Binding CanManageAll}" ></CheckBox>
+                <CheckBox Content="Can manage orders (place, edit, cancel orders)" IsChecked="{Binding CanManageOrders}"></CheckBox>
+                <CheckBox Content="Can manage sales-related info (products, providers, sales report)" IsChecked="{Binding CanManageSales}"></CheckBox>
+                <CheckBox Content="Can view sales-related info (products, providers, sales report)" IsChecked="{Binding CanViewSales}"></CheckBox>
+                <CheckBox Content="Can view HR-related info  (salary, overtime, skills, bonus)" IsChecked="{Binding CanViewHr}"></CheckBox>
+                <CheckBox Content="Can manage HR-related  (salary, overtime, skills, bonus)" IsChecked="{Binding CanManageHr}"></CheckBox>
             </StackPanel>
         </StackPanel>
         

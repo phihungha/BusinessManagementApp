@@ -67,42 +67,42 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public bool CanManageAll
         {
             get => canManageAll;
-            private set => SetProperty(ref canManageAll, value);
+            set => SetProperty(ref canManageAll, value);
         }
         private bool canManageOrders = false;
 
         public bool CanManageOrders
         {
             get => canManageOrders;
-            private set => SetProperty(ref canManageOrders, value);
+            set => SetProperty(ref canManageOrders, value);
         }
         private bool canManageSales = false;
 
         public bool CanManageSales
         {
             get => canManageSales;
-            private set => SetProperty(ref canManageSales, value);
+            set => SetProperty(ref canManageSales, value);
         }
         private bool canViewSales = false;
 
         public bool CanViewSales
         {
             get => canViewSales;
-            private set => SetProperty(ref canViewSales, value);
+            set => SetProperty(ref canViewSales, value);
         }
         private bool canViewHr = false;
 
         public bool CanViewHr
         {
             get => canViewHr;
-            private set => SetProperty(ref canViewHr, value);
+            set => SetProperty(ref canViewHr, value);
         }
         private bool canManageHr = false;
 
         public bool CanManageHr
         {
             get => canManageHr;
-            private set => SetProperty(ref canManageHr, value);
+            set => SetProperty(ref canManageHr, value);
         }
         //private List<Permission> permissions = new List<Permission>();
         //public List<Permission> Permissions
