@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             xmlns:sales="clr-namespace:BusinessManagementApp.Views.SalesReportTabs"
              mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="1290">
     <Grid>
@@ -13,7 +13,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource FancyBorder}" Padding="15">
+        <Border Style="{StaticResource FancyBorder}" CornerRadius="0" Padding="15">
             <ui:SimpleStackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
                 <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
                         Month
@@ -32,7 +32,11 @@
                           Value="{Binding Year}" />
             </ui:SimpleStackPanel>
         </Border>
-        
-        
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Overview">
+                <sales:SalesReportOverview />
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
