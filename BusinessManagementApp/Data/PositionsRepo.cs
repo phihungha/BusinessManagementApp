@@ -21,6 +21,7 @@ namespace BusinessManagementApp.Data
                 Name = "director",
                 Description = "a",
                 SupplementSalary = 100000,
+                CanManageAll = true,
             };
 
             return Observable.FromAsync(() => Task.FromResult(position));

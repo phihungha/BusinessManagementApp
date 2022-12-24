@@ -62,7 +62,48 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => supplementSalary;
             set => SetProperty(ref supplementSalary, value);
         }
+        private bool canManageAll = false;
 
+        public bool CanManageAll
+        {
+            get => canManageAll;
+            private set => SetProperty(ref canManageAll, value);
+        }
+        private bool canManageOrders = false;
+
+        public bool CanManageOrders
+        {
+            get => canManageOrders;
+            private set => SetProperty(ref canManageOrders, value);
+        }
+        private bool canManageSales = false;
+
+        public bool CanManageSales
+        {
+            get => canManageSales;
+            private set => SetProperty(ref canManageSales, value);
+        }
+        private bool canViewSales = false;
+
+        public bool CanViewSales
+        {
+            get => canViewSales;
+            private set => SetProperty(ref canViewSales, value);
+        }
+        private bool canViewHr = false;
+
+        public bool CanViewHr
+        {
+            get => canViewHr;
+            private set => SetProperty(ref canViewHr, value);
+        }
+        private bool canManageHr = false;
+
+        public bool CanManageHr
+        {
+            get => canManageHr;
+            private set => SetProperty(ref canManageHr, value);
+        }
         //private List<Permission> permissions = new List<Permission>();
         //public List<Permission> Permissions
         //{
@@ -70,7 +111,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         //    set => SetProperty(ref permissions, value);
         //}
 
-        
+
 
         #endregion Input properties
 
@@ -103,6 +144,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canDelete;
             private set => SetProperty(ref canDelete, value);
         }
+
 
         #endregion Button enable/disable logic
 
@@ -149,6 +191,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Name = position.Name;
             Description = position.Description;
             SupplementSalary = position.SupplementSalary;
+            CanManageAll = position.CanManageAll;
+            CanManageHr = position.CanManageHr;
+            CanViewHr = position.CanViewHr;
+            CanViewSales = position.CanViewSales;
+            CanManageSales = position.CanManageSales;
+            CanManageOrders = position.CanManageOrders;
         }
 
         private async Task SavePosition()
@@ -163,6 +211,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Name = Name,
                 Description = Description,
                 SupplementSalary = SupplementSalary,    
+                CanManageAll = CanManageAll,
+                CanManageHr = CanManageHr,
+                CanViewHr = CanViewHr,
+                CanViewSales = CanViewSales,
+                CanManageOrders = CanManageOrders,
+                CanManageSales = CanManageSales
             };
 
             if (IsEditMode)
