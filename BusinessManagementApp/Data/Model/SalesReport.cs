@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data.Model
 
         public decimal AvgRevenue { get; set; }
 
-        public decimal AvgRevenuePerEmployee { get; set; }
+        public double AvgNumOfOrdersPerEmployee { get; set; }
 
         public int NumOfOrdersCompleted { get; set; }
 

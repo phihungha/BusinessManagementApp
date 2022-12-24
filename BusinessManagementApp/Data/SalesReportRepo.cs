@@ -10,17 +10,17 @@ namespace BusinessManagementApp.Data
     {
         public IObservable<SalesStats> GetSalesReport(int year, int month)
         {
-            var report = new SalesStats()
+            var stats = new SalesStats()
             {
-                RevenueByDay = { 300_000, 500_000, 150_000 },
+                RevenueByDay = new List<decimal> { 300_000, 500_000, 150_000 },
                 TotalRevenue = 1_000_000,
                 AvgRevenue = 750_000,
-                AvgRevenuePerEmployee = 550_000,
-                NumOfOrdersCompleted = 5,
-                NumOfOrdersReturned = 1,
-                NumOfOrdersCanceled = 2,
-                NumOfOrdersMade = 8,
-                ProductCategoryStats = new List<ProductCategoryStats>
+                AvgNumOfOrdersPerEmployee = 22.5,
+                NumOfOrdersCompleted = 50,
+                NumOfOrdersReturned = 10,
+                NumOfOrdersCanceled = 20,
+                NumOfOrdersMade = 80,
+                ProductCategoryStats = new List<ProductCategoryStats>()
                 {
                     new ProductCategoryStats()
                     {
@@ -33,7 +33,7 @@ namespace BusinessManagementApp.Data
                         QuantitySold = 5
                     },
                 },
-                ProductStats = new List<ProductStats>
+                ProductStats = new List<ProductStats>()
                 {
                     new ProductStats()
                     {
@@ -48,7 +48,7 @@ namespace BusinessManagementApp.Data
                         Revenue = 500_000
                     }
                 },
-                EmployeeStats = new List<EmployeeStats>
+                EmployeeStats = new List<EmployeeStats>()
                 {
                     new EmployeeStats()
                     {
@@ -63,7 +63,7 @@ namespace BusinessManagementApp.Data
                         Revenue = 500_000
                     }
                 },
-                CustomerStats = new List<CustomerStats>
+                CustomerStats = new List<CustomerStats>()
                 {
                     new CustomerStats()
                     {
@@ -80,7 +80,7 @@ namespace BusinessManagementApp.Data
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(report));
+            return Observable.FromAsync(() => Task.FromResult(stats));
         }
     }
 }

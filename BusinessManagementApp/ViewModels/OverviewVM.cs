@@ -25,15 +25,12 @@ namespace BusinessManagementApp.ViewModels
         public ObservableCollection<Order> PendingOrders { get; } = new();
 
         private ObservableValue numOfPendingOrders = new() { Value = 0 };
-
         public IEnumerable<ISeries> NumOfPendingOrders { get; }
 
         private ObservableValue totalStock = new() { Value = 0 };
-
         public IEnumerable<ISeries> TotalStock { get; }
 
         private ObservableValue todayRevenue = new() { Value = 0 };
-
         public IEnumerable<ISeries> TodayRevenue { get; }
 
         private Timer currentTimeTimer = new();

@@ -98,6 +98,7 @@ namespace BusinessManagementApp
                 service.AddSingleton<SalaryRecordsRepo>();
                 service.AddSingleton<SkillsRepo>();
                 service.AddSingleton<SkillTypesRepo>();
+                service.AddSingleton<SalesReportRepo>();
                 service.AddSingleton<VouchersRepo>();
                 service.AddSingleton<VoucherTypesRepo>();
             });
