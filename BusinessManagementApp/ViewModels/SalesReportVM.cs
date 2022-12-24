@@ -54,6 +54,7 @@ namespace BusinessManagementApp.ViewModels
 
         public ObservableCollection<ProductCategoryStats> ProductCategoryStatsCollection { get; } = new();
         public IEnumerable<ISeries> ProductCategoryStats { get; private set; }
+        public SolidColorPaint ProductCategoryLegendBackgroundPaint { get; } = new(new SKColor(0, 0, 0));
 
         private ObservableCollection<ProductStats> productStats = new();
         public IEnumerable<ISeries> ProductStats { get; }
@@ -75,11 +76,7 @@ namespace BusinessManagementApp.ViewModels
         public int Month
         {
             get => month;
-            set
-            {
-                SetProperty(ref month, value);
-                LoadData();
-            }
+            set => SetProperty(ref month, value);
         }
 
         private int year = DateTime.Now.Year;
@@ -87,11 +84,7 @@ namespace BusinessManagementApp.ViewModels
         public int Year
         {
             get => year;
-            set
-            {
-                SetProperty(ref year, value);
-                LoadData();
-            }
+            set => SetProperty(ref year, value);
         }
 
         public int MaxYear { get; } = DateTime.Now.Year;
@@ -182,7 +175,7 @@ namespace BusinessManagementApp.ViewModels
         private async void LoadData()
         {
             SalesStats stats = await salesReportRepo.GetSalesReport(Year, Month);
-            revenueByDay.AddRange(stats.RevenueByDay);
+            revenueByDay.ClearAndAddRange(stats.RevenueByDay);
             totalRevenue.Value = (double)stats.TotalRevenue;
             avgRevenue.Value = (double)stats.AvgRevenue;
             avgNumOfOrdersPerEmployee.Value = stats.AvgNumOfOrdersPerEmployee;
@@ -190,21 +183,21 @@ namespace BusinessManagementApp.ViewModels
             numOfOrdersReturned.Value = stats.NumOfOrdersReturned;
             numOfOrdersCanceled.Value = stats.NumOfOrdersCanceled;
             numOfOrdersMade.Value = stats.NumOfOrdersMade;
-            ProductCategoryStatsCollection.AddRange(stats.ProductCategoryStats);
-            productStats.AddRange(stats.ProductStats);
-            employeeStats.AddRange(stats.EmployeeStats);
-            customerStats.AddRange(stats.CustomerStats);
+            ProductCategoryStatsCollection.ClearAndAddRange(stats.ProductCategoryStats);
+            productStats.ClearAndAddRange(stats.ProductStats);
+            employeeStats.ClearAndAddRange(stats.EmployeeStats);
+            customerStats.ClearAndAddRange(stats.CustomerStats);
             LoadProductCategoryPieChart();
         }
 
         private void LoadProductCategoryPieChart()
         {
             ProductCategoryStats = ProductCategoryStatsCollection.Select(
-                i => new PieSeries<int> 
-                    { 
-                        Name = i.Category.Name, 
-                        Values = new int[] { i.QuantitySold } 
-                    }
+                i => new PieSeries<int>
+                {
+                    Name = i.Category.Name,
+                    Values = new int[] { i.QuantitySold }
+                }
                 ).ToArray();
         }
     }

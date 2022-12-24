@@ -65,7 +65,7 @@
                         </TextBlock>
 
                         <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding AvgRevenue}"
-                                      TooltipPosition="Hidden" Total="200"
+                                      TooltipPosition="Hidden" Total="2000000"
                                       InitialRotation="-225" MaxAngle="270" />
                     </Grid>
                 </Border>
@@ -124,11 +124,12 @@
                             Quantity sold by Product categories
                     </TextBlock>
 
-                    <lvc:PieChart Grid.Row="1" Margin="0,10,10,0" 
+                    <lvc:PieChart Grid.Row="1" Margin="0,10,10,0"
                                   Series="{Binding ProductCategoryStats}"
-                                  LegendPosition="Right"/>
+                                  LegendBackgroundPaint="{Binding ProductCategoryLegendBackgroundPaint}"
+                                  LegendPosition="Right" />
 
-                    <DataGrid Grid.Row="1" Grid.Column="1" Margin="10,10,0,0" 
+                    <DataGrid Grid.Row="1" Grid.Column="1" Margin="10,10,0,0" Background="#f0f0f0"
                               ItemsSource="{Binding ProductCategoryStatsCollection}"
                               IsReadOnly="True" AutoGenerateColumns="False">
                         <DataGrid.Columns>
