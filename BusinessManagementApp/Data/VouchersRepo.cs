@@ -43,9 +43,26 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(new List<Voucher>()));
         }
 
-        public IObservable<object> DeleteVouchers(IEnumerable<string> id)
+        public IObservable<List<Voucher>> DeleteVouchers(IEnumerable<string> id)
         {
-            return Observable.FromAsync(() => Task.FromResult(new object()));
+            var vouchers = new List<Voucher>()
+            {
+                new Voucher()
+                {
+                    Code = "1",
+                    Type = new VoucherType() { Id = 1, Name = "Christmas discount" },
+                    ReleaseDate = new DateTime(2022, 12, 20, 17, 0, 0),
+                    ExpiryDate = new DateTime(2022, 12, 31, 17, 0, 0)
+                },
+                new Voucher()
+                {
+                    Code = "2",
+                    Type = new VoucherType() { Id = 1, Name = "Christmas discount" },
+                    ReleaseDate = new DateTime(2022, 12, 20, 17, 0, 0),
+                    ExpiryDate = new DateTime(2022, 12, 31, 17, 0, 0)
+                }
+            };
+            return Observable.FromAsync(() => Task.FromResult(vouchers));
         }
     }
 }
