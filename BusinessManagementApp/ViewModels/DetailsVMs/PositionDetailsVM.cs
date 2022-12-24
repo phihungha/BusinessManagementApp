@@ -63,12 +63,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref supplementSalary, value);
         }
 
-        private List<Permission> permissions = new List<Permission>();
-        public List<Permission> Permissions
-        {
-            get => permissions;
-            set => SetProperty(ref permissions, value);
-        }
+        //private List<Permission> permissions = new List<Permission>();
+        //public List<Permission> Permissions
+        //{
+        //    get => permissions;
+        //    set => SetProperty(ref permissions, value);
+        //}
 
         
 
