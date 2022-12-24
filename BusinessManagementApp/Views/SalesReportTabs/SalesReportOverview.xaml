@@ -5,14 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              mc:Ignorable="d"
-             d:DesignHeight="850" d:DesignWidth="1290">
+             d:DesignHeight="720" d:DesignWidth="1290">
     <ScrollViewer>
         <Grid Grid.Row="1" Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="300" />
                 <RowDefinition Height="300" />
                 <RowDefinition Height="300" />
-                <RowDefinition Height="500" />
             </Grid.RowDefinitions>
 
             <Border Style="{StaticResource FancyBorder}">
@@ -122,15 +121,19 @@
 
                     <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="16"
                                FontWeight="Bold" Foreground="Blue">
-                            Quantity sold by Product types
+                            Quantity sold by Product categories
                     </TextBlock>
 
-                    <lvc:PieChart Grid.Row="1" Margin="0,10,10,0" Series="{Binding ProductTypeQuantityCounts}" />
+                    <lvc:PieChart Grid.Row="1" Margin="0,10,10,0" 
+                                  Series="{Binding ProductCategoryStats}"
+                                  LegendPosition="Right"/>
 
-                    <DataGrid Grid.Row="1" Grid.Column="1" Margin="10,10,0,0">
+                    <DataGrid Grid.Row="1" Grid.Column="1" Margin="10,10,0,0" 
+                              ItemsSource="{Binding ProductCategoryStatsCollection}"
+                              IsReadOnly="True" AutoGenerateColumns="False">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="ID" Binding="{Binding ProductType.Id}" Width="80" />
-                            <DataGridTextColumn Header="Name" Binding="{Binding ProductType.Name}" Width="*" />
+                            <DataGridTextColumn Header="ID" Binding="{Binding Category.Id}" Width="80" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Category.Name}" Width="*" />
                             <DataGridTextColumn Header="Quantity sold" Binding="{Binding QuantitySold}" Width="*" />
                         </DataGrid.Columns>
                     </DataGrid>

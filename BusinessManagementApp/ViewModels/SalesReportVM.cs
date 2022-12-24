@@ -52,8 +52,8 @@ namespace BusinessManagementApp.ViewModels
         private ObservableValue numOfOrdersMade = new() { Value = 0 };
         public IEnumerable<ISeries> OrderCounts { get; }
 
-        private ObservableCollection<ProductCategoryStats> productCategoryStats = new();
-        public IEnumerable<ISeries> ProductCategoryStats { get; }
+        public ObservableCollection<ProductCategoryStats> ProductCategoryStatsCollection { get; } = new();
+        public IEnumerable<ISeries> ProductCategoryStats { get; private set; }
 
         private ObservableCollection<ProductStats> productStats = new();
         public IEnumerable<ISeries> ProductStats { get; }
@@ -162,7 +162,7 @@ namespace BusinessManagementApp.ViewModels
 
             OrderCounts = new GaugeBuilder()
                 .WithInnerRadius(20)
-                .WithBackgroundInnerRadius(18)
+                .WithBackgroundInnerRadius(16)
                 .WithLabelsSize(18)
                 .WithLabelsPosition(PolarLabelsPosition.Start)
                 .WithLabelFormatter(point => point.PrimaryValue + " " + point.Context.Series.Name)
@@ -190,10 +190,22 @@ namespace BusinessManagementApp.ViewModels
             numOfOrdersReturned.Value = stats.NumOfOrdersReturned;
             numOfOrdersCanceled.Value = stats.NumOfOrdersCanceled;
             numOfOrdersMade.Value = stats.NumOfOrdersMade;
-            productCategoryStats.AddRange(stats.ProductCategoryStats);
+            ProductCategoryStatsCollection.AddRange(stats.ProductCategoryStats);
             productStats.AddRange(stats.ProductStats);
             employeeStats.AddRange(stats.EmployeeStats);
             customerStats.AddRange(stats.CustomerStats);
+            LoadProductCategoryPieChart();
+        }
+
+        private void LoadProductCategoryPieChart()
+        {
+            ProductCategoryStats = ProductCategoryStatsCollection.Select(
+                i => new PieSeries<int> 
+                    { 
+                        Name = i.Category.Name, 
+                        Values = new int[] { i.QuantitySold } 
+                    }
+                ).ToArray();
         }
     }
 }
