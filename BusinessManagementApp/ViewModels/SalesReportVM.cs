@@ -12,17 +12,30 @@ using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
 {
+    public enum SalesReprotSearchBy
+    {
+        [Description("ID")]
+        Id,
+
+        [Description("Name")]
+        Name
+    }
+
     public class SalesReportVM : ViewModelBase
     {
         private const double GaugeInnerRadius = 75;
         private const double GaugeBackgroundInnerRadius = 75;
         private const PolarLabelsPosition GaugeLabelPosition = PolarLabelsPosition.ChartCenter;
+
+        public int CurrentTabIndex { get; set; } = 0;
 
         #region Dependencies
 
@@ -53,15 +66,26 @@ namespace BusinessManagementApp.ViewModels
         public IEnumerable<ISeries> OrderCounts { get; }
 
         public ObservableCollection<ProductCategoryStats> ProductCategoryStatsCollection { get; } = new();
-        public IEnumerable<ISeries> ProductCategoryStats { get; private set; }
+        public IEnumerable<ISeries>? ProductCategoryStats { get; private set; }
 
-        public ObservableCollection<ProductStats> ProductStats { get; } = new();
+        public ICollectionView ProductsView { get; }
+        private ObservableCollection<ProductStats> productStats { get; } = new();
 
-        public ObservableCollection<CustomerStats> CustomerStats { get; } = new();
+        public ICollectionView CustomersView { get; }
+        private ObservableCollection<CustomerStats> customerStats { get; } = new();
 
-        public ObservableCollection<EmployeeStats> EmployeeStats { get; } = new();
+        public ICollectionView EmployeesView { get; }
+        private ObservableCollection<EmployeeStats> employeeStats { get; } = new();
 
         #endregion Stats
+
+        #region Searching
+
+        public string SearchText { get; set; } = string.Empty;
+
+        public SalesReprotSearchBy SearchBy { get; set; } = SalesReprotSearchBy.Name;
+
+        #endregion Searching
 
         #region Time selection
 
@@ -88,12 +112,23 @@ namespace BusinessManagementApp.ViewModels
         #endregion Time selection
 
         public ICommand Generate { get; }
+        public ICommand Search { get; }
 
         public SalesReportVM(SalesReportRepo salesReportRepo)
         {
             this.salesReportRepo = salesReportRepo;
 
-            Generate = new RelayCommand(LoadData);
+            var collectionViewSource = new CollectionViewSource() { Source = productStats };
+            ProductsView = collectionViewSource.View;
+            ProductsView.Filter = ProductsViewFilter;
+
+            collectionViewSource = new CollectionViewSource() { Source = customerStats };
+            CustomersView = collectionViewSource.View;
+            CustomersView.Filter = CustomersViewFilter;
+
+            collectionViewSource = new CollectionViewSource() { Source = employeeStats };
+            EmployeesView = collectionViewSource.View;
+            EmployeesView.Filter = EmployeesViewFilter;
 
             RevenueByDay = new ISeries[]
             {
@@ -165,7 +200,94 @@ namespace BusinessManagementApp.ViewModels
                           SKColors.Gray, SKColors.Gray)
                 .BuildSeries();
 
+            Generate = new RelayCommand(LoadData);
+            Search = new RelayCommand(ExecuteSearch);
+
             LoadData();
+        }
+
+        private void ExecuteSearch()
+        {
+            switch (CurrentTabIndex)
+            {
+                case 1:
+                    ProductsView.Refresh();
+                    break;
+
+                case 2:
+                    CustomersView.Refresh();
+                    break;
+
+                case 3:
+                    EmployeesView.Refresh();
+                    break;
+            }
+        }
+
+        private bool ProductsViewFilter(object item)
+        {
+            var product = ((ProductStats)item).Product;
+
+            if (SearchText == null)
+            {
+                return true;
+            }
+
+            switch (SearchBy)
+            {
+                case SalesReprotSearchBy.Name:
+                    return product.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                case SalesReprotSearchBy.Id:
+                    return product.Id.ToString() == SearchText;
+
+                default:
+                    return false;
+            }
+        }
+
+        private bool CustomersViewFilter(object item)
+        {
+            var customer = ((CustomerStats)item).Customer;
+
+            if (SearchText == null)
+            {
+                return true;
+            }
+
+            switch (SearchBy)
+            {
+                case SalesReprotSearchBy.Name:
+                    return customer.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                case SalesReprotSearchBy.Id:
+                    return customer.Id.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                default:
+                    return false;
+            }
+        }
+
+        private bool EmployeesViewFilter(object item)
+        {
+            var employee = ((EmployeeStats)item).Employee;
+
+            if (SearchText == null)
+            {
+                return true;
+            }
+
+            switch (SearchBy)
+            {
+                case SalesReprotSearchBy.Name:
+                    return employee.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                case SalesReprotSearchBy.Id:
+                    return employee.Id.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+
+                default:
+                    return false;
+            }
         }
 
         private async void LoadData()
@@ -180,9 +302,9 @@ namespace BusinessManagementApp.ViewModels
             numOfOrdersCanceled.Value = stats.NumOfOrdersCanceled;
             numOfOrdersMade.Value = stats.NumOfOrdersMade;
             ProductCategoryStatsCollection.ClearAndAddRange(stats.ProductCategoryStats);
-            ProductStats.ClearAndAddRange(stats.ProductStats);
-            EmployeeStats.ClearAndAddRange(stats.EmployeeStats);
-            CustomerStats.ClearAndAddRange(stats.CustomerStats);
+            productStats.ClearAndAddRange(stats.ProductStats);
+            employeeStats.ClearAndAddRange(stats.EmployeeStats);
+            customerStats.ClearAndAddRange(stats.CustomerStats);
             LoadProductCategoryPieChart();
         }
 

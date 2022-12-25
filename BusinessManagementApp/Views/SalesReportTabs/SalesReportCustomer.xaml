@@ -4,9 +4,49 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessManagementApp.Views.SalesReportTabs"
+             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignHeight="720" d:DesignWidth="1290">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Height="Auto" Orientation="Horizontal" 
+                    VerticalAlignment="Center" Margin="0,20,0,0">
+            <TextBox Width="300" ui:ControlHelper.PlaceholderText="Search..." 
+                     Text="{Binding SearchText}" />
+
+            <Button Margin="10,0,0,0" Background="{StaticResource PrimaryColorBrush}" 
+                    Command="{Binding Search}">
+                <Image Source="{StaticResource SearchWhiteIcon}" />
+            </Button>
+
+            <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
+                Search by
+            </TextBlock>
+
+            <!-- Bind to an enum property as follow: -->
+            <ComboBox Margin="10,0,0,0" Width="190"
+                      ItemsSource="{Binding SearchBy, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      SelectedValue="{Binding SearchBy}" />
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding CustomersView}" Grid.Row="1" 
+                  Margin="0,15,0,0" Background="White"
+                  AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <!-- Set the columns to display here. -->
+                <DataGridTextColumn Header="ID" Binding="{Binding Customer.Id}" Width="50" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Customer.Name}" Width="*" />
+                <DataGridTextColumn Header="PhoneNumber" Binding="{Binding Customer.Phone}" Width="*" />
+                <DataGridTextColumn Header="# of orders made" Binding="{Binding NumOfOrders}" Width="*" />
+                <DataGridTextColumn Header="Revenue" Binding="{Binding Revenue, StringFormat=c}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

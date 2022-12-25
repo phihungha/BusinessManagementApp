@@ -67,13 +67,13 @@ namespace BusinessManagementApp.Data
                 {
                     new CustomerStats()
                     {
-                        Customer = new Customer() { Id = "1", Name = "Nguyen Van A"},
+                        Customer = new Customer() { Id = "1", Name = "Nguyen Van A", Phone = "0123456789"},
                         NumOfOrders = 5,
                         Revenue = 1_000_000
                     },
                     new CustomerStats()
                     {
-                        Customer = new Customer() { Id = "2", Name = "Nguyen Van B"},
+                        Customer = new Customer() { Id = "2", Name = "Nguyen Van B", Phone = "0123456711"},
                         NumOfOrders = 3,
                         Revenue = 500_000
                     }

@@ -30,20 +30,25 @@
                 <ui:NumberBox Margin="10,0,0,0" Width="100"
                           Minimum="1900" Maximum="{Binding MaxYear}"
                           Value="{Binding Year}" />
+
+                <Button Margin="20,0,0,0" FontSize="16" Command="{Binding Generate}"
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                    Generate
+                </Button>
             </ui:SimpleStackPanel>
         </Border>
 
-        <TabControl Grid.Row="1">
+        <TabControl Grid.Row="1" SelectedIndex="{Binding CurrentTabIndex}">
             <TabItem Header="Overview">
                 <sales:SalesReportOverview />
             </TabItem>
 
-            <TabItem Header="Customers">
-                <sales:SalesReportCustomer />
-            </TabItem>
-
             <TabItem Header="Products">
                 <sales:SalesReportProducts />
+            </TabItem>
+
+            <TabItem Header="Customers">
+                <sales:SalesReportCustomer />
             </TabItem>
 
             <TabItem Header="Employees">
