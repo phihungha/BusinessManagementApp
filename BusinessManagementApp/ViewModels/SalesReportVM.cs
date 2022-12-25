@@ -35,7 +35,18 @@ namespace BusinessManagementApp.ViewModels
         private const double GaugeBackgroundInnerRadius = 75;
         private const PolarLabelsPosition GaugeLabelPosition = PolarLabelsPosition.ChartCenter;
 
-        public int CurrentTabIndex { get; set; } = 0;
+        private int currentTabIndex = 0;
+
+        public int CurrentTabIndex
+        {
+            get => currentTabIndex;
+            set
+            {
+                SetProperty(ref currentTabIndex, value);
+                SearchText = "";
+                SearchBy = SalesReprotSearchBy.Name;
+            }
+        }
 
         #region Dependencies
 
