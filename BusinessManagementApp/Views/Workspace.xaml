@@ -87,6 +87,10 @@
             <views:VoucherTypes />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type editvm:BonusTypeDetailsVM}">
+            <editviews:BonusTypeDetails />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type editvm:ContractTypeDetailsVM}">
             <editviews:ContractTypeDetails />
         </DataTemplate>

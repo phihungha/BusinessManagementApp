@@ -15,6 +15,7 @@ namespace BusinessManagementApp.ViewModels
     {
         Bonuses,
         BonusTypes,
+        BonusTypeDetails,
         ContractTypes,
         ContractTypeDetails,
         Customers,
@@ -203,6 +204,9 @@ namespace BusinessManagementApp.ViewModels
 
                 case WorkspaceViewName.BonusTypes:
                     return serviceProvider.GetRequiredService<BonusTypesVM>();
+
+                case WorkspaceViewName.BonusTypeDetails:
+                    return serviceProvider.GetRequiredService<BonusTypeDetailsVM>();
 
                 case WorkspaceViewName.ContractTypes:
                     return serviceProvider.GetRequiredService<ContractTypesVM>();
