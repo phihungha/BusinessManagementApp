@@ -28,7 +28,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Dependencies
 
-        public ObservableCollection<Product> SelectedProducts { get; } = new();
+        public ObservableCollection<Product> SelectedProducts { get; set; } = new();
         
 
         // Properties for inputs on the screen
@@ -143,6 +143,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes)
                 );
+
         }
 
         // Load data from repositories here.
@@ -183,7 +184,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             DiscountValue = voucherType.DiscountValue;
             AppliedProducts = voucherType.AppliedProducts;
             MinNetPrice = voucherType.MinNetPrice;
-            
+            SelectedProducts = new ObservableCollection<Product>(AppliedProducts);
         }
 
         private async Task SaveVoucherType()
