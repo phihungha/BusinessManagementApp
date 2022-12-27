@@ -69,7 +69,7 @@
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="250" />
                 <DataGridTextColumn Header="Discount type" Binding="{Binding DiscountType}" Width="*" />
                 <DataGridTextColumn Header="Discount value" Binding="{Binding DiscountValue}" Width="*" />
-                <DataGridTextColumn Header="Min net price" Binding="{Binding MinNetPrice}" Width="*" />
+                <DataGridTextColumn Header="Min net price" Binding="{Binding MinNetPrice, StringFormat=c}" Width="*" />
                 <!-- NOT BINDED . -->
                 <DataGridTextColumn Header="Applied product" Width="*" /> 
 

@@ -67,7 +67,7 @@
                 <!-- Set the columns to display here. -->
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Supplement salary" Binding="{Binding SupplementSalary}" Width="*" />
+                <DataGridTextColumn Header="Supplement salary" Binding="{Binding SupplementSalary, StringFormat=c}" Width="*" />
                 <!-- NOT BINDED. -->
                 <DataGridTextColumn Header="Permission"  Width="*" />
                
