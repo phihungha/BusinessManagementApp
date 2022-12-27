@@ -68,10 +68,14 @@
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
                 <DataGridTextColumn Header="Supplement salary" Binding="{Binding SupplementSalary, StringFormat=c}" Width="*" />
+<<<<<<< HEAD
                 <!-- NOT BINDED. -->
                 <DataGridTextColumn Header="Permission"  Width="*" />
                
 
+=======
+                
+>>>>>>> c5dc38d4cff683d842a8e41ca60c8b2c138f79bf
                 <!-- Edit button -->
                 <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.CellTemplate>
