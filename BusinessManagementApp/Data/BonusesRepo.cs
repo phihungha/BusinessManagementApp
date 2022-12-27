@@ -37,24 +37,6 @@ namespace BusinessManagementApp.Data
 
         public IObservable<List<BonusRecord>> UpdateBonusRecords(int year, int month, List<BonusRecord> records)
         {
-            records = new List<BonusRecord>()
-            {
-                new BonusRecord()
-                {
-                    MonthYear = new DateTime(2022, 12, 1),
-                    Employee = new Employee() { Id = "1", Name = "Nguyen Van A"},
-                    Amount = 1_000_000,
-                    Type = new BonusType() { Id = 1, Name = "Excellent" }
-                },
-                new BonusRecord()
-                {
-                    MonthYear = new DateTime(2022, 12, 1),
-                    Employee = new Employee() { Id = "2", Name = "Mai Thi Xuan"},
-                    Amount = 1_000_000,
-                    Type = new BonusType() { Id = 1, Name = "Excellent" }
-                }
-            };
-
             return Observable.FromAsync(() => Task.FromResult(records));
         }
     }
