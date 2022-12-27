@@ -13,6 +13,8 @@ using System.Windows.Input;
 using BusinessManagementApp.Views;
 using System.Windows.Documents;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -26,10 +28,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Dependencies
 
-        #region Combobox items
-        public ObservableCollection<Product> Products { get; } = new();
-        #endregion
-
+        public ObservableCollection<Product> SelectedProducts { get; } = new();
+        public ICollectionView ProductsView { get; }
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
@@ -125,7 +125,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Button enable/disable logic
 
         #region Commands for buttons
-
+        public ICommand SelectProducts { get; }
         public ICommand Save { get; private set; }
         public ICommand Delete { get; private set; }
         public ICommand Cancel { get; private set; }
@@ -136,9 +136,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // Go into Startup.cs to add new depencencies if needed
         public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo, ProductsRepo productsRepo)
         {
+            var collectionViewSource = new CollectionViewSource() { Source = SelectedProducts };
+            ProductsView = collectionViewSource.View;
             this.voucherTypesRepo = voucherTypesRepo;
             this.productsRepo = productsRepo;
-
+            SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveVoucherType);
             Delete = new AsyncRelayCommand(DeleteVoucherType);
             Cancel = new RelayCommand(
@@ -148,6 +150,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Load data from repositories here.
         // An object passed when navigating to this screen is also received here.
+        private void ExecuteSelectProducts()
+        {
+            var introMessage = "Select products item for voucher type";
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProducts, introMessage);
+        }
+        public override void OnBack(object? extra = null)
+        {
+            if(extra == null)
+            {
+                throw new ArgumentException(nameof(extra));
+            }
+            SelectedProducts.ClearAndAddRange((List<Product>)extra);
+        }
         public override async void LoadData(object? id = null)
         {
             //Products.AddRange(await productsRepo.GetProducts());
