@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels;
+using BusinessManagementApp.ViewModels.DetailsVMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,14 @@ namespace BusinessManagementApp.Views
         public Vouchers()
         {
             InitializeComponent();
+        }
+
+        private void VouchersDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext == null)
+                return;
+            var viewModel = (VouchersVM)DataContext;
+            viewModel.SelectedVouchers = VouchersDataGrid.SelectedItems.OfType<Voucher>().ToList();
         }
     }
 }

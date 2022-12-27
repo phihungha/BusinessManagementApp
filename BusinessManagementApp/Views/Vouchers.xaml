@@ -4,9 +4,82 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessManagementApp.Views"
+             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Style="{StaticResource ViewTitleBorder}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Style="{StaticResource ViewTitleText}">
+                    Voucher information
+                </TextBlock>
+
+                <Button Grid.Column="1" Margin="10,10,10,10" Command="{Binding DeleteVoucher}" 
+                        HorizontalAlignment="Right" Height="45"
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource PlusWhiteIcon}" Width="20" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Delete vouchers</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Grid.Column="2" Margin="10,10,10,10" Command="{Binding AddVoucher}" 
+                        HorizontalAlignment="Right" Height="45"
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource PlusWhiteIcon}" Width="20" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">New voucher</TextBlock>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1" Height="Auto" Orientation="Horizontal" 
+                    VerticalAlignment="Center" Margin="0,20,0,0">
+            <TextBox Width="300" ui:ControlHelper.PlaceholderText="Search..." 
+                     Text="{Binding SearchText}" />
+
+            <Button Margin="10,0,0,0" Background="{StaticResource PrimaryColorBrush}" 
+                    Command="{Binding Search}">
+                <Image Source="{StaticResource SearchWhiteIcon}" />
+            </Button>
+
+            <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
+                Search by
+            </TextBlock>
+
+            <!-- Bind to an enum property as follow: -->
+            <ComboBox Margin="10,0,0,0" Width="190"
+                      ItemsSource="{Binding SearchBy, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                      SelectedValuePath="Value"
+                      DisplayMemberPath="Description"
+                      SelectedValue="{Binding SearchBy}" />
+        </StackPanel>
+
+        <DataGrid x:Name="VouchersDataGrid" ItemsSource="{Binding VouchersView}" Grid.Row="3" 
+                  Margin="0,15,0,0" Background="White"
+                  AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="VouchersDataGrid_SelectionChanged">
+            <DataGrid.Columns>
+                <!-- Set the columns to display here. -->
+                <DataGridTextColumn Header="Code" Binding="{Binding Code}" Width="*" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Type.Name}" Width="100" />
+                <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate, StringFormat='d'}" Width="150" />
+                <DataGridTextColumn Header="Expiry Date" Binding="{Binding ExpiryDate, StringFormat='d'}" Width="150" />
+               
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
