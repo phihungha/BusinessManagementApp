@@ -15,6 +15,7 @@ using System.Windows.Documents;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Linq;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -158,6 +159,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 throw new ArgumentException(nameof(extra));
             }
             SelectedProducts.ClearAndAddRange((List<Product>)extra);
+            AppliedProducts = SelectedProducts.ToList();
         }
         public override async void LoadData(object? id = null)
         {
