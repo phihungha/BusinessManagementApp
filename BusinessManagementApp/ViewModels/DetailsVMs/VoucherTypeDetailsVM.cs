@@ -24,12 +24,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #region Dependencies
 
         private VoucherTypesRepo voucherTypesRepo;
-        private ProductsRepo productsRepo;
 
         #endregion Dependencies
 
         public ObservableCollection<Product> SelectedProducts { get; } = new();
-        public ICollectionView ProductsView { get; }
+        
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
@@ -134,12 +133,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo, ProductsRepo productsRepo)
+        public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo)
         {
-            var collectionViewSource = new CollectionViewSource() { Source = SelectedProducts };
-            ProductsView = collectionViewSource.View;
             this.voucherTypesRepo = voucherTypesRepo;
-            this.productsRepo = productsRepo;
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveVoucherType);
             Delete = new AsyncRelayCommand(DeleteVoucherType);

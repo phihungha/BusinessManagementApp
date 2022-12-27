@@ -79,7 +79,7 @@
              Command="{Binding SelectProducts}"/>
         </StackPanel>
 
-        <ListBox Margin="0,10,0,55" Grid.Row="5" Grid.ColumnSpan="3" x:Name="ProductsListBox" ItemsSource="{Binding ProductsView}"
+        <ListBox Margin="0,10,0,55" Grid.Row="5" Grid.ColumnSpan="3" x:Name="ProductsListBox" ItemsSource="{Binding SelectedProducts}"
                      SelectionMode="Multiple" SelectionChanged="ProductsListBox_SelectionChanged"
                      HorizontalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}" Grid.RowSpan="3">
             <ListBox.ItemContainerStyle>
