@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.DetailsVMs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +26,14 @@ namespace BusinessManagementApp.Views.DetailsViews
         {
             InitializeComponent();
         }
+        private void ProductsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (DataContext == null)
+                return;
+
+            var viewModel = (SelectProductsVM)DataContext;
+            viewModel.SelectedProducts = ProductsListBox.SelectedItems.OfType<Product>().ToList();
+        }
     }
+
 }

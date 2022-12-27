@@ -66,8 +66,8 @@
             <DataGrid.Columns>
                 <!-- Set the columns to display here. -->
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="40" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="250" />
-                <DataGridTextColumn Header="Base Salary" Binding="{Binding BaseSalary}" Width="300" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="500" />
+                <DataGridTextColumn Header="Base Salary" Binding="{Binding BaseSalary, StringFormat=c}" Width="300" />
                 <DataGridTextColumn Header="Period" Binding="{Binding Period}" Width="*" />
 
                 <!-- Edit button -->

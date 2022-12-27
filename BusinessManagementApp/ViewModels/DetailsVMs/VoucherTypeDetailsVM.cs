@@ -13,6 +13,9 @@ using System.Windows.Input;
 using BusinessManagementApp.Views;
 using System.Windows.Documents;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Data;
+using System.Linq;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -22,14 +25,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #region Dependencies
 
         private VoucherTypesRepo voucherTypesRepo;
-        private ProductsRepo productsRepo;
 
         #endregion Dependencies
 
-        #region Combobox items
-        public ObservableCollection<Product> Products { get; } = new();
-        #endregion
-
+        public ObservableCollection<Product> SelectedProducts { get; set; } = new();
+        
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
@@ -125,7 +125,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Button enable/disable logic
 
         #region Commands for buttons
-
+        public ICommand SelectProducts { get; }
         public ICommand Save { get; private set; }
         public ICommand Delete { get; private set; }
         public ICommand Cancel { get; private set; }
@@ -134,20 +134,34 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo, ProductsRepo productsRepo)
+        public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo)
         {
             this.voucherTypesRepo = voucherTypesRepo;
-            this.productsRepo = productsRepo;
-
+            SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveVoucherType);
             Delete = new AsyncRelayCommand(DeleteVoucherType);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes)
                 );
+
         }
 
         // Load data from repositories here.
         // An object passed when navigating to this screen is also received here.
+        private void ExecuteSelectProducts()
+        {
+            var introMessage = "Select products item for voucher type";
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProducts, introMessage);
+        }
+        public override void OnBack(object? extra = null)
+        {
+            if(extra == null)
+            {
+                throw new ArgumentException(nameof(extra));
+            }
+            SelectedProducts.ClearAndAddRange((List<Product>)extra);
+            AppliedProducts = SelectedProducts.ToList();
+        }
         public override async void LoadData(object? id = null)
         {
             //Products.AddRange(await productsRepo.GetProducts());
@@ -170,7 +184,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             DiscountValue = voucherType.DiscountValue;
             AppliedProducts = voucherType.AppliedProducts;
             MinNetPrice = voucherType.MinNetPrice;
-            
+            SelectedProducts = new ObservableCollection<Product>(AppliedProducts);
         }
 
         private async Task SaveVoucherType()
