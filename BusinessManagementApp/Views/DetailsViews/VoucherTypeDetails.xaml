@@ -68,7 +68,7 @@
         <StackPanel Grid.Row="3" Grid.Column="2" Margin="0,10,0,5" 
                     Width="250" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Min net price</TextBlock>
-            <TextBox HorizontalAlignment="Stretch" Text="{Binding MinNetPrice}" />
+            <ui:NumberBox Minimum="1000" HorizontalAlignment="Stretch" Value="{Binding MinNetPrice}" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0" Orientation="Horizontal">
