@@ -123,6 +123,10 @@
             <editviews:ProviderDetails />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type editvm:SelectCustomersVM}">
+            <editviews:SelectCustomers />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type editvm:SelectProductsVM}">
             <editviews:SelectProducts />
         </DataTemplate>

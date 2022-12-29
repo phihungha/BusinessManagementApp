@@ -15,11 +15,11 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
@@ -33,7 +33,7 @@
             <TextBox   Text="{Binding Code, Mode=OneWay}" IsReadOnly="True" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,5,15,0" Width="250" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Type</TextBlock>
             <ComboBox HorizontalAlignment="Stretch"
                       ItemsSource="{Binding VoucherTypes}"
@@ -42,9 +42,9 @@
                       DisplayMemberPath="Name" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="15,5,0,0" Width="250" HorizontalAlignment="Left">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Number</TextBlock>
-            <ui:NumberBox Minimum="1" Value="{Binding Number}" />
+            <ui:NumberBox HorizontalAlignment="Stretch" Minimum="1" Value="{Binding Number}" />
         </StackPanel>
 
         <StackPanel Grid.Row="3" Margin="0,5,15,0">

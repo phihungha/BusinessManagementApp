@@ -31,7 +31,7 @@
                         HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource PlusWhiteIcon}" Width="20" Margin="0,0,10,0" />
+                        <Image Source="{StaticResource TrashWhiteIcon}" Width="20" Margin="0,0,10,0" />
                         <TextBlock FontSize="16">Delete vouchers</TextBlock>
                     </StackPanel>
                 </Button>

@@ -75,6 +75,30 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <DrawingImage x:Key="ReturnOrderWhiteIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V20 H21 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M21,20z M0,0z M20,8C20,8 17.995,5.26822 16.3662,3.63824 14.7373,2.00827 12.4864,1 10,1 5.02944,1 1,5.02944 1,10 1,14.9706 5.02944,19 10,19 14.1031,19 17.5649,16.2543 18.6482,12.5 M20,8L20,2 M20,8L14,8">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+    <DrawingImage x:Key="CompleteOrderWhiteIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V20 H18 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M18,20z M0,0z M6,8.5L8,10.5 12.5,6 M17,19L17,5.8C17,4.11984 17,3.27976 16.673,2.63803 16.3854,2.07354 15.9265,1.6146 15.362,1.32698 14.7202,1 13.8802,1 12.2,1L5.8,1C4.11984,1 3.27976,1 2.63803,1.32698 2.07354,1.6146 1.6146,2.07354 1.32698,2.63803 1,3.27976 1,4.11984 1,5.8L1,19 3.75,17 6.25,19 9,17 11.75,19 14.25,17 17,19z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="TrashWhiteIcon">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">

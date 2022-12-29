@@ -3,9 +3,11 @@ using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using BusinessManagementApp.Views;
+using BusinessManagementApp.Views.DetailsViews;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reactive.Linq;
@@ -25,21 +27,24 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Dependencies
         #region Input properties
 
+        private DateTime CreationTime = DateTime.Now;
+
+        private DateTime CompletionTime = DateTime.Now.AddDays(14);
+
+        private Customer selectedCustomers = new();
+
+        public Customer SelectedCustomers
+        {
+            get => selectedCustomers;
+            set => SetProperty(ref selectedCustomers, value);
+        }
+
         private int id = 0;
 
         public int Id
         {
             get => id;
-            set => SetProperty(ref id, value);
-        }
-
-        private string name = string.Empty;
-
-        [Required]
-        public string Name
-        {
-            get => name;
-            set => SetProperty(ref name, value);
+            private set => SetProperty(ref id, value);
         }
 
         private OrderStatus status = OrderStatus.Pending;
@@ -48,49 +53,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             get => status;
             set => SetProperty(ref status, value, true);
-        }
-
-        private Gender gender = Gender.Male;
-
-        public Gender Gender
-        {
-            get => gender;
-            set => SetProperty(ref gender, value, true);
-        }
-
-        private DateTime birthDate = new DateTime(2000, 1, 1);
-
-        public DateTime BirthDate
-        {
-            get => birthDate;
-            set => SetProperty(ref birthDate, value, true);
-        }
-
-        private string email = string.Empty;
-
-        [EmailAddress]
-        public string Email
-        {
-            get => email;
-            set => SetProperty(ref email, value, true);
-        }
-
-        private string phoneNumber = string.Empty;
-
-        [PhoneNumber]
-        public string PhoneNumber
-        {
-            get => phoneNumber;
-            set => SetProperty(ref phoneNumber, value, true);
-        }
-
-        private string customerAddress = string.Empty;
-
-        [Required]
-        public string CustomerAddress
-        {
-            get => customerAddress;
-            set => SetProperty(ref customerAddress, value, true);
         }
 
         private string address = string.Empty;
@@ -162,7 +124,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set
             {
                 SetProperty(ref isEditMode, value);
-                CanDelete = value;
             }
         }
 
@@ -174,57 +135,105 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             private set => SetProperty(ref canSave, value);
         }
 
-        private bool canDelete = false;
+        private bool canComplete = false;
 
-        public bool CanDelete
+        public bool CanComplete
         {
-            get => canDelete;
-            private set => SetProperty(ref canDelete, value);
+            get => canComplete;
+            private set => SetProperty(ref canComplete, value);
+        }
+
+        private bool canCancel = false;
+
+        public bool CanCancel
+        {
+            get => canCancel;
+            private set => SetProperty(ref canCancel, value);
+        }
+
+        private bool canReturn = false;
+
+        public bool CanReturn
+        {
+            get => canReturn;
+            private set => SetProperty(ref canReturn, value);
         }
 
         #endregion Button enable/disable logic
         #region Commands for buttons
 
-        public ICommand Save { get; private set; }
-        public ICommand Delete { get; private set; }
+        public ICommand SelectCustomers { get; }
+        public ICommand Save { get; private set; }       
         public ICommand Cancel { get; private set; }
+        public ICommand Complete { get; private set; }
+        public ICommand Terminate { get; private set; }
+        public ICommand Return { get; private set; }
 
         #endregion Commands for buttons
 
         public OrderDetailsVM(OrdersRepo ordersRepo)
         {
             this.ordersRepo = ordersRepo;
-
+            SelectCustomers = new RelayCommand(ExecuteSelectCustomers);
             Save = new AsyncRelayCommand(SaveOrder);
-            Delete = new AsyncRelayCommand(DeleteOrder);
+            Terminate = new AsyncRelayCommand(TerminateOrder);
+            Return = new AsyncRelayCommand(ReturnOrder);
+            Complete = new AsyncRelayCommand(CompleteOrder);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders)
                 );
+        }
+
+        private void SetEnableValue()
+        {          
+            if(Status == OrderStatus.Pending)
+            {
+                CanComplete = true;
+                CanCancel = true;
+            }
+            if(Status == OrderStatus.Completed)
+            {
+                TimeSpan timeSpan = CompletionTime - DateTime.Now;
+                if(timeSpan.Days <30)
+                {
+                    CanReturn = true;
+                }
+            }
+            
+        }
+        
+        private void ExecuteSelectCustomers()
+        {
+            var introMessage = "Select customer for order";
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectCustomers, introMessage);
+        }
+        public override void OnBack(object? extra = null)
+        {
+            if (extra == null)
+            {
+                throw new ArgumentException(nameof(extra));
+            }
+            SelectedCustomers = (Customer)extra;
         }
 
         // Load data from repositories here.
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {           
-
             if (id != null)
             {
-                IsEditMode = true;
+                IsEditMode = true;             
                 await LoadOrder((int)id);
+                SetEnableValue();
             }
-
             CanSave = true;
         }
 
         private async Task LoadOrder(int id)
         {
             Order order = await ordersRepo.GetOrder(id);
-            Name = order.Customer.Name;
-            Gender = order.Customer.Gender;
-            PhoneNumber = order.Customer.Phone;
-            BirthDate = order.Customer.Birthday;
-            Email = order.Customer.Email;
-            CustomerAddress = order.Customer.Address;
+            Id = order.Id;
+            SelectedCustomers = order.Customer;
             Address = order.Address;
             Status =order.Status;
             EmployeeName = order.EmployeeInCharge.Name;
@@ -232,7 +241,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             TotalPrice = order.TotalPrice;
             TotalAmount = order.TotalAmount;
             VatRate = order.VATRate;
-            Id = order.Id;
+            CreationTime = order.CreationTime;
+            CompletionTime = order.CompletionTime;
         }
 
         private async Task SaveOrder()
@@ -243,6 +253,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             var order = new Order()
             {
+                Customer = SelectedCustomers,
                 Address = Address,
                 Status = Status,
                 TotalAmount = TotalAmount,
@@ -264,10 +275,22 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
 
-        private async Task DeleteOrder()
+        private async Task TerminateOrder()
         {
-            await ordersRepo.DeleteOrder(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
+            Status = OrderStatus.Canceled;
+            await SaveOrder();
+        }
+
+        private async Task ReturnOrder()
+        {
+            Status = OrderStatus.Returned;
+            await SaveOrder();
+        }
+
+        private async Task CompleteOrder()
+        {
+            Status = OrderStatus.Completed;
+            await SaveOrder();
         }
     }
 }

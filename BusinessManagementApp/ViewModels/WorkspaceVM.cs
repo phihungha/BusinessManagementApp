@@ -1,5 +1,6 @@
 ﻿using BusinessManagementApp.ViewModels.DetailsVMs;
 using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.Views.DetailsViews;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -36,6 +37,7 @@ namespace BusinessManagementApp.ViewModels
         ProviderDetails,
         SalaryReport,
         SalesReport,
+        SelectCustomers,
         SelectProducts,
         SkillRating,
         SkillRatingDetails,
@@ -266,6 +268,9 @@ namespace BusinessManagementApp.ViewModels
 
                 case WorkspaceViewName.SalesReport:
                     return serviceProvider.GetRequiredService<SalesReportVM>();
+
+                case WorkspaceViewName.SelectCustomers:
+                    return serviceProvider.GetRequiredService<SelectCustomersVM>();
 
                 case WorkspaceViewName.SelectProducts:
                     return serviceProvider.GetRequiredService<SelectProductsVM>();

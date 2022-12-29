@@ -20,8 +20,8 @@ namespace BusinessManagementApp.Data
             var order = new Order()
             {
                 Id = 1,
-                CreationTime = DateTime.Now,
-                CompletionTime = DateTime.Now.AddDays(1),
+                CreationTime = DateTime.Now.AddMonths(-3),
+                CompletionTime = DateTime.Now.AddDays(2),
                 EmployeeInCharge = new Employee()
                 {
                     Id = "1",
@@ -44,7 +44,7 @@ namespace BusinessManagementApp.Data
                     Address = "178 Nguyen Trai, Binh Duong",
                 },
                 Address = "178 Nguyen Trai, Binh Duong",
-                Status = OrderStatus.Completed,
+                Status = OrderStatus.Pending,
                 Items = new List<OrderItem>()
                     {
                         new OrderItem()
