@@ -2,18 +2,12 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Linq;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -92,7 +86,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 );
 
             LoadData();
-        }       
+        }
 
         public async void LoadData()
         {

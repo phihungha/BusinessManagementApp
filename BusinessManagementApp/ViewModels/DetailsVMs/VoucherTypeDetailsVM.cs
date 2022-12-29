@@ -1,21 +1,16 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.Utils;
-using BusinessManagementApp.ViewModels.ValidationAttributes;
+using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using BusinessManagementApp.Views;
-using System.Windows.Documents;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Data;
-using System.Linq;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -29,7 +24,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Dependencies
 
         public ObservableCollection<Product> SelectedProducts { get; set; } = new();
-        
+
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
@@ -155,7 +150,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
         public override void OnBack(object? extra = null)
         {
-            if(extra == null)
+            if (extra == null)
             {
                 throw new ArgumentException(nameof(extra));
             }
@@ -180,7 +175,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             VoucherType voucherType = await voucherTypesRepo.GetVoucherType(id);
             Id = voucherType.Id;
             Name = voucherType.Name;
-            DiscountType = voucherType.DiscountType;    
+            DiscountType = voucherType.DiscountType;
             DiscountValue = voucherType.DiscountValue;
             AppliedProducts = voucherType.AppliedProducts;
             MinNetPrice = voucherType.MinNetPrice;
@@ -197,9 +192,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 Id = Id,
                 Name = Name,
-                Description = Description, 
+                Description = Description,
                 DiscountValue = DiscountValue,
-                AppliedProducts =AppliedProducts,
+                AppliedProducts = AppliedProducts,
                 DiscountType = DiscountType,
                 MinNetPrice = MinNetPrice
             };

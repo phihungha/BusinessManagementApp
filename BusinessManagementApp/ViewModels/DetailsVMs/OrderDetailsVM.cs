@@ -1,19 +1,11 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.ViewModels.ValidationAttributes;
-using BusinessManagementApp.Views;
-using BusinessManagementApp.Views.DetailsViews;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
@@ -163,7 +155,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #region Commands for buttons
 
         public ICommand SelectCustomers { get; }
-        public ICommand Save { get; private set; }       
+        public ICommand Save { get; private set; }
         public ICommand Cancel { get; private set; }
         public ICommand Complete { get; private set; }
         public ICommand Terminate { get; private set; }
@@ -185,23 +177,23 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private void SetEnableValue()
-        {          
-            if(Status == OrderStatus.Pending)
+        {
+            if (Status == OrderStatus.Pending)
             {
                 CanComplete = true;
                 CanCancel = true;
             }
-            if(Status == OrderStatus.Completed)
+            if (Status == OrderStatus.Completed)
             {
                 TimeSpan timeSpan = CompletionTime - DateTime.Now;
-                if(timeSpan.Days <30)
+                if (timeSpan.Days < 30)
                 {
                     CanReturn = true;
                 }
             }
-            
+
         }
-        
+
         private void ExecuteSelectCustomers()
         {
             var introMessage = "Select customer for order";
@@ -219,10 +211,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // Load data from repositories here.
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
-        {           
+        {
             if (id != null)
             {
-                IsEditMode = true;             
+                IsEditMode = true;
                 await LoadOrder((int)id);
                 SetEnableValue();
             }
@@ -235,7 +227,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Id = order.Id;
             SelectedCustomers = order.Customer;
             Address = order.Address;
-            Status =order.Status;
+            Status = order.Status;
             EmployeeName = order.EmployeeInCharge.Name;
             NetPrice = order.NetPrice;
             TotalPrice = order.TotalPrice;

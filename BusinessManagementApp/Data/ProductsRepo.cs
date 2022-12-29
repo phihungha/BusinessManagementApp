@@ -44,11 +44,11 @@ namespace BusinessManagementApp.Data
                 Stock = 10,
                 Price = 1000,
                 Category = new ProductCategory()
-                    {
-                        Id=1,
-                        Name = "phone",
-                        Description= "abc",
-                    }
+                {
+                    Id = 1,
+                    Name = "phone",
+                    Description = "abc",
+                }
             };
 
             return Observable.FromAsync(() => Task.FromResult(product));

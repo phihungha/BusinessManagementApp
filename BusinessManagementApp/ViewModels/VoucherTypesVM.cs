@@ -2,7 +2,6 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;

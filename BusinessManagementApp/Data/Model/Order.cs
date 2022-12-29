@@ -27,7 +27,7 @@ namespace BusinessManagementApp.Data.Model
 
         // Only return when getting details
         public List<Voucher> AppliedVouchers { get; set; }
-             
+
         // Price after discount, before tax
         public decimal NetPrice { get; set; }
 

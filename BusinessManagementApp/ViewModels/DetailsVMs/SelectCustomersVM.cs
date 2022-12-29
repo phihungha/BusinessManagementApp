@@ -2,14 +2,10 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views.DetailsViews;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -37,7 +33,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private Customer selectedCustomers = new();
 
-        public  Customer SelectedCustomers
+        public Customer SelectedCustomers
         {
             get => selectedCustomers;
             set => SetProperty(ref selectedCustomers, value);

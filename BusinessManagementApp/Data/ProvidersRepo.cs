@@ -1,5 +1,4 @@
 ﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;

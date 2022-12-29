@@ -1,6 +1,6 @@
-﻿using System;
-using BusinessManagementApp.Data.Model.Auth;
+﻿using BusinessManagementApp.Data.Model.Auth;
 using Refit;
+using System;
 
 namespace BusinessManagementApp.Data.Api
 {

@@ -220,12 +220,12 @@ namespace BusinessManagementApp.ViewModels
         private async Task SaveBonusRecords()
         {
             List<BonusRecord> recordsToUpdate = bonusRecordVMs.Where(i => i.BonusType != NoBonusType)
-                 .Select(i => new BonusRecord() 
+                 .Select(i => new BonusRecord()
                  {
                      MonthYear = new DateTime(Year, Month, 1),
-                     Employee = i.Employee, 
-                     Type = i.BonusType, 
-                     Amount = i.BonusType.Amount 
+                     Employee = i.Employee,
+                     Type = i.BonusType,
+                     Amount = i.BonusType.Amount
                  })
                  .ToList();
             await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);

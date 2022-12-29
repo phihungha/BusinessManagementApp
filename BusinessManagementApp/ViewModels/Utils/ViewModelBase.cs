@@ -14,7 +14,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// </summary>
         /// <param name="extra">Extra object</param>
         public virtual void LoadData(object? extra = null)
-        { 
+        {
         }
 
         /// <summary>

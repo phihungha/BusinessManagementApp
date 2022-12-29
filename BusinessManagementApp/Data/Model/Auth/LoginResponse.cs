@@ -11,6 +11,6 @@ namespace BusinessManagementApp.Data.Model.Auth
         public string? RefreshToken { get; set; }
 
         [JsonProperty(Required = Required.Always, PropertyName = "authenticated")]
-        public bool IsAuthenticated { get; set; } 
+        public bool IsAuthenticated { get; set; }
     }
 }

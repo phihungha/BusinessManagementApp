@@ -1,6 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Windows.Markup;
 
 namespace BusinessManagementApp.ViewModels.ValidationAttributes
 {

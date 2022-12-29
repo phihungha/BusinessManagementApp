@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
 using System.Globalization;
-using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 
@@ -24,7 +23,7 @@ namespace BusinessManagementApp
         private void SetupCulture()
         {
             FrameworkElement.LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement), 
+                typeof(FrameworkElement),
                 new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
         }
 

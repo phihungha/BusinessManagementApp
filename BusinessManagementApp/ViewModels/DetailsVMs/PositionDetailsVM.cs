@@ -1,16 +1,12 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Utils;
-using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Collections.Generic;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -210,7 +206,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Id = Id,
                 Name = Name,
                 Description = Description,
-                SupplementSalary = SupplementSalary,    
+                SupplementSalary = SupplementSalary,
                 CanManageAll = CanManageAll,
                 CanManageHr = CanManageHr,
                 CanViewHr = CanViewHr,

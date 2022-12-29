@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Model
 {
-    public class Employee:IEquatable<Employee>
+    public class Employee : IEquatable<Employee>
     {
         public string Id { get; set; }
 

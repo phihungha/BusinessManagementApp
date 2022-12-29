@@ -2,19 +2,12 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.ViewModels.ValidationAttributes;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Net;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
@@ -127,7 +120,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Commands for buttons
         public ProductDetailsVM(ProductsRepo productsRepo)
         {
-            this.productsRepo = productsRepo;           
+            this.productsRepo = productsRepo;
 
             Save = new AsyncRelayCommand(SaveProduct);
             Delete = new AsyncRelayCommand(DeleteProduct);

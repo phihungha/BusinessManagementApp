@@ -1,9 +1,7 @@
 ﻿using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
@@ -21,11 +19,11 @@ namespace BusinessManagementApp.Data
             {
                 Id = "1",
                 Name = "Ha Phi Hung",
-                Gender = Gender.Female,               
+                Gender = Gender.Female,
                 Birthday = new DateTime(1975, 5, 5),
                 Phone = "0123456789",
                 Email = "20520526@gm.uit.edu.vn",
-                Address = "178 Nguyen Trai, Binh Duong",               
+                Address = "178 Nguyen Trai, Binh Duong",
             };
 
             return Observable.FromAsync(() => Task.FromResult(customer));

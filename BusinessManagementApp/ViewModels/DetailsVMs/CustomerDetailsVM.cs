@@ -2,16 +2,11 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Reactive.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
@@ -127,7 +122,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public CustomerDetailsVM(CustomersRepo customersRepo)
         {
-            this.customersRepo = customersRepo;            
+            this.customersRepo = customersRepo;
 
             Save = new AsyncRelayCommand(SaveCustomer);
             Delete = new AsyncRelayCommand(DeleteCustomer);

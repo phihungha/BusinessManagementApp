@@ -1,6 +1,5 @@
 ﻿using BusinessManagementApp.ViewModels.DetailsVMs;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views.DetailsViews;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -185,7 +184,7 @@ namespace BusinessManagementApp.ViewModels
             ViewModelBase viewModel = GetViewModelFromViewName(viewName);
             viewModel.LoadData(content.Extra);
             CurrentViewVM = viewModel;
-            
+
         }
 
         private void HandleBackNavigationMessage(WorkspaceBackNavigationMessage message)

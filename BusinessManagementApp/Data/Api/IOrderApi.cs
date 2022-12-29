@@ -1,7 +1,7 @@
 ﻿using BusinessManagementApp.Data.Model;
 using Refit;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
