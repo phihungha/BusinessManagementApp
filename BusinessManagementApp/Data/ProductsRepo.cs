@@ -8,7 +8,53 @@ namespace BusinessManagementApp.Data
 {
     public class ProductsRepo
     {
-        public IObservable<List<Product>> GetAvailableProducts()
+        public IObservable<object> DeleteProduct(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IObservable<List<ProductCategory>> GetCategories()
+        {
+            var categories = new List<ProductCategory>()
+            {
+                new ProductCategory()
+                    {
+                        Id=1,
+                        Name = "phone",
+                        Description= "abc",
+                    },
+                new ProductCategory()
+                    {
+                        Id=2,
+                        Name = "Laptop",
+                        Description= "abc",
+                    }
+            };
+            return Observable.FromAsync(() => Task.FromResult(categories));
+        }
+
+        public IObservable<Product> GetProduct(int id)
+        {
+            var product = new Product()
+            {
+                Id = 1,
+                Name = "Iphone",
+                Description = "abc",
+                Unit = "abc",
+                Stock = 10,
+                Price = 1000,
+                Category = new ProductCategory()
+                    {
+                        Id=1,
+                        Name = "phone",
+                        Description= "abc",
+                    }
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(product));
+        }
+
+        public IObservable<List<Product>> GetProducts()
         {
             var products = new List<Product>()
             {
@@ -43,8 +89,22 @@ namespace BusinessManagementApp.Data
                     Category = new ProductCategory () { Id = 1, Name = "Graphics Card"}
                 }
             };
-
             return Observable.FromAsync(() => Task.FromResult(products));
+        }
+
+        public IObservable<List<Product>> GetAvailableProducts()
+        {
+            return GetProducts();
+        }
+
+        public IObservable<Employee> AddProduct(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IObservable<Employee> UpdateProduct(int productId, Product product)
+        {
+            throw new NotImplementedException();
         }
     }
 }
