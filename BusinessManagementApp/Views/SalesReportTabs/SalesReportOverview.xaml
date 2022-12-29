@@ -1,0 +1,144 @@
+﻿<UserControl x:Class="BusinessManagementApp.Views.SalesReportTabs.SalesReportOverview"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             mc:Ignorable="d"
+             d:DesignHeight="720" d:DesignWidth="1290">
+    <ScrollViewer>
+        <Grid Grid.Row="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="300" />
+                <RowDefinition Height="300" />
+                <RowDefinition Height="300" />
+            </Grid.RowDefinitions>
+
+            <Border Style="{StaticResource FancyBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                FontWeight="Bold" Foreground="Blue">
+                            Revenue by Day
+                    </TextBlock>
+
+                    <lvc:CartesianChart Grid.Row="1" Margin="0,10,0,0"
+                                        Series="{Binding RevenueByDay}"
+                                        XAxes="{Binding RevenueByDayXAxis}"
+                                        YAxes="{Binding RevenueByDayYAxis}" />
+                </Grid>
+            </Border>
+
+            <UniformGrid Grid.Row="1" Columns="4" Margin="0,15,0,0">
+                <Border Style="{StaticResource FancyBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                FontWeight="Bold" Foreground="Red">
+                            Total Revenue
+                        </TextBlock>
+
+                        <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding TotalRevenue}"
+                                      TooltipPosition="Hidden" Total="5000000"
+                                      InitialRotation="-225" MaxAngle="270" />
+                    </Grid>
+                </Border>
+
+                <Border Margin="15,0,0,0" Style="{StaticResource FancyBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                FontWeight="Bold" Foreground="Green">
+                            Average Revenue per Day
+                        </TextBlock>
+
+                        <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding AvgRevenue}"
+                                      TooltipPosition="Hidden" Total="2000000"
+                                      InitialRotation="-225" MaxAngle="270" />
+                    </Grid>
+                </Border>
+
+                <Border Margin="15,0,0,0" Style="{StaticResource FancyBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                FontWeight="Bold" Foreground="Orange">
+                            Avg # of Orders per Employee
+                        </TextBlock>
+
+                        <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding AvgNumOfOrdersPerEmployee}"
+                                    TooltipPosition="Hidden" Total="30"
+                                    InitialRotation="-225" MaxAngle="270" />
+                    </Grid>
+                </Border>
+
+                <Border Margin="15,0,0,0" Style="{StaticResource FancyBorder}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock HorizontalAlignment="Center" FontSize="16"
+                                FontWeight="Bold" Foreground="Purple">
+                            Number of Orders
+                        </TextBlock>
+
+                        <lvc:PieChart Grid.Row="1" Margin="0,10,0,0" Series="{Binding OrderCounts}"
+                                    TooltipPosition="Hidden" Total="100"
+                                    InitialRotation="-225" MaxAngle="270" />
+                    </Grid>
+                </Border>
+            </UniformGrid>
+
+            <Border Grid.Row="2" Margin="0,15,0,0" Style="{StaticResource FancyBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.ColumnSpan="2" HorizontalAlignment="Center" FontSize="16"
+                               FontWeight="Bold" Foreground="Blue">
+                            Quantity sold by Product categories
+                    </TextBlock>
+
+                    <lvc:PieChart Grid.Row="1" Margin="0,10,10,0"
+                                  Series="{Binding ProductCategoryStats}"
+                                  LegendPosition="Right" />
+
+                    <DataGrid Grid.Row="1" Grid.Column="1" Margin="10,10,0,0" Background="#f0f0f0"
+                              ItemsSource="{Binding ProductCategoryStatsCollection}"
+                              IsReadOnly="True" AutoGenerateColumns="False">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Category.Id}" Width="80" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Category.Name}" Width="*" />
+                            <DataGridTextColumn Header="Quantity sold" Binding="{Binding QuantitySold}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

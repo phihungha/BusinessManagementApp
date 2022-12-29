@@ -17,7 +17,8 @@ namespace BusinessManagementApp.Data
             Config = new Config()
             {
                 MaxNumOfOvertimeHours = 4,
-                OvertimeHourlyRate = 150_000
+                OvertimeHourlyRate = 150_000,
+                VATRate = 0.05
             };
         }
 

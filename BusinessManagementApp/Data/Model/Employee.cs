@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Model
 {
-    public class Employee
+    public class Employee:IEquatable<Employee>
     {
         public string Id { get; set; }
 
@@ -35,5 +35,12 @@ namespace BusinessManagementApp.Data.Model
         public List<Contract> Contracts { get; set; }
 
         public DateTime? TerminationDate { get; set; }
+
+        public bool Equals(Employee? other)
+        {
+            if (other == null) return false;
+
+            return Id == other.Id;
+        }
     }
 }

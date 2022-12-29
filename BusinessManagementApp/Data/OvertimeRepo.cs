@@ -67,7 +67,7 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(overview));
         }
 
-        public IObservable<List<OvertimeRecord>> UpdateOvertimeRecords(string employeeId, List<OvertimeRecord> records)
+        public IObservable<List<OvertimeRecord>> UpdateOvertimeRecords(string employeeId, int year, int month, List<OvertimeRecord> records)
         {
             return Observable.FromAsync(() => Task.FromResult(records));
         }

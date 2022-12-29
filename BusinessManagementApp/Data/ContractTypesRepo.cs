@@ -37,5 +37,32 @@ namespace BusinessManagementApp.Data
 
             return Observable.FromAsync(() => Task.FromResult(contractTypes));
         }
+
+        public IObservable<ContractType> GetContractType(int id)
+        {
+            var contractType = new ContractType()
+            {
+                Id = 1,
+                Name = "Permanent",
+                BaseSalary = 60,
+                Period = 50
+            };
+            return Observable.FromAsync(() => Task.FromResult(contractType));
+        }
+
+        public IObservable<ContractType> AddContractType(ContractType contractType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IObservable<ContractType> UpdateContractType(int contractTypeId, ContractType contractType)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IObservable<object> DeleteContractType(int contractTypeId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

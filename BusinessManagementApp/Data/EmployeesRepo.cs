@@ -110,6 +110,18 @@ namespace BusinessManagementApp.Data
                     PhoneNumber = "0123456780",
                     Department = new Department { Id = 2, Name = "Human resources" },
                     CurrentPosition = new Position() { Name = "HR manager" }
+                },
+
+                new Employee()
+                {
+                    Id = "3",
+                    Name = "Le Thanh Long",
+                    Gender = Gender.Male,
+                    CitizenId = "123456789002",
+                    BirthDate = new DateTime(1986, 12, 5),
+                    PhoneNumber = "0123456781",
+                    Department = new Department { Id = 1, Name = "Sales" },
+                    CurrentPosition = new Position() { Name = "Sales" }
                 }
             };
             return Observable.FromAsync(() => Task.FromResult(employees));

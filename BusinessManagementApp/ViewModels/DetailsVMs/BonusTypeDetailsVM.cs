@@ -1,11 +1,8 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Utils;
-using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
@@ -13,20 +10,14 @@ using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
-    public class ProviderDetailsVM : ViewModelBase
+    public class BonusTypeDetailsVM : ViewModelBase
     {
-        // Declare dependencies such as repositories here.
         #region Dependencies
 
-        private ProvidersRepo providersRepo;
+        private BonusTypesRepo bonusTypesRepo;
 
         #endregion Dependencies
 
-
-        // Properties for inputs on the screen
-        // Remember to declare validation attributes when appropriate.
-        // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
-        // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
         #region Input properties
 
         private int id = 0;
@@ -45,7 +36,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => name;
             set => SetProperty(ref name, value);
         }
+
+        private decimal amount = 1000;
+
+        public decimal Amount
+        {
+            get => amount;
+            set => SetProperty(ref amount, value, true);
+        }
+
         private string description = string.Empty;
+
         public string Description
         {
             get => description;
@@ -58,13 +59,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private bool isEditMode = false;
 
-        private bool IsEditMode
+        public bool IsEditMode
         {
             get => isEditMode;
-            set
+            private set
             {
                 SetProperty(ref isEditMode, value);
-                CanDelete = value;
             }
         }
 
@@ -74,14 +74,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             get => canSave;
             private set => SetProperty(ref canSave, value);
-        }
-
-        private bool canDelete = false;
-
-        public bool CanDelete
-        {
-            get => canDelete;
-            private set => SetProperty(ref canDelete, value);
         }
 
         #endregion Button enable/disable logic
@@ -94,73 +86,68 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        // Declare dependencies (e.g repositories) as constructor parameters
-        // Go into Startup.cs to add new depencencies if needed
-        public ProviderDetailsVM(ProvidersRepo providersRepo)
+        public BonusTypeDetailsVM(BonusTypesRepo bonusTypesRepo)
         {
-            this.providersRepo = providersRepo;
+            this.bonusTypesRepo = bonusTypesRepo;
 
-
-            Save = new AsyncRelayCommand(SaveProvider);
-            Delete = new AsyncRelayCommand(DeleteProvider);
+            Save = new AsyncRelayCommand(SaveBonusType);
+            Delete = new AsyncRelayCommand(DeleteBonusType);
             Cancel = new RelayCommand(
-                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers)
+                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes)
                 );
         }
 
-        // Load data from repositories here.
-        // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
-            
-
             if (id != null)
             {
                 IsEditMode = true;
-                await LoadProvider((int)id);
+                await LoadBonusType((int)id);
             }
 
             CanSave = true;
         }
 
-        private async Task LoadProvider(int id)
+        private async Task LoadBonusType(int id)
         {
-            Provider provider = await providersRepo.GetProvider(id);
-            Id = provider.Id;
-            Name = provider.Name;
-            Description = provider.Description;
+            BonusType bonusType = await bonusTypesRepo.GetBonusType(id);
+            Id = bonusType.Id;
+            Name = bonusType.Name;
+            Description = bonusType.Description;
+            Amount = bonusType.Amount;
         }
 
-        private async Task SaveProvider()
+        private async Task SaveBonusType()
         {
             ValidateAllProperties();
             if (HasErrors)
                 return;
 
-            var provider = new Provider()
+            var bonusType = new BonusType()
             {
                 Id = Id,
                 Name = Name,
                 Description = Description,
+                Amount = Amount
             };
 
             if (IsEditMode)
             {
-                await providersRepo.UpdateProvider(Id, provider);
+                await bonusTypesRepo.UpdateBonusType(Id, bonusType);
             }
             else
             {
-                await providersRepo.AddProvider(provider);
+                await bonusTypesRepo.AddBonusType(bonusType);
             }
 
             // Navigate back to list screen
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes);
         }
 
-        private async Task DeleteProvider()
+        private async Task DeleteBonusType()
         {
-            await providersRepo.DeleteProvider(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
+            await bonusTypesRepo.DeleteBonusType(Id);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes);
         }
     }
 }

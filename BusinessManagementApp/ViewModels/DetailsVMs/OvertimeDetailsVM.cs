@@ -218,7 +218,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     NumOfHours = i.NumOfHours,
                 })
                 .ToList();
-            await overtimeRepo.UpdateOvertimeRecords(CurrentEmployee.Id, records);
+            await overtimeRepo.UpdateOvertimeRecords(CurrentEmployee.Id,
+                                                     CurrentMonthYear.Year,
+                                                     CurrentMonthYear.Month,
+                                                     records);
 
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Overtime);
         }

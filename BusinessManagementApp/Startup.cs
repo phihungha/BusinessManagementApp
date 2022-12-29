@@ -84,6 +84,8 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
+                service.AddSingleton<BonusesRepo>();
+                service.AddSingleton<BonusTypesRepo>();
                 service.AddSingleton<ConfigRepo>();
                 service.AddSingleton<ContractTypesRepo>();
                 service.AddSingleton<CustomersRepo>();
@@ -98,6 +100,7 @@ namespace BusinessManagementApp
                 service.AddSingleton<SalaryRecordsRepo>();
                 service.AddSingleton<SkillsRepo>();
                 service.AddSingleton<SkillTypesRepo>();
+                service.AddSingleton<SalesReportRepo>();
                 service.AddSingleton<VouchersRepo>();
                 service.AddSingleton<VoucherTypesRepo>();
             });
@@ -113,6 +116,7 @@ namespace BusinessManagementApp
                 service.AddTransient<WorkspaceVM>();                
                 service.AddTransient<BonusesVM>();
                 service.AddTransient<BonusTypesVM>();
+                service.AddTransient<BonusTypeDetailsVM>();
                 service.AddTransient<ContractTypesVM>();
                 service.AddTransient<ContractTypeDetailsVM>();
                 service.AddTransient<CustomersVM>();
