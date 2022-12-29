@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -47,11 +46,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public List<Product> SelectedProducts
         {
             get => selectedProducts;
-            set
-            {
-                selectedProducts = value;
-                CalculateTotalPrice();
-            }
+            set => selectedProducts = value;
         }
 
         private string title = "";
@@ -60,14 +55,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             get => title;
             set => SetProperty(ref title, value);
-        }
-
-        private decimal totalPrice = 0;
-
-        public decimal TotalPrice
-        {
-            get => totalPrice;
-            set => SetProperty(ref totalPrice, value);
         }
 
         #region Commands for buttons
@@ -125,16 +112,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             Title = (string)input;
             products.AddRange(await productsRepo.GetAvailableProducts());
-        }
-
-        private void CalculateTotalPrice()
-        {
-            TotalPrice = SelectedProducts.Sum(i => i.Price);
-        }
-
-        private void ReturnSelectedProducts()
-        {
-            WorkspaceNavUtils.NavigateBackWithExtra(SelectedProducts);
         }
     }
 }

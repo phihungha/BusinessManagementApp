@@ -17,6 +17,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private OrdersRepo ordersRepo;
 
         #endregion Dependencies
+
         #region Input properties
 
         private DateTime CreationTime = DateTime.Now;
@@ -104,8 +105,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref totalAmount, value, true);
         }
 
-
         #endregion Input properties
+
         #region Button enable/disable logic
 
         private bool isEditMode = false;
@@ -152,6 +153,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Button enable/disable logic
+
         #region Commands for buttons
 
         public ICommand SelectCustomers { get; }
@@ -191,7 +193,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     CanReturn = true;
                 }
             }
-
         }
 
         private void ExecuteSelectCustomers()
@@ -199,6 +200,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             var introMessage = "Select customer for order";
             WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectCustomers, introMessage);
         }
+
         public override void OnBack(object? extra = null)
         {
             if (extra == null)

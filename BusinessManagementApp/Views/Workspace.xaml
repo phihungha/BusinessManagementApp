@@ -135,6 +135,10 @@
             <editviews:SelectProducts />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type editvm:SelectProductOrderItemsVM}">
+            <editviews:SelectProductOrderItems />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type editvm:SkillRatingDetailsVM}">
             <editviews:SkillRatingDetails />
         </DataTemplate>

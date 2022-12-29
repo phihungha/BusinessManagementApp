@@ -39,6 +39,7 @@ namespace BusinessManagementApp.ViewModels
         SalesReport,
         SelectCustomers,
         SelectProducts,
+        SelectProductOrderItems,
         SkillRating,
         SkillRatingDetails,
         SkillTypes,
@@ -277,6 +278,9 @@ namespace BusinessManagementApp.ViewModels
 
                 case WorkspaceViewName.SelectProducts:
                     return serviceProvider.GetRequiredService<SelectProductsVM>();
+
+                case WorkspaceViewName.SelectProductOrderItems:
+                    return serviceProvider.GetRequiredService<SelectProductOrderItemsVM>();
 
                 case WorkspaceViewName.SkillRating:
                     return serviceProvider.GetRequiredService<SkillRatingVM>();
