@@ -103,7 +103,19 @@ namespace BusinessManagementApp.ViewModels
 
     public class WorkspaceVM : ObservableObject
     {
-        private Stack<ViewModelBase> navigationBackstack = new();
+        private class BackstackItem
+        {
+            public WorkspaceViewName nextViewName { get; }
+            public ViewModelBase ViewModel { get; }
+
+            public BackstackItem(WorkspaceViewName nextViewName, ViewModelBase viewModel)
+            {
+                this.nextViewName = nextViewName;
+                ViewModel = viewModel;
+            }
+        }
+
+        private Stack<BackstackItem> navigationBackstack = new();
 
         private ViewModelBase currentViewVM
             = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
@@ -179,21 +191,21 @@ namespace BusinessManagementApp.ViewModels
 
             if (content.SaveOnBackstack)
             {
-                navigationBackstack.Push(CurrentViewVM);
+                var item = new BackstackItem(viewName, CurrentViewVM);
+                navigationBackstack.Push(item);
             }
 
             ViewModelBase viewModel = GetViewModelFromViewName(viewName);
             viewModel.LoadData(content.Extra);
             CurrentViewVM = viewModel;
-
         }
 
         private void HandleBackNavigationMessage(WorkspaceBackNavigationMessage message)
         {
-            ViewModelBase viewModel = navigationBackstack.Pop();
+            BackstackItem item = navigationBackstack.Pop();
             NavigationMessageContent content = message.Value;
-            viewModel.OnBack(content.Extra);
-            CurrentViewVM = viewModel;
+            item.ViewModel.OnBack(item.nextViewName, content.Extra);
+            CurrentViewVM = item.ViewModel;
         }
 
         private ViewModelBase GetViewModelFromViewName(WorkspaceViewName targetViewName)

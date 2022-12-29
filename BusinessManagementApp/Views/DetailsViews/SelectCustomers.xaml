@@ -50,7 +50,7 @@
             </StackPanel>
 
             <ListBox Grid.Row="1" x:Name="CustomersListBox" ItemsSource="{Binding CustomersView}"
-                     SelectionMode="Single" SelectedItem="{Binding SelectedCustomers}"
+                     SelectionMode="Single" SelectedItem="{Binding SelectedCustomer}"
                      Margin="0,20,0,0" HorizontalContentAlignment="Stretch" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">

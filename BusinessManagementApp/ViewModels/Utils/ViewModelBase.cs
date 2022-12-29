@@ -22,7 +22,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// Can accept an extra object returned from another view.
         /// </summary>
         /// <param name="extra">Extra object</param>
-        public virtual void OnBack(object? extra = null)
+        public virtual void OnBack(WorkspaceViewName prevViewName, object? extra = null)
         {
         }
     }

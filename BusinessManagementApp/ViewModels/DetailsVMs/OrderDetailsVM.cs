@@ -1,9 +1,13 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -20,17 +24,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #region Input properties
 
-        private DateTime CreationTime = DateTime.Now;
+        private DateTime creationTime = new DateTime();
 
-        private DateTime CompletionTime = DateTime.Now.AddDays(14);
+        private Customer selectedCustomer = new();
 
-        private Customer selectedCustomers = new();
-
-        public Customer SelectedCustomers
+        public Customer SelectedCustomer
         {
-            get => selectedCustomers;
-            set => SetProperty(ref selectedCustomers, value);
+            get => selectedCustomer;
+            set => SetProperty(ref selectedCustomer, value);
         }
+
+        public ObservableCollection<OrderItem> OrderItems { get; } = new();
 
         private int id = 0;
 
@@ -156,7 +160,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #region Commands for buttons
 
-        public ICommand SelectCustomers { get; }
+        public ICommand SelectProducts { get; }
+        public ICommand SelectCustomer { get; }
         public ICommand Save { get; private set; }
         public ICommand Cancel { get; private set; }
         public ICommand Complete { get; private set; }
@@ -168,7 +173,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public OrderDetailsVM(OrdersRepo ordersRepo)
         {
             this.ordersRepo = ordersRepo;
-            SelectCustomers = new RelayCommand(ExecuteSelectCustomers);
+            SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
+            SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveOrder);
             Terminate = new AsyncRelayCommand(TerminateOrder);
             Return = new AsyncRelayCommand(ReturnOrder);
@@ -187,7 +193,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             if (Status == OrderStatus.Completed)
             {
-                TimeSpan timeSpan = CompletionTime - DateTime.Now;
+                TimeSpan timeSpan = DateTime.Now - creationTime;
                 if (timeSpan.Days < 30)
                 {
                     CanReturn = true;
@@ -201,13 +207,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectCustomers, introMessage);
         }
 
-        public override void OnBack(object? extra = null)
+        public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
         {
             if (extra == null)
             {
-                throw new ArgumentException(nameof(extra));
+                return;
             }
-            SelectedCustomers = (Customer)extra;
+
+            if (prevViewName == WorkspaceViewName.SelectCustomers)
+            {
+                SelectedCustomer = (Customer)extra;
+            }
+            else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
+            {
+                OrderItems.AddRange((List<OrderItem>)extra);
+            }
         }
 
         // Load data from repositories here.
@@ -227,7 +241,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             Order order = await ordersRepo.GetOrder(id);
             Id = order.Id;
-            SelectedCustomers = order.Customer;
+            SelectedCustomer = order.Customer;
             Address = order.Address;
             Status = order.Status;
             EmployeeName = order.EmployeeInCharge.Name;
@@ -235,8 +249,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             TotalPrice = order.TotalPrice;
             TotalAmount = order.TotalAmount;
             VatRate = order.VATRate;
-            CreationTime = order.CreationTime;
-            CompletionTime = order.CompletionTime;
+            OrderItems.AddRange(order.Items);
+            creationTime = order.CreationTime;
         }
 
         private async Task SaveOrder()
@@ -247,13 +261,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             var order = new Order()
             {
-                Customer = SelectedCustomers,
+                Customer = SelectedCustomer,
                 Address = Address,
                 Status = Status,
                 TotalAmount = TotalAmount,
                 TotalPrice = TotalPrice,
                 NetPrice = NetPrice,
-                VATRate = VatRate
+                VATRate = VatRate,
+                Items = OrderItems.ToList()
             };
 
             if (IsEditMode)
@@ -267,6 +282,16 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
+        }
+
+        private void ExecuteSelectProducts()
+        {
+            var param = new SelectProductOrderItemsVM.Param()
+            {
+                Title = "Select products for the order",
+                OrderItems = OrderItems.ToList()
+            };
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProductOrderItems, param);
         }
 
         private async Task TerminateOrder()

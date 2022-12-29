@@ -30,7 +30,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public struct Param
         {
             public string Title { get; set; }
-            public IEnumerable<OrderItem>? OrderItems { get; set; }
+            public List<OrderItem>? OrderItems { get; set; }
         }
 
         public class ProductVM : ViewModelBase
@@ -195,12 +195,16 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             var param = (Param)input;
             Title = param.Title;
-            IEnumerable<OrderItem>? orderItems = param.OrderItems;
+            List<OrderItem>? orderItems = param.OrderItems;
 
             List<Product> products = await productsRepo.GetAvailableProducts();
             foreach (var product in products)
             {
-                OrderItem? orderItem = orderItems?.First(i => i.ProductId == product.Id);
+                OrderItem? orderItem = null;
+                if (orderItems != null && orderItems.Count != 0)
+                {
+                    orderItem = orderItems.Find(i => i.Product.Id == product.Id);
+                }
 
                 ProductVM productVM;
                 if (orderItem != null)
@@ -228,7 +232,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             List<OrderItem> items = selectedProductVMs
                 .Select(i => new OrderItem()
                 {
-                    ProductId = i.Product.Id,
+                    Product = i.Product,
                     Quantity = i.Quantity,
                     UnitPrice = i.Product.Price
                 }).ToList();

@@ -148,12 +148,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             var introMessage = "Select products item for voucher type";
             WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProducts, introMessage);
         }
-        public override void OnBack(object? extra = null)
+        public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
         {
             if (extra == null)
             {
                 throw new ArgumentException(nameof(extra));
             }
+
+            if (prevViewName != WorkspaceViewName.SelectProducts)
+            {
+                throw new ArgumentException($"Invalid previous view {prevViewName}");
+            }
+
             SelectedProducts.ClearAndAddRange((List<Product>)extra);
             AppliedProducts = SelectedProducts.ToList();
         }

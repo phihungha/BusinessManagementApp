@@ -31,12 +31,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public string SearchText { get; set; } = string.Empty;
         public SelectCustomersSearchBy SearchBy { get; set; } = SelectCustomersSearchBy.Name;
 
-        private Customer selectedCustomers = new();
+        private Customer selectedCustomer = new();
 
-        public Customer SelectedCustomers
+        public Customer SelectedCustomer
         {
-            get => selectedCustomers;
-            set => SetProperty(ref selectedCustomers, value);
+            get => selectedCustomer;
+            set => SetProperty(ref selectedCustomer, value);
         }
 
         private string title = "";
@@ -62,7 +62,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             CustomersView = collectionViewSource.View;
             CustomersView.Filter = FilterList;
 
-            Select = new RelayCommand(() => WorkspaceNavUtils.NavigateBackWithExtra(SelectedCustomers));
+            Select = new RelayCommand(() => WorkspaceNavUtils.NavigateBackWithExtra(SelectedCustomer));
             Search = new RelayCommand(() => CustomersView.Refresh());
             Cancel = new RelayCommand(() => WorkspaceNavUtils.NavigateBack());
         }

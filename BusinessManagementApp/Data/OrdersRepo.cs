@@ -47,8 +47,8 @@ namespace BusinessManagementApp.Data
                     {
                         new OrderItem()
                         {
-                            OrderId = "1",
-                            ProductId = "1",
+                            OrderId = 1,
+                            Product = new Product() { Name = "Test product" },
                             UnitPrice = 10000,
                             Quantity = 10,
                         }
@@ -102,8 +102,8 @@ namespace BusinessManagementApp.Data
                     {
                         new OrderItem()
                         {
-                            OrderId = "1",
-                            ProductId = "1",
+                            OrderId = 1,
+                            Product = new Product() { Name = "Test product" },
                             UnitPrice = 10000,
                             Quantity = 10,
                         }
@@ -150,8 +150,8 @@ namespace BusinessManagementApp.Data
                     {
                         new OrderItem()
                         {
-                            OrderId = "2",
-                            ProductId = "1",
+                            OrderId = 1,
+                            Product = new Product() { Name = "Test product" },
                             UnitPrice = 100000,
                             Quantity = 100,
                         }
