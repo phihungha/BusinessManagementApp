@@ -200,11 +200,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             List<Product> products = await productsRepo.GetAvailableProducts();
             foreach (var product in products)
             {
-                OrderItem? orderItem = null;
-                if (orderItems != null && orderItems.Count != 0)
-                {
-                    orderItem = orderItems.Find(i => i.Product.Id == product.Id);
-                }
+                OrderItem? orderItem = orderItems?.Find(i => i.Product.Id == product.Id);
 
                 ProductVM productVM;
                 if (orderItem != null)

@@ -19,13 +19,13 @@ namespace BusinessManagementApp.Data
             {
                 new ProductCategory()
                     {
-                        Id=1,
+                        Id = 1,
                         Name = "phone",
                         Description= "abc",
                     },
                 new ProductCategory()
                     {
-                        Id=2,
+                        Id = 2,
                         Name = "Laptop",
                         Description= "abc",
                     }

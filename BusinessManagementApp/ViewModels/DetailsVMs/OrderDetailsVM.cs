@@ -220,7 +220,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {
-                OrderItems.AddRange((List<OrderItem>)extra);
+                OrderItems.ClearAndAddRange((List<OrderItem>)extra);
             }
         }
 

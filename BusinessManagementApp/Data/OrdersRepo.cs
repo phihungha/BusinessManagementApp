@@ -151,7 +151,7 @@ namespace BusinessManagementApp.Data
                         new OrderItem()
                         {
                             OrderId = 1,
-                            Product = new Product() { Name = "Test product" },
+                            Product = new Product() { Id = 1, Name = "INTEL Core i3-10105" },
                             UnitPrice = 100000,
                             Quantity = 100,
                         }

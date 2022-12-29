@@ -7,6 +7,10 @@
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
              d:DesignHeight="720" d:DesignWidth="1290">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+    </UserControl.Resources>
+    
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -52,13 +56,18 @@
                       SelectedValue="{Binding SearchBy}" />
             </StackPanel>
 
-            <ListBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="ProductsListBox" ItemsSource="{Binding ProductsView}"
-                     SelectionMode="Multiple" SelectionChanged="ProductsListBox_SelectionChanged"
-                     Margin="0,20,0,0" HorizontalContentAlignment="Stretch"
+            <ListBox Grid.Row="1" Grid.ColumnSpan="2" 
+                     x:Name="ProductsListBox" 
+                     ItemsSource="{Binding ProductsView}"
+                     SelectionMode="Multiple" 
+                     SelectionChanged="ProductsListBox_SelectionChanged"
+                     Margin="0,20,0,0" MaxHeight="500"
+                     HorizontalContentAlignment="Stretch"
                      d:ItemsSource="{d:SampleData ItemCount=3}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Margin" Value="0,2,0,2" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                     </Style>
                 </ListBox.ItemContainerStyle>
 
@@ -72,7 +81,7 @@
                             </Grid.ColumnDefinitions>
 
                             <ui:SimpleStackPanel Spacing="3">
-                                <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Name}" />
+                                <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Product.Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Product.Id, StringFormat=ID: {0}}" />
                                 <TextBlock FontSize="13" Text="{Binding Product.Category.Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Product.Description}" />
@@ -84,6 +93,7 @@
                             </ui:SimpleStackPanel>
 
                             <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
+                                          Visibility="{Binding IsSelected, Converter={StaticResource BoolToVisConverter}}"
                                           Minimum="0" Maximum="{Binding Product.Stock}" 
                                           SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                         </Grid>
