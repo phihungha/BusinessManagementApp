@@ -54,13 +54,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref baseSalary, value, true);
         }
 
-        private int period = 30;
+        private int? period = 30;
 
         [Period]
-        public int Period
+        public int? Period
         {
             get => period;
             set => SetProperty(ref period, value, true);
+        }
+
+        private string description = string.Empty;
+        public string Description
+        {
+            get => description;
+            set => SetProperty(ref description, value);
         }
 
         #endregion Input properties
@@ -137,7 +144,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Id = contractType.Id;
             Name = contractType.Name;
             BaseSalary = contractType.BaseSalary;
-            Period = Period;
+            Period = contractType.Period;
+            Description = contractType.Description;
+
         }
 
         private async Task SaveContractType()
@@ -152,6 +161,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Name = Name,
                 Period = Period,
                 BaseSalary = BaseSalary,
+                Description = Description,
             };
 
             if (IsEditMode)
