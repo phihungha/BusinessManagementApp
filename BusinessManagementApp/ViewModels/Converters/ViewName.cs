@@ -23,6 +23,9 @@ namespace BusinessManagementApp.ViewModels.Converters
                 case WorkspaceViewName.ContractTypes:
                     return "Contract types";
 
+                case WorkspaceViewName.Config:
+                    return "Configuration";
+
                 case WorkspaceViewName.Departments:
                     return "Departments";
 
@@ -142,6 +145,9 @@ namespace BusinessManagementApp.ViewModels.Converters
 
                 case WorkspaceViewName.Departments:
                     return App.Current.FindResource("DepartmentsWhiteIcon");
+
+                case WorkspaceViewName.Config:
+                    return App.Current.FindResource("OverviewWhiteIcon");
 
                 default:
                     return null;

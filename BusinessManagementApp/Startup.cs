@@ -1,6 +1,5 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Api;
-using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels;
@@ -115,6 +114,7 @@ namespace BusinessManagementApp
                 service.AddTransient<MainWindowVM>();
                 service.AddTransient<LoginVM>();
                 service.AddTransient<WorkspaceVM>();
+
                 service.AddTransient<BonusesVM>();
                 service.AddTransient<BonusTypesVM>();
                 service.AddTransient<BonusTypeDetailsVM>();
@@ -122,6 +122,7 @@ namespace BusinessManagementApp
                 service.AddTransient<ContractTypeDetailsVM>();
                 service.AddTransient<CustomersVM>();
                 service.AddTransient<CustomerDetailsVM>();
+                service.AddTransient<ConfigVM>();
                 service.AddTransient<DepartmentsVM>();
                 service.AddTransient<DepartmentDetailsVM>();
                 service.AddTransient<EmployeesVM>();

@@ -16,6 +16,7 @@ namespace BusinessManagementApp.ViewModels
         Bonuses,
         BonusTypes,
         BonusTypeDetails,
+        Config,
         ContractTypes,
         ContractTypeDetails,
         Customers,
@@ -151,6 +152,7 @@ namespace BusinessManagementApp.ViewModels
             WorkspaceViewName.Positions,
             WorkspaceViewName.Departments,
             WorkspaceViewName.SkillTypes,
+            WorkspaceViewName.Config,
         };
 
         private WorkspaceViewName selectedSidebarViewName = WorkspaceViewName.Overview;
@@ -236,6 +238,9 @@ namespace BusinessManagementApp.ViewModels
 
                 case WorkspaceViewName.CustomerDetails:
                     return serviceProvider.GetRequiredService<CustomerDetailsVM>();
+
+                case WorkspaceViewName.Config:
+                    return serviceProvider.GetRequiredService<ConfigVM>();
 
                 case WorkspaceViewName.Departments:
                     return serviceProvider.GetRequiredService<DepartmentsVM>();

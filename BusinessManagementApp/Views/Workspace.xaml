@@ -30,7 +30,11 @@
         <DataTemplate DataType="{x:Type vm:CustomersVM}">
             <views:Customers />
         </DataTemplate>
-        
+
+        <DataTemplate DataType="{x:Type vm:ConfigVM}">
+            <views:Config />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type vm:DepartmentsVM}">
             <views:Departments />
         </DataTemplate>
