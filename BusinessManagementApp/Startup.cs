@@ -50,7 +50,7 @@ namespace BusinessManagementApp
             return host;
         }
 
-        public static IHostBuilder AddApis(this IHostBuilder host)
+        public static IHostBuilder AddApiClient(this IHostBuilder host)
         {
             host.ConfigureServices((context, service) =>
             {

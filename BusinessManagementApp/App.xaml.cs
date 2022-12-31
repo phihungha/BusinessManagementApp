@@ -32,7 +32,7 @@ namespace BusinessManagementApp
             return Host.CreateDefaultBuilder()
                 .Application(this)
                 .AddLogging()
-                .AddApis()
+                .AddApiClient()
                 .AddRepositories()
                 .AddViewModels();
         }
