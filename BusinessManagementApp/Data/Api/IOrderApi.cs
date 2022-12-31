@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IOrderApi
+    public partial interface IApiClient
     {
         [Get("/")]
         IObservable<List<Order>> GetOrders();
@@ -21,7 +21,5 @@ namespace BusinessManagementApp.Data.Api
 
         [Delete("/{id}")]
         IObservable<object> DeleteOrder(int id);
-        //BillDetail
-
     }
 }

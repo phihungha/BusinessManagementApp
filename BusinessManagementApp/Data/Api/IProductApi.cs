@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IProductApi
+    public partial interface IApiClient
     {
-
-        //ProductCategory
         [Get("/")]
         IObservable<List<ProductCategory>> GetProductCategorys();
 
@@ -24,7 +22,6 @@ namespace BusinessManagementApp.Data.Api
         [Delete("/{id}")]
         IObservable<object> DeleteProductCategory(int id);
 
-        //Product
         [Get("/")]
         IObservable<List<Product>> GetProducts();
 
@@ -40,7 +37,6 @@ namespace BusinessManagementApp.Data.Api
         [Delete("/{id}")]
         IObservable<object> DeleteProduct(int id);
 
-        //Provider
         [Get("/")]
         IObservable<List<Provider>> GetProviders();
 
@@ -55,6 +51,5 @@ namespace BusinessManagementApp.Data.Api
 
         [Delete("/{id}")]
         IObservable<object> DeleteProvider(int id);
-
     }
 }

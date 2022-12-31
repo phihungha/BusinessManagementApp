@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IRecordApi
+    public partial interface IApiClient
     {
-
-        //Salary Record
         [Get("/")]
         IObservable<List<SalaryRecord>> GetSalaryRecords();
 
@@ -24,7 +22,6 @@ namespace BusinessManagementApp.Data.Api
         [Delete("/{id}")]
         IObservable<object> DeleteSalaryRecord(int id);
 
-        //Overtime Record
         [Get("/")]
         IObservable<List<OvertimeRecord>> GetOvertimeRecords();
 

@@ -2,9 +2,12 @@
 
 namespace BusinessManagementApp.Services;
 
+/// <summary>
+/// Contains authorization-related info of a login session.
+/// </summary>
 public class LoginSession
 {
-    private string? accessToken;
+    private string? accessToken = null;
 
     public string? AccessToken
     {
@@ -16,7 +19,7 @@ public class LoginSession
         }
     }
 
-    private string? refreshToken;
+    private string? refreshToken = null;
 
     public string? RefreshToken
     {

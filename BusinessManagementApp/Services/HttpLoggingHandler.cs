@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Services
 {
+    /// <summary>
+    /// Logs HTTP requests and responses.
+    /// </summary>
     public class HttpLoggingHandler : DelegatingHandler
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)

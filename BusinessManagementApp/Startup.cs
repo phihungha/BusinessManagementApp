@@ -15,20 +15,27 @@ namespace BusinessManagementApp
 {
     public static class Startup
     {
-        private static IHttpClientBuilder ConfigHttpClientBuilder(this IHttpClientBuilder builder, bool auth = false,
-            bool logging = false, string subUrl = "api")
+        private const string BaseApiUrl = "https://evident-castle-371707.as.r.appspot.com/";
+
+        private static IHttpClientBuilder ConfigHttpClientBuilder(
+            this IHttpClientBuilder builder,
+            string subUrl,
+            bool auth)
         {
-            string BaseApiUrl = "https://evident-castle-371707.as.r.appspot.com/" + subUrl;
-            BaseApiUrl = BaseApiUrl.EndsWith("/") ? BaseApiUrl : BaseApiUrl + "/";
+            string apiEndpointUrl = $"{BaseApiUrl}{subUrl}";
+            apiEndpointUrl = apiEndpointUrl.EndsWith("/") ? apiEndpointUrl : apiEndpointUrl + "/";
             builder = builder.ConfigureHttpClient(c =>
             {
-                c.BaseAddress = new Uri(BaseApiUrl);
+                c.BaseAddress = new Uri(apiEndpointUrl);
             });
 
-            if (logging)
+            builder.AddHttpMessageHandler<HttpLoggingHandler>();
+
+            if (auth)
             {
-                builder.AddHttpMessageHandler(() => new HttpLoggingHandler());
+                builder.AddHttpMessageHandler<HttpAuthHandler>();
             }
+
             return builder;
         }
 
@@ -56,23 +63,17 @@ namespace BusinessManagementApp
             {
                 service.AddSingleton<LoginSession>();
                 service.AddSingleton<SchedulerProvider>();
+                service.AddSingleton<HttpAuthHandler>();
+                service.AddSingleton<HttpLoggingHandler>();
 
-                RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(new JsonSerializerSettings()
+                var jsonSettings = new JsonSerializerSettings()
                 {
                     NullValueHandling = NullValueHandling.Ignore
-                }));
-                service.AddTransient<HttpAuthHandler>();
-                service.AddRefitClient<IAuthRemote>(settings).ConfigHttpClientBuilder(false, true, "");
+                };
+                RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(jsonSettings));
 
-                service.AddRefitClient<IContractApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<ICustomerApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IDepartmentApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IEmployeeApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IOrderApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IPositionApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IProductApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IRecordApi>(settings).ConfigHttpClientBuilder(true, true);
-                service.AddRefitClient<IVoucherApi>(settings).ConfigHttpClientBuilder(true, true);
+                service.AddRefitClient<IAuthApiClient>(settings).ConfigHttpClientBuilder("", false);
+                service.AddRefitClient<IApiClient>(settings).ConfigHttpClientBuilder("api", true);
             });
             return host;
         }

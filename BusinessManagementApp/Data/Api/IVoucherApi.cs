@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IVoucherApi
+    public partial interface IApiClient
     {
-
-        //VoucherType
         [Get("/")]
         IObservable<List<VoucherType>> GetVoucherTypes();
 
@@ -24,7 +22,6 @@ namespace BusinessManagementApp.Data.Api
         [Delete("/{id}")]
         IObservable<object> DeleteVoucherType(int id);
 
-        //Voucher
         [Get("/")]
         IObservable<List<Voucher>> GetVouchers();
 
@@ -39,6 +36,5 @@ namespace BusinessManagementApp.Data.Api
 
         [Delete("/{id}")]
         IObservable<object> DeleteVoucher(int id);
-
     }
 }

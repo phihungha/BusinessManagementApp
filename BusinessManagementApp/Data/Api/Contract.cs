@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IContractApi
+    public partial interface IApiClient
     {
-        [Get("/")]
-        IObservable<List<Contract>> GetContracts();
+        [Get("/{employeeId}")]
+        IObservable<List<Contract>> GetContracts(string employeeId);
 
         [Get("/{id}")]
         IObservable<Contract> GetContract(int id);

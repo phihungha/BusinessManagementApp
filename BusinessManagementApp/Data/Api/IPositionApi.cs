@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IPositionApi
+    public partial interface IApiClient
     {
         [Get("/")]
         IObservable<List<Position>> GetPositions();

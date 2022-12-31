@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface ICustomerApi
+    public partial interface IApiClient
     {
         [Get("/")]
         IObservable<List<Customer>> GetCustomers();

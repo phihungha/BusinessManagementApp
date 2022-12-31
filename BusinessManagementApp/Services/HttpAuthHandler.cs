@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Services
 {
+    /// <summary>
+    /// Adds authorization headers to a HTTP request.
+    /// </summary>
     public class HttpAuthHandler : DelegatingHandler
     {
         private readonly LoginSession loginSession;
