@@ -55,6 +55,7 @@ namespace BusinessManagementApp
             host.ConfigureServices((context, service) =>
             {
                 service.AddSingleton<LoginSession>();
+                service.AddSingleton<SchedulerProvider>();
 
                 RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(new JsonSerializerSettings()
                 {
@@ -72,9 +73,6 @@ namespace BusinessManagementApp
                 service.AddRefitClient<IProductApi>(settings).ConfigHttpClientBuilder(true, true);
                 service.AddRefitClient<IRecordApi>(settings).ConfigHttpClientBuilder(true, true);
                 service.AddRefitClient<IVoucherApi>(settings).ConfigHttpClientBuilder(true, true);
-
-                service.AddSingleton<IAuthenticator, Authenticator>();
-                service.AddSingleton<SchedulerProvider>();
             });
             return host;
         }
@@ -100,6 +98,7 @@ namespace BusinessManagementApp
                 service.AddSingleton<SalaryRecordsRepo>();
                 service.AddSingleton<SkillsRepo>();
                 service.AddSingleton<SkillTypesRepo>();
+                service.AddSingleton<SessionsRepo>();
                 service.AddSingleton<SalesReportRepo>();
                 service.AddSingleton<VouchersRepo>();
                 service.AddSingleton<VoucherTypesRepo>();

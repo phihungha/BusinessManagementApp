@@ -4,34 +4,34 @@ namespace BusinessManagementApp.Services;
 
 public class LoginSession
 {
-    private string? _accessToken;
+    private string? accessToken;
 
     public string? AccessToken
     {
-        get => _accessToken;
+        get => accessToken;
         set
         {
-            _accessToken = value;
-            _logger.LogInformation("Access Token Updated: " + _accessToken);
+            accessToken = value;
+            logger.LogInformation("Access token updated: " + accessToken);
         }
     }
 
-    private string? _refreshToken;
+    private string? refreshToken;
 
     public string? RefreshToken
     {
-        get => _refreshToken;
+        get => refreshToken;
         set
         {
-            _refreshToken = value;
-            _logger.LogInformation("Refresh Token Updated: " + _accessToken);
+            refreshToken = value;
+            logger.LogInformation("Refresh token updated: " + accessToken);
         }
     }
 
-    private readonly ILogger<LoginSession> _logger;
+    private readonly ILogger<LoginSession> logger;
 
     public LoginSession(ILogger<LoginSession> logger)
     {
-        _logger = logger;
+        this.logger = logger;
     }
 }

@@ -13,86 +13,124 @@ namespace BusinessManagementApp.Services
     {
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            var req = request;
             var id = Guid.NewGuid().ToString();
-            var msg = $"[{id} -   Request]";
+            var sb = new StringBuilder();
 
-            StringBuilder sb = new StringBuilder();
+            sb.Append(await LogRequest(request, id));
 
-            sb.AppendLine($"{msg}========Start==========");
-            sb.AppendLine($"{msg} {req.Method} {req.RequestUri.PathAndQuery} {req.RequestUri.Scheme}/{req.Version}");
-            sb.AppendLine($"{msg} Host: {req.RequestUri.Scheme}://{req.RequestUri.Host}");
-
-            foreach (var header in req.Headers)
-                sb.AppendLine($"{msg} {header.Key}: {string.Join(", ", header.Value)}");
-
-            if (req.Content != null)
-            {
-                foreach (var header in req.Content.Headers)
-                    sb.AppendLine($"{msg} {header.Key}: {string.Join(", ", header.Value)}");
-
-                if (req.Content is StringContent || this.IsTextBasedContentType(req.Headers) || this.IsTextBasedContentType(req.Content.Headers))
-                {
-                    var result = await req.Content.ReadAsStringAsync();
-
-                    sb.AppendLine($"{msg} From: {req.Method} {req.RequestUri.PathAndQuery} {req.RequestUri.Scheme}/{req.Version}");
-                    sb.AppendLine($"{msg} Content:");
-                    sb.AppendLine($"{msg} {string.Join("", result.Cast<char>().Take(255))}...");
-                }
-            }
-
-            var start = DateTime.Now;
-
+            var startTime = DateTime.Now;
             var response = await base.SendAsync(request, cancellationToken).ConfigureAwait(false);
+            var endTime = DateTime.Now;
+            sb.Append($"[{id}] Duration: {endTime - startTime}");
 
-            var end = DateTime.Now;
+            sb.Append(await LogResponse(response, request, id));
 
-            sb.AppendLine($"{msg} Duration: {end - start}");
-            sb.AppendLine($"{msg}==========End==========");
+            Console.WriteLine(sb.ToString());
 
-            msg = $"[{id} - Response]";
-            sb.AppendLine($"{msg}=========Start=========");
-
-            var resp = response;
-
-            sb.AppendLine($"{msg} {req.RequestUri.Scheme.ToUpper()}/{resp.Version} {(int)resp.StatusCode} {resp.ReasonPhrase}");
-
-            foreach (var header in resp.Headers)
-                sb.AppendLine($"{msg} {header.Key}: {string.Join(", ", header.Value)}");
-
-            if (resp.Content != null)
-            {
-                foreach (var header in resp.Content.Headers)
-                    sb.AppendLine($"{msg} {header.Key}: {string.Join(", ", header.Value)}");
-
-                if (resp.Content is StringContent || this.IsTextBasedContentType(resp.Headers) || this.IsTextBasedContentType(resp.Content.Headers))
-                {
-                    start = DateTime.Now;
-                    var result = await resp.Content.ReadAsStringAsync();
-                    end = DateTime.Now;
-
-                    sb.AppendLine($"{msg} From: {req.Method} {req.RequestUri.PathAndQuery} {req.RequestUri.Scheme}/{req.Version}");
-                    sb.AppendLine($"{msg} Content:");
-                    sb.AppendLine($"{msg} {string.Join("", result.Cast<char>().Take(255))}...");
-                    sb.AppendLine($"{msg} Duration: {end - start}");
-                }
-            }
-
-            sb.AppendLine($"{msg}==========End==========");
-            Console.WriteLine(sb);
             return response;
         }
 
-        private readonly string[] types = new[] { "html", "text", "xml", "json", "txt", "x-www-form-urlencoded" };
+        private async Task<string> LogRequest(HttpRequestMessage request, string id)
+        {
+            var sb = new StringBuilder();
+            var label = $"[{id} -   Request]";
+
+            sb.AppendLine($"{label}========Start==========");
+            sb.AppendLine($"{label} {request.Method} " +
+                          $"{request.RequestUri?.PathAndQuery} " +
+                          $"{request.RequestUri?.Scheme}/" +
+                          $"{request.Version}");
+            sb.AppendLine($"{label} Host: {request.RequestUri?.Scheme}://{request.RequestUri?.Host}");
+
+            foreach (var header in request.Headers)
+            {
+                sb.AppendLine($"{label} {header.Key}: {string.Join(", ", header.Value)}");
+            }
+
+            if (request.Content != null)
+            {
+                foreach (var header in request.Content.Headers)
+                {
+                    sb.AppendLine($"{label} {header.Key}: {string.Join(", ", header.Value)}");
+                }
+
+                if (request.Content is StringContent ||
+                    IsTextBasedContentType(request.Headers) ||
+                    IsTextBasedContentType(request.Content.Headers))
+                {
+                    var result = await request.Content.ReadAsStringAsync();
+
+                    sb.AppendLine($"{label} From: {request.Method} " +
+                                  $"{request.RequestUri?.PathAndQuery} " +
+                                  $"{request.RequestUri?.Scheme}/" +
+                                  $"{request.Version}");
+                    sb.AppendLine($"{label} Content:");
+                    sb.AppendLine($"{label} {string.Join("", Enumerable.Cast<char>(result).Take(255))}...");
+                }
+            }
+
+            sb.AppendLine($"{label}==========End==========");
+            return sb.ToString();
+        }
+
+        private async Task<string> LogResponse(HttpResponseMessage response, HttpRequestMessage request, string id)
+        {
+            var sb = new StringBuilder();
+            var label = $"[{id} - Response]";
+
+            sb.AppendLine($"{label}=========Start=========");
+            sb.AppendLine($"{label} {request.RequestUri?.Scheme.ToUpper()}/{response.Version} " +
+                          $"{(int)response.StatusCode} {response.ReasonPhrase}");
+
+            foreach (var header in response.Headers)
+            {
+                sb.AppendLine($"{label} {header.Key}: {string.Join(", ", header.Value)}");
+            }
+
+            if (response.Content != null)
+            {
+                foreach (var header in response.Content.Headers)
+                    sb.AppendLine($"{label} {header.Key}: {string.Join(", ", header.Value)}");
+
+                if (response.Content is StringContent ||
+                    IsTextBasedContentType(response.Headers) ||
+                    IsTextBasedContentType(response.Content.Headers))
+                {
+                    var startTime = DateTime.Now;
+                    var result = await response.Content.ReadAsStringAsync();
+                    var endTime = DateTime.Now;
+
+                    sb.AppendLine($"{label} From: {request.Method} " +
+                                  $"{request.RequestUri?.PathAndQuery} " +
+                                  $"{request.RequestUri?.Scheme}/{request.Version}");
+                    sb.AppendLine($"{label} Content:");
+                    sb.AppendLine($"{label} {string.Join("", result.Cast<char>().Take(255))}...");
+                    sb.AppendLine($"{label} Duration: {endTime - startTime}");
+                }
+            }
+
+            sb.AppendLine($"{label}==========End==========");
+            return sb.ToString();
+        }
+
+        private readonly string[] contentTypes = new[]
+        {
+            "html",
+            "text",
+            "xml",
+            "json",
+            "txt",
+            "x-www-form-urlencoded"
+        };
 
         private bool IsTextBasedContentType(HttpHeaders headers)
         {
-            IEnumerable<string> values;
+            IEnumerable<string>? values;
             if (!headers.TryGetValues("Content-Type", out values))
                 return false;
             var header = string.Join(" ", values).ToLowerInvariant();
 
-            return types.Any(t => header.Contains(t));
+            return contentTypes.Any(t => header.Contains(t));
         }
     }
 }
