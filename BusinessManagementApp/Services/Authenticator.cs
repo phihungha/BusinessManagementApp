@@ -1,22 +1,18 @@
 ﻿using BusinessManagementApp.Data.Api;
 using BusinessManagementApp.Data.Model.Auth;
 using BusinessManagementApp.Services;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Reactive.Linq;
 
-namespace BusinessManagementApp.Data;
+namespace BusinessManagementApp.Services;
 
 public class Authenticator : IAuthenticator
 {
-
-    private readonly ILogger logger;
     private readonly IAuthRemote remote;
     private readonly LoginSession session;
 
-    public Authenticator(ILogger<Authenticator> logger, IAuthRemote remote, LoginSession session)
+    public Authenticator(IAuthRemote remote, LoginSession session)
     {
-        this.logger = logger;
         this.remote = remote;
         this.session = session;
     }

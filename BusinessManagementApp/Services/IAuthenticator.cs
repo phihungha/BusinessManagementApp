@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BusinessManagementApp.Data;
+namespace BusinessManagementApp.Services;
 
 public interface IAuthenticator
 {
