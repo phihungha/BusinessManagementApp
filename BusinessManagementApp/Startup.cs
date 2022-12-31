@@ -1,5 +1,6 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Services;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels;
@@ -94,6 +95,7 @@ namespace BusinessManagementApp
                 service.AddSingleton<OvertimeRepo>();
                 service.AddSingleton<PositionsRepo>();
                 service.AddSingleton<ProductsRepo>();
+                service.AddSingleton<ProductCategoriesRepo>();
                 service.AddSingleton<ProvidersRepo>();
                 service.AddSingleton<SalaryRecordsRepo>();
                 service.AddSingleton<SkillsRepo>();
@@ -133,6 +135,8 @@ namespace BusinessManagementApp
                 service.AddTransient<PositionDetailsVM>();
                 service.AddTransient<ProductsVM>();
                 service.AddTransient<ProductDetailsVM>();
+                service.AddTransient<ProductCategoriesVM>();
+                service.AddTransient<ProductCategoryDetailsVM>();
                 service.AddTransient<ProvidersVM>();
                 service.AddTransient<ProviderDetailsVM>();
                 service.AddTransient<SalaryReportVM>();

@@ -44,6 +44,9 @@ namespace BusinessManagementApp.ViewModels.Converters
                 case WorkspaceViewName.Products:
                     return "Products";
 
+                case WorkspaceViewName.ProductCategories:
+                    return "Product categories";
+
                 case WorkspaceViewName.Providers:
                     return "Providers";
 
@@ -116,6 +119,9 @@ namespace BusinessManagementApp.ViewModels.Converters
                 case WorkspaceViewName.Products:
                     return App.Current.FindResource("ProductsWhiteIcon");
 
+                case WorkspaceViewName.ProductCategories:
+                    return App.Current.FindResource("ProductsWhiteIcon");
+
                 case WorkspaceViewName.Bonuses:
                     return App.Current.FindResource("BonusesWhiteIcon");
 
@@ -136,7 +142,6 @@ namespace BusinessManagementApp.ViewModels.Converters
 
                 case WorkspaceViewName.Departments:
                     return App.Current.FindResource("DepartmentsWhiteIcon");
-
 
                 default:
                     return null;

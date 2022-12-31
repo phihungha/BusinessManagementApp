@@ -33,6 +33,8 @@ namespace BusinessManagementApp.ViewModels
         PositionDetails,
         Products,
         ProductDetails,
+        ProductCategories,
+        ProductCategoryDetails,
         Providers,
         ProviderDetails,
         SalaryReport,
@@ -142,6 +144,7 @@ namespace BusinessManagementApp.ViewModels
             WorkspaceViewName.Bonuses,
             WorkspaceViewName.SkillRating,
 
+            WorkspaceViewName.ProductCategories,
             WorkspaceViewName.VoucherTypes,
             WorkspaceViewName.BonusTypes,
             WorkspaceViewName.ContractTypes,
@@ -272,6 +275,12 @@ namespace BusinessManagementApp.ViewModels
 
                 case WorkspaceViewName.ProductDetails:
                     return serviceProvider.GetRequiredService<ProductDetailsVM>();
+
+                case WorkspaceViewName.ProductCategories:
+                    return serviceProvider.GetRequiredService<ProductCategoriesVM>();
+
+                case WorkspaceViewName.ProductCategoryDetails:
+                    return serviceProvider.GetRequiredService<ProductCategoryDetailsVM>();
 
                 case WorkspaceViewName.Providers:
                     return serviceProvider.GetRequiredService<ProvidersVM>();

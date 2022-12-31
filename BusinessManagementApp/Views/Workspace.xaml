@@ -59,6 +59,10 @@
             <views:Products />
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type vm:ProductCategoriesVM}">
+            <views:ProductCategories />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type vm:ProvidersVM}">
             <views:Providers />
         </DataTemplate>
@@ -121,6 +125,10 @@
 
         <DataTemplate DataType="{x:Type editvm:ProductDetailsVM}">
             <editviews:ProductDetails />
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type editvm:ProductCategoryDetailsVM}">
+            <editviews:ProductCategoryDetails />
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type editvm:ProviderDetailsVM}">
