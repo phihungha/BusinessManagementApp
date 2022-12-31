@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface ICustomersApi
     {
         [Get("/")]
         IObservable<List<Customer>> GetCustomers();
@@ -14,10 +14,10 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Customer> GetCustomer(string id);
 
         [Post("/")]
-        IObservable<Customer> SaveCustomer(Customer Customer);
+        IObservable<Customer> SaveCustomer([Body] Customer customer);
 
         [Patch("/{id}")]
-        IObservable<Customer> UpdateCustomer(string customerId, Customer request);
+        IObservable<Customer> UpdateCustomer(string id, [Body] Customer customer);
 
         [Delete("/{id}")]
         IObservable<object> DeleteCustomer(string id);

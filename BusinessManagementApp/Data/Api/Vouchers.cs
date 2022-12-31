@@ -5,7 +5,25 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface IVouchersApi
+    {
+        [Get("/")]
+        IObservable<List<Voucher>> GetVouchers();
+
+        [Get("/{id}")]
+        IObservable<Voucher> GetVoucher(int id);
+
+        [Post("/")]
+        IObservable<Voucher> SaveVoucher([Body] Voucher voucher);
+
+        [Patch("/{id}")]
+        IObservable<Voucher> UpdateVoucher(int id, [Body] Voucher voucher);
+
+        [Delete("/{id}")]
+        IObservable<object> DeleteVoucher(int id);
+    }
+
+    public interface IVoucherTypesApi
     {
         [Get("/")]
         IObservable<List<VoucherType>> GetVoucherTypes();
@@ -14,27 +32,12 @@ namespace BusinessManagementApp.Data.Api
         IObservable<VoucherType> GetVoucherType(int id);
 
         [Post("/")]
-        IObservable<VoucherType> SaveVoucherType(VoucherType VoucherType);
+        IObservable<VoucherType> SaveVoucherType([Body] VoucherType voucherType);
 
         [Patch("/{id}")]
-        IObservable<VoucherType> UpdateVoucherType(int VoucherTypeId, VoucherType request);
+        IObservable<VoucherType> UpdateVoucherType(int id, [Body] VoucherType voucherType);
 
         [Delete("/{id}")]
         IObservable<object> DeleteVoucherType(int id);
-
-        [Get("/")]
-        IObservable<List<Voucher>> GetVouchers();
-
-        [Get("/{id}")]
-        IObservable<Voucher> GetVoucher(int id);
-
-        [Post("/")]
-        IObservable<Voucher> SaveVoucher(Voucher Voucher);
-
-        [Patch("/{id}")]
-        IObservable<Voucher> UpdateVoucher(int VoucherId, Voucher request);
-
-        [Delete("/{id}")]
-        IObservable<object> DeleteVoucher(int id);
     }
 }

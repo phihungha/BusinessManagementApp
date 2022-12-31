@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface IPositionsApi
     {
         [Get("/")]
         IObservable<List<Position>> GetPositions();
@@ -14,10 +14,10 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Position> GetPosition(int id);
 
         [Post("/")]
-        IObservable<Position> SavePosition(Position Position);
+        IObservable<Position> SavePosition([Body] Position position);
 
         [Patch("/{id}")]
-        IObservable<Position> UpdatePosition(int PositionId, Position request);
+        IObservable<Position> UpdatePosition(int id, [Body] Position position);
 
         [Delete("/{id}")]
         IObservable<object> DeletePosition(int id);

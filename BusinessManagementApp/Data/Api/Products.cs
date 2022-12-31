@@ -5,23 +5,26 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface IProductCategoriesApi
     {
         [Get("/")]
-        IObservable<List<ProductCategory>> GetProductCategorys();
+        IObservable<List<ProductCategory>> GetProductCategories();
 
         [Get("/{id}")]
         IObservable<ProductCategory> GetProductCategory(int id);
 
         [Post("/")]
-        IObservable<ProductCategory> SaveProductCategory(ProductCategory ProductCategory);
+        IObservable<ProductCategory> SaveProductCategory([Body] ProductCategory productCategory);
 
         [Patch("/{id}")]
-        IObservable<ProductCategory> UpdateProductCategory(int ProductCategoryId, ProductCategory request);
+        IObservable<ProductCategory> UpdateProductCategory(int id, [Body] ProductCategory productCategory);
 
         [Delete("/{id}")]
         IObservable<object> DeleteProductCategory(int id);
+    }
 
+    public interface IProductsApi
+    {
         [Get("/")]
         IObservable<List<Product>> GetProducts();
 
@@ -29,14 +32,17 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Product> GetProduct(int id);
 
         [Post("/")]
-        IObservable<Product> SaveProduct(Product Product);
+        IObservable<Product> SaveProduct([Body] Product product);
 
         [Patch("/{id}")]
-        IObservable<Product> UpdateProduct(int ProductId, Product request);
+        IObservable<Product> UpdateProduct(int id, [Body] Product product);
 
         [Delete("/{id}")]
         IObservable<object> DeleteProduct(int id);
+    }
 
+    public interface IProvidersApi
+    {
         [Get("/")]
         IObservable<List<Provider>> GetProviders();
 
@@ -44,10 +50,10 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Provider> GetProvider(int id);
 
         [Post("/")]
-        IObservable<Provider> SaveProvider(Provider Provider);
+        IObservable<Provider> SaveProvider([Body] Provider provider);
 
         [Patch("/{id}")]
-        IObservable<Provider> UpdateProvider(int ProviderId, Provider request);
+        IObservable<Provider> UpdateProvider(int id, [Body] Provider provider);
 
         [Delete("/{id}")]
         IObservable<object> DeleteProvider(int id);

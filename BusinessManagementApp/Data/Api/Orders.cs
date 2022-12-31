@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface IOrdersApi
     {
         [Get("/")]
         IObservable<List<Order>> GetOrders();
@@ -14,10 +14,10 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Order> GetOrder(int id);
 
         [Post("/")]
-        IObservable<Order> SaveOrder(Order Order);
+        IObservable<Order> SaveOrder([Body] Order order);
 
         [Patch("/{id}")]
-        IObservable<Order> UpdateOrder(int OrderId, Order request);
+        IObservable<Order> UpdateOrder(int id, [Body] Order order);
 
         [Delete("/{id}")]
         IObservable<object> DeleteOrder(int id);

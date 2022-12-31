@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface IDepartmentsApi
     {
         [Get("/")]
         IObservable<List<Department>> GetDepartments();
@@ -14,10 +14,10 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Department> GetDepartment(int id);
 
         [Post("/")]
-        IObservable<Department> SaveDepartment(Department Department);
+        IObservable<Department> SaveDepartment([Body] Department department);
 
         [Patch("/{id}")]
-        IObservable<Department> UpdateDepartment(int DepartmentId, Department request);
+        IObservable<Department> UpdateDepartment(int id, [Body] Department department);
 
         [Delete("/{id}")]
         IObservable<object> DeleteDepartment(int id);

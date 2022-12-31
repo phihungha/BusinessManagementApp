@@ -5,37 +5,58 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public partial interface IApiClient
+    public interface ISalaryApi
     {
         [Get("/")]
         IObservable<List<SalaryRecord>> GetSalaryRecords();
+    }
 
-        [Get("/{id}")]
-        IObservable<SalaryRecord> GetSalaryRecord(int id);
-
-        [Post("/")]
-        IObservable<SalaryRecord> SaveSalaryRecord(SalaryRecord SalaryRecord);
-
-        [Patch("/{id}")]
-        IObservable<SalaryRecord> UpdateSalaryRecord(int SalaryRecordId, SalaryRecord request);
-
-        [Delete("/{id}")]
-        IObservable<object> DeleteSalaryRecord(int id);
-
+    // TODO
+    public interface IOvertimeApi
+    {
         [Get("/")]
-        IObservable<List<OvertimeRecord>> GetOvertimeRecords();
+        IObservable<List<OvertimeOverview>> GetOvertimeOverviews(string employeeId, int year, int month);
+
+        [Get("/{employeeId}/{year}/{month}")]
+        IObservable<List<OvertimeRecord>> GetEmployeeOvertimeRecords(string employeeId, int year, int month);
+
+        [Post("/{employeeId}/{year}/{month}")]
+        IObservable<List<OvertimeRecord>> UpdateEmployeeOvertimeRecords(
+            string employeeId,
+            int year,
+            int month,
+            [Body] IEnumerable<OvertimeRecord> overtimeRecords);
+    }
+
+    // TODO
+    public interface IBonusesApi
+    {
+        [Get("/{year}/{month}")]
+        IObservable<List<BonusRecord>> GetBonusRecords(int month, int year);
+
+        [Post("/{year}/{month}")]
+        IObservable<List<BonusRecord>> UpdateBonusRecords(
+            int month,
+            int year,
+            [Body] IEnumerable<BonusRecord> bonusRecords);
+    }
+
+    // TODO
+    public interface IBonusTypesApi
+    {
+        [Get("/")]
+        IObservable<List<BonusType>> GetBonusTypes();
 
         [Get("/{id}")]
-        IObservable<OvertimeRecord> GetOvertimeRecord(int id);
+        IObservable<BonusType> GetBonusType(int id);
 
         [Post("/")]
-        IObservable<OvertimeRecord> SaveOvertimeRecord(OvertimeRecord OvertimeRecord);
+        IObservable<BonusType> SaveBonusType([Body] BonusType skillType);
 
         [Patch("/{id}")]
-        IObservable<OvertimeRecord> UpdateOvertimeRecord(int OvertimeRecordId, OvertimeRecord request);
+        IObservable<BonusType> UpdateBonusType(int id, [Body] BonusType skillType);
 
         [Delete("/{id}")]
-        IObservable<object> DeleteOvertimeRecord(int id);
-
+        IObservable<object> DeleteBonusType(int id);
     }
 }
