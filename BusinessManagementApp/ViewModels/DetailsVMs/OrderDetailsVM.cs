@@ -34,7 +34,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref selectedCustomer, value);
         }
 
-        public ObservableCollection<OrderItem> OrderItems { get; } = new();
+        private ObservableCollection<OrderItem> orderItems = new();
+
+        public ObservableCollection<OrderItem> OrderItems
+        {
+            get => orderItems;
+            set => SetProperty(ref orderItems, value);
+        }
+
+        //public ObservableCollection<OrderItem> OrderItems { get; } = new();
 
         private int id = 0;
 
@@ -186,6 +194,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 );
         }
 
+        private void CalculatePrice()
+        {
+            TotalPrice = 0;
+            foreach(OrderItem orderItem in OrderItems)
+            {
+                TotalPrice += (orderItem.UnitPrice * orderItem.Quantity);
+            }
+        }
+
         private void SetEnableValue()
         {
             if (Status == OrderStatus.Pending)
@@ -229,6 +246,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {
                 OrderItems.ClearAndAddRange((List<OrderItem>)extra);
+                CalculatePrice();
             }
             else if(prevViewName == WorkspaceViewName.CreateOrderCustomer)
             {
