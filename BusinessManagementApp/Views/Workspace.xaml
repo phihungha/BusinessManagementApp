@@ -22,7 +22,11 @@
         <DataTemplate DataType="{x:Type vm:BonusTypesVM}">
             <views:BonusTypes />
         </DataTemplate>
-        
+
+        <DataTemplate DataType="{x:Type editvm:CreateOrderCustomerVM}">
+            <editviews:CreateOrderCustomer />
+        </DataTemplate>
+
         <DataTemplate DataType="{x:Type vm:ContractTypesVM}">
             <views:ContractTypes />
         </DataTemplate>

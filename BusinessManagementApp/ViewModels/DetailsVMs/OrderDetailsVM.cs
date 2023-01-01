@@ -167,12 +167,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ICommand Complete { get; private set; }
         public ICommand Terminate { get; private set; }
         public ICommand Return { get; private set; }
+        public ICommand CreateCustomer { get; private set; }
 
         #endregion Commands for buttons
 
         public OrderDetailsVM(OrdersRepo ordersRepo)
         {
             this.ordersRepo = ordersRepo;
+            CreateCustomer = new RelayCommand(ExecuteCreateCustomer);
             SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveOrder);
@@ -201,6 +203,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
         }
 
+        private void ExecuteCreateCustomer()
+        {
+            var introMessage = "Create customer for order";
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.CreateOrderCustomer, introMessage);
+        }
+
         private void ExecuteSelectCustomers()
         {
             var introMessage = "Select customer for order";
@@ -221,6 +229,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {
                 OrderItems.ClearAndAddRange((List<OrderItem>)extra);
+            }
+            else if(prevViewName == WorkspaceViewName.CreateOrderCustomer)
+            {
+                SelectedCustomer = (Customer)extra;
             }
         }
 

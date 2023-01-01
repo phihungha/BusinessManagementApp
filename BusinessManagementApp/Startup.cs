@@ -132,7 +132,7 @@ namespace BusinessManagementApp
                 service.AddTransient<MainWindowVM>();
                 service.AddTransient<LoginVM>();
                 service.AddTransient<WorkspaceVM>();
-
+                service.AddTransient<CreateOrderCustomerVM>();
                 service.AddTransient<BonusesVM>();
                 service.AddTransient<BonusTypesVM>();
                 service.AddTransient<BonusTypeDetailsVM>();

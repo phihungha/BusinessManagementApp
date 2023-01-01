@@ -14,16 +14,11 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <StackPanel Margin="15,10,0,15" HorizontalAlignment="Left">
-                <TextBlock TextWrapping="Wrap" FontSize="22" FontWeight="Bold"
-                       Text="New Order" />
-                <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Width="500"
-                       Text="Place a new Order">
-                    <TextBlock.Foreground>
-                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.WindowFrameColorKey}}" />
-                    </TextBlock.Foreground>
+            <Border Style="{StaticResource ViewTitleBorder}"  Margin="5,15,20,15">
+                <TextBlock Style="{StaticResource ViewTitleText}">
+                New Order
                 </TextBlock>
-            </StackPanel>
+            </Border>
 
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
@@ -47,10 +42,10 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="79.903" />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
                         <Grid.Resources>
@@ -65,37 +60,43 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="15,5,5,5">
-                                <TextBlock FontSize="16"  Text="Customer information" FontWeight="Bold" FontStyle="Italic" />
-                                <TextBlock  Text="Create a new order" />
+                            <StackPanel Grid.Row="0" Grid.Column="0">
+                                <TextBlock Text="Customer information" Margin="0,20,0,0"  FontSize="30" FontWeight="Bold" />
                             </StackPanel>
-
-                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,5,5,10">
-                                <Button Content="Choose Customer" FontWeight="Bold"
+                            <DockPanel Grid.Row="0" Grid.Column="1" LastChildFill="False" HorizontalAlignment="Right">
+                                <Button Margin="10,20,10,0" Content="Create Customer" Height="40" FontWeight="Bold"
                                 Background="#FF358AFF" Foreground="White"
-                                VerticalAlignment="Center" HorizontalAlignment="Right"
+                                VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                Command="{Binding CreateCustomer}" />
+
+                                <Button Margin="10,20,10,0" Height="40" Content="Choose Customer" FontWeight="Bold"
+                                Background="#FF358AFF" Foreground="White"
+                                VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Command="{Binding SelectCustomer}" />
-                            </StackPanel>
+                            </DockPanel>
+
+
+
                         </Grid>
 
-                        <StackPanel Grid.Row="1" Margin="10,5,5,10" Grid.ColumnSpan="2">
+                        <StackPanel Grid.Row="1" Margin="0,10,0,0" Grid.ColumnSpan="2">
                             <TextBlock  Text="Name" />
-                            <TextBox  Text="{Binding SelectedCustomer.Name}" />
+                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Name}" />
                         </StackPanel>
 
-                        <StackPanel Margin="10,5,5,10" Grid.Row="2" Grid.Column="1">
+                        <StackPanel Margin="15,5,0,0" Grid.Row="2" Grid.Column="1">
                             <TextBlock  Text="Phone number" />
-                            <TextBox  Text="{Binding SelectedCustomer.Phone}" />
+                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Phone}" />
                         </StackPanel>
 
-                        <StackPanel Margin="10,5,5,10" Grid.Row="2" Grid.Column="0">
+                        <StackPanel Margin="0,5,15,0" Grid.Row="2" Grid.Column="0">
                             <TextBlock  Text="Email" />
-                            <TextBox  Text="{Binding SelectedCustomer.Email}" />
+                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Email}" />
                         </StackPanel>
 
-                        <StackPanel Margin="10,5,5,10" Grid.Row="3" Grid.ColumnSpan="2">
+                        <StackPanel Margin="0,10,0,0" Grid.Row="3" Grid.ColumnSpan="2">
                             <TextBlock  Text="Address" />
-                            <TextBox  Text="{Binding SelectedCustomer.Address}" />
+                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Address}" />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -104,16 +105,16 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Margin="15,5,5,5" FontSize="16" Text="Order information" FontWeight="Bold" FontStyle="Italic" />
+                            <TextBlock Margin="0,20,0,0"  FontSize="30" FontWeight="Bold" Text="Order information"/>
                         </StackPanel>
 
                         <Grid Grid.Row="1">
-                            <StackPanel Margin="10,5,5,10">
+                            <StackPanel Margin="0,10,0,0">
                                 <TextBlock  Text="Address" />
                                 <TextBox Text="{Binding Address}" HorizontalAlignment="Stretch" />
                             </StackPanel>
@@ -125,14 +126,14 @@
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Margin="10,5,5,10">
+                            <StackPanel Margin="0,5,15,0">
                                 <TextBlock  Text="Status" />
                                 <TextBox IsReadOnly="True" Text="{Binding Status}" />
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Margin="10,5,5,10">
+                            <StackPanel Grid.Column="1" Margin="15,5,0,0">
                                 <TextBlock  Text="Employee in charge" />
-                                <TextBox Text="{Binding EmployeeName}"  IsReadOnly="True" />
+                                <TextBlock Text="{Binding EmployeeName}" FontSize="20"/>
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -147,18 +148,17 @@
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10,5,5,10">
-                            <Button Content="Choose products" FontWeight="Bold"
-                                    Background="#FF358AFF" Foreground="White"
-                                    VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                    Command="{Binding SelectProducts}" />
-                        </StackPanel>
 
-                        <ListBox Margin="0,10,0,55" Grid.Row="1" Grid.ColumnSpan="2" 
+                        <Button Grid.Row="0" Grid.Column="1" Margin="10,20,10,0" Content="Choose products" FontWeight="Bold"
+                                    Background="#FF358AFF" Foreground="White"
+                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+                                    Command="{Binding SelectProducts}" />
+
+                        <ListBox Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" 
                                  x:Name="ProductsListBox" 
                                  ItemsSource="{Binding OrderItems}" HorizontalContentAlignment="Stretch" 
                                  d:ItemsSource="{d:SampleData ItemCount=2}">
@@ -182,30 +182,28 @@
                                             <TextBlock FontSize="13" Text="{Binding Product.Category.Name}" />
                                             <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                                         </ui:SimpleStackPanel>
-                                        
-                                        <ui:SimpleStackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
-                                            <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Product.Price, StringFormat=c}" />
-                                            <TextBlock FontSize="13" Text="{Binding Product.Stock, StringFormat={}{0} remaining(s)}" />
-                                        </ui:SimpleStackPanel>
+
+                                        <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"                                         
+                                          Minimum="0" Maximum="{Binding Product.Stock}" 
+                                          SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <StackPanel Margin="15,5,5,5" Grid.ColumnSpan="2">
-                            <TextBlock FontSize="16" FontWeight="Bold" FontStyle="Italic" Text="Order items" />
+                        <StackPanel  Grid.Row="0" Grid.Column="0">
+                            <TextBlock Margin="0,20,0,0" FontSize="30" FontWeight="Bold" Text="Order items" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="2" Grid.Column="0"  Margin="10,5,5,10">
+                        <StackPanel Grid.Row="2" Grid.Column="0"  Margin="0,20,0,0">
                             <TextBox ui:ControlHelper.PlaceholderText="Enter voucher..." Text="{Binding Voucher}" />
                         </StackPanel>
 
-                        <StackPanel Grid.Row="2" Grid.Column="2" Margin="10,5,5,10">
-                            <Button Content="Apply" FontWeight="Bold"
+                        <Button Grid.Row="2" Margin="10,20,10,0" Grid.Column="1" Content="Apply" FontWeight="Bold"
                                 Background="#FF358AFF" Foreground="White"
-                                VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                 Command="{Binding ApplyVoucher}" />
-                        </StackPanel>
+
                     </Grid>
                 </Border>
 
@@ -217,26 +215,26 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Margin="15,5,5,5">
-                            <TextBlock FontSize="16" FontWeight="Bold" FontStyle="Italic" Text="Total Payment Amount" />
+                        <StackPanel>
+                            <TextBlock Margin="0,20,0,0"  FontSize="30" FontWeight="Bold" Text="Total Payment Amount" />
                         </StackPanel>
-                        <StackPanel Grid.Row="1" Margin="10,5,5,10">
-                            <TextBlock  Text="Net Price" />
-                            <TextBlock  FontSize="16" Text="{Binding NetPrice, StringFormat='{}{0:c}'}" />
-                        </StackPanel>
-                        <StackPanel Grid.Row="2" Margin="10,5,5,10">
-                            <TextBlock  Text="VAT rate" />
-                            <TextBlock  FontSize="16" Text="{Binding VatRate, StringFormat='{}{0:c}'}" />
-                        </StackPanel>
-                        <StackPanel Grid.Row="3" Margin="10,5,5,10">
-                            <TextBlock  Text="Total price" />
-                            <TextBlock FontSize="16" Text="{Binding TotalPrice, StringFormat='{}{0:c}'}" />
-                        </StackPanel>
-                        <Separator Margin="5,5,5,5" Grid.Row="4" />
-                        <TextBlock Grid.Row="5" VerticalAlignment="Center" Margin="10,10,10,10" TextWrapping="Wrap" FontWeight="Bold" Text="{Binding TotalAmount, StringFormat='{}{0:c}'}" FontSize="24" />
+                        <DockPanel Grid.Row="1" Margin="0,10,0,0">
+                            <TextBlock  Text="Net Price: " />
+                            <TextBlock  FontSize="16" TextAlignment="Right"  Margin="5,0,0,0" Text="{Binding NetPrice, StringFormat='{}{0:c}'}" />
+                        </DockPanel>
+                        <DockPanel Grid.Row="2" Margin="0,10,0,0">
+                            <TextBlock  Text="VAT rate: " />
+                            <TextBlock  FontSize="16" TextAlignment="Right" Margin="5,0,0,0" Text="{Binding VatRate, StringFormat='{}{0:c}'}" />
+                        </DockPanel>
+                        <DockPanel Grid.Row="3" Margin="0,10,0,0">
+                            <TextBlock  Text="Total price: " />
+                            <TextBlock FontSize="16" TextAlignment="Right" Margin="5,0,0,0" Text="{Binding TotalPrice, StringFormat='{}{0:c}'}" />
+                        </DockPanel>
+                        <Separator Margin="0,10,0,0" Grid.Row="4" />
+                        <TextBlock Grid.Row="5" TextAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0" TextWrapping="Wrap" FontWeight="Bold" Text="{Binding TotalAmount, StringFormat='{}{0:c}'}" FontSize="24" />
                     </Grid>
                 </Border>
             </Grid>
@@ -255,7 +253,7 @@
                 </Button>
 
                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                    Foreground="White" Background="#00e823"
                     Command="{Binding Complete}" IsEnabled="{Binding CanComplete}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource CompleteOrderWhiteIcon}" Width="15" Margin="0,0,10,0" />
@@ -264,7 +262,7 @@
                 </Button>
 
                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                    Foreground="White" Background="{StaticResource DangerColorBrush}"
+                    Foreground="White" Background="#F28C33"
                     Command="{Binding Return}" IsEnabled="{Binding CanReturn}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource ReturnOrderWhiteIcon}" Width="15" Margin="0,0,10,0" />
