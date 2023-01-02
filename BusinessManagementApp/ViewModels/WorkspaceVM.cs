@@ -53,8 +53,10 @@ namespace BusinessManagementApp.ViewModels
 
     public class WorkspaceVM : ObservableObject, ISupportBusyIndicator
     {
-        private ViewModelBase currentViewVM
-            = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
+        private WorkspaceNavHelper navHelper;
+        private BusyIndicatorHelper busyIndicatorHelper;
+
+        private ViewModelBase currentViewVM;
 
         public ViewModelBase CurrentViewVM
         {
@@ -112,9 +114,13 @@ namespace BusinessManagementApp.ViewModels
 
         public WorkspaceVM()
         {
-            var navHelper = new WorkspaceNavHelper(this);
-            var busyIndicatorHelper = new BusyIndicatorHelper(this);
+            navHelper = new WorkspaceNavHelper(this);
+            busyIndicatorHelper = new BusyIndicatorHelper(this);
             Logout = new RelayCommand(() => MainWindowNavUtils.NavigateTo(MainWindowViewName.Login));
+
+            // This needed to be done after initiating the helpers so
+            // messenger-dependent features such as navigation and busy indicator can work.
+            currentViewVM = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
         }
     }
 }
