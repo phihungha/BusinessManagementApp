@@ -31,6 +31,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
 
+        public ObservableCollection<Voucher> vouchers { get; } = new();
+
         private DateTime creationTime = new DateTime();
 
         private Customer selectedCustomer = new();
@@ -138,10 +140,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public decimal TotalPrice
         {
             get => totalPrice;
-            set => SetProperty(ref totalPrice, value, true);
+            set
+            {
+                SetProperty(ref totalPrice, value, true);
+                NetPrice = value + value*(decimal)VatRate;
+            }
         }
 
-        private double vatRate = 0;
+        private double vatRate = 0.1;
 
         public double VatRate
         {
@@ -215,6 +221,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ICommand Complete { get; private set; }
         public ICommand Terminate { get; private set; }
         public ICommand Return { get; private set; }
+        public ICommand ApplyVoucher { get; private set; }
         public ICommand CreateCustomer { get; private set; }
 
         #endregion Commands for buttons
@@ -248,15 +255,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
         }
 
-        private void CalculatePrice()
-        {
-            TotalPrice = 0;
-            foreach(OrderItem orderItem in OrderItems)
-            {
-                TotalPrice += (orderItem.UnitPrice * orderItem.Quantity);
-            }
-        }
-
         private void SetEnableValue()
         {
             if (Status == OrderStatus.Pending)
@@ -272,6 +270,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     CanReturn = true;
                 }
             }
+        }
+
+        private void ExcuteApplyVoucher()
+        {
+            
         }
 
         private void ExecuteCreateCustomer()
@@ -335,6 +338,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             VatRate = order.VATRate;
             OrderItems.AddRange(order.Items);
             creationTime = order.CreationTime;
+            vouchers = order.AppliedVouchers;
             SetOrderItemsValue();
         }
 
