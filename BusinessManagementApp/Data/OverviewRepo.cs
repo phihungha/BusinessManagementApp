@@ -55,7 +55,7 @@ namespace BusinessManagementApp.Data
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(overview));
+            return Observable.FromAsync(() => Task.FromResult(overview)).Delay(new TimeSpan(0, 0, 2));
         }
     }
 }

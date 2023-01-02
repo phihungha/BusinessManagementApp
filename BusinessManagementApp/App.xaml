@@ -6,10 +6,13 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!-- BusyIndicator -->
+                <ResourceDictionary Source="pack://application:,,,/BusyIndicator;component/Theme/Default.xaml" />
+                
                 <!-- ModernWPF UI theme and controls -->
                 <ui:ThemeResources AccentColor="#00a6ff" />
                 <ui:XamlControlsResources />
-                
+
                 <!-- Common UI resources -->
                 <ResourceDictionary Source="Views/Resources/Common.xaml" />
                 <ResourceDictionary Source="Views/Resources/Colors.xaml" />
