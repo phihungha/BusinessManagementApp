@@ -7,6 +7,9 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.ViewModels.Navigation
 {
+    /// <summary>
+    /// Helper class for workspace navigation.
+    /// </summary>
     public class WorkspaceNavHelper
     {
         private WorkspaceVM workspaceVM;

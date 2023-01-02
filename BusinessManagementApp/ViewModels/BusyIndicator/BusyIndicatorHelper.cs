@@ -2,6 +2,9 @@
 
 namespace BusinessManagementApp.ViewModels.BusyIndicator
 {
+    /// <summary>
+    /// Helper class for busy indicator management.
+    /// </summary>
     public class BusyIndicatorHelper
     {
         public BusyIndicatorHelper(ISupportBusyIndicator viewModel)
