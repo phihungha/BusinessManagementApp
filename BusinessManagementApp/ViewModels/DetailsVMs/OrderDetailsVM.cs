@@ -2,7 +2,6 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -14,9 +13,6 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
-using static BusinessManagementApp.ViewModels.DetailsVMs.OrderDetailsVM;
-using static BusinessManagementApp.ViewModels.DetailsVMs.SelectProductOrderItemsVM;
-
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class OrderDetailsVM : ViewModelBase
@@ -45,12 +41,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private ObservableCollection<Voucher>? AppliedVouchers { get; } = new();
-
-        //public ObservableCollection<Voucher>? AppliedVouchers
-       // {
-        //    get => appliedVouchers;
-       //     set => SetProperty(ref appliedVouchers, value);
-//}
 
         private ObservableCollection<OrderItem> OrderItems { get; } = new();
 
@@ -353,7 +343,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 else //Have applied product
                 {
                     decimal ProductsNetPrice = 0;
-                    //Check condition of voucher that has  no applied product
+                    //Get Products'Net price to check condition of voucher that has no applied product
                     foreach (OrderItem orderItem in OrderItems)
                     {
                         if(voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
