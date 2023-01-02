@@ -1,16 +1,13 @@
-﻿using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.Data;
+﻿using BusinessManagementApp.Data;
+using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
+using CommunityToolkit.Mvvm.Input;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using CommunityToolkit.Mvvm.Input;
-using System.Reactive.Linq;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -21,6 +18,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private CustomersRepo customersRepo;
 
         #endregion Dependencies
+
         #region Input properties
 
         private string id = string.Empty;
@@ -84,12 +82,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Input properties
+
         #region Commands for buttons
 
         public ICommand Save { get; private set; }
         public ICommand Cancel { get; private set; }
 
         #endregion Commands for buttons
+
         public CreateOrderCustomerVM(CustomersRepo customersRepo)
         {
             this.customersRepo = customersRepo;
@@ -117,12 +117,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Address = Address,
             };
 
-               // await customersRepo.AddCustomer(customer);
-
+            await customersRepo.AddCustomer(customer);
 
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateBackWithExtra(customer);
         }
-
     }
 }
