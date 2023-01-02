@@ -338,7 +338,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             VatRate = order.VATRate;
             OrderItems.AddRange(order.Items);
             creationTime = order.CreationTime;
-            vouchers = order.AppliedVouchers;
             SetOrderItemsValue();
         }
 
