@@ -74,23 +74,23 @@ namespace BusinessManagementApp
 
                 service.AddRefitClient<IAuthApi>(settings).ConfigHttpClientBuilder("", false);
                 service.AddRefitClient<IBonusesApi>(settings).ConfigHttpClientBuilder("bonuses", true);
-                service.AddRefitClient<IBonusTypesApi>(settings).ConfigHttpClientBuilder("bonustypes", true);
+                service.AddRefitClient<IBonusTypesApi>(settings).ConfigHttpClientBuilder("bonus-types", true);
                 service.AddRefitClient<IConfigApi>(settings).ConfigHttpClientBuilder("config", true);
-                service.AddRefitClient<IContractTypesApi>(settings).ConfigHttpClientBuilder("contracttypes", true);
+                service.AddRefitClient<IContractTypesApi>(settings).ConfigHttpClientBuilder("contract-types", true);
                 service.AddRefitClient<ICustomersApi>(settings).ConfigHttpClientBuilder("customers", true);
                 service.AddRefitClient<IDepartmentsApi>(settings).ConfigHttpClientBuilder("departments", true);
                 service.AddRefitClient<IEmployeesApi>(settings).ConfigHttpClientBuilder("employees", true);
                 service.AddRefitClient<IOrdersApi>(settings).ConfigHttpClientBuilder("orders", true);
                 service.AddRefitClient<IPositionsApi>(settings).ConfigHttpClientBuilder("positions", true);
                 service.AddRefitClient<IProductsApi>(settings).ConfigHttpClientBuilder("products", true);
-                service.AddRefitClient<IProductCategoriesApi>(settings).ConfigHttpClientBuilder("productcategories", true);
+                service.AddRefitClient<IProductCategoriesApi>(settings).ConfigHttpClientBuilder("product-categories", true);
                 service.AddRefitClient<IProvidersApi>(settings).ConfigHttpClientBuilder("providers", true);
                 service.AddRefitClient<ISalaryApi>(settings).ConfigHttpClientBuilder("salary", true);
                 service.AddRefitClient<IOvertimeApi>(settings).ConfigHttpClientBuilder("overtime", true);
-                service.AddRefitClient<ISkillRatingsApi>(settings).ConfigHttpClientBuilder("skills", true);
-                service.AddRefitClient<ISkillTypesApi>(settings).ConfigHttpClientBuilder("skilltypes", true);
+                service.AddRefitClient<ISkillRatingsApi>(settings).ConfigHttpClientBuilder("skill-ratings", true);
+                service.AddRefitClient<ISkillTypesApi>(settings).ConfigHttpClientBuilder("skill-types", true);
                 service.AddRefitClient<IVouchersApi>(settings).ConfigHttpClientBuilder("vouchers", true);
-                service.AddRefitClient<IVoucherTypesApi>(settings).ConfigHttpClientBuilder("voucherstypes", true);
+                service.AddRefitClient<IVoucherTypesApi>(settings).ConfigHttpClientBuilder("voucher-types", true);
             });
             return host;
         }
