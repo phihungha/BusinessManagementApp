@@ -23,6 +23,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     {
         #region Dependencies
 
+        private VouchersRepo vouchersRepo;
         private OrdersRepo ordersRepo;
 
         #endregion Dependencies
@@ -31,7 +32,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
 
-        public ObservableCollection<Voucher> vouchers { get; } = new();
+        
 
         private DateTime creationTime = new DateTime();
 
@@ -43,9 +44,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref selectedCustomer, value);
         }
 
+        private ObservableCollection<Voucher>? AppliedVouchers { get; } = new();
+
+        //public ObservableCollection<Voucher>? AppliedVouchers
+       // {
+        //    get => appliedVouchers;
+       //     set => SetProperty(ref appliedVouchers, value);
+//}
+
         private ObservableCollection<OrderItem> OrderItems { get; } = new();
 
         public ICollectionView OrderItemsView { get; }
+
+        public ICollectionView VouchersView { get; set; }
 
         public class OrderItemVM : ViewModelBase
         {
@@ -222,16 +233,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ICommand Terminate { get; private set; }
         public ICommand Return { get; private set; }
         public ICommand ApplyVoucher { get; private set; }
+        public ICommand DeleteVoucher { get; private set; }
         public ICommand CreateCustomer { get; private set; }
 
         #endregion Commands for buttons
 
-        public OrderDetailsVM(OrdersRepo ordersRepo)
+        public OrderDetailsVM(OrdersRepo ordersRepo, VouchersRepo vouchersRepo)
         {
             this.ordersRepo = ordersRepo;
-
+            this.vouchersRepo = vouchersRepo;
             var collectionViewSource = new CollectionViewSource() { Source = orderItemVMs };
+            DeleteVoucher = new RelayCommand<string>(id => ExcuteDeleteVoucher(id));
+            ApplyVoucher = new RelayCommand(ExcuteApplyVoucher);
             OrderItemsView = collectionViewSource.View;
+            VouchersView = new CollectionViewSource { Source = AppliedVouchers }.View;
             CreateCustomer = new RelayCommand(ExecuteCreateCustomer);
             SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
@@ -272,9 +287,107 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
         }
 
-        private void ExcuteApplyVoucher()
+        private async void ExcuteDeleteVoucher(string? code)
         {
-            
+            if (code == null)
+            {
+                throw new ArgumentException("Code is null");
+            }
+            Voucher voucher = await vouchersRepo.GetVoucher(code);
+            AppliedVouchers.Remove(voucher);
+            VouchersView.Refresh();
+            CalculateTotalPrice();
+
+        }
+
+        private async void ExcuteApplyVoucher()
+        {
+            Voucher voucher = await vouchersRepo.GetVoucher(Voucher);
+            if (AppliedVouchers.Count == 0)
+            {               
+                if (DateTime.Now > voucher.ReleaseDate && DateTime.Now < voucher.ExpiryDate)
+                {
+                    AppliedVouchers.Add(voucher);
+                    VouchersView.Refresh();
+                }
+            }
+            else
+            {
+                foreach (Voucher voucher1 in AppliedVouchers.ToList())
+                {
+                    if (!(voucher1.Code == voucher.Code))
+                    {                      
+                        if (DateTime.Now > voucher.ReleaseDate && DateTime.Now < voucher.ExpiryDate)
+                        {
+                            AppliedVouchers.Add(voucher);
+                            VouchersView.Refresh();
+                        }
+                    }
+                }
+            }
+                CalculateTotalPrice();
+        }
+
+        private void CalculateTotalPrice()
+        {
+            double discount = 0;
+            double temp = (double)NetPrice;
+            //No applied product
+            foreach (Voucher voucher in AppliedVouchers)
+            {
+                if(voucher.Type.AppliedProducts.Count == 0)
+                {
+                    //Check condition of voucher that has  no applied product
+                    if (voucher.Type.MinNetPrice <= NetPrice)
+                    {
+                        if(voucher.Type.DiscountType == DiscountType.Raw)
+                        {
+                            discount += voucher.Type.DiscountValue;
+                        }
+                        else
+                        {
+                            discount += (double)NetPrice * voucher.Type.DiscountValue;
+                        }
+                    }
+                }
+                else //Have applied product
+                {
+                    decimal ProductsNetPrice = 0;
+                    //Check condition of voucher that has  no applied product
+                    foreach (OrderItem orderItem in OrderItems)
+                    {
+                        if(voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
+                        {
+                            ProductsNetPrice += orderItem.UnitPrice * orderItem.Quantity * (decimal)(1+VatRate);
+                        }
+                    }
+                    //Begin calculate discount money of voucher that has no applied product
+                    if (ProductsNetPrice >= voucher.Type.MinNetPrice)
+                    {
+                        if (voucher.Type.DiscountType == DiscountType.Raw)
+                        {
+                            foreach (OrderItem orderItem in OrderItems)
+                            {
+                                if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
+                                {
+                                    discount += voucher.Type.DiscountValue;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            foreach (OrderItem orderItem in OrderItems)
+                            {
+                                if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
+                                {
+                                    discount += ((double)orderItem.UnitPrice * orderItem.Quantity * (1 + VatRate))*voucher.Type.DiscountValue;
+                                }
+                            }
+                        }
+                    }
+                }               
+            }
+            TotalAmount = temp - discount;
         }
 
         private void ExecuteCreateCustomer()
@@ -303,7 +416,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {              
                 OrderItems.ClearAndAddRange((List<OrderItem>)extra);
+                VouchersView = CollectionViewSource.GetDefaultView(AppliedVouchers);
                 SetOrderItemsValue();
+                CalculateTotalPrice();
             }
             else if(prevViewName == WorkspaceViewName.CreateOrderCustomer)
             {
@@ -337,7 +452,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             TotalAmount = order.TotalAmount;
             VatRate = order.VATRate;
             OrderItems.AddRange(order.Items);
-            creationTime = order.CreationTime;
+            AppliedVouchers.AddRange(order.AppliedVouchers);
+            creationTime = order.CreationTime;           
             SetOrderItemsValue();
         }
 

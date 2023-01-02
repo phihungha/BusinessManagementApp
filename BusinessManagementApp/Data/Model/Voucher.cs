@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace BusinessManagementApp.Data.Model
 {
-    public class Voucher
+    public class Voucher : IEquatable<Voucher>
     {
         public string Code { get; set; }
 
@@ -14,6 +14,13 @@ namespace BusinessManagementApp.Data.Model
         public DateTime ReleaseDate { get; set; }
 
         public DateTime ExpiryDate { get; set; }
+
+        public bool Equals(Voucher? other)
+        {
+            if (other == null) return false;
+
+            return Code == other.Code;
+        }
     }
 
     public class VoucherType
