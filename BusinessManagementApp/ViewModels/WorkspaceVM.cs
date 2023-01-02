@@ -1,4 +1,5 @@
-﻿using BusinessManagementApp.ViewModels.Navigation;
+﻿using BusinessManagementApp.ViewModels.BusyIndicator;
+using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -50,7 +51,7 @@ namespace BusinessManagementApp.ViewModels
         VoucherDetails
     }
 
-    public class WorkspaceVM : ObservableObject
+    public class WorkspaceVM : ObservableObject, ISupportBusyIndicator
     {
         private ViewModelBase currentViewVM
             = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
@@ -99,11 +100,20 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
+        private bool isBusy = false;
+
+        public bool IsBusy
+        {
+            get => isBusy;
+            set => SetProperty(ref isBusy, value);
+        }
+
         public ICommand Logout { get; }
 
         public WorkspaceVM()
         {
             var navHelper = new WorkspaceNavHelper(this);
+            var busyIndicatorHelper = new BusyIndicatorHelper(this);
             Logout = new RelayCommand(() => MainWindowNavUtils.NavigateTo(MainWindowViewName.Login));
         }
     }

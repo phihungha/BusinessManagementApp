@@ -17,14 +17,10 @@ namespace BusinessManagementApp.ViewModels.Navigation
         {
             this.workspaceVM = workspaceVM;
 
-            WeakReferenceMessenger
-                .Default
-                .Register<WorkspaceNavMessage>(
+            WeakReferenceMessenger.Default.Register<WorkspaceNavMessage>(
                     this, (r, m) => HandleNavigationMessage(m));
 
-            WeakReferenceMessenger
-                .Default
-                .Register<WorkspaceBackNavMessage>(
+            WeakReferenceMessenger.Default.Register<WorkspaceBackNavMessage>(
                     this, (r, m) => HandleBackNavigationMessage(m));
         }
 
