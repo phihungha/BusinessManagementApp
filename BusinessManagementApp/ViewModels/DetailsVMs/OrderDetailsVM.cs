@@ -414,6 +414,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 SelectedCustomer = (Customer)extra;
             }
+            VouchersView = CollectionViewSource.GetDefaultView(AppliedVouchers);
         }
 
         // Load data from repositories here.
