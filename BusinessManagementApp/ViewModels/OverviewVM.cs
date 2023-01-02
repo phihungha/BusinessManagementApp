@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore;
@@ -92,11 +93,15 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+
             Overview overview = await overviewRepo.GetOverview();
             PendingOrders.AddRange(overview.PendingOrders);
             numOfPendingOrders.Value = overview.NumOfPendingOrders;
             totalStock.Value = overview.TotalStock;
             todayRevenue.Value = overview.TodayRevenue;
+
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }
