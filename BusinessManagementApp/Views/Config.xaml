@@ -58,9 +58,9 @@
                     <TextBlock FontSize="16">Reset</TextBlock>
                 </StackPanel>
             </Button>
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,5,5,0" 
                     Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                    Command="{Binding Save}" IsEnabled="{Binding CanSave}" >
+                    Command="{Binding Save}" Height="45" >
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
                     <TextBlock FontSize="16">Save</TextBlock>

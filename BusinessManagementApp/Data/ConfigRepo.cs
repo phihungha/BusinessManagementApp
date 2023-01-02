@@ -1,4 +1,5 @@
 ﻿using BusinessManagementApp.Data.Model;
+using System.Windows;
 
 namespace BusinessManagementApp.Data
 {

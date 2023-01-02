@@ -4,6 +4,7 @@ using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Configuration;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,7 +18,7 @@ namespace BusinessManagementApp.ViewModels
         // Declare dependencies such as repositories here.
         #region Dependencies
 
-        private ConfigRepo configRepo;
+        private ConfigRepo configRepo = new ConfigRepo();
 
         #endregion Dependencies
 
@@ -55,18 +56,6 @@ namespace BusinessManagementApp.ViewModels
 
         #endregion Input properties
 
-        #region Button enable/disable logic
-
-        private bool canSave = false;
-
-        public bool CanSave
-        {
-            get => canSave;
-            private set => SetProperty(ref canSave, value);
-        }
-
-        #endregion Button enable/disable logic
-
         #region Commands for buttons
 
         public ICommand Save { get; private set; }
@@ -81,27 +70,28 @@ namespace BusinessManagementApp.ViewModels
             this.configRepo = configRepo;
             Save = new RelayCommand(SaveConfig);
             Reset = new RelayCommand(ResetConfig);
-            configRepo.LoadConfig();
             OvertimeHourlyRate = configRepo.Config.OvertimeHourlyRate;
             MaxNumOfOvertimeHours = configRepo.Config.MaxNumOfOvertimeHours;
             VATRate = configRepo.Config.VATRate;
-            oldMaxNumOfOvertimeHours = MaxNumOfOvertimeHours;
-            oldOvertimeHourlyRate = OvertimeHourlyRate;
-            oldVATRate = VATRate;
+            UpdateOldValue();
         }
 
         // Load data from repositories here.
         // An object passed when navigating to this screen is also received here.
-
+        private void UpdateOldValue()
+        {
+            oldVATRate = VATRate;
+            oldOvertimeHourlyRate = OvertimeHourlyRate;
+            oldMaxNumOfOvertimeHours = MaxNumOfOvertimeHours;
+        }
         private void SaveConfig()
         {
             ValidateAllProperties();
             if (HasErrors)
                 return;
-            configRepo.SaveConfig();;
-            oldVATRate = VATRate;
-            oldOvertimeHourlyRate = OvertimeHourlyRate;
-            oldMaxNumOfOvertimeHours = MaxNumOfOvertimeHours;
+            MessageBox.Show("hihi");
+            configRepo.SaveConfig();
+            UpdateOldValue();
         }
         private void ResetConfig()
         {
