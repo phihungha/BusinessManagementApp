@@ -121,15 +121,15 @@
                     Position
                 </TextBlock>
 
-                <StackPanel Grid.Row="10" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"
-                    Orientation="Horizontal" Margin="0,15,0,0">
+                <ui:SimpleStackPanel Grid.Row="10" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"
+                                     Orientation="Horizontal" Margin="0,15,0,0" Spacing="15">
                     <TextBlock Style="{StaticResource TextBoxLeftLabel}">Change position</TextBlock>
                     <ComboBox Width="250"
                               ItemsSource="{Binding Positions}"
                               SelectedItem="{Binding Position}"
                               SelectedIndex="0"
                               DisplayMemberPath="Name" />
-                </StackPanel>
+                </ui:SimpleStackPanel>
 
                 <ListView Grid.Row="11" Grid.ColumnSpan="3" MaxHeight="200"
                           HorizontalAlignment="Stretch" Margin="0,15,0,0"
@@ -306,7 +306,7 @@
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                             Foreground="White" Background="{StaticResource DangerColorBrush}"
                             Command="{Binding Delete}" 
-                            Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
+                            Visibility="{Binding IsEditMode, Converter={converters:BoolToVisibilityConverter FalseValue=Hidden}}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
                             <TextBlock FontSize="16">Delete</TextBlock>
