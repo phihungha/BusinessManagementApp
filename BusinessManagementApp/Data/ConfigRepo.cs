@@ -23,7 +23,7 @@ namespace BusinessManagementApp.Data
             };
         }
 
-        public void SaveConfig()
+        public void SaveConfig(Config config)
         {
         }
     }

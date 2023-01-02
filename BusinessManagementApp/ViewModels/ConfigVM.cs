@@ -93,7 +93,13 @@ namespace BusinessManagementApp.ViewModels
             ValidateAllProperties();
             if (HasErrors)
                 return;
-            configRepo.SaveConfig();
+            Config config = new Config()
+            {
+                MaxNumOfOvertimeHours = MaxNumOfOvertimeHours,
+                VATRate = VATRate,
+                OvertimeHourlyRate = OvertimeHourlyRate,
+            };
+            configRepo.SaveConfig(config);
             UpdateOldValue();
         }
         private void ResetConfig()
