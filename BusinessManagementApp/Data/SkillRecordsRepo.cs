@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
-    public class SkillsRepo
+    public class SkillRecordsRepo
     {
         public IObservable<List<SkillOverview>> GetSkillOverviews()
         {
@@ -34,9 +34,9 @@ namespace BusinessManagementApp.Data
             {
                 Employee = new Employee() { Id = "1", Name = "Nguyen Van A" },
                 LastUpdatedTime = new DateTime(2022, 11, 12, 13, 45, 55),
-                Skills = new List<Skill>()
+                Skills = new List<SkillRecord>()
                 {
-                    new Skill()
+                    new SkillRecord()
                     {
                         EmployeeId = "1",
                         SkillType = new SkillType() { Id = 1, Name = "IT", Description = "Proficiency at using IT equipments and software." },
@@ -44,7 +44,7 @@ namespace BusinessManagementApp.Data
                         LastUpdatedTime = new DateTime(2022, 11, 12, 13, 45, 55)
                     },
 
-                    new Skill()
+                    new SkillRecord()
                     {
                         EmployeeId = "1",
                         SkillType = new SkillType() { Id = 2, Name = "English", Description = "Proficiency at speaking, reading, listening, writing English." },
@@ -57,7 +57,7 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(overview));
         }
 
-        public IObservable<List<Skill>> UpdateSkills(string employeeId, List<Skill> skills)
+        public IObservable<List<SkillRecord>> UpdateSkills(string employeeId, List<SkillRecord> skills)
         {
             return Observable.FromAsync(() => Task.FromResult(skills));
         }

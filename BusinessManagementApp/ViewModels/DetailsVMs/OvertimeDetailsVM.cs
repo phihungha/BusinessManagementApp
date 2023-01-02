@@ -99,7 +99,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     {
         #region Dependencies
 
-        private OvertimeRepo overtimeRepo;
+        private OvertimeRecordsRepo overtimeRepo;
 
         #endregion Dependencies
 
@@ -153,7 +153,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public OvertimeDetailsVM(OvertimeRepo overtimeRepo, ConfigRepo configRepo)
+        public OvertimeDetailsVM(OvertimeRecordsRepo overtimeRepo, ConfigRepo configRepo)
         {
             this.overtimeRepo = overtimeRepo;
 

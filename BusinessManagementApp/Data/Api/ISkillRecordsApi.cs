@@ -6,15 +6,15 @@ using System.Collections.Generic;
 namespace BusinessManagementApp.Data.Api
 {
     // TODO
-    public interface ISkillRatingsApi
+    public interface ISkillRecordsApi
     {
         [Get("/")]
         IObservable<List<SkillOverview>> GetSkillOverviews();
 
         [Get("/{employeeId}")]
-        IObservable<List<Skill>> GetEmployeeSkills(string employeeId);
+        IObservable<List<SkillRecord>> GetEmployeeSkills(string employeeId);
 
         [Post("/")]
-        IObservable<List<Skill>> UpdateEmployeeSkills(string employeeId, [Body] IEnumerable<Skill> skillRatings);
+        IObservable<List<SkillRecord>> UpdateEmployeeSkills(string employeeId, [Body] IEnumerable<SkillRecord> skillRatings);
     }
 }

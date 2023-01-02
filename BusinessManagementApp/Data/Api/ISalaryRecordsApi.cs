@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface ISalaryApi
+    public interface ISalaryRecordsApi
     {
         [Get("/")]
         IObservable<List<SalaryRecord>> GetSalaryRecords();

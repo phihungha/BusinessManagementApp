@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace BusinessManagementApp.Data.Api
 {
     // TODO
-    public interface IOvertimeApi
+    public interface IOvertimeRecordsApi
     {
         [Get("/")]
         IObservable<List<OvertimeOverview>> GetOvertimeOverviews(string employeeId, int year, int month);

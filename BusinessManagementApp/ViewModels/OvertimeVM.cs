@@ -25,7 +25,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class OvertimeVM : ViewModelBase
     {
-        private OvertimeRepo overtimeRepo;
+        private OvertimeRecordsRepo overtimeRepo;
 
         private ObservableCollection<OvertimeOverview> overtimeOverviews { get; } = new();
 
@@ -66,7 +66,7 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public OvertimeVM(OvertimeRepo overtimeRecordsRepo)
+        public OvertimeVM(OvertimeRecordsRepo overtimeRecordsRepo)
         {
             this.overtimeRepo = overtimeRecordsRepo;
 

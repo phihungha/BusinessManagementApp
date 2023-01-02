@@ -28,40 +28,4 @@ namespace BusinessManagementApp.Data.Model
 
         public List<EmployeeStats> EmployeeStats { get; set; }
     }
-
-    public class ProductCategoryStats
-    {
-        public ProductCategory Category { get; set; }
-
-        public int QuantitySold { get; set; }
-    }
-
-    public class ProductStats
-    {
-        // Returns only Id, Name
-        public Product Product { get; set; }
-
-        public int QuantitySold { get; set; }
-
-        public decimal Revenue { get; set; }
-    }
-
-    public class CustomerStats
-    {
-        public Customer Customer { get; set; }
-
-        public int NumOfOrders { get; set; }
-
-        public decimal Revenue { get; set; }
-    }
-
-    public class EmployeeStats
-    {
-        // Returns only Id, Name
-        public Employee Employee { get; set; }
-
-        public int NumOfOrders { get; set; }
-
-        public decimal Revenue { get; set; }
-    }
 }

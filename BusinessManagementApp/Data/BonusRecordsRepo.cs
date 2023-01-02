@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
-    public class BonusesRepo
+    public class BonusRecordsRepo
     {
         public IObservable<List<BonusRecord>> GetBonusRecords(int year, int month)
         {

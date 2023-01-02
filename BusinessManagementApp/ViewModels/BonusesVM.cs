@@ -61,7 +61,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class BonusesVM : ViewModelBase
     {
-        private BonusesRepo bonusesRepo;
+        private BonusRecordsRepo bonusesRepo;
         private BonusTypesRepo bonusTypesRepo;
         private EmployeeRepo employeesRepo;
 
@@ -131,7 +131,7 @@ namespace BusinessManagementApp.ViewModels
 
         #endregion
 
-        public BonusesVM(BonusesRepo bonusesRepo,
+        public BonusesVM(BonusRecordsRepo bonusesRepo,
                          BonusTypesRepo bonusTypesRepo,
                          EmployeeRepo employeesRepo)
         {

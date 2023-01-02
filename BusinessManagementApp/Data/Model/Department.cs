@@ -15,7 +15,7 @@ namespace BusinessManagementApp.Data.Model
         // Only include Id and Name
         public Employee Head { get; set; }
 
-        // Supports WPF ComboBox binding. 
+        // Supports WPF ComboBox binding.
         // Comparing Id is usually enough.
         public bool Equals(Department? other)
         {

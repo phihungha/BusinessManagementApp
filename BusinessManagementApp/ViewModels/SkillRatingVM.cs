@@ -23,7 +23,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class SkillRatingVM : ViewModelBase
     {
-        private SkillsRepo skillsRepo;
+        private SkillRecordsRepo skillsRepo;
 
         private ObservableCollection<SkillOverview> skillOverviews { get; } = new();
 
@@ -36,7 +36,7 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Rate { get; }
 
-        public SkillRatingVM(SkillsRepo skillsRepo)
+        public SkillRatingVM(SkillRecordsRepo skillsRepo)
         {
             this.skillsRepo = skillsRepo;
 

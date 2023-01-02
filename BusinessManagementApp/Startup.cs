@@ -20,7 +20,7 @@ namespace BusinessManagementApp
         private static IHttpClientBuilder ConfigHttpClientBuilder(
             this IHttpClientBuilder builder,
             string subUrl,
-            bool auth)
+            bool authRequired)
         {
             string apiEndpointUrl = $"{BaseApiUrl}{subUrl}";
             apiEndpointUrl = apiEndpointUrl.EndsWith("/") ? apiEndpointUrl : apiEndpointUrl + "/";
@@ -31,7 +31,7 @@ namespace BusinessManagementApp
 
             builder.AddHttpMessageHandler<HttpLoggingHandler>();
 
-            if (auth)
+            if (authRequired)
             {
                 builder.AddHttpMessageHandler<HttpAuthHandler>();
             }
@@ -73,7 +73,7 @@ namespace BusinessManagementApp
                 RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(jsonSettings));
 
                 service.AddRefitClient<IAuthApi>(settings).ConfigHttpClientBuilder("", false);
-                service.AddRefitClient<IBonusesApi>(settings).ConfigHttpClientBuilder("bonuses", true);
+                service.AddRefitClient<IBonusRecordsApi>(settings).ConfigHttpClientBuilder("bonuses", true);
                 service.AddRefitClient<IBonusTypesApi>(settings).ConfigHttpClientBuilder("bonus-types", true);
                 service.AddRefitClient<IConfigApi>(settings).ConfigHttpClientBuilder("config", true);
                 service.AddRefitClient<IContractTypesApi>(settings).ConfigHttpClientBuilder("contract-types", true);
@@ -85,9 +85,9 @@ namespace BusinessManagementApp
                 service.AddRefitClient<IProductsApi>(settings).ConfigHttpClientBuilder("products", true);
                 service.AddRefitClient<IProductCategoriesApi>(settings).ConfigHttpClientBuilder("product-categories", true);
                 service.AddRefitClient<IProvidersApi>(settings).ConfigHttpClientBuilder("providers", true);
-                service.AddRefitClient<ISalaryApi>(settings).ConfigHttpClientBuilder("salary", true);
-                service.AddRefitClient<IOvertimeApi>(settings).ConfigHttpClientBuilder("overtime", true);
-                service.AddRefitClient<ISkillRatingsApi>(settings).ConfigHttpClientBuilder("skill-ratings", true);
+                service.AddRefitClient<ISalaryRecordsApi>(settings).ConfigHttpClientBuilder("salary", true);
+                service.AddRefitClient<IOvertimeRecordsApi>(settings).ConfigHttpClientBuilder("overtime", true);
+                service.AddRefitClient<ISkillRecordsApi>(settings).ConfigHttpClientBuilder("skill-ratings", true);
                 service.AddRefitClient<ISkillTypesApi>(settings).ConfigHttpClientBuilder("skill-types", true);
                 service.AddRefitClient<IVouchersApi>(settings).ConfigHttpClientBuilder("vouchers", true);
                 service.AddRefitClient<IVoucherTypesApi>(settings).ConfigHttpClientBuilder("voucher-types", true);
@@ -100,7 +100,7 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
-                service.AddSingleton<BonusesRepo>();
+                service.AddSingleton<BonusRecordsRepo>();
                 service.AddSingleton<BonusTypesRepo>();
                 service.AddSingleton<ConfigRepo>();
                 service.AddSingleton<ContractTypesRepo>();
@@ -109,13 +109,13 @@ namespace BusinessManagementApp
                 service.AddSingleton<EmployeeRepo>();
                 service.AddSingleton<OrdersRepo>();
                 service.AddSingleton<OverviewRepo>();
-                service.AddSingleton<OvertimeRepo>();
+                service.AddSingleton<OvertimeRecordsRepo>();
                 service.AddSingleton<PositionsRepo>();
                 service.AddSingleton<ProductsRepo>();
                 service.AddSingleton<ProductCategoriesRepo>();
                 service.AddSingleton<ProvidersRepo>();
                 service.AddSingleton<SalaryRecordsRepo>();
-                service.AddSingleton<SkillsRepo>();
+                service.AddSingleton<SkillRecordsRepo>();
                 service.AddSingleton<SkillTypesRepo>();
                 service.AddSingleton<SessionsRepo>();
                 service.AddSingleton<SalesReportRepo>();

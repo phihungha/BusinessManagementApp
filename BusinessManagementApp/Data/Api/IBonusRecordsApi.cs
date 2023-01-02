@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace BusinessManagementApp.Data.Api
 {
     // TODO
-    public interface IBonusesApi
+    public interface IBonusRecordsApi
     {
         [Get("/{year}/{month}")]
         IObservable<List<BonusRecord>> GetBonusRecords(int month, int year);

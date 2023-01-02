@@ -16,11 +16,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     {
         #region Dependencies
 
-        private SkillsRepo skillsRepo;
+        private SkillRecordsRepo skillsRepo;
 
         #endregion Dependencies
 
-        public ObservableCollection<Skill> Skills { get; } = new();
+        public ObservableCollection<SkillRecord> Skills { get; } = new();
 
         private Employee currentEmployee = new();
 
@@ -57,7 +57,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public SkillRatingDetailsVM(SkillsRepo skillsRepo)
+        public SkillRatingDetailsVM(SkillRecordsRepo skillsRepo)
         {
             this.skillsRepo = skillsRepo;
 

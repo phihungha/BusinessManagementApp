@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
-    public class OvertimeRepo
+    public class OvertimeRecordsRepo
     {
         public IObservable<List<OvertimeOverview>> GetOvertimeOverviews(int year, int month)
         {
