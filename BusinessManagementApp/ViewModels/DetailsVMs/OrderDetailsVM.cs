@@ -2,15 +2,20 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
+using static BusinessManagementApp.ViewModels.DetailsVMs.OrderDetailsVM;
+using static BusinessManagementApp.ViewModels.DetailsVMs.SelectProductOrderItemsVM;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
@@ -24,6 +29,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #region Input properties
 
+        private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
+
         private DateTime creationTime = new DateTime();
 
         private Customer selectedCustomer = new();
@@ -34,15 +41,48 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref selectedCustomer, value);
         }
 
-        private ObservableCollection<OrderItem> orderItems = new();
+        private ObservableCollection<OrderItem> OrderItems { get; } = new();
 
-        public ObservableCollection<OrderItem> OrderItems
+        public ICollectionView OrderItemsView { get; }
+
+        public class OrderItemVM : ViewModelBase
         {
-            get => orderItems;
-            set => SetProperty(ref orderItems, value);
-        }
+            private OrderDetailsVM parentVM;
 
-        //public ObservableCollection<OrderItem> OrderItems { get; } = new();
+            public Product Product { get; }         
+
+            private int quantity;
+
+            public int Quantity
+            {
+                get => quantity;
+                set
+                {
+                    SetProperty(ref quantity, value);
+                    OrderedPrice = value * Product.Price;
+                }
+            }
+
+            private decimal orderedPrice;
+
+            public decimal OrderedPrice
+            {
+                get => orderedPrice;
+                set
+                {
+                    parentVM.TotalPrice -= orderedPrice;
+                    SetProperty(ref orderedPrice, value);
+                    parentVM.TotalPrice += value;
+                }
+            }
+
+            public OrderItemVM(Product product, int quantity, OrderDetailsVM parentVM)
+            {
+                this.parentVM = parentVM;
+                Product = product;
+                Quantity = quantity;
+            }
+        }
 
         private int id = 0;
 
@@ -182,6 +222,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public OrderDetailsVM(OrdersRepo ordersRepo)
         {
             this.ordersRepo = ordersRepo;
+
+            var collectionViewSource = new CollectionViewSource() { Source = orderItemVMs };
+            OrderItemsView = collectionViewSource.View;
             CreateCustomer = new RelayCommand(ExecuteCreateCustomer);
             SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
@@ -192,6 +235,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders)
                 );
+        }
+
+        private void SetOrderItemsValue()
+        {
+            orderItemVMs.Clear();
+            foreach (var orderitem in OrderItems)
+            {
+                    OrderItemVM orderItemVM;
+                    orderItemVM = new OrderItemVM(orderitem.Product, orderitem.Quantity, this);
+                    orderItemVMs.Add(orderItemVM);
+            }
         }
 
         private void CalculatePrice()
@@ -244,9 +298,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 SelectedCustomer = (Customer)extra;
             }
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
-            {
+            {              
                 OrderItems.ClearAndAddRange((List<OrderItem>)extra);
-                CalculatePrice();
+                SetOrderItemsValue();
             }
             else if(prevViewName == WorkspaceViewName.CreateOrderCustomer)
             {
@@ -281,6 +335,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             VatRate = order.VATRate;
             OrderItems.AddRange(order.Items);
             creationTime = order.CreationTime;
+            SetOrderItemsValue();
         }
 
         private async Task SaveOrder()

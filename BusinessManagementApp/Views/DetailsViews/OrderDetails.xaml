@@ -160,7 +160,7 @@
 
                         <ListBox Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" 
                                  x:Name="ProductsListBox" 
-                                 ItemsSource="{Binding OrderItems}" HorizontalContentAlignment="Stretch" 
+                                 ItemsSource="{Binding OrderItemsView}" HorizontalContentAlignment="Stretch" 
                                  d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
