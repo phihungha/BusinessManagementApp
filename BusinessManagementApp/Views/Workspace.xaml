@@ -231,8 +231,7 @@
         <busyIndicators:BusyMask Grid.Column="1" Grid.RowSpan="2" IsBusy="{Binding IsBusy}"
                                  IndicatorType="Ring" BusyContent="Please wait...">
             <busyIndicators:BusyMask.Resources>
-                <SolidColorBrush x:Key="IndicatorForeground" Color="LightGray" />
-                <SolidColorBrush x:Key="IndicatorBackground" Color="{StaticResource PrimaryColor}" />
+                <SolidColorBrush x:Key="IndicatorForeground" Color="{StaticResource PrimaryColor}" />
             </busyIndicators:BusyMask.Resources>
             
             <ContentControl Content="{Binding CurrentViewVM}" />
