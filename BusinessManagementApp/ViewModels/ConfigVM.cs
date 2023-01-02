@@ -70,14 +70,18 @@ namespace BusinessManagementApp.ViewModels
             this.configRepo = configRepo;
             Save = new RelayCommand(SaveConfig);
             Reset = new RelayCommand(ResetConfig);
+            LoadData();
+        }
+
+        // Load data from repositories here.
+        // An object passed when navigating to this screen is also received here.
+        private void LoadData()
+        {
             OvertimeHourlyRate = configRepo.Config.OvertimeHourlyRate;
             MaxNumOfOvertimeHours = configRepo.Config.MaxNumOfOvertimeHours;
             VATRate = configRepo.Config.VATRate;
             UpdateOldValue();
         }
-
-        // Load data from repositories here.
-        // An object passed when navigating to this screen is also received here.
         private void UpdateOldValue()
         {
             oldVATRate = VATRate;
@@ -89,7 +93,6 @@ namespace BusinessManagementApp.ViewModels
             ValidateAllProperties();
             if (HasErrors)
                 return;
-            MessageBox.Show("hihi");
             configRepo.SaveConfig();
             UpdateOldValue();
         }
