@@ -4,7 +4,7 @@ using System;
 
 namespace BusinessManagementApp.Data.Api
 {
-    public interface IAuthApiClient
+    public interface IAuthApi
     {
         [Post("/login")]
         IObservable<LoginResponse> Login([Body(BodySerializationMethod.UrlEncoded)] LoginRequest request);

@@ -72,7 +72,7 @@ namespace BusinessManagementApp
                 };
                 RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(jsonSettings));
 
-                service.AddRefitClient<IAuthApiClient>(settings).ConfigHttpClientBuilder("", false);
+                service.AddRefitClient<IAuthApi>(settings).ConfigHttpClientBuilder("", false);
                 service.AddRefitClient<IBonusesApi>(settings).ConfigHttpClientBuilder("bonuses", true);
                 service.AddRefitClient<IBonusTypesApi>(settings).ConfigHttpClientBuilder("bonustypes", true);
                 service.AddRefitClient<IConfigApi>(settings).ConfigHttpClientBuilder("config", true);
@@ -87,7 +87,7 @@ namespace BusinessManagementApp
                 service.AddRefitClient<IProvidersApi>(settings).ConfigHttpClientBuilder("providers", true);
                 service.AddRefitClient<ISalaryApi>(settings).ConfigHttpClientBuilder("salary", true);
                 service.AddRefitClient<IOvertimeApi>(settings).ConfigHttpClientBuilder("overtime", true);
-                service.AddRefitClient<ISkillsApi>(settings).ConfigHttpClientBuilder("skills", true);
+                service.AddRefitClient<ISkillRatingsApi>(settings).ConfigHttpClientBuilder("skills", true);
                 service.AddRefitClient<ISkillTypesApi>(settings).ConfigHttpClientBuilder("skilltypes", true);
                 service.AddRefitClient<IVouchersApi>(settings).ConfigHttpClientBuilder("vouchers", true);
                 service.AddRefitClient<IVoucherTypesApi>(settings).ConfigHttpClientBuilder("voucherstypes", true);

@@ -9,10 +9,10 @@ namespace BusinessManagementApp.Data
 {
     public class SessionsRepo
     {
-        private readonly IAuthApiClient api;
+        private readonly IAuthApi api;
         private readonly LoginSession session;
 
-        public SessionsRepo(IAuthApiClient api, LoginSession session)
+        public SessionsRepo(IAuthApi api, LoginSession session)
         {
             this.api = api;
             this.session = session;
