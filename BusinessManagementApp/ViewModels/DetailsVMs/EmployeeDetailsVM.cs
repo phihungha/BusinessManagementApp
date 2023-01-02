@@ -4,6 +4,7 @@ using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
@@ -250,7 +251,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             TerminateCurrentContract = new AsyncRelayCommand(ExecuteTerminateCurrentContract);
 
             Save = new AsyncRelayCommand(SaveEmployee);
-            Delete = new AsyncRelayCommand(DeleteEmployee);
+            Delete = new RelayCommand(DeleteEmployee);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo)
                 );
@@ -386,12 +387,23 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
 
-        private async Task DeleteEmployee()
+        private void DeleteEmployee()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
-            await employeesRepo.DeleteEmployee(Id);
-            BusyIndicatorUtils.SetBusyIndicator(false);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete employee", 
+                "Do you want to delete this employee?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await employeesRepo.DeleteEmployee(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
+                }
+            };
+            dialog.Show();
         }
     }
 }

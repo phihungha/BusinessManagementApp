@@ -1,0 +1,54 @@
+﻿<Window x:Class="BusinessManagementApp.Views.Dialogs.ConfirmDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="{Binding MessageTitle}" 
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        Height="Auto" Width="650">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Image Source="{StaticResource TriangleIcon}" Width="100" Margin="30,30,15,30" />
+
+        <ui:SimpleStackPanel Grid.Column="1" HorizontalAlignment="Center"
+                             VerticalAlignment="Center" Margin="20,15,50,15" Spacing="10">
+            <TextBlock FontSize="25" FontWeight="Bold" Text="{Binding MessageTitle}" />
+            <TextBlock FontSize="14" Text="{Binding MessageContent}" />
+        </ui:SimpleStackPanel>
+
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Padding="7" 
+                BorderThickness="0,0.5,0,0" BorderBrush="#d9d9d9">
+            <UniformGrid Columns="2" HorizontalAlignment="Right" Width="250" Height="50">
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                        Command="{Binding Confirm}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Confirm</TextBlock>
+                    </StackPanel>
+                </Button>
+                
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                        Foreground="White" Background="{StaticResource CancelColorBrush}"
+                        IsCancel="True" IsDefault="True" Command="{Binding Cancel}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Cancel</TextBlock>
+                    </StackPanel>
+                </Button>
+            </UniformGrid>
+        </Border>
+    </Grid>
+</Window>
