@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:busyIndicators="https://github.com/Peoky/BusyIndicator"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1290">
     <UserControl.Resources>
@@ -17,9 +18,14 @@
                 <TextBox Text="{Binding UserName}" ui:ControlHelper.PlaceholderText="Username..." />
                 <PasswordBox Name="Password" PasswordChanged="Password_PasswordChanged" ui:ControlHelper.PlaceholderText="Password..." />
                 <Button Command="{Binding Login}" HorizontalAlignment="Center" Width="100"
-                        Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                        Visibility="{Binding DisplayLoginBtn, Converter={StaticResource BoolToVisibilityConverter}}">
                     Login
                 </Button>
+
+                <busyIndicators:Indicator IndicatorType="Ring"
+                    Visibility="{Binding IsLoggingIn, Converter={StaticResource BoolToVisibilityConverter}}" />
+
                 <TextBlock Visibility="{Binding InvalidLogin,
                                         Converter={StaticResource BoolToVisibilityConverter}}"
                            FontWeight="Bold" HorizontalAlignment="Center" Foreground="Red" >

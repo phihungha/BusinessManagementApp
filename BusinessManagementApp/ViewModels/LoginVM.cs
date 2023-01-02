@@ -36,6 +36,26 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref invalidLogin, value);
         }
 
+        private bool displayLoginBtn = true;
+
+        public bool DisplayLoginBtn
+        {
+            get => displayLoginBtn;
+            set => SetProperty(ref displayLoginBtn, value);
+        }
+
+        private bool isLoggingIn = false;
+
+        public bool IsLoggingIn
+        {
+            get => isLoggingIn;
+            set
+            {
+                SetProperty(ref isLoggingIn, value);
+                DisplayLoginBtn = !value;
+            }
+        }
+
         public ICommand Login { get; }
 
         public LoginVM(SessionsRepo sessionsRepo, ConfigRepo configRepo)
@@ -47,6 +67,7 @@ namespace BusinessManagementApp.ViewModels
 
         private async Task CheckLogin()
         {
+            IsLoggingIn = true;
             if (await sessionsRepo.Authenticate(UserName, Password))
             {
                 MainWindowNavUtils.NavigateTo(MainWindowViewName.Workspace);
@@ -56,6 +77,7 @@ namespace BusinessManagementApp.ViewModels
             {
                 InvalidLogin = true;
             }
+            IsLoggingIn = false;
         }
     }
 }

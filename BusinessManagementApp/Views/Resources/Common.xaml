@@ -42,5 +42,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
+    <SolidColorBrush x:Key="IndicatorForeground" Color="#00a6ff" />
 </ResourceDictionary>
