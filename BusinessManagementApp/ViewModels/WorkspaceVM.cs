@@ -1,9 +1,9 @@
 ﻿using BusinessManagementApp.ViewModels.DetailsVMs;
+using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -54,72 +54,9 @@ namespace BusinessManagementApp.ViewModels
         VoucherDetails
     }
 
-    /// <summary>
-    /// Contains the content of a navigation message
-    /// including name of view to go to and extra message
-    /// </summary>
-    public struct NavigationMessageContent
-    {
-        public WorkspaceViewName? TargetViewName { get; set; }
-        public object? Extra { get; set; }
-        public bool SaveOnBackstack { get; set; }
-
-        /// <summary>
-        /// Contains the content of a navigation message
-        /// including name of view to go to and extra message
-        /// </summary>
-        /// <param name="targetViewName">Name of view to go to</param>
-        /// <param name="extra">An object containing extra message</param>
-        public NavigationMessageContent(WorkspaceViewName? targetViewName, bool saveOnBackstack, object? extra)
-        {
-            TargetViewName = targetViewName;
-            Extra = extra;
-            SaveOnBackstack = saveOnBackstack;
-        }
-    }
-
-    /// <summary>
-    /// Message to indicate a navigation request to another view on the workspace view.
-    /// </summary>
-    public class WorkspaceNavigationMessage : ValueChangedMessage<NavigationMessageContent>
-    {
-        /// <summary>
-        /// Message to indicate a navigation request to another view on the workspace view.
-        /// </summary>
-        /// <param name="targetViewName">Name of view to go to</param>
-        /// <param name="extra">An object containing extra message</param>
-        public WorkspaceNavigationMessage(WorkspaceViewName targetViewName, bool saveOnBackstack, object? extra = null)
-            : base(new NavigationMessageContent(targetViewName, saveOnBackstack, extra))
-        {
-        }
-    }
-
-    /// <summary>
-    /// Message to indicate a navigation request to return to the previous view.
-    /// </summary>
-    public class WorkspaceBackNavigationMessage : ValueChangedMessage<NavigationMessageContent>
-    {
-        public WorkspaceBackNavigationMessage(object? extra = null)
-            : base(new NavigationMessageContent(null, false, extra))
-        {
-        }
-    }
-
     public class WorkspaceVM : ObservableObject
     {
-        private class BackstackItem
-        {
-            public WorkspaceViewName nextViewName { get; }
-            public ViewModelBase ViewModel { get; }
-
-            public BackstackItem(WorkspaceViewName nextViewName, ViewModelBase viewModel)
-            {
-                this.nextViewName = nextViewName;
-                ViewModel = viewModel;
-            }
-        }
-
-        private Stack<BackstackItem> navigationBackstack = new();
+        private Stack<NavBackstackItem> navigationBackstack = new();
 
         private ViewModelBase currentViewVM
             = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
@@ -174,18 +111,18 @@ namespace BusinessManagementApp.ViewModels
         {
             WeakReferenceMessenger
                 .Default
-                .Register<WorkspaceNavigationMessage>(
+                .Register<WorkspaceNavMessage>(
                     this, (r, m) => HandleNavigationMessage(m));
 
             WeakReferenceMessenger
                 .Default
-                .Register<WorkspaceBackNavigationMessage>(
+                .Register<WorkspaceBackNavMessage>(
                     this, (r, m) => HandleBackNavigationMessage(m));
 
             Logout = new RelayCommand(() => MainWindowNavUtils.NavigateTo(MainWindowViewName.Login));
         }
 
-        private void HandleNavigationMessage(WorkspaceNavigationMessage message)
+        private void HandleNavigationMessage(WorkspaceNavMessage message)
         {
             NavigationMessageContent content = message.Value;
 
@@ -197,7 +134,7 @@ namespace BusinessManagementApp.ViewModels
 
             if (content.SaveOnBackstack)
             {
-                var item = new BackstackItem(viewName, CurrentViewVM);
+                var item = new NavBackstackItem(viewName, CurrentViewVM);
                 navigationBackstack.Push(item);
             }
 
@@ -206,9 +143,9 @@ namespace BusinessManagementApp.ViewModels
             CurrentViewVM = viewModel;
         }
 
-        private void HandleBackNavigationMessage(WorkspaceBackNavigationMessage message)
+        private void HandleBackNavigationMessage(WorkspaceBackNavMessage message)
         {
-            BackstackItem item = navigationBackstack.Pop();
+            NavBackstackItem item = navigationBackstack.Pop();
             NavigationMessageContent content = message.Value;
             item.ViewModel.OnBack(item.nextViewName, content.Extra);
             CurrentViewVM = item.ViewModel;

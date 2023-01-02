@@ -1,6 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using BusinessManagementApp.ViewModels.Navigation;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
-using CommunityToolkit.Mvvm.Messaging.Messages;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BusinessManagementApp.ViewModels
@@ -11,24 +11,11 @@ namespace BusinessManagementApp.ViewModels
         Login
     }
 
-    /// <summary>
-    /// Message to indicate a navigation request to another view on the main window.
-    /// </summary>
-    public class MainWindowNavigationMessage : ValueChangedMessage<MainWindowViewName>
-    {
-        /// <summary>
-        /// Message to indicate a navigation request to another view on the main window.
-        /// </summary>
-        /// <param name="targetViewName">Name of view to go to</param>
-        public MainWindowNavigationMessage(MainWindowViewName targetViewName)
-            : base(targetViewName)
-        {
-        }
-    }
-
     public class MainWindowVM : ObservableObject
     {
-        private ObservableObject currentViewVM = App.Current.ServiceProvider.GetRequiredService<WorkspaceVM>();
+        private ObservableObject currentViewVM 
+            = App.Current.ServiceProvider.GetRequiredService<WorkspaceVM>();
+
         public ObservableObject CurrentViewVM
         {
             get => currentViewVM;

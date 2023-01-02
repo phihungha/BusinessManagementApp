@@ -1,9 +1,10 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using BusinessManagementApp.ViewModels.Navigation;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace BusinessManagementApp.ViewModels.Utils
 {
     /// <summary>
-    /// Methods to navigate to a view on the workspace view.
+    /// Methods to navigate to a view on the workspace area.
     /// </summary>
     public class WorkspaceNavUtils
     {
@@ -13,7 +14,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// <param name="viewName">Name of view to go to</param>
         public static void NavigateTo(WorkspaceViewName viewName)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, false));
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavMessage(viewName, false));
         }
 
         /// <summary>
@@ -24,18 +25,18 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// <param name="extra">Object to send to the view model</param>
         public static void NavigateToWithExtra(WorkspaceViewName viewName, object extra)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, false, extra));
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavMessage(viewName, false, extra));
         }
 
         /// <summary>
-        /// Navigate to a view, send its view model an object, 
+        /// Navigate to a view, send its view model an object,
         /// and save current view on the backstack.
         /// </summary>
         /// <param name="viewName">Name of view to go to</param>
         /// <param name="extra">Object to send to the view model</param>
         public static void NavigateToWithExtraAndBackstack(WorkspaceViewName viewName, object extra)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceNavigationMessage(viewName, true, extra));
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavMessage(viewName, true, extra));
         }
 
         /// <summary>
@@ -43,7 +44,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// </summary>
         public static void NavigateBack()
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceBackNavigationMessage());
+            WeakReferenceMessenger.Default.Send(new WorkspaceBackNavMessage());
         }
 
         /// <summary>
@@ -53,7 +54,7 @@ namespace BusinessManagementApp.ViewModels.Utils
         /// <param name="extra">Object to send to the view model</param>
         public static void NavigateBackWithExtra(object extra)
         {
-            WeakReferenceMessenger.Default.Send(new WorkspaceBackNavigationMessage(extra));
+            WeakReferenceMessenger.Default.Send(new WorkspaceBackNavMessage(extra));
         }
     }
 
