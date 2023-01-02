@@ -3,10 +3,69 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BusinessManagementApp.Views"
+             xmlns:local="clr-namespace:BusinessManagementApp.Views.DetailsViews"
+             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
+             d:DesignWidth="1290" d:DesignHeight="720">
+    <Grid Margin="15">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
+            <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
+                Configuration
+            </TextBlock>
+        </Border>
+
+
+
+        <StackPanel Grid.Row="1" Grid.Column="0" >
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Overtime hourly rate</TextBlock>
+            <ui:NumberBox Minimum="0" Maximum="200000"  Value="{Binding OvertimeHourlyRate}" HorizontalAlignment="Left" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Max number of overtime hours</TextBlock>
+            <ui:NumberBox Minimum="0" Maximum="10" Value="{Binding MaxNumOfOvertimeHours}" HorizontalAlignment="Left" Width="100"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">VAT Rate</TextBlock>
+            <ui:NumberBox Minimum="0" Maximum="1" Value="{Binding VATRate}" HorizontalAlignment="Left" Width="100"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0"/>
+
+
+
+        <UniformGrid Grid.Row="8" Grid.ColumnSpan="4" Columns="2"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                        Width="350" Height="55">
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
+                    Foreground="White" Background="{StaticResource DangerColorBrush}"
+                    Command="{Binding Reset}" IsEnabled="{Binding CanReset}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">Reset</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
+                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                    Command="{Binding Save}" IsEnabled="{Binding CanSave}" >
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">Save</TextBlock>
+                </StackPanel>
+            </Button>
+        </UniformGrid>
     </Grid>
 </UserControl>
