@@ -61,7 +61,7 @@ namespace BusinessManagementApp
         {
             host.ConfigureServices((context, service) =>
             {
-                service.AddSingleton<LoginSession>();
+                service.AddSingleton<SessionAuthData>();
                 service.AddSingleton<SchedulerProvider>();
                 service.AddSingleton<HttpAuthHandler>();
                 service.AddSingleton<HttpLoggingHandler>();

@@ -3,9 +3,9 @@
 namespace BusinessManagementApp.Services;
 
 /// <summary>
-/// Contains authorization-related info of a login session.
+/// Contains authorization-related data of a user session.
 /// </summary>
-public class LoginSession
+public class SessionAuthData
 {
     private string? accessToken = null;
 
@@ -27,13 +27,13 @@ public class LoginSession
         set
         {
             refreshToken = value;
-            logger.LogInformation("Refresh token updated: " + accessToken);
+            logger.LogInformation("Refresh token updated: " + refreshToken);
         }
     }
 
-    private readonly ILogger<LoginSession> logger;
+    private readonly ILogger<SessionAuthData> logger;
 
-    public LoginSession(ILogger<LoginSession> logger)
+    public SessionAuthData(ILogger<SessionAuthData> logger)
     {
         this.logger = logger;
     }

@@ -9,9 +9,9 @@ namespace BusinessManagementApp.Services
     /// </summary>
     public class HttpAuthHandler : DelegatingHandler
     {
-        private readonly LoginSession loginSession;
+        private readonly SessionAuthData loginSession;
 
-        public HttpAuthHandler(LoginSession loginSession)
+        public HttpAuthHandler(SessionAuthData loginSession)
         {
             this.loginSession = loginSession;
         }
