@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Utils;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
@@ -259,6 +260,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+
             Departments.AddRange(await departmentsRepo.GetDepartments());
             Positions.AddRange(await positionsRepo.GetPositions());
             ContractTypes.AddRange(await contractTypesRepo.GetContractTypes());
@@ -272,6 +275,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadEmployee(string id)
@@ -322,7 +327,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 EndDate = NewContractEndDate
             };
 
+            BusyIndicatorUtils.SetBusyIndicator(true);
             Contracts.ClearAndAddRange(await employeesRepo.AddContract(contract));
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private void ExecuteRenewCurrentContract()
@@ -337,11 +344,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task ExecuteTerminateCurrentContract()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             Contracts.ClearAndAddRange(await employeesRepo.TerminateCurrentContract(Id));
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task SaveEmployee()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -369,13 +380,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 await ExecuteCreateNewContract();
             }
 
+            BusyIndicatorUtils.SetBusyIndicator(false);
+
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
 
         private async Task DeleteEmployee()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             await employeesRepo.DeleteEmployee(Id);
+            BusyIndicatorUtils.SetBusyIndicator(false);
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
     }

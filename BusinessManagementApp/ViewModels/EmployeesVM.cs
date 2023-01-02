@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -103,7 +104,9 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             employees.AddRange(await employeesRepo.GetEmployees());
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }

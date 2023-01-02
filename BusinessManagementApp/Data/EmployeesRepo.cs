@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data
     {
         public IObservable<object> DeleteEmployee(string id)
         {
-            return Observable.FromAsync(() => Task.FromResult(new object()));
+            return Observable.FromAsync(() => Task.FromResult(new object())).Delay(new TimeSpan(0, 0, 2));
         }
 
         public IObservable<Employee> GetEmployee(string id)
@@ -81,7 +81,7 @@ namespace BusinessManagementApp.Data
                 },
             };
 
-            return Observable.FromAsync(() => Task.FromResult(employee));
+            return Observable.FromAsync(() => Task.FromResult(employee)).Delay(new TimeSpan(0, 0, 2));
         }
 
         public IObservable<List<Employee>> GetEmployees()
@@ -124,17 +124,17 @@ namespace BusinessManagementApp.Data
                     CurrentPosition = new Position() { Name = "Sales" }
                 }
             };
-            return Observable.FromAsync(() => Task.FromResult(employees));
+            return Observable.FromAsync(() => Task.FromResult(employees)).Delay(new TimeSpan(0, 0, 2));
         }
 
         public IObservable<Employee> AddEmployee(Employee employee)
         {
-            return Observable.FromAsync(() => Task.FromResult(employee));
+            return Observable.FromAsync(() => Task.FromResult(employee)).Delay(new TimeSpan(0, 0, 2));
         }
 
         public IObservable<Employee> UpdateEmployee(string employeeId, Employee employee)
         {
-            return Observable.FromAsync(() => Task.FromResult(employee));
+            return Observable.FromAsync(() => Task.FromResult(employee)).Delay(new TimeSpan(0, 0, 2));
         }
 
         public IObservable<List<Contract>> AddContract(Contract contract)
@@ -163,7 +163,7 @@ namespace BusinessManagementApp.Data
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(contracts));
+            return Observable.FromAsync(() => Task.FromResult(contracts)).Delay(new TimeSpan(0, 0, 2));
         }
 
         public IObservable<List<Contract>> TerminateCurrentContract(string employeeId)
@@ -189,7 +189,7 @@ namespace BusinessManagementApp.Data
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(contracts));
+            return Observable.FromAsync(() => Task.FromResult(contracts)).Delay(new TimeSpan(0,0,2));
         }
     }
 }
