@@ -19,9 +19,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private ProductsRepo productsRepo;
 
         #endregion Dependencies
+
         #region Combobox items
+
         public ObservableCollection<ProductCategory> Categories { get; } = new();
-        #endregion
+
+        #endregion Combobox items
+
         #region Input properties
 
         private int id = 0;
@@ -72,7 +76,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => price;
             set => SetProperty(ref price, value, true);
         }
+
         private ProductCategory productCategory = new();
+
         public ProductCategory ProductCategory
         {
             get => productCategory;
@@ -80,6 +86,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Input properties
+
         #region Button enable/disable logic
 
         private bool isEditMode = false;
@@ -111,6 +118,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Button enable/disable logic
+
         #region Commands for buttons
 
         public ICommand Save { get; private set; }
@@ -118,6 +126,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ICommand Cancel { get; private set; }
 
         #endregion Commands for buttons
+
         public ProductDetailsVM(ProductsRepo productsRepo)
         {
             this.productsRepo = productsRepo;

@@ -77,6 +77,7 @@ namespace BusinessManagementApp.ViewModels
 
             LoadData();
         }
+
         private bool FilterList(object item)
         {
             var salaryrecord = (SalaryRecord)item;

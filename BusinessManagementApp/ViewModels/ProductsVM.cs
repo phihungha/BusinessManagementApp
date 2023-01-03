@@ -29,6 +29,7 @@ namespace BusinessManagementApp.ViewModels
         [Description("Stock")]
         Stock
     }
+
     public class ProductsVM : ViewModelBase
     {
         private ProductsRepo productsRepo;
@@ -58,6 +59,7 @@ namespace BusinessManagementApp.ViewModels
 
             LoadData();
         }
+
         private bool FilterList(object item)
         {
             var product = (Product)item;

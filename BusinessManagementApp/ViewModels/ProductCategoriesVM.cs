@@ -2,7 +2,6 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.Navigation;
-using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
@@ -69,7 +68,6 @@ namespace BusinessManagementApp.ViewModels
 
                 case ProductCategoryInfoSearchBy.Id:
                     return productCategory.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
-
 
                 default:
                     return false;

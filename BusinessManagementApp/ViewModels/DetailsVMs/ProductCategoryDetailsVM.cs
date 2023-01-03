@@ -13,17 +13,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class ProductCategoryDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private ProductCategoriesRepo productCategoriesRepo;
 
         #endregion Dependencies
 
-
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private int id = 0;
@@ -42,7 +43,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => name;
             set => SetProperty(ref name, value);
         }
+
         private string description = string.Empty;
+
         public string Description
         {
             get => description;
@@ -97,7 +100,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             this.productCategoriesRepo = productCategoriesRepo;
 
-
             Save = new AsyncRelayCommand(SaveProductCategory);
             Delete = new AsyncRelayCommand(DeleteSkillType);
             Cancel = new RelayCommand(
@@ -109,8 +111,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
-
-
             if (id != null)
             {
                 IsEditMode = true;

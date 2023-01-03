@@ -44,7 +44,6 @@ namespace BusinessManagementApp.Data
                     Head = new Employee() { Id = "2", Name = "Vo Dang Khoa" },
                     PhoneNumber = "0123456788"
                 }
-
         };
             return Observable.FromAsync(() => Task.FromResult(departments));
         }

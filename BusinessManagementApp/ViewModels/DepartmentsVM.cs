@@ -75,7 +75,6 @@ namespace BusinessManagementApp.ViewModels
                 case DepartmentInfoSearchBy.Id:
                     return department.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
-
                 case DepartmentInfoSearchBy.PhoneNumber:
                     return department.PhoneNumber.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 

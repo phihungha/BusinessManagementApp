@@ -19,7 +19,6 @@ namespace BusinessManagementApp.ViewModels
 
         [Description("Name")]
         Name,
-
     }
 
     public class VoucherTypesVM : ViewModelBase
@@ -69,7 +68,6 @@ namespace BusinessManagementApp.ViewModels
 
                 case VoucherTypeInfoSearchBy.Id:
                     return voucherType.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
-
 
                 default:
                     return false;

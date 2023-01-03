@@ -23,7 +23,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         [Description("Phone")]
         Phone
     }
-    class SelectCustomersVM : ViewModelBase
+
+    internal class SelectCustomersVM : ViewModelBase
     {
         private CustomersRepo customersRepo;
         private ObservableCollection<Customer> customers { get; } = new();
@@ -46,6 +47,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => title;
             set => SetProperty(ref title, value);
         }
+
         #region Commands for buttons
 
         public ICommand Search { get; }
@@ -102,6 +104,5 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Title = (string)input;
             customers.AddRange(await customersRepo.GetCustomers());
         }
-
     }
 }

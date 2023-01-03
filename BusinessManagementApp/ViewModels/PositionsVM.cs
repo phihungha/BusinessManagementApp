@@ -69,7 +69,6 @@ namespace BusinessManagementApp.ViewModels
                 case PositionInfoSearchBy.Id:
                     return position.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
-
                 default:
                     return false;
             }

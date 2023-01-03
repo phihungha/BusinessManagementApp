@@ -13,19 +13,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class PositionDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private PositionsRepo positionsRepo;
 
-
         #endregion Dependencies
-
-
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private int id = 0;
@@ -46,6 +45,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private string description = string.Empty;
+
         public string Description
         {
             get => description;
@@ -53,11 +53,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private decimal supplementSalary = 100000;
+
         public decimal SupplementSalary
         {
             get => supplementSalary;
             set => SetProperty(ref supplementSalary, value);
         }
+
         private bool canManageAll = false;
 
         public bool CanManageAll
@@ -65,6 +67,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canManageAll;
             set => SetProperty(ref canManageAll, value);
         }
+
         private bool canManageOrders = false;
 
         public bool CanManageOrders
@@ -72,6 +75,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canManageOrders;
             set => SetProperty(ref canManageOrders, value);
         }
+
         private bool canManageSales = false;
 
         public bool CanManageSales
@@ -79,6 +83,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canManageSales;
             set => SetProperty(ref canManageSales, value);
         }
+
         private bool canViewSales = false;
 
         public bool CanViewSales
@@ -86,6 +91,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canViewSales;
             set => SetProperty(ref canViewSales, value);
         }
+
         private bool canViewHr = false;
 
         public bool CanViewHr
@@ -93,6 +99,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canViewHr;
             set => SetProperty(ref canViewHr, value);
         }
+
         private bool canManageHr = false;
 
         public bool CanManageHr
@@ -100,14 +107,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canManageHr;
             set => SetProperty(ref canManageHr, value);
         }
+
         //private List<Permission> permissions = new List<Permission>();
         //public List<Permission> Permissions
         //{
         //    get => permissions;
         //    set => SetProperty(ref permissions, value);
         //}
-
-
 
         #endregion Input properties
 
@@ -140,7 +146,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => canDelete;
             private set => SetProperty(ref canDelete, value);
         }
-
 
         #endregion Button enable/disable logic
 

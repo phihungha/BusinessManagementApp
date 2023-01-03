@@ -6,7 +6,6 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
@@ -14,17 +13,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class SkillTypeDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private SkillTypesRepo skillTypesRepo;
 
         #endregion Dependencies
 
-
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private int id = 0;
@@ -43,7 +43,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => name;
             set => SetProperty(ref name, value);
         }
+
         private string description = string.Empty;
+
         public string Description
         {
             get => description;
@@ -98,7 +100,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             this.skillTypesRepo = skillTypesRepo;
 
-
             Save = new AsyncRelayCommand(SaveSkillType);
             Delete = new AsyncRelayCommand(DeleteSkillType);
             Cancel = new RelayCommand(
@@ -110,7 +111,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
-
             if (id != null)
             {
                 IsEditMode = true;
