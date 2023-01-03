@@ -1,7 +1,9 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -119,7 +121,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.contractTypesRepo = contractTypesRepo;
 
             Save = new AsyncRelayCommand(SaveContractType);
-            Delete = new AsyncRelayCommand(DeleteContractType);
+            Delete = new RelayCommand(DeleteContractType);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ContractTypes)
                 );
@@ -129,6 +131,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -136,6 +139,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadContractType(int id)
@@ -151,6 +155,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveContractType()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -172,11 +177,27 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await contractTypesRepo.AddContractType(contracttype);
             }
+            BusyIndicatorUtils.SetBusyIndicator(false);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ContractTypes);
         }
 
-        private async Task DeleteContractType()
+        private void DeleteContractType()
         {
-            await contractTypesRepo.DeleteContractType(Id);
+            ConfirmDialog dialog = new ConfirmDialog(
+            "Delete contract type",
+            "Do you want to delete this contract type?\n" +
+            "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await contractTypesRepo.DeleteContractType(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ContractTypes);
+                }
+            };
+            dialog.Show();
         }
     }
 }

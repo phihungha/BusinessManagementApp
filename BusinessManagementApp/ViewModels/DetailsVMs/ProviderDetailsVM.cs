@@ -1,6 +1,8 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -99,7 +101,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
 
             Save = new AsyncRelayCommand(SaveProvider);
-            Delete = new AsyncRelayCommand(DeleteProvider);
+            Delete = new RelayCommand(DeleteProvider);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers)
                 );
@@ -110,7 +112,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public override async void LoadData(object? id = null)
         {
 
-
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -118,6 +120,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadProvider(int id)
@@ -130,6 +133,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveProvider()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -149,15 +153,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await providersRepo.AddProvider(provider);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
         }
 
-        private async Task DeleteProvider()
+        private void DeleteProvider()
         {
-            await providersRepo.DeleteProvider(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete provider",
+                "Do you want to delete this provider?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await providersRepo.DeleteProvider(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
+                }
+            };
+            dialog.Show();
         }
     }
 }

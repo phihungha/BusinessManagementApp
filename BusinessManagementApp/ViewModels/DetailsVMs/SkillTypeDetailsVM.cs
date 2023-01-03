@@ -1,6 +1,8 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -100,7 +102,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
 
             Save = new AsyncRelayCommand(SaveSkillType);
-            Delete = new AsyncRelayCommand(DeleteSkillType);
+            Delete = new RelayCommand(DeleteSkillType);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.SkillTypes)
                 );
@@ -110,7 +112,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
-
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -118,6 +120,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadSkillType(int id)
@@ -130,6 +133,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveSkillType()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -149,15 +153,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await skillTypesRepo.AddSkillType(skillType);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.SkillTypes);
         }
 
-        private async Task DeleteSkillType()
+        private void DeleteSkillType()
         {
-            await skillTypesRepo.DeleteSkillType(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.SkillTypes);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete skill type",
+                "Do you want to delete this skill type?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await skillTypesRepo.DeleteSkillType(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.SkillTypes);
+                }
+            };
+            dialog.Show();
         }
     }
 }

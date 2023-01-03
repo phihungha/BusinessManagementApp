@@ -1,6 +1,8 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -159,7 +161,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.positionsRepo = positionsRepo;
 
             Save = new AsyncRelayCommand(SavePosition);
-            Delete = new AsyncRelayCommand(DeletePosition);
+            Delete = new RelayCommand(DeletePosition);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Positions)
                 );
@@ -170,7 +172,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public override async void LoadData(object? id = null)
         {
             //
-
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -178,6 +180,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadPosition(int id)
@@ -197,6 +200,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SavePosition()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -223,15 +227,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await positionsRepo.AddPosition(position);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Positions);
         }
 
-        private async Task DeletePosition()
+        private void DeletePosition()
         {
-            await positionsRepo.DeletePosition(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Positions);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete position",
+                "Do you want to delete this position?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await positionsRepo.DeletePosition(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Positions);
+                }
+            };
+            dialog.Show();
         }
     }
 }

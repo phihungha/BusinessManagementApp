@@ -1,7 +1,9 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -134,7 +136,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.voucherTypesRepo = voucherTypesRepo;
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveVoucherType);
-            Delete = new AsyncRelayCommand(DeleteVoucherType);
+            Delete = new RelayCommand(DeleteVoucherType);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes)
                 );
@@ -166,7 +168,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public override async void LoadData(object? id = null)
         {
             //Products.AddRange(await productsRepo.GetProducts());
-
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -174,6 +176,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadVoucherType(int id)
@@ -190,6 +193,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveVoucherType()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -213,15 +217,29 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await voucherTypesRepo.AddVoucherType(voucherType);
             }
+            BusyIndicatorUtils.SetBusyIndicator(false);
 
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes);
         }
 
-        private async Task DeleteVoucherType()
+        private void DeleteVoucherType()
         {
-            await voucherTypesRepo.DeleteVoucherType(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete voucher type",
+                "Do you want to delete this voucher type?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await voucherTypesRepo.DeleteVoucherType(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes);
+                }
+            };
+            dialog.Show();
         }
     }
 }

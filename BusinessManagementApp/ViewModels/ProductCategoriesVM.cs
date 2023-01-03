@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.Views;
 using CommunityToolkit.Mvvm.Input;
@@ -88,7 +89,9 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             productCategories.AddRange(await productCategoriesRepo.GetProductCategories());
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }
