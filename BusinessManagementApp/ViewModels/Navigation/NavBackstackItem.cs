@@ -1,6 +1,4 @@
-﻿using BusinessManagementApp.ViewModels.Utils;
-
-namespace BusinessManagementApp.ViewModels.Navigation
+﻿namespace BusinessManagementApp.ViewModels.Navigation
 {
     public class NavBackstackItem
     {

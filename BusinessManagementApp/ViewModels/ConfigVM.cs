@@ -1,6 +1,5 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;

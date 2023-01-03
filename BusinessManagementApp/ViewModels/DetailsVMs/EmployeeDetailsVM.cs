@@ -2,7 +2,7 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
-using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;

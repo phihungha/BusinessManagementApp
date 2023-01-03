@@ -1,6 +1,6 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
-using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;

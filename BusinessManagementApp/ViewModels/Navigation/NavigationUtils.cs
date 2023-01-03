@@ -1,7 +1,6 @@
-﻿using BusinessManagementApp.ViewModels.Navigation;
-using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.Messaging;
 
-namespace BusinessManagementApp.ViewModels.Utils
+namespace BusinessManagementApp.ViewModels.Navigation
 {
     /// <summary>
     /// Methods to navigate to a view on the workspace area.

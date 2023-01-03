@@ -1,5 +1,4 @@
 ﻿using BusinessManagementApp.ViewModels.DetailsVMs;
-using BusinessManagementApp.ViewModels.Utils;
 using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.Extensions.DependencyInjection;
 using System;

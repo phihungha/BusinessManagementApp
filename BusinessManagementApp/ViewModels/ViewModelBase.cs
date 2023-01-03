@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace BusinessManagementApp.ViewModels.Utils
+namespace BusinessManagementApp.ViewModels
 {
     /// <summary>
     /// Base class for all view models. Supports validation 

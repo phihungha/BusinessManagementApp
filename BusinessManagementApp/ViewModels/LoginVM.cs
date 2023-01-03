@@ -1,5 +1,5 @@
 ﻿using BusinessManagementApp.Data;
-using BusinessManagementApp.ViewModels.Utils;
+using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Threading.Tasks;
