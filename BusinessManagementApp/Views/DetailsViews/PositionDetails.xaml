@@ -1,104 +1,97 @@
 ﻿<UserControl x:Class="BusinessManagementApp.Views.DetailsViews.PositionDetails"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BusinessManagementApp.Views.DetailsViews"
-             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-             mc:Ignorable="d" 
-             d:DesignWidth="1290" d:DesignHeight="720">
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             d:DesignWidth="1290" d:DesignHeight="820">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid Margin="15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+                <RowDefinition Height="55" />
+            </Grid.RowDefinitions>
 
-        <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
-            <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
-                New position
-            </TextBlock>
-        </Border>
+            <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
+                <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
+                    Position details
+                </TextBlock>
+            </Border>
 
-        <StackPanel Grid.Row="1" Width="150" HorizontalAlignment="Left">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
-            <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter name..."
-                     Text="{Binding Name}" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Margin="0,10,0,0">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Description</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter short description about position" Height="200"
-                     Text="{Binding Description}" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Supplement salary</TextBlock>
-            <ui:NumberBox Minimum="1000" Value="{Binding SupplementSalary}"/>
-        </StackPanel>
-
-        <!-- NOT BINDED -->
-
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Permission</TextBlock>
-            <StackPanel>
-                <CheckBox Content="Can view and change everything"  IsChecked="{Binding CanManageAll}" ></CheckBox>
-                <CheckBox Content="Can manage orders (place, edit, cancel orders)" IsChecked="{Binding CanManageOrders}"></CheckBox>
-                <CheckBox Content="Can manage sales-related info (products, providers, sales report)" IsChecked="{Binding CanManageSales}"></CheckBox>
-                <CheckBox Content="Can view sales-related info (products, providers, sales report)" IsChecked="{Binding CanViewSales}"></CheckBox>
-                <CheckBox Content="Can view HR-related info  (salary, overtime, skills, bonus)" IsChecked="{Binding CanViewHr}"></CheckBox>
-                <CheckBox Content="Can manage HR-related  (salary, overtime, skills, bonus)" IsChecked="{Binding CanManageHr}"></CheckBox>
+            <StackPanel Grid.Row="1" Margin="0,0,15,0">
+                <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
+                <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
             </StackPanel>
-        </StackPanel>
-        
 
-        <UniformGrid Grid.Row="8" Grid.ColumnSpan="4" Columns="3"
-                        VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                        Width="350" Height="55">
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
-                    Foreground="White" Background="{StaticResource DangerColorBrush}"
-                    Command="{Binding Delete}" IsEnabled="{Binding CanDelete}" >
+            <StackPanel Grid.Row="1" Grid.Column="1" Margin="15,0,0,0">
+                <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
+                <TextBox ui:ControlHelper.PlaceholderText="Enter name..."
+                     Text="{Binding Name}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Margin="0,10,0,0">
+                <TextBlock Style="{StaticResource TextBoxTopLabel}">Description</TextBlock>
+                <TextBox ui:ControlHelper.PlaceholderText="Enter description..." Height="200"
+                     Text="{Binding Description}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0">
+                <TextBlock Style="{StaticResource TextBoxTopLabel}">Supplement salary</TextBlock>
+                <ui:NumberBox Minimum="1000" Value="{Binding SupplementSalary}" />
+            </StackPanel>
+
+            <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
+                <TextBlock Style="{StaticResource TextBoxTopLabel}">Permissions</TextBlock>
+                <StackPanel>
+                    <CheckBox Content="Can view and change everything"  IsChecked="{Binding CanManageAll}" ></CheckBox>
+                    <CheckBox Content="Can manage orders (place, edit, cancel orders)" IsChecked="{Binding CanManageOrders}"></CheckBox>
+                    <CheckBox Content="Can view sales-related information (products, providers, sales report)" IsChecked="{Binding CanViewSales}"></CheckBox>
+                    <CheckBox Content="Can manage sales-related information (products, providers, sales report)" IsChecked="{Binding CanManageSales}"></CheckBox>
+                    <CheckBox Content="Can view HR-related information  (salary, overtime, skills, bonus)" IsChecked="{Binding CanViewHr}"></CheckBox>
+                    <CheckBox Content="Can manage HR-related information (salary, overtime, skills, bonus)" IsChecked="{Binding CanManageHr}"></CheckBox>
+                </StackPanel>
+            </StackPanel>
+
+            <Button Grid.Row="6" Margin="0,10,5,5" Width="170" VerticalAlignment="Stretch"
+                Foreground="White" Background="{StaticResource DangerColorBrush}"
+                Command="{Binding Delete}" IsEnabled="{Binding CanDelete}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
                     <TextBlock FontSize="16">Delete</TextBlock>
                 </StackPanel>
             </Button>
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
-                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                    Command="{Binding Save}" IsEnabled="{Binding CanSave}" >
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                    <TextBlock FontSize="16">Save</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button Command="{Binding Cancel}" Margin="5" 
-                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                    Foreground="White" Background="{StaticResource CancelColorBrush}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                    <TextBlock FontSize="16">Cancel</TextBlock>
-                </StackPanel>
-            </Button>
-        </UniformGrid>
-    </Grid>
-       </ScrollViewer>
+
+            <UniformGrid Grid.Row="6" Grid.Column="1" Columns="2" Margin="0,5,0,0"
+                         HorizontalAlignment="Right" Width="350">
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                        Command="{Binding Save}" IsEnabled="{Binding CanSave}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Save</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding Cancel}" Margin="5"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                            Foreground="White" Background="{StaticResource CancelColorBrush}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource XWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Cancel</TextBlock>
+                    </StackPanel>
+                </Button>
+            </UniformGrid>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

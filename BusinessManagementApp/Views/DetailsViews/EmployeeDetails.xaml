@@ -19,7 +19,7 @@
 
         <Border Style="{StaticResource ViewTitleBorder}"  Margin="15,15,20,15">
             <TextBlock Style="{StaticResource ViewTitleText}">
-                New employee
+                Employee details
             </TextBlock>
         </Border>
 
@@ -48,14 +48,15 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
+                    <RowDefinition Height="55" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="1" Width="150" HorizontalAlignment="Left">
+                <StackPanel Grid.Row="1" Margin="0,0,15,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
                     <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
                 </StackPanel>
 
-                <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,0,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
                     <TextBox ui:ControlHelper.PlaceholderText="Enter name..."
                      Text="{Binding Name}" />
@@ -306,19 +307,17 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <UniformGrid Grid.Row="15" Grid.ColumnSpan="4" Columns="3" Margin="0,10,0,0"
-                             VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                             Width="350" Height="55">
-                    <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                            Foreground="White" Background="{StaticResource DangerColorBrush}"
-                            Command="{Binding Delete}"
-                            IsEnabled="{Binding IsEditMode}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                            <TextBlock FontSize="16">Delete</TextBlock>
-                        </StackPanel>
-                    </Button>
+                <Button Grid.Row="16" Margin="0,5,5,5" Width="170" VerticalAlignment="Stretch"
+                        Foreground="White" Background="{StaticResource DangerColorBrush}"
+                        Command="{Binding Delete}" IsEnabled="{Binding CanDelete}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Delete</TextBlock>
+                    </StackPanel>
+                </Button>
 
+                <UniformGrid Grid.Row="16" Grid.ColumnSpan="4" Columns="2"
+                             HorizontalAlignment="Right" Width="350">
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                             Foreground="White" Background="{StaticResource PrimaryColorBrush}"
                             Command="{Binding Save}" IsEnabled="{Binding CanSave}">

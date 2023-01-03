@@ -5,11 +5,7 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-    </UserControl.Resources>
-
+             d:DesignHeight="720" d:DesignWidth="1290">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -18,7 +14,7 @@
 
         <Border Style="{StaticResource ViewTitleBorder}"  Margin="15,15,20,15">
             <TextBlock Style="{StaticResource ViewTitleText}">
-                Bonus type
+                Bonus type details
             </TextBlock>
         </Border>
 
@@ -29,48 +25,56 @@
                     <ColumnDefinition />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition />
+                    <RowDefinition Height="55" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Width="150" HorizontalAlignment="Left">
+                <StackPanel Margin="0,0,15,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
-                    <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
+                    <TextBox IsReadOnly="True" Text="{Binding Id, Mode=OneWay}" />
                 </StackPanel>
 
-                <StackPanel Grid.Column="1" Grid.ColumnSpan="2">
+                <StackPanel Grid.Column="1" Margin="15,0,15,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
                     <TextBox ui:ControlHelper.PlaceholderText="Enter name..." Text="{Binding Name}" />
                 </StackPanel>
 
-                <StackPanel Grid.Row="2" Width="300"  HorizontalAlignment="Left" Margin="0,10,0,0">
+                <StackPanel Grid.Column="2" Margin="15,0,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Money amount</TextBlock>
-                    <ui:NumberBox Minimum="1" Value="{Binding Amount}" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ui:NumberBox Minimum="1" Value="{Binding Amount}" />
+                        <TextBlock Grid.Column="1"  Style="{StaticResource TextBoxLeftLabel}" Margin="5,0,0,0">
+                            $
+                        </TextBlock>
+                    </Grid>
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Description</TextBlock>
-                    <TextBox ui:ControlHelper.PlaceholderText="Enter description..." Text="{Binding Description}" />
+                    <TextBox  Height="200" TextWrapping="Wrap"
+                              ui:ControlHelper.PlaceholderText="Enter description..."
+                              Text="{Binding Description}" />
                 </StackPanel>
 
-                <UniformGrid Grid.Row="4" Grid.ColumnSpan="4" Columns="3" Margin="0,10,0,0"
-                             VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                             Width="350" Height="55">
-                    <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                            Foreground="White" Background="{StaticResource DangerColorBrush}"
-                            Command="{Binding Delete}"
-                            Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                            <TextBlock FontSize="16">Delete</TextBlock>
-                        </StackPanel>
-                    </Button>
+                <Button Grid.Row="6" Margin="5" Width="170" VerticalAlignment="Stretch"
+                        Foreground="White" Background="{StaticResource DangerColorBrush}"
+                        Command="{Binding Delete}" IsEnabled="{Binding IsEditMode}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Delete</TextBlock>
+                    </StackPanel>
+                </Button>
 
+                <UniformGrid Grid.Row="6" Grid.ColumnSpan="4" Columns="2"
+                             HorizontalAlignment="Right" Width="350">
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                             Foreground="White" Background="{StaticResource PrimaryColorBrush}"
                             Command="{Binding Save}" IsEnabled="{Binding CanSave}">
