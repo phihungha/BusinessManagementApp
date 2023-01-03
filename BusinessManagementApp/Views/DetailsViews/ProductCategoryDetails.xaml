@@ -42,7 +42,7 @@
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Description</TextBlock>
             <TextBox ui:ControlHelper.PlaceholderText="Enter short description about skill type"
-                     Text="{Binding Description}" />
+                     Text="{Binding Description}" Height="200"/>
         </StackPanel>
 
 

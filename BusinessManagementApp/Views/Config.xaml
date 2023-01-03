@@ -30,18 +30,33 @@
 
 
 
-        <StackPanel Grid.Row="1" Grid.Column="0" >
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Overtime hourly rate</TextBlock>
-            <ui:NumberBox Minimum="0" Maximum="200000"  Value="{Binding OvertimeHourlyRate}" HorizontalAlignment="Left" Width="100"/>
-        </StackPanel>
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="1">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Max number of overtime hours</TextBlock>
-            <ui:NumberBox Minimum="0" Maximum="10" Value="{Binding MaxNumOfOvertimeHours}" HorizontalAlignment="Left" Width="100"/>
-        </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="1">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">VAT Rate</TextBlock>
-            <ui:NumberBox Minimum="0" Maximum="1" Value="{Binding VATRate}" HorizontalAlignment="Left" Width="100"/>
-        </StackPanel>
+        <Grid Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Style="{StaticResource TextBoxTopLabel}">Overtime hourly rate</TextBlock>
+            <ui:NumberBox Grid.Column="1" Minimum="0" Maximum="200000"  Value="{Binding OvertimeHourlyRate}" HorizontalAlignment="Stretch"/>
+        </Grid>
+
+        <Grid Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Style="{StaticResource TextBoxTopLabel}">Max number of overtime hours</TextBlock>
+            <ui:NumberBox Grid.Column="1" Minimum="0" Maximum="200000"  Value="{Binding MaxNumOfOvertimeHours}" HorizontalAlignment="Stretch"/>
+        </Grid>
+
+        <Grid Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Style="{StaticResource TextBoxTopLabel}">VAT Rate</TextBlock>
+            <ui:NumberBox Grid.Column="1" Minimum="0" Maximum="200000"  Value="{Binding VATRate}" HorizontalAlignment="Stretch"/>
+        </Grid>
+        
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0"/>
 
