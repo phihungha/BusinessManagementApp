@@ -14,7 +14,7 @@ namespace BusinessManagementApp.Data.Api
         [Get("/{employeeId}")]
         IObservable<List<SkillRecord>> GetEmployeeSkills(string employeeId);
 
-        [Post("/")]
-        IObservable<List<SkillRecord>> UpdateEmployeeSkills(string employeeId, [Body] IEnumerable<SkillRecord> skillRatings);
+        [Post("/{employeeId}")]
+        IObservable<List<SkillRecord>> UpdateEmployeeSkills(string employeeId, [Body] IEnumerable<SkillRecord> skillRecords);
     }
 }
