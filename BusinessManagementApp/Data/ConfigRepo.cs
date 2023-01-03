@@ -1,4 +1,5 @@
 ﻿using BusinessManagementApp.Data.Model;
+using System.Windows;
 
 namespace BusinessManagementApp.Data
 {
@@ -22,7 +23,7 @@ namespace BusinessManagementApp.Data
             };
         }
 
-        public void SaveConfig()
+        public void SaveConfig(Config config)
         {
         }
     }
