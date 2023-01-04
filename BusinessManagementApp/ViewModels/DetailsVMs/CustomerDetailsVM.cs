@@ -1,7 +1,9 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -136,6 +138,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -143,6 +146,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadCustomer(string id)
@@ -159,6 +163,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveCustomer()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -182,15 +187,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await customersRepo.AddCustomer(customer);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Customers);
         }
 
         private async Task DeleteCustomer()
         {
-            await customersRepo.DeleteCustomer(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Customers);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete Customer",
+                "Do you want to delete this customer?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await customersRepo.DeleteCustomer(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Customers);
+                }
+            };
+            dialog.Show();
         }
     }
 }
