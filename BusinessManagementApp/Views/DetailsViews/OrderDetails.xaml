@@ -5,12 +5,12 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignHeight="2000" d:DesignWidth="1290">
+             d:DesignHeight="1500" d:DesignWidth="1290">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-        <Grid Margin="10">
+        <Grid Margin="15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -23,8 +23,8 @@
             <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -62,22 +62,19 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Row="0" Grid.Column="0">
-                                <TextBlock Text="Customer information" Margin="0,20,0,0"  FontSize="30" FontWeight="Bold" />
+                                <TextBlock Text="Customer information" Margin="0,20,0,0"  FontSize="30" />
                             </StackPanel>
                             <DockPanel Grid.Row="0" Grid.Column="1" LastChildFill="False" HorizontalAlignment="Right">
-                                <Button Margin="10,20,10,0" Content="Create Customer" Height="40" FontWeight="Bold"
-                                Background="#FF358AFF" Foreground="White"
-                                VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                Command="{Binding CreateCustomer}" />
+                                <Button Margin="10,20,10,0" Content="Create Customer" Height="40"
+                                        Background="#FF358AFF" Foreground="White"
+                                        VerticalAlignment="Center" HorizontalAlignment="Stretch"
+                                        Command="{Binding CreateCustomer}" />
 
-                                <Button Margin="10,20,10,0" Height="40" Content="Choose Customer" FontWeight="Bold"
+                                <Button Margin="10,20,10,0" Height="40" Content="Choose Customer"
                                 Background="#FF358AFF" Foreground="White"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Command="{Binding SelectCustomer}" />
                             </DockPanel>
-
-
-
                         </Grid>
 
                         <StackPanel Grid.Row="1" Margin="0,10,0,0" Grid.ColumnSpan="2">
@@ -111,7 +108,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Margin="0,20,0,0"  FontSize="30" FontWeight="Bold" Text="Order information"/>
+                            <TextBlock Margin="0,20,0,0"  FontSize="30" Text="Order information" />
                         </StackPanel>
 
                         <Grid Grid.Row="1">
@@ -134,7 +131,7 @@
 
                             <StackPanel Grid.Column="1" Margin="15,5,0,0">
                                 <TextBlock  Text="Employee in charge" />
-                                <TextBlock Text="{Binding EmployeeName}" FontSize="20"/>
+                                <TextBlock Text="{Binding EmployeeName}" FontSize="20" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -153,16 +150,13 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-
-                        <Button Grid.Row="0" Grid.Column="1" Margin="10,20,10,0" Content="Choose products" FontWeight="Bold"
+                        <Button Grid.Row="0" Grid.Column="1" Margin="10,20,10,0" Content="Choose products"
                                     Background="#FF358AFF" Foreground="White"
-                                    VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
-                                    Command="{Binding SelectProducts}" />
+                                    VerticalAlignment="Stretch" Command="{Binding SelectProducts}" />
 
-                        <ListBox Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" 
-                                 x:Name="ProductsListBox" 
-                                 ItemsSource="{Binding OrderItemsView}" HorizontalContentAlignment="Stretch" 
-                                 d:ItemsSource="{d:SampleData ItemCount=2}">
+                        <ListBox Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="500"
+                                 ItemsSource="{Binding OrderItemsView}" HorizontalContentAlignment="Stretch"
+                                 Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="Margin" Value="0,2,0,2" />
@@ -184,8 +178,8 @@
                                             <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                                         </ui:SimpleStackPanel>
 
-                                        <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"                                         
-                                          Minimum="0" Maximum="{Binding Product.Stock}" 
+                                        <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
+                                          Minimum="0" Maximum="{Binding Product.Stock}"
                                           SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                                     </Grid>
                                 </DataTemplate>
@@ -193,7 +187,7 @@
                         </ListBox>
 
                         <StackPanel  Grid.Row="0" Grid.Column="0">
-                            <TextBlock Margin="0,20,0,0" FontSize="30" FontWeight="Bold" Text="Order items" />
+                            <TextBlock Margin="0,20,0,0" FontSize="30" Text="Order items" />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -202,18 +196,18 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="7.5*" />
-                            <ColumnDefinition  />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <ListBox Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="2"                                  
-                                 ItemsSource="{Binding VouchersView}" HorizontalContentAlignment="Stretch" 
-                                 d:ItemsSource="{d:SampleData ItemCount=2}">
+                        <ListBox Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="2" MaxHeight="300"
+                                 ItemsSource="{Binding VouchersView}" HorizontalContentAlignment="Stretch"
+                                 Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
                                     <Setter Property="Margin" Value="0,2,0,2" />
@@ -234,9 +228,8 @@
                                             <TextBlock FontSize="13" Text="{Binding ExpiryDate, StringFormat=Expiry date: {0:d}}" />
                                         </ui:SimpleStackPanel>
 
-                                        <Button Grid.Column="1" Background="{StaticResource DangerColorBrush}" 
-                                                Margin="5" HorizontalAlignment="Center"
-                                                Command="{Binding Path=DataContext.DeleteVoucher,
+                                        <Button Grid.Column="1" Background="{StaticResource DangerColorBrush}"
+                                                Margin="5" Command="{Binding Path=DataContext.DeleteVoucher,
                                                 RelativeSource= {RelativeSource FindAncestor,
                                                                AncestorType={x:Type ListBox}}}"
                                                 CommandParameter="{Binding Code}">
@@ -248,18 +241,17 @@
                         </ListBox>
 
                         <StackPanel  Grid.Row="0" Grid.Column="0">
-                            <TextBlock Margin="0,20,0,0" FontSize="30" FontWeight="Bold" Text="Vouchers" />
+                            <TextBlock Margin="0,20,0,0" FontSize="30" Text="Vouchers" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="0,20,0,0">
                             <TextBox ui:ControlHelper.PlaceholderText="Enter voucher..." Text="{Binding Voucher}" />
                         </StackPanel>
 
-                        <Button Grid.Row="1" Margin="10,20,10,0" Grid.Column="1" Content="Apply" FontWeight="Bold"
+                        <Button Grid.Row="1" Margin="10,20,10,0" Grid.Column="1" Content="Apply"
                                 Background="#FF358AFF" Foreground="White"
                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                 Command="{Binding ApplyVoucher}" />
-
                     </Grid>
                 </Border>
 
@@ -275,7 +267,7 @@
                         </Grid.RowDefinitions>
 
                         <StackPanel>
-                            <TextBlock Margin="0,20,0,0"  FontSize="30" FontWeight="Bold" Text="Total Payment Amount" />
+                            <TextBlock Margin="0,20,0,0"  FontSize="30" Text="Total Payment Amount" />
                         </StackPanel>
                         <DockPanel Grid.Row="1" Margin="0,10,0,0">
                             <TextBlock  Text="Net Price: " />
@@ -295,19 +287,9 @@
                 </Border>
             </Grid>
 
-            <UniformGrid Grid.Row="2" Columns="5"
-                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                        Width="700" Height="55">
-
-                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
-                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                    Command="{Binding Save}" IsEnabled="{Binding CanSave}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                        <TextBlock FontSize="16">Save</TextBlock>
-                    </StackPanel>
-                </Button>
-
+            <UniformGrid Grid.Row="2" Columns="3"
+                         VerticalAlignment="Bottom" HorizontalAlignment="Left"
+                         Width="390" Height="55">
                 <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                     Foreground="White" Background="#00e823"
                     Command="{Binding Complete}" IsEnabled="{Binding CanComplete}">
@@ -330,10 +312,25 @@
                     Foreground="White" Background="{StaticResource DangerColorBrush}"
                     Command="{Binding Terminate}" IsEnabled="{Binding CanCancel}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <Image Source="{StaticResource XCircleWhiteIcon}" Width="15" Margin="0,0,10,0" />
                         <TextBlock FontSize="16">Terminate</TextBlock>
                     </StackPanel>
                 </Button>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="2" Columns="2"
+                         VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                         Width="250" Height="55">
+                <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                    Command="{Binding Save}" IsEnabled="{Binding CanSave}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                        <TextBlock FontSize="16">Save</TextBlock>
+                    </StackPanel>
+                </Button>
+
+                
 
                 <Button Command="{Binding Cancel}" Margin="5"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
