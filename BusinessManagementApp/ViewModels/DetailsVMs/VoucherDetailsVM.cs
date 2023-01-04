@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -96,11 +97,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             VoucherTypes.AddRange(await voucherTypesRepo.GetVoucherTypes());
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task SaveEmployee()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -114,7 +118,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             };
 
             await vouchersRepo.CreateVouchers(voucher, Number);
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Vouchers);
         }
