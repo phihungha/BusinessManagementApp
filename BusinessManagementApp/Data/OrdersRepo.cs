@@ -55,7 +55,6 @@ namespace BusinessManagementApp.Data
                     },
                 AppliedVouchers = new List<Voucher>()
                 {
-
                 },
                 NetPrice = 0,
                 VATRate = 0,
@@ -110,7 +109,6 @@ namespace BusinessManagementApp.Data
                     },
                     AppliedVouchers = new List<Voucher>()
                     {
-
                     },
                     NetPrice = 0,
                     VATRate = 0,
@@ -158,7 +156,6 @@ namespace BusinessManagementApp.Data
                     },
                     AppliedVouchers = new List<Voucher>()
                     {
-
                     },
                     NetPrice = 0,
                     VATRate = 0,

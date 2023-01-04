@@ -54,7 +54,6 @@ namespace BusinessManagementApp.Data
                     Email = "20520314@gm.uit.edu.vn",
                     Address = "178 Ly Tu Trong, Binh Duong",
                 },
-
             };
             return Observable.FromAsync(() => Task.FromResult(customer));
         }

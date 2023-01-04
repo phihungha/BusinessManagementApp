@@ -14,14 +14,6 @@ namespace BusinessManagementApp.Views.DetailsViews
         {
             InitializeComponent();
         }
-        private void ProductsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (DataContext == null)
-                return;
-
-            var viewModel = (SelectProductsVM)DataContext;
-            viewModel.SelectedProducts = ProductsListBox.SelectedItems.OfType<Product>().ToList();
-        }
     }
 
 }

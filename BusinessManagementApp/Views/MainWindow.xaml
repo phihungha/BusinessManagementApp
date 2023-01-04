@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         ui:WindowHelper.UseModernWindowStyle="True"
         MinWidth="1100" MinHeight="180"
-        Title="MainWindow" Height="720" Width="1290" Background="#FFEDEDED">
+        Title="MainWindow" Height="720" Width="1290" Background="#f7f7f7">
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:WorkspaceVM}">
             <views:Workspace />

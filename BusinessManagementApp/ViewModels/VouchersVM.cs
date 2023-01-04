@@ -44,9 +44,9 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref selectedVouchers, value);
         }
 
-        public ICommand AddVoucher { get; }
+        public ICommand AddVouchers { get; }
         public ICommand Search { get; }
-        public ICommand DeleteVoucher { get; }
+        public ICommand DeleteVouchers { get; }
 
         public VouchersVM(VouchersRepo vouchersRepo)
         {
@@ -58,9 +58,9 @@ namespace BusinessManagementApp.ViewModels
             VouchersView = collectionViewSource.View;
             VouchersView.Filter = FilterList;
             var Ids = SelectedVouchers.Select(x => x.Code).ToList();
-            AddVoucher = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherDetails));
+            AddVouchers = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherDetails));
             Search = new RelayCommand(() => VouchersView.Refresh());
-            DeleteVoucher = new AsyncRelayCommand(ExecuteDelete);
+            DeleteVouchers = new AsyncRelayCommand(ExecuteDelete);
 
             LoadData();
         }

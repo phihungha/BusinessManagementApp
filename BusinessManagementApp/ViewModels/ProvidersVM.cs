@@ -71,7 +71,6 @@ namespace BusinessManagementApp.ViewModels
                 case ProviderInfoSearchBy.Id:
                     return provider.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
-
                 default:
                     return false;
             }

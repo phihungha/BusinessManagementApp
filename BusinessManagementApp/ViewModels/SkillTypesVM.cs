@@ -70,7 +70,6 @@ namespace BusinessManagementApp.ViewModels
                 case SkillTypeInfoSearchBy.Id:
                     return skillType.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
 
-
                 default:
                     return false;
             }

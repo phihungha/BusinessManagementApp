@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1290">
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -15,26 +15,22 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="55" />
         </Grid.RowDefinitions>
 
         <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
             <TextBlock FontSize="35" FontWeight="Bold" Foreground="{StaticResource PrimaryColorBrush}">
-                New voucher
+                Generate new vouchers
             </TextBlock>
         </Border>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Code</TextBlock>
-            <TextBox   Text="{Binding Code, Mode=OneWay}" IsReadOnly="True" />
-        </StackPanel>
-
-        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,5,15,0" Width="250" HorizontalAlignment="Left">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Type</TextBlock>
+        <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,15,0">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Voucher type</TextBlock>
             <ComboBox HorizontalAlignment="Stretch"
                       ItemsSource="{Binding VoucherTypes}"
                       SelectedItem="{Binding VoucherType}"
@@ -42,30 +38,30 @@
                       DisplayMemberPath="Name" />
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Grid.Column="1" Margin="15,5,0,0" Width="250" HorizontalAlignment="Left">
-            <TextBlock Style="{StaticResource TextBoxTopLabel}">Number</TextBlock>
+        <StackPanel Grid.Row="2" Grid.Column="1" Margin="15,0,0,0">
+            <TextBlock Style="{StaticResource TextBoxTopLabel}">Number to generate</TextBlock>
             <ui:NumberBox HorizontalAlignment="Stretch" Minimum="1" Value="{Binding Number}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Margin="0,5,15,0">
+        <StackPanel Grid.Row="3" Margin="0,10,15,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Release Date</TextBlock>
             <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding ReleaseDate}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,5,0,0">
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,10,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Expiry Date</TextBlock>
             <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding ExpiryDate}" />
         </StackPanel>
 
-        <UniformGrid Grid.Row="4" Grid.ColumnSpan="4" Columns="2"
-                        VerticalAlignment="Bottom" HorizontalAlignment="Right" 
-                        Width="350" Height="55">
+        <UniformGrid Grid.Row="5" Grid.ColumnSpan="4" Columns="2"
+                     VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                     Width="350" Height="55">
             <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
                     Foreground="White" Background="{StaticResource PrimaryColorBrush}"
                     Command="{Binding Save}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                    <TextBlock FontSize="16">Save</TextBlock>
+                    <TextBlock FontSize="16">Generate</TextBlock>
                 </StackPanel>
             </Button>
             <Button Command="{Binding Cancel}" Margin="5" 

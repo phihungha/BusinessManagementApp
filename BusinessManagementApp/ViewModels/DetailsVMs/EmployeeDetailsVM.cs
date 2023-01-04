@@ -390,7 +390,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private void DeleteEmployee()
         {
             ConfirmDialog dialog = new ConfirmDialog(
-                "Delete employee", 
+                "Delete employee",
                 "Do you want to delete this employee?\n" +
                 "This action cannot be undone!");
             dialog.Closed += async (sender, eventArgs) =>

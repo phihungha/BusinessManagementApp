@@ -189,7 +189,7 @@ namespace BusinessManagementApp.Data
                 }
             };
 
-            return Observable.FromAsync(() => Task.FromResult(contracts)).Delay(new TimeSpan(0,0,2));
+            return Observable.FromAsync(() => Task.FromResult(contracts)).Delay(new TimeSpan(0, 0, 2));
         }
     }
 }

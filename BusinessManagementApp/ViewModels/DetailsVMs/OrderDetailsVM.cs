@@ -13,6 +13,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
+
 namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class OrderDetailsVM : ViewModelBase
@@ -27,8 +28,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #region Input properties
 
         private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
-
-        
 
         private DateTime creationTime = new DateTime();
 
@@ -52,7 +51,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             private OrderDetailsVM parentVM;
 
-            public Product Product { get; }         
+            public Product Product { get; }
 
             private int quantity;
 
@@ -144,7 +143,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set
             {
                 SetProperty(ref totalPrice, value, true);
-                NetPrice = value + value*(decimal)VatRate;
+                NetPrice = value + value * (decimal)VatRate;
             }
         }
 
@@ -254,9 +253,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             orderItemVMs.Clear();
             foreach (var orderitem in OrderItems)
             {
-                    OrderItemVM orderItemVM;
-                    orderItemVM = new OrderItemVM(orderitem.Product, orderitem.Quantity, this);
-                    orderItemVMs.Add(orderItemVM);
+                OrderItemVM orderItemVM;
+                orderItemVM = new OrderItemVM(orderitem.Product, orderitem.Quantity, this);
+                orderItemVMs.Add(orderItemVM);
             }
         }
 
@@ -287,14 +286,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             AppliedVouchers.Remove(voucher);
             VouchersView.Refresh();
             CalculateTotalPrice();
-
         }
 
         private async void ExcuteApplyVoucher()
         {
             Voucher voucher = await vouchersRepo.GetVoucher(Voucher);
             if (AppliedVouchers.Count == 0)
-            {               
+            {
                 if (DateTime.Now > voucher.ReleaseDate && DateTime.Now < voucher.ExpiryDate)
                 {
                     AppliedVouchers.Add(voucher);
@@ -306,7 +304,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 foreach (Voucher voucher1 in AppliedVouchers.ToList())
                 {
                     if (!(voucher1.Code == voucher.Code))
-                    {                      
+                    {
                         if (DateTime.Now > voucher.ReleaseDate && DateTime.Now < voucher.ExpiryDate)
                         {
                             AppliedVouchers.Add(voucher);
@@ -315,7 +313,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     }
                 }
             }
-                CalculateTotalPrice();
+            CalculateTotalPrice();
         }
 
         private void CalculateTotalPrice()
@@ -325,12 +323,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             //No applied product
             foreach (Voucher voucher in AppliedVouchers)
             {
-                if(voucher.Type.AppliedProducts.Count == 0)
+                if (voucher.Type.AppliedProducts.Count == 0)
                 {
                     //Check condition of voucher that has  no applied product
                     if (voucher.Type.MinNetPrice <= NetPrice)
                     {
-                        if(voucher.Type.DiscountType == DiscountType.Raw)
+                        if (voucher.Type.DiscountType == DiscountType.Raw)
                         {
                             discount += voucher.Type.DiscountValue;
                         }
@@ -346,9 +344,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     //Get Products'Net price to check condition of voucher that has no applied product
                     foreach (OrderItem orderItem in OrderItems)
                     {
-                        if(voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
+                        if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
                         {
-                            ProductsNetPrice += orderItem.UnitPrice * orderItem.Quantity * (decimal)(1+VatRate);
+                            ProductsNetPrice += orderItem.UnitPrice * orderItem.Quantity * (decimal)(1 + VatRate);
                         }
                     }
                     //Begin calculate discount money of voucher that has no applied product
@@ -370,12 +368,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                             {
                                 if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
                                 {
-                                    discount += ((double)orderItem.UnitPrice * orderItem.Quantity * (1 + VatRate))*voucher.Type.DiscountValue;
+                                    discount += ((double)orderItem.UnitPrice * orderItem.Quantity * (1 + VatRate)) * voucher.Type.DiscountValue;
                                 }
                             }
                         }
                     }
-                }               
+                }
             }
             TotalAmount = temp - discount;
         }
@@ -404,13 +402,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 SelectedCustomer = (Customer)extra;
             }
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
-            {              
+            {
                 OrderItems.ClearAndAddRange((List<OrderItem>)extra);
                 VouchersView = CollectionViewSource.GetDefaultView(AppliedVouchers);
                 SetOrderItemsValue();
                 CalculateTotalPrice();
             }
-            else if(prevViewName == WorkspaceViewName.CreateOrderCustomer)
+            else if (prevViewName == WorkspaceViewName.CreateOrderCustomer)
             {
                 SelectedCustomer = (Customer)extra;
             }
@@ -444,7 +442,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             VatRate = order.VATRate;
             OrderItems.AddRange(order.Items);
             AppliedVouchers.AddRange(order.AppliedVouchers);
-            creationTime = order.CreationTime;           
+            creationTime = order.CreationTime;
             SetOrderItemsValue();
         }
 

@@ -120,7 +120,7 @@ namespace BusinessManagementApp.ViewModels
             private set => SetProperty(ref canSave, value);
         }
 
-        #endregion
+        #endregion Button enable/disable logic
 
         #region Commands for buttons
 
@@ -128,7 +128,7 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Save { get; }
         public ICommand Reset { get; }
 
-        #endregion
+        #endregion Commands for buttons
 
         public BonusesVM(BonusRecordsRepo bonusesRepo,
                          BonusTypesRepo bonusTypesRepo,

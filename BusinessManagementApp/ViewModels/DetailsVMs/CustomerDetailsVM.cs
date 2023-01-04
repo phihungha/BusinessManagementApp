@@ -18,6 +18,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private CustomersRepo customersRepo;
 
         #endregion Dependencies
+
         #region Input properties
 
         private string id = string.Empty;
@@ -81,6 +82,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Input properties
+
         #region Button enable/disable logic
 
         private bool isEditMode = false;
@@ -112,6 +114,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Button enable/disable logic
+
         #region Commands for buttons
 
         public ICommand Save { get; private set; }

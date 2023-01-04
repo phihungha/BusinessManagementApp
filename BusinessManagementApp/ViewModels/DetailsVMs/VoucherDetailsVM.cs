@@ -19,9 +19,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private VoucherTypesRepo voucherTypesRepo;
 
         #endregion Dependencies
+
         #region Combobox items
+
         public ObservableCollection<VoucherType> VoucherTypes { get; } = new();
+
         #endregion Combobox items
+
         #region Input properties
 
         private int number = 1;
@@ -68,12 +72,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         #endregion Input properties
+
         #region Commands for buttons
 
         public ICommand Save { get; private set; }
         public ICommand Cancel { get; private set; }
 
         #endregion Commands for buttons
+
         public VoucherDetailsVM(VouchersRepo vouchersRepo,
                                  VoucherTypesRepo voucherTypesRepo)
         {

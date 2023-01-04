@@ -1,25 +1,17 @@
 ﻿<UserControl x:Class="BusinessManagementApp.Views.Config"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BusinessManagementApp.Views.DetailsViews"
-             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
-             mc:Ignorable="d" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
              d:DesignWidth="1290" d:DesignHeight="720">
     <Grid Margin="15">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Border Grid.ColumnSpan="4" Style="{StaticResource ViewTitleBorder}"  Margin="0,0,0,20">
@@ -28,57 +20,71 @@
             </TextBlock>
         </Border>
 
-
-
-        <Grid Grid.ColumnSpan="2" Grid.Row="1" Grid.Column="0" >
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="250" />
+                <ColumnDefinition Width="500" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Style="{StaticResource TextBoxTopLabel}">Overtime hourly rate</TextBlock>
-            <ui:NumberBox Grid.Column="1" Minimum="0" Maximum="200000"  Value="{Binding OvertimeHourlyRate}" HorizontalAlignment="Stretch"/>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource TextBoxLeftLabel}">
+                    Overtime hourly rate
+            </TextBlock>
+
+            <TextBlock Grid.Row="1" Style="{StaticResource TextBoxLeftLabel}" Margin="0,15,0,0">
+                    Max overtime hour count
+            </TextBlock>
+
+            <TextBlock Grid.Row="2" Style="{StaticResource TextBoxLeftLabel}" Margin="0,15,0,0">
+                    VAT rate
+            </TextBlock>
+
+            <ui:NumberBox Grid.Column="1" Minimum="0" Value="{Binding OvertimeHourlyRate}" />
+
+            <ui:NumberBox Grid.Row="1" Grid.Column="1" Margin="0,15,0,0" Minimum="0" Maximum="24"
+                          SpinButtonPlacementMode="Inline" Value="{Binding MaxNumOfOvertimeHours}" />
+
+            <ui:NumberBox Grid.Row="2" Grid.Column="1" Margin="0,15,0,0" Minimum="0" Maximum="100"
+                          Value="{Binding VATRate, StringFormat={} {0}%}" />
+
+            <TextBlock Grid.Column="2" Margin="15,0,0,0" 
+                       Style="{StaticResource TextBoxLeftLabel}">
+                $
+            </TextBlock>
+            <TextBlock Grid.Column="2" Grid.Row="1" Margin="15,15,0,0" 
+                       Style="{StaticResource TextBoxLeftLabel}">
+                hours
+            </TextBlock>
+            <TextBlock Grid.Column="2" Grid.Row="2" Margin="15,15,0,0" 
+                       Style="{StaticResource TextBoxLeftLabel}">
+                %
+            </TextBlock>
         </Grid>
-
-        <Grid Grid.ColumnSpan="2" Grid.Row="2" Grid.Column="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Style="{StaticResource TextBoxTopLabel}">Max number of overtime hours</TextBlock>
-            <ui:NumberBox Grid.Column="1" Minimum="0" Maximum="200000"  Value="{Binding MaxNumOfOvertimeHours}" HorizontalAlignment="Stretch"/>
-        </Grid>
-
-        <Grid Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Style="{StaticResource TextBoxTopLabel}">VAT Rate</TextBlock>
-            <ui:NumberBox Grid.Column="1" Minimum="0" Maximum="200000"  Value="{Binding VATRate}" HorizontalAlignment="Stretch"/>
-        </Grid>
-        
-
-        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0"/>
-
-
 
         <UniformGrid Grid.Row="8" Grid.ColumnSpan="4" Columns="2"
-                        VerticalAlignment="Bottom" HorizontalAlignment="Right" 
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
                         Width="350" Height="55">
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" 
-                    Foreground="White" Background="{StaticResource DangerColorBrush}"
-                    Command="{Binding Reset}" IsEnabled="{Binding CanReset}" >
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
-                    <TextBlock FontSize="16">Reset</TextBlock>
-                </StackPanel>
-            </Button>
-            <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,5,5,0" 
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5,5,5,0"
                     Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                    Command="{Binding Save}" Height="45" >
+                    Command="{Binding Save}" Height="45">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
                     <TextBlock FontSize="16">Save</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
+                    Foreground="White" Background="{StaticResource CancelColorBrush}"
+                    Command="{Binding Reset}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource ReturnOrderWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">Reset</TextBlock>
                 </StackPanel>
             </Button>
         </UniformGrid>

@@ -19,6 +19,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class VoucherTypeDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private VoucherTypesRepo voucherTypesRepo;
@@ -27,11 +28,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public ObservableCollection<Product> SelectedProducts { get; set; } = new();
 
-
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private int id = 0;
@@ -52,12 +53,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private string description = string.Empty;
+
         public string Description
         {
             get => description;
             set => SetProperty(ref description, value, true);
         }
+
         private decimal minNetPrice = 10000;
+
         public decimal MinNetPrice
         {
             get => minNetPrice;
@@ -81,6 +85,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private List<Product> appliedProducts = new List<Product>();
+
         public List<Product> AppliedProducts
         {
             get => appliedProducts;
@@ -122,6 +127,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Button enable/disable logic
 
         #region Commands for buttons
+
         public ICommand SelectProducts { get; }
         public ICommand Save { get; private set; }
         public ICommand Delete { get; private set; }
@@ -140,7 +146,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherTypes)
                 );
-
         }
 
         // Load data from repositories here.
@@ -150,6 +155,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             var introMessage = "Select products item for voucher type";
             WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProducts, introMessage);
         }
+
         public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
         {
             if (extra == null)
@@ -165,6 +171,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             SelectedProducts.ClearAndAddRange((List<Product>)extra);
             AppliedProducts = SelectedProducts.ToList();
         }
+
         public override async void LoadData(object? id = null)
         {
             //Products.AddRange(await productsRepo.GetProducts());

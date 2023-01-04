@@ -98,10 +98,8 @@ namespace BusinessManagementApp.Data
                     Year = 2023,
                     TotalSalary = 3000
                 },
-
             };
             return Observable.FromAsync(() => Task.FromResult(salaryrecords));
         }
-
     }
 }

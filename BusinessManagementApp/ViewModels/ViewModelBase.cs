@@ -3,7 +3,7 @@
 namespace BusinessManagementApp.ViewModels
 {
     /// <summary>
-    /// Base class for all view models. Supports validation 
+    /// Base class for all view models. Supports validation
     /// and receiving an extra object when navigating from another view.
     /// </summary>
     public abstract class ViewModelBase : ObservableValidator

@@ -18,6 +18,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     public class DepartmentDetailsVM : ViewModelBase
     {
         // Declare dependencies such as repositories here.
+
         #region Dependencies
 
         private EmployeeRepo employeeRepo;
@@ -26,13 +27,16 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #endregion Dependencies
 
         #region Combobox items
+
         public ObservableCollection<Employee> Employees { get; } = new();
-        #endregion
+
+        #endregion Combobox items
 
         // Properties for inputs on the screen
         // Remember to declare validation attributes when appropriate.
         // List of validation attributes: https://learn.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-7.0
         // Check ViewModels/ValidationAttributes.cs for custom validation attributes.
+
         #region Input properties
 
         private int id = 0;

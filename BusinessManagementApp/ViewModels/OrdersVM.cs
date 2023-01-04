@@ -107,6 +107,5 @@ namespace BusinessManagementApp.ViewModels
         {
             orders.AddRange(await ordersRepo.GetOrders());
         }
-
     }
 }

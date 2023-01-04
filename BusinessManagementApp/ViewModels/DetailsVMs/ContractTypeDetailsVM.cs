@@ -66,6 +66,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private string description = string.Empty;
+
         public string Description
         {
             get => description;
@@ -150,7 +151,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             BaseSalary = contractType.BaseSalary;
             Period = contractType.Period;
             Description = contractType.Description;
-
         }
 
         private async Task SaveContractType()

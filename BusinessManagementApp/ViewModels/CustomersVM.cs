@@ -26,6 +26,7 @@ namespace BusinessManagementApp.ViewModels
         [Description("Phone")]
         Phone
     }
+
     public class CustomersVM : ViewModelBase
     {
         private CustomersRepo customersRepo;
