@@ -152,8 +152,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private async Task DeleteBonusType()
         {
             ConfirmDialog dialog = new ConfirmDialog(
-                "Delete employee",
-                "Do you want to delete this employee?\n" +
+                "Delete Bonus Type",
+                "Do you want to delete this bonus type?\n" +
                 "This action cannot be undone!");
             dialog.Closed += async (sender, eventArgs) =>
             {
