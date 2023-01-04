@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -69,6 +70,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
@@ -80,11 +82,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             LastUpdatedTime = overview.LastUpdatedTime;
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task SaveSkillRatings()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             await skillsRepo.UpdateSkills(CurrentEmployee.Id, Skills.ToList());
+            BusyIndicatorUtils.SetBusyIndicator(false);
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.SkillRating);
         }
     }
