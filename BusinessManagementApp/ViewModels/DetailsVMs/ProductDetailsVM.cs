@@ -1,7 +1,9 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
@@ -140,6 +142,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+
             Categories.AddRange(await productsRepo.GetCategories());
 
             if (id != null)
@@ -149,6 +153,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadProduct(int id)
@@ -165,6 +170,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveProduct()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -187,15 +193,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await productsRepo.AddProduct(product);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Products);
         }
 
         private async Task DeleteProduct()
         {
-            await productsRepo.DeleteProduct(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Products);
+            ConfirmDialog dialog = new ConfirmDialog(
+                 "Delete product",
+                 "Do you want to delete this product?\n" +
+                 "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await productsRepo.DeleteProduct(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Products);
+                }
+            };
+            dialog.Show();
         }
     }
 }
