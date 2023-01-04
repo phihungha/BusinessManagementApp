@@ -1,5 +1,6 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -168,6 +169,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id == null)
             {
                 throw new ArgumentNullException(nameof(id));
@@ -182,6 +184,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             LoadOvertimeRecordVMs(overview.Records);
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         public void CalculateTotalOvertimePay()
@@ -209,6 +212,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveOvertimeRecords()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             List<OvertimeRecord> records = OvertimeRecordVMs
                 .Where(i => i.NumOfHours != 0)
                 .Select(i => new OvertimeRecord()
@@ -222,7 +226,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                                                      CurrentMonthYear.Year,
                                                      CurrentMonthYear.Month,
                                                      records);
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Overtime);
         }
     }
