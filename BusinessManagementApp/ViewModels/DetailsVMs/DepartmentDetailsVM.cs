@@ -1,8 +1,10 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
@@ -129,7 +131,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.departmentsRepo = departmentsRepo;
 
             Save = new AsyncRelayCommand(SaveDepartment);
-            Delete = new AsyncRelayCommand(DeleteDepartment);
+            Delete = new RelayCommand(DeleteDepartment);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Departments)
                 );
@@ -139,6 +141,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             Employees.AddRange(await employeeRepo.GetEmployees());
 
             if (id != null)
@@ -146,8 +149,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 IsEditMode = true;
                 await LoadDepartment((int)id);
             }
-
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadDepartment(int id)
@@ -162,6 +165,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveDepartment()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -183,11 +187,27 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await departmentsRepo.AddDepartment(department);
             }
+            BusyIndicatorUtils.SetBusyIndicator(false);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Departments);
         }
 
-        private async Task DeleteDepartment()
+        private void DeleteDepartment()
         {
-            await departmentsRepo.DeleteDepartment(Id);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete department", 
+                "Do you want to delete this department?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await departmentsRepo.DeleteDepartment(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Departments);
+                }
+            };
+            dialog.Show();
         }
     }
 }

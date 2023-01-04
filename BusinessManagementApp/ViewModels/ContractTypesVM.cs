@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -84,7 +85,9 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             contracttypes.AddRange(await contractTypesRepo.GetContractTypes());
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }

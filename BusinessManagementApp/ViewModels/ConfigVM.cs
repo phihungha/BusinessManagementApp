@@ -1,5 +1,6 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
@@ -12,7 +13,7 @@ namespace BusinessManagementApp.ViewModels
 
         #region Dependencies
 
-        private ConfigRepo configRepo = new ConfigRepo();
+        private ConfigRepo configRepo;
 
         #endregion Dependencies
 
@@ -75,10 +76,13 @@ namespace BusinessManagementApp.ViewModels
         // An object passed when navigating to this screen is also received here.
         private void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+            configRepo = new ConfigRepo();
             OvertimeHourlyRate = configRepo.Config.OvertimeHourlyRate;
             MaxNumOfOvertimeHours = configRepo.Config.MaxNumOfOvertimeHours;
             VATRate = configRepo.Config.VATRate;
             UpdateOldValue();
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private void UpdateOldValue()
@@ -90,6 +94,7 @@ namespace BusinessManagementApp.ViewModels
 
         private void SaveConfig()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -101,6 +106,7 @@ namespace BusinessManagementApp.ViewModels
             };
             configRepo.SaveConfig(config);
             UpdateOldValue();
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private void ResetConfig()

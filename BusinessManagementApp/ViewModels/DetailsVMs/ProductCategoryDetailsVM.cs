@@ -1,6 +1,8 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -101,7 +103,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.productCategoriesRepo = productCategoriesRepo;
 
             Save = new AsyncRelayCommand(SaveProductCategory);
-            Delete = new AsyncRelayCommand(DeleteSkillType);
+            Delete = new RelayCommand(DeleteProductCategory);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ProductCategories)
                 );
@@ -111,6 +113,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -118,6 +121,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadProductCategory(int id)
@@ -130,6 +134,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveProductCategory()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -149,15 +154,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await productCategoriesRepo.AddProductCategory(productCategory);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Providers);
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ProductCategories);
         }
 
-        private async Task DeleteSkillType()
+        private void DeleteProductCategory()
         {
-            await productCategoriesRepo.DeleteProductCategory(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ProductCategories);
+            ConfirmDialog dialog = new ConfirmDialog(
+            "Delete product category",
+            "Do you want to delete this product category?\n" +
+            "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await productCategoriesRepo.DeleteProductCategory(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.ProductCategories);
+                }
+            };
+            dialog.Show();
         }
     }
 }
