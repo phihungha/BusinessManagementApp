@@ -1,7 +1,9 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -89,13 +91,28 @@ namespace BusinessManagementApp.ViewModels
 
         private async Task ExecuteDelete()
         {
-            var Ids = SelectedVouchers.Select(x => x.Code).ToList();
-            await vouchersRepo.DeleteVouchers(SelectedVouchers.Select(x => x.Code).ToList());
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete vouchers",
+                "Do you want to delete these vouchers?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    var Ids = SelectedVouchers.Select(x => x.Code).ToList();
+                    await vouchersRepo.DeleteVouchers(SelectedVouchers.Select(x => x.Code).ToList());
+                    BusyIndicatorUtils.SetBusyIndicator(false);                   
+                }
+            };
+            dialog.Show();           
         }
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             vouchers.AddRange(await vouchersRepo.GetVouchers());
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }
