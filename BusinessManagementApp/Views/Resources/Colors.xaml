@@ -8,4 +8,10 @@
     
     <Color x:Key="CancelColor">Gray</Color>
     <SolidColorBrush x:Key="CancelColorBrush" Color="{StaticResource CancelColor}" />
+
+    <Color x:Key="AppBackgroundColor">#f7f7f7</Color>
+    <SolidColorBrush x:Key="AppBackgroundColorBrush" Color="{StaticResource AppBackgroundColor}" />
+
+    <Color x:Key="WarningColor">#ffdd00</Color>
+    <SolidColorBrush x:Key="WarningColorBrush" Color="{StaticResource WarningColor}" />
 </ResourceDictionary>

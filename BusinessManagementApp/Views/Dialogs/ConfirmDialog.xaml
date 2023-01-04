@@ -5,7 +5,8 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="{Binding MessageTitle}" 
+        Title="{Binding MessageTitle}"
+        Background="{StaticResource AppBackgroundColorBrush}"
         ResizeMode="NoResize"
         SizeToContent="WidthAndHeight"
         Height="Auto" Width="650">
@@ -20,10 +21,10 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Image Source="{StaticResource TriangleIcon}" Width="100" Margin="30,30,15,30" />
+        <Image Source="{StaticResource TriangleWarningIcon}" Width="75" Margin="20,25,0,25" />
 
-        <ui:SimpleStackPanel Grid.Column="1" HorizontalAlignment="Center"
-                             VerticalAlignment="Center" Margin="20,15,50,15" Spacing="10">
+        <ui:SimpleStackPanel Grid.Column="1" HorizontalAlignment="Left"
+                             VerticalAlignment="Center" Margin="30,15,20,15" Spacing="10">
             <TextBlock FontSize="25" FontWeight="Bold" Text="{Binding MessageTitle}" />
             <TextBlock FontSize="14" Text="{Binding MessageContent}" />
         </ui:SimpleStackPanel>
