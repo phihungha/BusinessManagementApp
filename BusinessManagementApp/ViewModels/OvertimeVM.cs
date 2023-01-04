@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.DetailsVMs;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
@@ -120,7 +121,9 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             overtimeOverviews.ClearAndAddRange(await overtimeRepo.GetOvertimeOverviews(Year, Month));
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }
