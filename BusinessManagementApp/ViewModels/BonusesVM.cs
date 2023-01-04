@@ -233,7 +233,7 @@ namespace BusinessManagementApp.ViewModels
                  })
                  .ToList();
             await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);
-            LoadData();           
+            LoadData();
         }
     }
 }

@@ -102,10 +102,10 @@ namespace BusinessManagementApp.ViewModels
                     BusyIndicatorUtils.SetBusyIndicator(true);
                     var Ids = SelectedVouchers.Select(x => x.Code).ToList();
                     await vouchersRepo.DeleteVouchers(SelectedVouchers.Select(x => x.Code).ToList());
-                    BusyIndicatorUtils.SetBusyIndicator(false);                   
+                    BusyIndicatorUtils.SetBusyIndicator(false);
                 }
             };
-            dialog.Show();           
+            dialog.Show();
         }
 
         private async void LoadData()
