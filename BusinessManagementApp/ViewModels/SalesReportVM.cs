@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using CommunityToolkit.Mvvm.Input;
 using LiveChartsCore;
 using LiveChartsCore.Defaults;
@@ -302,6 +303,7 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             SalesStats stats = await salesReportRepo.GetSalesReport(Year, Month);
             revenueByDay.ClearAndAddRange(stats.RevenueByDay);
             totalRevenue.Value = (double)stats.TotalRevenue;
@@ -316,6 +318,7 @@ namespace BusinessManagementApp.ViewModels
             employeeStats.ClearAndAddRange(stats.EmployeeStats);
             customerStats.ClearAndAddRange(stats.CustomerStats);
             LoadProductCategoryPieChart();
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private void LoadProductCategoryPieChart()
