@@ -1,0 +1,46 @@
+﻿<Window x:Class="BusinessManagementApp.Views.Dialogs.ErrorDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BusinessManagementApp.Views.Dialogs"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d"
+        Title="{Binding MessageTitle}"
+        Background="{StaticResource AppBackgroundColorBrush}"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        Height="Auto" Width="650">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Image Source="{StaticResource CircleErrorIcon}" Width="75" Margin="20,25,0,25" />
+
+        <ui:SimpleStackPanel Grid.Column="1" HorizontalAlignment="Left"
+                             VerticalAlignment="Center" Margin="30,15,20,15" Spacing="10">
+            <TextBlock FontSize="25" FontWeight="Bold" Text="{Binding MessageTitle}" />
+            <TextBlock FontSize="14" Text="{Binding MessageContent}" />
+        </ui:SimpleStackPanel>
+
+        <Border Grid.Row="1" Grid.ColumnSpan="2" Padding="7" 
+                BorderThickness="0,0.5,0,0" BorderBrush="#d9d9d9">
+            <Button HorizontalAlignment="Right" VerticalAlignment="Stretch" 
+                    Width="130" Height="45" Margin="5"
+                    Foreground="White" Background="{StaticResource PrimaryColorBrush}"
+                    Command="{Binding Ok}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource CheckWhiteIcon}" Width="15" Margin="0,0,10,0" />
+                    <TextBlock FontSize="16">OK</TextBlock>
+                </StackPanel>
+            </Button>
+        </Border>
+    </Grid>
+</Window>

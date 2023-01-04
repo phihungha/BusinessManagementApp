@@ -6,6 +6,7 @@ using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
+using Refit;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
@@ -352,7 +353,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveEmployee()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
 
             ValidateAllProperties();
             if (HasErrors)
@@ -371,20 +371,42 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 CurrentPosition = Position
             };
 
-            if (IsEditMode)
+            try
             {
-                await employeesRepo.UpdateEmployee(Id, employee);
+                BusyIndicatorUtils.SetBusyIndicator(true);
+                if (IsEditMode)
+                {
+                    await employeesRepo.UpdateEmployee(Id, employee);
+                }
+                else
+                {
+                    await employeesRepo.AddEmployee(employee);
+                }
+                BusyIndicatorUtils.SetBusyIndicator(false);
+                WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
             }
-            else
+            catch (ApiException err)
             {
-                await employeesRepo.AddEmployee(employee);
-                await ExecuteCreateNewContract();
+                BusyIndicatorUtils.SetBusyIndicator(false);
+                if (err.Message.Contains("same phone number"))
+                {
+                    var dialog = new ErrorDialog(
+                        "Phone number already exists",
+                        "There is already an employee with this phone number.");
+                    dialog.Show();
+                }
+                else if (err.Message.Contains("same citizen ID"))
+                {
+                    var dialog = new ErrorDialog(
+                        "Citizen ID already exists",
+                        "There is already an employee with this citizen ID.");
+                    dialog.Show();
+                }
+                else
+                {
+                    throw err;
+                }
             }
-
-            BusyIndicatorUtils.SetBusyIndicator(false);
-
-            // Navigate back to list screen
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.EmployeeInfo);
         }
 
         private void DeleteEmployee()

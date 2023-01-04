@@ -1,4 +1,7 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using BusinessManagementApp.ViewModels.BusyIndicator;
+using BusinessManagementApp.Views.Dialogs;
+using Microsoft.Extensions.Hosting;
+using Refit;
 using System;
 using System.Globalization;
 using System.Windows;
@@ -18,6 +21,19 @@ namespace BusinessManagementApp
         {
             SetupCulture();
             host = CreateHostBuilder().Build();
+            Dispatcher.UnhandledException += Dispatcher_UnhandledException; ;
+        }
+
+        private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+        {
+            var apiErr = e.Exception as ApiException;
+
+            if (apiErr != null && MainWindow.IsLoaded)
+            {
+                e.Handled = true;
+                BusyIndicatorUtils.SetBusyIndicator(false);
+                new ErrorDialog("API Error", apiErr.Message).Show();
+            }
         }
 
         private void SetupCulture()

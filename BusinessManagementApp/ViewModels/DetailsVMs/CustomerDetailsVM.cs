@@ -5,6 +5,7 @@ using BusinessManagementApp.ViewModels.Navigation;
 using BusinessManagementApp.ViewModels.ValidationAttributes;
 using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
+using Refit;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Reactive.Linq;
@@ -130,7 +131,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.customersRepo = customersRepo;
 
             Save = new AsyncRelayCommand(SaveCustomer);
-            Delete = new AsyncRelayCommand(DeleteCustomer);
+            Delete = new RelayCommand(DeleteCustomer);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Customers)
                 );
@@ -179,20 +180,38 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Address = Address,
             };
 
-            if (IsEditMode)
+            try
             {
-                await customersRepo.UpdateCustomer(Id, customer);
+                BusyIndicatorUtils.SetBusyIndicator(true);
+                if (IsEditMode)
+                {
+                    await customersRepo.UpdateCustomer(Id, customer);
+                }
+                else
+                {
+                    await customersRepo.AddCustomer(customer);
+                }
+                BusyIndicatorUtils.SetBusyIndicator(false);
+                WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Customers);
             }
-            else
+            catch (ApiException err)
             {
-                await customersRepo.AddCustomer(customer);
+                BusyIndicatorUtils.SetBusyIndicator(false);
+                if (err.Message.Contains("same phone number"))
+                {
+                    var dialog = new ErrorDialog(
+                        "Phone number already exists",
+                        "There is already an employee with this phone number.");
+                    dialog.Show();
+                }
+                else
+                {
+                    throw err;
+                }
             }
-            BusyIndicatorUtils.SetBusyIndicator(false);
-            // Navigate back to list screen
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Customers);
         }
 
-        private async Task DeleteCustomer()
+        private void DeleteCustomer()
         {
             ConfirmDialog dialog = new ConfirmDialog(
                 "Delete Customer",
