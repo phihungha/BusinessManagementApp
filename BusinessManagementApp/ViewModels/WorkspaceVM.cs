@@ -1,4 +1,6 @@
-﻿using BusinessManagementApp.ViewModels.BusyIndicator;
+﻿using BusinessManagementApp.Data;
+using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -101,6 +103,10 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
+        public Employee? CurrentUser { get; }
+
+        public Position? CurrentPosition { get; }
+
         private bool isBusy = false;
 
         public bool IsBusy
@@ -111,11 +117,14 @@ namespace BusinessManagementApp.ViewModels
 
         public ICommand Logout { get; }
 
-        public WorkspaceVM()
+        public WorkspaceVM(SessionsRepo sessionsRepo)
         {
             navHelper = new WorkspaceNavHelper(this);
             busyIndicatorHelper = new BusyIndicatorHelper(this);
             Logout = new RelayCommand(() => MainWindowNavUtils.NavigateTo(MainWindowViewName.Login));
+
+            CurrentUser = sessionsRepo.CurrentUser;
+            CurrentPosition = sessionsRepo.CurrentPosition;
 
             // This needed to be done after initiating the helpers so
             // messenger-dependent features such as navigation and busy indicator can work.

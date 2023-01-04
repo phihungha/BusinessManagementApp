@@ -1,4 +1,5 @@
 ﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Data.Model.Auth;
 using BusinessManagementApp.Services;
 using System;
@@ -12,10 +13,25 @@ namespace BusinessManagementApp.Data
         private readonly IAuthApi api;
         private readonly SessionAuthData session;
 
+        public Employee? CurrentUser { get; private set; } = null;
+        public Position? CurrentPosition
+        {
+            get => CurrentUser?.CurrentPosition;
+        }
+
         public SessionsRepo(IAuthApi api, SessionAuthData session)
         {
             this.api = api;
             this.session = session;
+
+            CurrentUser = new Employee()
+            {
+                Name = "Ha Phi Hung",
+                CurrentPosition = new Position()
+                {
+                    Name = "Sales"
+                }
+            };
         }
 
         public async Task<bool> Authenticate(string userName, string password)
