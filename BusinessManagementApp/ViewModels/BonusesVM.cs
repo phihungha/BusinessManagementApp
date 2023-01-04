@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -180,14 +181,17 @@ namespace BusinessManagementApp.ViewModels
 
         private async void LoadData()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             BonusTypes.AddRange(await bonusTypesRepo.GetBonusTypes());
             bonusRecords = await bonusesRepo.GetBonusRecords(Year, Month);
             employees = await employeesRepo.GetEmployees();
             LoadBonusRecordVMs();
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private void LoadBonusRecordVMs()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             CanSave = false;
 
             bonusRecordVMs.Clear();
@@ -214,6 +218,7 @@ namespace BusinessManagementApp.ViewModels
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task SaveBonusRecords()
@@ -228,7 +233,7 @@ namespace BusinessManagementApp.ViewModels
                  })
                  .ToList();
             await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);
-            LoadData();
+            LoadData();           
         }
     }
 }
