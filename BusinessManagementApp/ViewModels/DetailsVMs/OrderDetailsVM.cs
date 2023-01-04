@@ -1,6 +1,7 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -419,6 +420,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -426,6 +428,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 SetEnableValue();
             }
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadOrder(int id)
@@ -448,6 +451,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveOrder()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -472,7 +476,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await ordersRepo.AddOrder(order);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
