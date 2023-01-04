@@ -197,7 +197,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Title = param.Title;
             List<OrderItem>? orderItems = param.OrderItems;
 
-            List<Product> products = await productsRepo.GetAvailableProducts();
+            List<Product> products = await productsRepo.GetProducts();
             foreach (var product in products)
             {
                 OrderItem? orderItem = orderItems?.Find(i => i.Product.Id == product.Id);

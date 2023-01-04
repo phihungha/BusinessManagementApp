@@ -22,7 +22,7 @@ namespace BusinessManagementApp.Views.DetailsViews
                 return;
 
             var viewModel = (SelectProductsVM)DataContext;
-            viewModel.SelectedProducts = ProductsListBox.SelectedItems.OfType<Product>().ToList();
+            viewModel.SelectedProductVMs = ProductsListBox.SelectedItems.OfType<SelectProductsVM.ProductVM>().ToList();
         }
     }
 }

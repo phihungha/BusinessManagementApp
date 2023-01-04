@@ -134,7 +134,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.productsRepo = productsRepo;
 
             Save = new AsyncRelayCommand(SaveProduct);
-            Delete = new AsyncRelayCommand(DeleteProduct);
+            Delete = new RelayCommand(DeleteProduct);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Products)
                 );
@@ -198,7 +198,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Products);
         }
 
-        private async Task DeleteProduct()
+        private void DeleteProduct()
         {
             ConfirmDialog dialog = new ConfirmDialog(
                  "Delete product",

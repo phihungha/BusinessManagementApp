@@ -58,6 +58,7 @@
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="Margin" Value="0,2,0,2" />
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                     </Style>
                 </ListBox.ItemContainerStyle>
 
@@ -71,14 +72,13 @@
 
                             <ui:SimpleStackPanel Spacing="3">
                                 <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Name}" />
-                                <TextBlock FontSize="13" Text="{Binding Id, StringFormat=ID: {0}}" />
-                                <TextBlock FontSize="13" Text="{Binding Category.Name}" />
-                                <TextBlock FontSize="13" Text="{Binding Description}" />
+                                <TextBlock FontSize="13" Text="{Binding Product.Id, StringFormat=ID: {0}}" />
+                                <TextBlock FontSize="13" Text="{Binding Product.Category.Name}" />
+                                <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                             </ui:SimpleStackPanel>
 
                             <ui:SimpleStackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
-                                <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Price, StringFormat=c}" />
-                                <TextBlock FontSize="13" Text="{Binding Stock, StringFormat={}{0} remaining(s)}" />
+                                <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Product.Price, StringFormat=c}" />
                             </ui:SimpleStackPanel>
                         </Grid>
                     </DataTemplate>

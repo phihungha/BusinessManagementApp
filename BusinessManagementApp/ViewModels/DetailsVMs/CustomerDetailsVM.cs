@@ -214,7 +214,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private void DeleteCustomer()
         {
             ConfirmDialog dialog = new ConfirmDialog(
-                "Delete Customer",
+                "Delete customer",
                 "Do you want to delete this customer?\n" +
                 "This action cannot be undone!");
             dialog.Closed += async (sender, eventArgs) =>

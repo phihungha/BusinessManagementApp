@@ -152,8 +152,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         // An object passed when navigating to this screen is also received here.
         private void ExecuteSelectProducts()
         {
-            var introMessage = "Select products item for voucher type";
-            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProducts, introMessage);
+            var param = new SelectProductsVM.Param()
+            {
+                Title = "Select product items for voucher type",
+                SelectedProducts = SelectedProducts.ToList()
+            };
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProducts, param);
         }
 
         public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
