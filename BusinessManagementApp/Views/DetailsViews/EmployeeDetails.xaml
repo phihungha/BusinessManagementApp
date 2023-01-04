@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignWidth="1290" d:DesignHeight="1020">
+             d:DesignWidth="1290" d:DesignHeight="1120">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
@@ -48,7 +48,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
-                    <RowDefinition Height="55" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Grid.Row="1" Margin="0,0,15,0">
@@ -200,7 +200,7 @@
 
                         <Button Command="{Binding RenewCurrentContract}" Margin="0,0,5,0"
                                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                Foreground="White" Background="#00e823">
+                                Foreground="White" Background="#00e823" IsEnabled="{Binding AllowRenewContract}">
                             <StackPanel Orientation="Horizontal">
                                 <Image Source="{StaticResource ClockRefreshIcon}" Width="15" Margin="0,0,10,0" />
                                 <TextBlock FontSize="13">Re-new current</TextBlock>
@@ -242,7 +242,7 @@
                         <TextBlock Grid.Row="1" Style="{StaticResource TextBoxLeftLabel}">
                             Start date
                         </TextBlock>
-                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,10,0,0"
+                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,5,0,5"
                                     HorizontalAlignment="Stretch"
                                     SelectedDate="{Binding NewContractStartDate}"
                                     DisplayDateStart="{Binding Contract.EndDate}" />
@@ -250,20 +250,20 @@
                         <TextBlock Grid.Row="2" Style="{StaticResource TextBoxLeftLabel}">
                             End date
                         </TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0"
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,0"
                                  Text="{Binding NewContractEndDate, Converter={converters:ContractEndDateToString}}"
                                  IsReadOnly="True" />
 
-                        <Button Grid.Row="3" Margin="0,10,0,0" Command="{Binding CreateNewContract}"
+                        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" Width="70"
+                                Margin="0,10,0,0" Command="{Binding CreateFutureContract}"
                                 Foreground="White" Background="{StaticResource PrimaryColorBrush}"
-                                Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}">
-                            Create
-                        </Button>
+                                Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVisibilityConverter}}"
+                                Content="{Binding NewContractBtnText}" />
                     </Grid>
                 </StackPanel>
 
                 <ListView Grid.Row="14" Grid.ColumnSpan="3" MaxHeight="200"
-                          HorizontalAlignment="Stretch" Margin="0,15,0,0"
+                          HorizontalAlignment="Stretch" Margin="0,15,0,15"
                           ItemsSource="{Binding Contracts}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
@@ -307,9 +307,9 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Button Grid.Row="16" Margin="0,5,5,5" Width="170" VerticalAlignment="Stretch"
+                <Button Grid.Row="16" Width="170" Height="45" VerticalAlignment="Stretch"
                         Foreground="White" Background="{StaticResource DangerColorBrush}"
-                        Command="{Binding Delete}" IsEnabled="{Binding CanDelete}">
+                        Command="{Binding Delete}" IsEnabled="{Binding IsEditMode}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource TrashWhiteIcon}" Width="15" Margin="0,0,10,0" />
                         <TextBlock FontSize="16">Delete</TextBlock>
@@ -317,7 +317,7 @@
                 </Button>
 
                 <UniformGrid Grid.Row="16" Grid.ColumnSpan="4" Columns="2"
-                             HorizontalAlignment="Right" Width="350">
+                             HorizontalAlignment="Right" Height="55" Width="350">
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                             Foreground="White" Background="{StaticResource PrimaryColorBrush}"
                             Command="{Binding Save}" IsEnabled="{Binding CanSave}">

@@ -103,9 +103,9 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
-        public Employee? CurrentUser { get; }
+        public Employee CurrentUser { get; }
 
-        public Position? CurrentPosition { get; }
+        public Position CurrentPosition { get; }
 
         private bool isBusy = false;
 

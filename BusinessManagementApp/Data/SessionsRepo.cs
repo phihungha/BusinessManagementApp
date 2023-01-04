@@ -13,10 +13,10 @@ namespace BusinessManagementApp.Data
         private readonly IAuthApi api;
         private readonly SessionAuthData session;
 
-        public Employee? CurrentUser { get; private set; } = null;
-        public Position? CurrentPosition
+        public Employee CurrentUser { get; private set; } = new();
+        public Position CurrentPosition
         {
-            get => CurrentUser?.CurrentPosition;
+            get => CurrentUser.CurrentPosition;
         }
 
         public SessionsRepo(IAuthApi api, SessionAuthData session)

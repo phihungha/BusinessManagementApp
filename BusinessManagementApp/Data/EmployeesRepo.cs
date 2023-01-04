@@ -8,11 +8,6 @@ namespace BusinessManagementApp.Data
 {
     public class EmployeeRepo
     {
-        public IObservable<object> DeleteEmployee(string id)
-        {
-            return Observable.FromAsync(() => Task.FromResult(new object())).Delay(new TimeSpan(0, 0, 2));
-        }
-
         public IObservable<Employee> GetEmployee(string id)
         {
             var employee = new Employee()
@@ -137,7 +132,12 @@ namespace BusinessManagementApp.Data
             return Observable.FromAsync(() => Task.FromResult(employee)).Delay(new TimeSpan(0, 0, 2));
         }
 
-        public IObservable<List<Contract>> AddContract(Contract contract)
+        public IObservable<object> DeleteEmployee(string id)
+        {
+            return Observable.FromAsync(() => Task.FromResult(new object())).Delay(new TimeSpan(0, 0, 2));
+        }
+
+        public IObservable<List<Contract>> AddFutureContract(string employeeId, Contract contract)
         {
             contract.Id = 3;
             var contracts = new List<Contract>
@@ -176,6 +176,32 @@ namespace BusinessManagementApp.Data
                     StartDate = new DateTime(2021, 5, 5),
                     EndDate = DateTime.Now.Date,
                     IsCurrent = false,
+                    Type = new ContractType() { Name = "Permanent" }
+                },
+
+                new Contract()
+                {
+                    Id = 1,
+                    StartDate = new DateTime(2011, 5, 5),
+                    EndDate = new DateTime(2021,5,5),
+                    IsCurrent = false,
+                    Type = new ContractType() { Name = "10 years" }
+                }
+            };
+
+            return Observable.FromAsync(() => Task.FromResult(contracts)).Delay(new TimeSpan(0, 0, 2));
+        }
+
+        public IObservable<List<Contract>> DeleteFutureContract(string employeeId)
+        {
+            var contracts = new List<Contract>
+            {
+                new Contract()
+                {
+                    Id = 2,
+                    StartDate = new DateTime(2021, 5, 5),
+                    EndDate = DateTime.Now.Date,
+                    IsCurrent = true,
                     Type = new ContractType() { Name = "Permanent" }
                 },
 

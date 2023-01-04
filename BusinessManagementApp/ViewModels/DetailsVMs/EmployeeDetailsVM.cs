@@ -27,6 +27,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private DepartmentsRepo departmentsRepo;
         private PositionsRepo positionsRepo;
         private ContractTypesRepo contractTypesRepo;
+        private SessionsRepo sessionsRepo;
 
         #endregion Dependencies
 
@@ -217,12 +218,29 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             private set => SetProperty(ref newContractEditorDisplayed, value);
         }
 
+        private bool allowRenewContract = false;
+        
+        public bool AllowRenewContract
+        {
+            get => allowRenewContract;
+            set => SetProperty(ref allowRenewContract, value);
+        }
+
+        private string newContractBtnText = "Create";
+
+        public string NewContractBtnText
+        {
+            get => newContractBtnText;
+            set => SetProperty(ref newContractBtnText, value);
+        }
+
         #endregion Button enable/disable logic
 
         #region Commands for buttons
 
         public ICommand ToggleNewContractEditor { get; private set; }
-        public ICommand CreateNewContract { get; private set; }
+        public ICommand CreateFutureContract { get; private set; }
+        public ICommand DeleteFutureContract { get; private set; }
         public ICommand RenewCurrentContract { get; private set; }
         public ICommand TerminateCurrentContract { get; private set; }
 
@@ -237,17 +255,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public EmployeeDetailsVM(EmployeeRepo employeesRepo,
                                  DepartmentsRepo departmentsRepo,
                                  PositionsRepo positionsRepo,
-                                 ContractTypesRepo contractTypesRepo)
+                                 ContractTypesRepo contractTypesRepo,
+                                 SessionsRepo sessionsRepo)
         {
             this.employeesRepo = employeesRepo;
             this.departmentsRepo = departmentsRepo;
             this.positionsRepo = positionsRepo;
             this.contractTypesRepo = contractTypesRepo;
+            this.sessionsRepo = sessionsRepo;
 
             ToggleNewContractEditor = new RelayCommand(
                 () => NewContractEditorDisplayed = !NewContractEditorDisplayed
                 );
-            CreateNewContract = new AsyncRelayCommand(ExecuteCreateNewContract);
+            CreateFutureContract = new AsyncRelayCommand(ExecuteCreateFutureContract);
+            DeleteFutureContract = new AsyncRelayCommand(ExecuteDeleteFutureContract);
             RenewCurrentContract = new RelayCommand(ExecuteRenewCurrentContract);
             TerminateCurrentContract = new AsyncRelayCommand(ExecuteTerminateCurrentContract);
 
@@ -304,6 +325,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Contract latestContract = Contracts.Last();
                 NewContractType = latestContract.Type;
                 NewContractStartDate = latestContract.StartDate;
+                NewContractBtnText = "Edit";
+            }
+
+            // Permanent contracts cannot be renewed
+            if (employee.CurrentContract.Type.Period != null)
+            {
+                AllowRenewContract = true;
             }
         }
 
@@ -316,21 +344,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             return null;
         }
 
-        private async Task ExecuteCreateNewContract()
+        private async Task ExecuteCreateFutureContract()
         {
             var contract = new Contract()
             {
-                EmployeeId = Id,
-                // TODO: Use current logged in user id
-                CompanyRepresentativeEmployeeId = "0",
+                CompanyRepresentativeEmployeeId = sessionsRepo.CurrentUser.Id,
                 Type = NewContractType,
-                IsCurrent = false,
                 StartDate = NewContractStartDate,
-                EndDate = NewContractEndDate
             };
 
             BusyIndicatorUtils.SetBusyIndicator(true);
-            Contracts.ClearAndAddRange(await employeesRepo.AddContract(contract));
+            Contracts.ClearAndAddRange(await employeesRepo.AddFutureContract(Id, contract));
+            NewContractBtnText = "Edit";
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -348,6 +373,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
             Contracts.ClearAndAddRange(await employeesRepo.TerminateCurrentContract(Id));
+            BusyIndicatorUtils.SetBusyIndicator(false);
+        }
+
+        private async Task ExecuteDeleteFutureContract()
+        {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+            Contracts.ClearAndAddRange(await employeesRepo.DeleteFutureContract(Id));
+            NewContractBtnText = "Create";
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -370,6 +403,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Department = Department,
                 CurrentPosition = Position
             };
+
+            if (!IsEditMode)
+            {
+                var newContract = new Contract()
+                {
+                    CompanyRepresentativeEmployeeId = sessionsRepo.CurrentUser.Id,
+                    Type = NewContractType,
+                    StartDate = NewContractStartDate,
+                };
+                employee.CurrentContract = newContract;
+            }
 
             try
             {
