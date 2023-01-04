@@ -19,10 +19,6 @@
         </Border>
 
         <Grid Grid.Row="1" Margin="0,20,0,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="59*" />
-                <ColumnDefinition Width="38*" />
-            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition />
@@ -71,7 +67,7 @@
                             </Grid.ColumnDefinitions>
 
                             <ui:SimpleStackPanel Spacing="3">
-                                <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Name}" />
+                                <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Product.Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Product.Id, StringFormat=ID: {0}}" />
                                 <TextBlock FontSize="13" Text="{Binding Product.Category.Name}" />
                                 <TextBlock FontSize="13" Text="{Binding Product.Description}" />
@@ -84,6 +80,15 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+
+            <Button Grid.Row="2" Margin="0,15,0,0" Height="45" Width="170" VerticalAlignment="Stretch"
+                        Foreground="White" Background="{StaticResource CancelColorBrush}"
+                        Command="{Binding DeselectAll}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource XSquareWhiteIcon}" Width="15" Margin="0,1.5,10,0" />
+                    <TextBlock FontSize="16">Deselect All</TextBlock>
+                </StackPanel>
+            </Button>
 
             <UniformGrid Grid.Row="2" Columns="2"
                          VerticalAlignment="Bottom" HorizontalAlignment="Right"

@@ -2,7 +2,19 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="IconThickness">1.5</sys:Double>
-    
+
+    <DrawingImage x:Key="XSquareWhiteIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M9,9L15,15 M15,9L9,15 M7.8,21L16.2,21C17.8802,21 18.7202,21 19.362,20.673 19.9265,20.3854 20.3854,19.9265 20.673,19.362 21,18.7202 21,17.8802 21,16.2L21,7.8C21,6.11984 21,5.27976 20.673,4.63803 20.3854,4.07354 19.9265,3.6146 19.362,3.32698 18.7202,3 17.8802,3 16.2,3L7.8,3C6.11984,3 5.27976,3 4.63803,3.32698 4.07354,3.6146 3.6146,4.07354 3.32698,4.63803 3,5.27976 3,6.11984 3,7.8L3,16.2C3,17.8802 3,18.7202 3.32698,19.362 3.6146,19.9265 4.07354,20.3854 4.63803,20.673 5.27976,21 6.11984,21 7.8,21z">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="PlusWhiteIcon">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
@@ -80,7 +92,7 @@
             <DrawingGroup ClipGeometry="M0,0 V20 H21 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M21,20z M0,0z M20,8C20,8 17.995,5.26822 16.3662,3.63824 14.7373,2.00827 12.4864,1 10,1 5.02944,1 1,5.02944 1,10 1,14.9706 5.02944,19 10,19 14.1031,19 17.5649,16.2543 18.6482,12.5 M20,8L20,2 M20,8L14,8">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -92,7 +104,7 @@
             <DrawingGroup ClipGeometry="M0,0 V20 H18 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M18,20z M0,0z M6,8.5L8,10.5 12.5,6 M17,19L17,5.8C17,4.11984 17,3.27976 16.673,2.63803 16.3854,2.07354 15.9265,1.6146 15.362,1.32698 14.7202,1 13.8802,1 12.2,1L5.8,1C4.11984,1 3.27976,1 2.63803,1.32698 2.07354,1.6146 1.6146,2.07354 1.32698,2.63803 1,3.27976 1,4.11984 1,5.8L1,19 3.75,17 6.25,19 9,17 11.75,19 14.25,17 17,19z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -116,7 +128,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,22z M0,0z M12.5295,7.35186C11.9571,7.75995 11.2566,8 10.5,8 8.567,8 7,6.433 7,4.5 7,2.567 8.567,1 10.5,1 11.753,1 12.8522,1.65842 13.4705,2.64814 M5,19.0872L7.61029,19.0872C7.95063,19.0872,8.28888,19.1277,8.61881,19.2086L11.3769,19.8789C11.9753,20.0247,12.5988,20.0388,13.2035,19.9214L16.253,19.3281C17.0585,19.1712,17.7996,18.7854,18.3803,18.2205L20.5379,16.1217C21.154,15.5234 21.154,14.5524 20.5379,13.9531 19.9832,13.4134 19.1047,13.3527 18.4771,13.8103L15.9626,15.6449C15.6025,15.9081,15.1643,16.0498,14.7137,16.0498L12.2855,16.0498 13.8311,16.0498C14.7022,16.0498,15.4079,15.3633,15.4079,14.5159L15.4079,14.2091C15.4079,13.5055,14.9156,12.892,14.2141,12.7219L11.8286,12.1417C11.4404,12.0476 11.0428,12 10.6431,12 9.67833,12 7.93189,12.7988 7.93189,12.7988L5,14.0249 M19,5.5C19,7.433 17.433,9 15.5,9 13.567,9 12,7.433 12,5.5 12,3.567 13.567,2 15.5,2 17.433,2 19,3.567 19,5.5z M1,13.6L1,19.4C1,19.9601 1,20.2401 1.10899,20.454 1.20487,20.6422 1.35785,20.7951 1.54601,20.891 1.75992,21 2.03995,21 2.6,21L3.4,21C3.96005,21 4.24008,21 4.45399,20.891 4.64215,20.7951 4.79513,20.6422 4.89101,20.454 5,20.2401 5,19.9601 5,19.4L5,13.6C5,13.0399 5,12.7599 4.89101,12.546 4.79513,12.3578 4.64215,12.2049 4.45399,12.109 4.24008,12 3.96005,12 3.4,12L2.6,12C2.03995,12 1.75992,12 1.54601,12.109 1.35785,12.2049 1.20487,12.3578 1.10899,12.546 1,12.7599 1,13.0399 1,13.6z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -128,7 +140,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H18 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M18,22z M0,0z M4,14.0903L4,21 8.70289,19.1188C8.81265,19.0749 8.86753,19.053 8.92419,19.0443 8.97444,19.0366 9.02556,19.0366 9.07581,19.0443 9.13247,19.053 9.18735,19.0749 9.29711,19.1188L14,21 14,14.0903 M16.5,8.5C16.5,12.6421 13.1421,16 9,16 4.85786,16 1.5,12.6421 1.5,8.5 1.5,4.35786 4.85786,1 9,1 13.1421,1 16.5,4.35786 16.5,8.5z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -140,7 +152,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H18 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M18,22z M0,0z M4.86866,14.4599L4,21 8.5884,18.247C8.73805,18.1572 8.81288,18.1123 8.89276,18.0947 8.96341,18.0792 9.03659,18.0792 9.10724,18.0947 9.18712,18.1123 9.26195,18.1572 9.4116,18.247L14,21 13.1319,14.4571 M13.4259,3.24888C13.5803,3.6224,13.8768,3.9193,14.25,4.0743L15.5589,4.61648C15.9325,4.77121 16.2292,5.06799 16.384,5.44154 16.5387,5.81509 16.5387,6.23481 16.384,6.60836L15.8422,7.91635C15.6874,8.29007,15.6872,8.71021,15.8427,9.08374L16.3835,10.3913C16.4602,10.5764 16.4997,10.7747 16.4997,10.975 16.4998,11.1752 16.4603,11.3736 16.3837,11.5586 16.3071,11.7436 16.1947,11.9118 16.0531,12.0534 15.9114,12.195 15.7433,12.3073 15.5582,12.3839L14.2503,12.9256C13.8768,13.0801,13.5799,13.3765,13.4249,13.7498L12.8827,15.0588C12.728,15.4323 12.4312,15.7291 12.0577,15.8838 11.6841,16.0386 11.2644,16.0386 10.8909,15.8838L9.58296,15.342C9.20942,15.1877,8.78987,15.188,8.41656,15.3429L7.10767,15.8843C6.73434,16.0387 6.31501,16.0386 5.94178,15.884 5.56854,15.7293 5.27194,15.4329 5.11711,15.0598L4.57479,13.7504C4.42035,13.3769,4.12391,13.08,3.75064,12.925L2.44175,12.3828C2.06838,12.2282 1.77169,11.9316 1.61691,11.5582 1.46213,11.1849 1.46192,10.7654 1.61633,10.3919L2.1581,9.08391C2.31244,8.71035,2.31213,8.29079,2.15722,7.91746L1.61623,6.60759C1.53953,6.42257 1.50003,6.22426 1.5,6.02397 1.49997,5.82369 1.5394,5.62536 1.61604,5.44032 1.69268,5.25529 1.80504,5.08716 1.94668,4.94556 2.08832,4.80396 2.25647,4.69166 2.44152,4.61508L3.74947,4.07329C4.12265,3.91898,4.41936,3.6229,4.57448,3.25004L5.11664,1.94111C5.27136,1.56756 5.56813,1.27078 5.94167,1.11605 6.3152,0.961318 6.7349,0.961318 7.10844,1.11605L8.41638,1.65784C8.78993,1.81218,9.20948,1.81187,9.58279,1.65696L10.8922,1.11689C11.2657,0.962245 11.6853,0.962277 12.0588,1.11697 12.4322,1.27167 12.729,1.56837 12.8837,1.94182L13.426,3.25115 13.4259,3.24888z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -152,12 +164,12 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M20.5,7.27783L12,12.0001 M12,12.0001L3.49997,7.27783 M12,12.0001L12,21.5001 M21,16.0586L21,7.94153C21,7.59889 21,7.42757 20.9495,7.27477 20.9049,7.13959 20.8318,7.01551 20.7354,6.91082 20.6263,6.79248 20.4766,6.70928 20.177,6.54288L12.777,2.43177C12.4934,2.27421 12.3516,2.19543 12.2015,2.16454 12.0685,2.13721 11.9315,2.13721 11.7986,2.16454 11.6484,2.19543 11.5066,2.27421 11.223,2.43177L3.82297,6.54288C3.52345,6.70928 3.37369,6.79248 3.26463,6.91082 3.16816,7.01551 3.09515,7.13959 3.05048,7.27477 3,7.42757 3,7.59889 3,7.94153L3,16.0586C3,16.4013 3,16.5726 3.05048,16.7254 3.09515,16.8606 3.16816,16.9847 3.26463,17.0893 3.37369,17.2077 3.52345,17.2909 3.82297,17.4573L11.223,21.5684C11.5066,21.726 11.6484,21.8047 11.7986,21.8356 11.9315,21.863 12.0685,21.863 12.2015,21.8356 12.3516,21.8047 12.4934,21.726 12.777,21.5684L20.177,17.4573C20.4766,17.2909 20.6263,17.2077 20.7354,17.0893 20.8318,16.9847 20.9049,16.8606 20.9495,16.7254 21,16.5726 21,16.4013 21,16.0586z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M16.5,9.5L7.5,4.5">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -169,7 +181,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H20 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M20,22z M0,0z M15,19L14.8,19C13.1198,19 12.2798,19 11.638,18.673 11.0735,18.3854 10.6146,17.9265 10.327,17.362 10,16.7202 10,15.8802 10,14.2L10,7.8C10,6.11984 10,5.27976 10.327,4.63803 10.6146,4.07354 11.0735,3.6146 11.638,3.32698 12.2798,3 13.1198,3 14.8,3L15,3 M15,19C15,20.1046 15.8954,21 17,21 18.1046,21 19,20.1046 19,19 19,17.8954 18.1046,17 17,17 15.8954,17 15,17.8954 15,19z M15,3C15,4.10457 15.8954,5 17,5 18.1046,5 19,4.10457 19,3 19,1.89543 18.1046,1 17,1 15.8954,1 15,1.89543 15,3z M5,11L15,11 M5,11C5,12.1046 4.10457,13 3,13 1.89543,13 1,12.1046 1,11 1,9.89543 1.89543,9 3,9 4.10457,9 5,9.89543 5,11z M15,11C15,12.1046 15.8954,13 17,13 18.1046,13 19,12.1046 19,11 19,9.89543 18.1046,9 17,9 15.8954,9 15,9.89543 15,11z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -181,7 +193,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H19 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M19,22z M0,0z M17,11.5L17,5.8C17,4.11984 17,3.27976 16.673,2.63803 16.3854,2.07354 15.9265,1.6146 15.362,1.32698 14.7202,1 13.8802,1 12.2,1L5.8,1C4.11984,1 3.27976,1 2.63803,1.32698 2.07354,1.6146 1.6146,2.07354 1.32698,2.63803 1,3.27976 1,4.11984 1,5.8L1,16.2C1,17.8802 1,18.7202 1.32698,19.362 1.6146,19.9265 2.07354,20.3854 2.63803,20.673 3.27976,21 4.11984,21 5.8,21L9,21 M11,10L5,10 M7,14L5,14 M13,6L5,6 M11.5,18L13.5,20 18,15.5">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -193,7 +205,7 @@
             <DrawingGroup ClipGeometry="M0,0 V20 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,20z M0,0z M21,19L21,17C21,15.1362,19.7252,13.5701,18,13.126 M14.5,1.29076C15.9659,1.88415 17,3.32131 17,5 17,6.67869 15.9659,8.11585 14.5,8.70924 M16,19C16,17.1362 16,16.2044 15.6955,15.4693 15.2895,14.4892 14.5108,13.7105 13.5307,13.3045 12.7956,13 11.8638,13 10,13L7,13C5.13623,13 4.20435,13 3.46927,13.3045 2.48915,13.7105 1.71046,14.4892 1.30448,15.4693 1,16.2044 1,17.1362 1,19 M12.5,5C12.5,7.20914 10.7091,9 8.5,9 6.29086,9 4.5,7.20914 4.5,5 4.5,2.79086 6.29086,1 8.5,1 10.7091,1 12.5,2.79086 12.5,5z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -205,7 +217,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,22z M0,0z M3,17L3,16.8C3,15.1198 3,14.2798 3.32698,13.638 3.6146,13.0735 4.07354,12.6146 4.63803,12.327 5.27976,12 6.11984,12 7.8,12L14.2,12C15.8802,12 16.7202,12 17.362,12.327 17.9265,12.6146 18.3854,13.0735 18.673,13.638 19,14.2798 19,15.1198 19,16.8L19,17 M3,17C1.89543,17 1,17.8954 1,19 1,20.1046 1.89543,21 3,21 4.10457,21 5,20.1046 5,19 5,17.8954 4.10457,17 3,17z M19,17C17.8954,17 17,17.8954 17,19 17,20.1046 17.8954,21 19,21 20.1046,21 21,20.1046 21,19 21,17.8954 20.1046,17 19,17z M11,17C9.89543,17 9,17.8954 9,19 9,20.1046 9.89543,21 11,21 12.1046,21 13,20.1046 13,19 13,17.8954 12.1046,17 11,17z M11,17L11,7 M5,7L17,7C17.9319,7 18.3978,7 18.7654,6.84776 19.2554,6.64477 19.6448,6.25542 19.8478,5.76537 20,5.39782 20,4.93188 20,4 20,3.06812 20,2.60218 19.8478,2.23463 19.6448,1.74458 19.2554,1.35523 18.7654,1.15224 18.3978,1 17.9319,1 17,1L5,1C4.06812,1 3.60218,1 3.23463,1.15224 2.74458,1.35523 2.35523,1.74458 2.15224,2.23463 2,2.60218 2,3.06812 2,4 2,4.93188 2,5.39782 2.15224,5.76537 2.35523,6.25542 2.74458,6.64477 3.23463,6.84776 3.60218,7 4.06812,7 5,7z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -217,7 +229,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,22z M0,0z M11,5L11,21 M11,5L7.46429,5C6.94332,5 6.4437,4.78929 6.07533,4.41421 5.70695,4.03914 5.5,3.53043 5.5,3 5.5,2.46957 5.70695,1.96086 6.07533,1.58579 6.4437,1.21071 6.94332,1 7.46429,1 10.2143,1 11,5 11,5z M11,5L14.5357,5C15.0567,5 15.5563,4.78929 15.9247,4.41421 16.293,4.03914 16.5,3.53043 16.5,3 16.5,2.46957 16.293,1.96086 15.9247,1.58579 15.5563,1.21071 15.0567,1 14.5357,1 11.7857,1 11,5 11,5z M19,10L19,17.8C19,18.9201 19,19.4802 18.782,19.908 18.5903,20.2843 18.2843,20.5903 17.908,20.782 17.4802,21 16.9201,21 15.8,21L6.2,21C5.07989,21 4.51984,21 4.09202,20.782 3.71569,20.5903 3.40973,20.2843 3.21799,19.908 3,19.4802 3,18.9201 3,17.8L3,10 M1,6.6L1,8.4C1,8.96005 1,9.24008 1.10899,9.45399 1.20487,9.64215 1.35785,9.79513 1.54601,9.89101 1.75992,10 2.03995,10 2.6,10L19.4,10C19.9601,10 20.2401,10 20.454,9.89101 20.6422,9.79513 20.7951,9.64215 20.891,9.45399 21,9.24008 21,8.96005 21,8.4L21,6.6C21,6.03995 21,5.75992 20.891,5.54601 20.7951,5.35785 20.6422,5.20487 20.454,5.10899 20.2401,5 19.9601,5 19.4,5L2.6,5C2.03995,5 1.75992,5 1.54601,5.10899 1.35785,5.20487 1.20487,5.35785 1.10899,5.54601 1,5.75992 1,6.03995 1,6.6z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -229,7 +241,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,22z M0,0z M11,6L6.5,6C5.83696,6 5.20107,5.73661 4.73223,5.26777 4.26339,4.79893 4,4.16304 4,3.5 4,2.83696 4.26339,2.20107 4.73223,1.73223 5.20107,1.26339 5.83696,1 6.5,1 10,1 11,6 11,6z M11,6L15.5,6C16.163,6 16.7989,5.73661 17.2678,5.26777 17.7366,4.79893 18,4.16304 18,3.5 18,2.83696 17.7366,2.20107 17.2678,1.73223 16.7989,1.26339 16.163,1 15.5,1 12,1 11,6 11,6z M11,6L11,21 M1,13L21,13 M1,9.2L1,17.8C1,18.9201 1,19.4802 1.21799,19.908 1.40973,20.2843 1.71569,20.5903 2.09202,20.782 2.51984,21 3.07989,21 4.2,21L17.8,21C18.9201,21 19.4802,21 19.908,20.782 20.2843,20.5903 20.5903,20.2843 20.782,19.908 21,19.4802 21,18.9201 21,17.8L21,9.2C21,8.0799 21,7.51984 20.782,7.09202 20.5903,6.7157 20.2843,6.40974 19.908,6.21799 19.4802,6 18.9201,6 17.8,6L4.2,6C3.0799,6 2.51984,6 2.09202,6.21799 1.7157,6.40973 1.40973,6.71569 1.21799,7.09202 1,7.51984 1,8.07989 1,9.2z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -241,7 +253,7 @@
             <DrawingGroup ClipGeometry="M0,0 V20 H20 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M20,20z M0,0z M7,5L2.6,5C2.03995,5 1.75992,5 1.54601,5.10899 1.35785,5.20487 1.20487,5.35785 1.10899,5.54601 1,5.75992 1,6.03995 1,6.6L1,17.4C1,17.9601 1,18.2401 1.10899,18.454 1.20487,18.6422 1.35785,18.7951 1.54601,18.891 1.75992,19 2.03995,19 2.6,19L7,19 M7,19L13,19 M7,19L7,2.6C7,2.03995 7,1.75992 7.10899,1.54601 7.20487,1.35785 7.35785,1.20487 7.54601,1.10899 7.75992,1 8.03995,1 8.6,1L11.4,1C11.9601,1 12.2401,1 12.454,1.10899 12.6422,1.20487 12.7951,1.35785 12.891,1.54601 13,1.75992 13,2.03995 13,2.6L13,19 M13,9L17.4,9C17.9601,9 18.2401,9 18.454,9.10899 18.6422,9.20487 18.7951,9.35785 18.891,9.54601 19,9.75992 19,10.0399 19,10.6L19,17.4C19,17.9601 19,18.2401 18.891,18.454 18.7951,18.6422 18.6422,18.7951 18.454,18.891 18.2401,19 17.9601,19 17.4,19L13,19">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -253,7 +265,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,22z M0,0z M6,21L6,10 M1,12L1,19C1,20.1046,1.89543,21,3,21L16.4262,21C17.907,21,19.1662,19.9197,19.3914,18.4562L20.4683,11.4562C20.7479,9.6389,19.3418,8,17.5032,8L14,8C13.4477,8,13,7.55228,13,7L13,3.46584C13,2.10399 11.896,1 10.5342,1 10.2093,1 9.91498,1.1913 9.78306,1.48812L6.26394,9.40614C6.10344,9.76727,5.74532,10,5.35013,10L3,10C1.89543,10,1,10.8954,1,12z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -265,7 +277,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H22 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M22,22z M0,0z M5,5L9.5,9.5 M5,5L2,5 1,2 2,1 5,2 5,5z M18.259,1.74101L15.6314,4.36863C15.2354,4.76465 15.0373,4.96265 14.9632,5.19098 14.8979,5.39183 14.8979,5.60817 14.9632,5.80902 15.0373,6.03735 15.2354,6.23535 15.6314,6.63137L15.8686,6.86863C16.2646,7.26465 16.4627,7.46265 16.691,7.53684 16.8918,7.6021 17.1082,7.6021 17.309,7.53684 17.5373,7.46265 17.7354,7.26465 18.1314,6.86863L20.5893,4.41072C20.854,5.05488 21,5.76039 21,6.5 21,9.53757 18.5376,12 15.5,12 15.1338,12 14.7759,11.9642 14.4298,11.8959 13.9436,11.8001 13.7005,11.7521 13.5532,11.7668 13.3965,11.7824 13.3193,11.8059 13.1805,11.8802 13.0499,11.9501 12.919,12.081 12.657,12.343L5.5,19.5C4.67157,20.3284 3.32843,20.3284 2.5,19.5 1.67157,18.6716 1.67157,17.3284 2.5,16.5L9.65703,9.34297C9.91897,9.08103 10.0499,8.95005 10.1198,8.81949 10.1941,8.68068 10.2176,8.60347 10.2332,8.44681 10.2479,8.29945 10.1999,8.05638 10.1041,7.57024 10.0358,7.22406 10,6.86621 10,6.5 10,3.46243 12.4624,1 15.5,1 16.5055,1 17.448,1.26982 18.259,1.74101z M11.0001,13.9999L16.5,19.4999C17.3284,20.3283 18.6716,20.3283 19.5,19.4999 20.3284,18.6715 20.3284,17.3283 19.5,16.4999L14.9753,11.9753C14.655,11.945 14.3427,11.8872 14.0408,11.8043 13.6517,11.6975 13.2249,11.7751 12.9397,12.0603L11.0001,13.9999z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -277,7 +289,7 @@
             <DrawingGroup ClipGeometry="M0,0 V22 H18 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M18,22z M0,0z M5,13L5,17 M13,11L13,17 M9,7L9,17 M17,5.8L17,16.2C17,17.8802 17,18.7202 16.673,19.362 16.3854,19.9265 15.9265,20.3854 15.362,20.673 14.7202,21 13.8802,21 12.2,21L5.8,21C4.11984,21 3.27976,21 2.63803,20.673 2.07354,20.3854 1.6146,19.9265 1.32698,19.362 1,18.7202 1,17.8802 1,16.2L1,5.8C1,4.11984 1,3.27976 1.32698,2.63803 1.6146,2.07354 2.07354,1.6146 2.63803,1.32698 3.27976,1 4.11984,1 5.8,1L12.2,1C13.8802,1 14.7202,1 15.362,1.32698 15.9265,1.6146 16.3854,2.07354 16.673,2.63803 17,3.27976 17,4.11984 17,5.8z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -289,7 +301,7 @@
             <DrawingGroup ClipGeometry="M0,0 V20 H20 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M20,20z M0,0z M19,19L4.2,19C3.07989,19 2.51984,19 2.09202,18.782 1.71569,18.5903 1.40973,18.2843 1.21799,17.908 1,17.4802 1,16.9201 1,15.8L1,1 M5,12.5L5,15.5 M9.5,9.5L9.5,15.5 M14,6.5L14,15.5 M18.5,3.5L18.5,15.5">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -325,7 +337,7 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M11,3.99998L6.8,3.99998C5.11984,3.99998 4.27976,3.99998 3.63803,4.32696 3.07354,4.61458 2.6146,5.07353 2.32698,5.63801 2,6.27975 2,7.11983 2,8.79998L2,17.2C2,18.8801 2,19.7202 2.32698,20.362 2.6146,20.9264 3.07354,21.3854 3.63803,21.673 4.27976,22 5.11984,22 6.8,22L15.2,22C16.8802,22 17.7202,22 18.362,21.673 18.9265,21.3854 19.3854,20.9264 19.673,20.362 20,19.7202 20,18.8801 20,17.2L20,13 M7.99997,16L9.67452,16C10.1637,16 10.4083,16 10.6385,15.9447 10.8425,15.8957 11.0376,15.8149 11.2166,15.7053 11.4184,15.5816 11.5914,15.4086 11.9373,15.0627L21.5,5.49998C22.3284,4.67156 22.3284,3.32841 21.5,2.49998 20.6716,1.67156 19.3284,1.67155 18.5,2.49998L8.93723,12.0627C8.59133,12.4086 8.41838,12.5816 8.29469,12.7834 8.18504,12.9624 8.10423,13.1574 8.05523,13.3615 7.99997,13.5917 7.99997,13.8363 7.99997,14.3255L7.99997,16z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -337,7 +349,7 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M22.7,11.5L20.7005,13.5 18.7,11.5 M20.9451,13C20.9814,12.6717 21,12.338 21,12 21,7.02944 16.9706,3 12,3 7.02944,3 3,7.02944 3,12 3,16.9706 7.02944,21 12,21 14.8273,21 17.35,19.6963 19,17.6573 M12,7L12,12 15,14">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="White" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="White" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -349,7 +361,7 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M11.9998,8.99999L11.9998,13 M11.9998,17L12.0098,17 M10.6151,3.89171L2.39019,18.0983C1.93398,18.8863 1.70588,19.2803 1.73959,19.6037 1.769,19.8857 1.91677,20.142 2.14613,20.3088 2.40908,20.5 2.86435,20.5 3.77487,20.5L20.2246,20.5C21.1352,20.5 21.5904,20.5 21.8534,20.3088 22.0827,20.142 22.2305,19.8857 22.2599,19.6037 22.2936,19.2803 22.0655,18.8863 21.6093,18.0983L13.3844,3.89171C12.9299,3.10654 12.7026,2.71396 12.4061,2.58211 12.1474,2.4671 11.8521,2.4671 11.5935,2.58211 11.2969,2.71396 11.0696,3.10655 10.6151,3.89171z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource WarningColorBrush}" Thickness="1.7" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{StaticResource WarningColorBrush}" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -361,7 +373,7 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,8L12,12 M12,16L12.01,16 M22,12C22,17.5228 17.5228,22 12,22 6.47715,22 2,17.5228 2,12 2,6.47715 6.47715,2 12,2 17.5228,2 22,6.47715 22,12z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="Red" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="Red" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
