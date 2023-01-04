@@ -58,6 +58,7 @@
                      SelectionMode="Multiple"
                      SelectionChanged="ProductsListBox_SelectionChanged"
                      Margin="0,20,0,0" MaxHeight="500"
+                     Background="White"
                      HorizontalContentAlignment="Stretch"
                      d:ItemsSource="{d:SampleData ItemCount=3}">
                 <ListBox.ItemContainerStyle>

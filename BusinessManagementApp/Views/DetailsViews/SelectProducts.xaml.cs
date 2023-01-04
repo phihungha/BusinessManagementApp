@@ -13,6 +13,12 @@ namespace BusinessManagementApp.Views.DetailsViews
         public SelectProducts()
         {
             InitializeComponent();
+            Loaded += SelectProducts_Loaded;
+        }
+
+        private void SelectProducts_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            ProductsListBox.Focus();
         }
 
         // ListBox doesn't support binding with SelectedItems so an event handler is needed

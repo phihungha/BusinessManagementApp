@@ -49,7 +49,7 @@
 
             <ListBox Grid.Row="1" Grid.ColumnSpan="2" x:Name="ProductsListBox" ItemsSource="{Binding ProductsView}"
                      SelectionMode="Multiple" SelectionChanged="ProductsListBox_SelectionChanged"
-                     Margin="0,20,0,0" HorizontalContentAlignment="Stretch"
+                     Background="White" Margin="0,20,0,0" HorizontalContentAlignment="Stretch"
                      d:ItemsSource="{d:SampleData ItemCount=3}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
