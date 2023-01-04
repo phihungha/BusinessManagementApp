@@ -1,6 +1,8 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.ComponentModel.DataAnnotations;
@@ -99,6 +101,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public override async void LoadData(object? id = null)
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
                 IsEditMode = true;
@@ -106,6 +109,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             CanSave = true;
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadBonusType(int id)
@@ -119,6 +123,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveBonusType()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -139,15 +144,28 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 await bonusTypesRepo.AddBonusType(bonusType);
             }
-
+            BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes);
         }
 
         private async Task DeleteBonusType()
         {
-            await bonusTypesRepo.DeleteBonusType(Id);
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes);
+            ConfirmDialog dialog = new ConfirmDialog(
+                "Delete employee",
+                "Do you want to delete this employee?\n" +
+                "This action cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    await bonusTypesRepo.DeleteBonusType(Id);
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                    WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes);
+                }
+            };
+            dialog.Show();
         }
     }
 }
