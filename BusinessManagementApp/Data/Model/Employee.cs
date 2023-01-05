@@ -23,6 +23,10 @@ namespace BusinessManagementApp.Data.Model
 
         public string Address { get; set; }
 
+        public string? UserName { get; set; }
+
+        public string? NewPassword { get; set; }
+
         // Only include Id and Name
         public Department Department { get; set; }
 

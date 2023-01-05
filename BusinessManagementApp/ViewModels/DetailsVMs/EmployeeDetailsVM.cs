@@ -186,6 +186,30 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref newContractEndDate, value);
         }
 
+        private bool allowLogin = false;
+
+        public bool AllowLogin
+        {
+            get => allowLogin;
+            set => SetProperty(ref allowLogin, value);
+        }
+
+        private string userName = "";
+
+        public string UserName
+        {
+            get => userName;
+            set => SetProperty(ref userName, value);
+        }
+
+        private string newPassword = "";
+
+        public string NewPassword
+        {
+            get => newPassword;
+            set => SetProperty(ref newPassword, value);
+        }
+
         #endregion Input properties
 
         #region Button enable/disable logic
@@ -219,11 +243,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private bool allowRenewContract = false;
-        
+
         public bool AllowRenewContract
         {
             get => allowRenewContract;
             set => SetProperty(ref allowRenewContract, value);
+        }
+
+        private bool allowTerminateContract = false;
+
+        public bool AllowTerminateContract
+        {
+            get => allowTerminateContract;
+            set => SetProperty(ref allowTerminateContract, value);
         }
 
         private string newContractBtnText = "Create";
@@ -319,6 +351,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Contracts.AddRange(employee.Contracts);
             Contract = employee.CurrentContract;
 
+            if (employee.UserName != null)
+            {
+                UserName = employee.UserName;
+                AllowLogin = true;
+            }
+
             // Edit the latest contract if it is not yet active
             if (!Contracts.First().IsCurrent)
             {
@@ -326,6 +364,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 NewContractType = latestContract.Type;
                 NewContractStartDate = latestContract.StartDate;
                 NewContractBtnText = "Edit";
+            }
+            else
+            {
+                AllowTerminateContract = true;
             }
 
             // Permanent contracts cannot be renewed
@@ -386,7 +428,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveEmployee()
         {
-
             ValidateAllProperties();
             if (HasErrors)
                 return;
@@ -401,7 +442,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Email = Email,
                 Address = Address,
                 Department = Department,
-                CurrentPosition = Position
+                CurrentPosition = Position,
+                UserName = UserName,
+                NewPassword = NewPassword
             };
 
             if (!IsEditMode)
@@ -444,6 +487,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     var dialog = new ErrorDialog(
                         "Citizen ID already exists",
                         "There is already an employee with this citizen ID.");
+                    dialog.Show();
+                }
+                else if (err.Message.Contains("same user name"))
+                {
+                    var dialog = new ErrorDialog(
+                        "User name already exists",
+                        "There is already an employee with this user name.");
                     dialog.Show();
                 }
                 else

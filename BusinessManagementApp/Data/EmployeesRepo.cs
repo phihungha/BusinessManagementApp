@@ -22,6 +22,7 @@ namespace BusinessManagementApp.Data
                 Email = "NguyenA@gmail.com",
                 Address = "178 Nguyen Trai, Binh Duong",
                 Department = new Department { Id = 2, Name = "Human resources" },
+                UserName = "vanA",
                 CurrentPosition = new Position() { Id = 4, Name = "Director" },
                 CurrentContract = new Contract()
                 {

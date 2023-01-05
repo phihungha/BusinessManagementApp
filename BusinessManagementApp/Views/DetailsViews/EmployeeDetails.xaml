@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignWidth="1290" d:DesignHeight="1120">
+             d:DesignWidth="1290" d:DesignHeight="1320">
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
@@ -32,6 +32,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -307,7 +309,53 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <Button Grid.Row="16" Width="170" Height="45" VerticalAlignment="Stretch"
+                <Border Grid.Row="15" Grid.ColumnSpan="3" Margin="0,20,0,0"
+                        Style="{StaticResource SectionTitleBorder}">
+                    <TextBlock FontSize="30">
+                        Login
+                    </TextBlock>
+                </Border>
+
+                <Grid Grid.Row="16" Grid.ColumnSpan="3" Width="450" 
+                      HorizontalAlignment="Left" Margin="0,15,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Style="{StaticResource TextBoxLeftLabel}">
+                            Allow login
+                    </TextBlock>
+                    <CheckBox Grid.Column="1" IsChecked="{Binding AllowLogin}" />
+
+                    <TextBlock Grid.Row="1" Style="{StaticResource TextBoxLeftLabel}"
+                               Visibility="{Binding AllowLogin, 
+                                            Converter={StaticResource BoolToVisibilityConverter}}">
+                            User name
+                    </TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" 
+                             Visibility="{Binding AllowLogin, 
+                                          Converter={StaticResource BoolToVisibilityConverter}}"
+                             Text="{Binding UserName}" />
+
+                    <TextBlock Grid.Row="2" Style="{StaticResource TextBoxLeftLabel}"
+                               Visibility="{Binding AllowLogin, 
+                                            Converter={StaticResource BoolToVisibilityConverter}}">
+                            New password
+                    </TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" 
+                             Visibility="{Binding AllowLogin, 
+                                          Converter={StaticResource BoolToVisibilityConverter}}"
+                             Text="{Binding NewPassword}"/>
+                </Grid>
+
+                <Button Grid.Row="18" Width="170" Height="43" VerticalAlignment="Stretch" Margin="0,20,0,0"
                         Foreground="White" Background="{StaticResource DangerColorBrush}"
                         Command="{Binding Delete}" IsEnabled="{Binding IsEditMode}">
                     <StackPanel Orientation="Horizontal">
@@ -316,7 +364,7 @@
                     </StackPanel>
                 </Button>
 
-                <UniformGrid Grid.Row="16" Grid.ColumnSpan="4" Columns="2"
+                <UniformGrid Grid.Row="18" Grid.ColumnSpan="4" Columns="2" Margin="0,20,0,0"
                              HorizontalAlignment="Right" Height="55" Width="350">
                     <Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5"
                             Foreground="White" Background="{StaticResource PrimaryColorBrush}"
