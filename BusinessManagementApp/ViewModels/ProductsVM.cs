@@ -47,8 +47,15 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public ProductsVM(ProductsRepo productsRepo)
+        public bool AllowAdd { get; } = false;
+
+        public ProductsVM(ProductsRepo productsRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageSales)
+            {
+                AllowAdd = true;
+            }
+
             this.productsRepo = productsRepo;
             var collectionViewSource = new CollectionViewSource() { Source = products };
             ProductsView = collectionViewSource.View;

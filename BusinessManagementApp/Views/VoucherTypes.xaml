@@ -27,7 +27,7 @@
                     Voucher type information
                 </TextBlock>
 
-                <Button Grid.Column="1" Command="{Binding AddVoucherType}" 
+                <Button IsEnabled="{Binding AllowAdd}" Grid.Column="1" Command="{Binding AddVoucherType}" 
                         HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">

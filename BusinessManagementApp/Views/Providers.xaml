@@ -27,7 +27,7 @@
                     Provider information
                 </TextBlock>
 
-                <Button Grid.Column="1" Command="{Binding AddProvider}" 
+                <Button IsEnabled="{Binding AllowAdd}" Grid.Column="1" Command="{Binding AddProvider}" 
                         HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">

@@ -27,7 +27,7 @@
                     Department information
                 </TextBlock>
 
-                <Button Grid.Column="1" Command="{Binding AddDepartment}" 
+                <Button IsEnabled="{Binding AllowAdd}" Grid.Column="1" Command="{Binding AddDepartment}" 
                         HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">

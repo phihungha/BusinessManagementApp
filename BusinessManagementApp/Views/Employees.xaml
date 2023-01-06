@@ -27,7 +27,7 @@
                     Employee information
                 </TextBlock>
 
-                <Button Grid.Column="1" Command="{Binding AddEmployee}" 
+                <Button IsEnabled="{Binding AllowAdd}" Grid.Column="1" Command="{Binding AddEmployee}" 
                         HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">

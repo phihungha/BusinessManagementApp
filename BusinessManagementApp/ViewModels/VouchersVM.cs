@@ -50,8 +50,15 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand DeleteVouchers { get; }
 
-        public VouchersVM(VouchersRepo vouchersRepo)
+        public bool AllowEdit { get; } = false;
+
+        public VouchersVM(VouchersRepo vouchersRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageSales)
+            {
+                AllowEdit = true;
+            }
+
             this.vouchersRepo = vouchersRepo;
 
             // DataGrid accesses the ObservableCollection of model objects

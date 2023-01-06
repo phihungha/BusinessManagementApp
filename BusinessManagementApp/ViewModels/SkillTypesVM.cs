@@ -24,7 +24,7 @@ namespace BusinessManagementApp.ViewModels
 
     public class SkillTypesVM : ViewModelBase
     {
-        private SkillTypesRepo skillTypeRepo;
+        private SkillTypesRepo skillTypesRepo;
 
         private ObservableCollection<SkillType> skillTypes { get; } = new();
 
@@ -38,11 +38,18 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
+        public bool AllowAdd { get; } = false;
+
         // Declare dependencies (e.g repositories) to use as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public SkillTypesVM(SkillTypesRepo skillTypesRepo)
+        public SkillTypesVM(SkillTypesRepo skillTypesRepo, SessionsRepo sessionsRepo)
         {
-            this.skillTypeRepo = skillTypesRepo;
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowAdd = true;
+            }
+
+            this.skillTypesRepo = skillTypesRepo;
 
             // DataGrid accesses the ObservableCollection of model objects
             // indirectly via a ICollectionView to support filtering.
@@ -88,7 +95,7 @@ namespace BusinessManagementApp.ViewModels
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            skillTypes.AddRange(await skillTypeRepo.GetSkillTypes());
+            skillTypes.AddRange(await skillTypesRepo.GetSkillTypes());
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }

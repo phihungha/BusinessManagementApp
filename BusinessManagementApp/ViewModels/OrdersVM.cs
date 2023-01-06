@@ -57,8 +57,15 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref selectedCompletion, value, true);
         }
 
-        public OrdersVM(OrdersRepo ordersRepo)
+        public bool AllowAdd { get; } = false;
+
+        public OrdersVM(OrdersRepo ordersRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageOrders)
+            {
+                AllowAdd = true;
+            }
+
             this.ordersRepo = ordersRepo;
 
             var collectionViewSource = new CollectionViewSource() { Source = orders };

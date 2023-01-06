@@ -27,7 +27,7 @@
                    Product categories information
                 </TextBlock>
 
-                <Button Grid.Column="1" Command="{Binding AddProductCategory}" 
+                <Button IsEnabled="{Binding AllowAdd}" Grid.Column="1" Command="{Binding AddProductCategory}" 
                         HorizontalAlignment="Right" Height="45"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}">
                     <StackPanel Orientation="Horizontal">

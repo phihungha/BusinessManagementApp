@@ -62,10 +62,17 @@ namespace BusinessManagementApp.ViewModels
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public ConfigVM(ConfigRepo configRepo)
+        public ConfigVM(ConfigRepo configRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowEdit = true;
+            }
+
             this.configRepo = configRepo;
             Save = new RelayCommand(SaveConfig);
             Reset = new RelayCommand(ResetConfig);

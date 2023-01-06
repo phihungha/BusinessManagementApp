@@ -41,8 +41,15 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public BonusTypesVM(BonusTypesRepo bonusTypesRepo)
+        public bool AllowAdd { get; } = false;
+
+        public BonusTypesVM(BonusTypesRepo bonusTypesRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowAdd = true;
+            }
+
             this.bonusTypesRepo = bonusTypesRepo;
 
             var collectionViewSource = new CollectionViewSource() { Source = bonusTypes };

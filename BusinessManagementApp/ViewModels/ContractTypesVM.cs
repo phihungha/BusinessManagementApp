@@ -38,8 +38,15 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public ContractTypesVM(ContractTypesRepo contractTypesRepo)
+        public bool AllowAdd { get; } = false;
+
+        public ContractTypesVM(ContractTypesRepo contractTypesRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowAdd = true;
+            }
+
             this.contractTypesRepo = contractTypesRepo;
 
             // DataGrid accesses the ObservableCollection of model objects

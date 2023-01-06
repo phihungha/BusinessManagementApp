@@ -38,9 +38,11 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
+        public bool AllowAdd { get; } = false;
+
         // Declare dependencies (e.g repositories) to use as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public PositionsVM(PositionsRepo positionsRepo)
+        public PositionsVM(PositionsRepo positionsRepo, SessionsRepo sessionsRepo)
         {
             this.positionsRepo = positionsRepo;
 

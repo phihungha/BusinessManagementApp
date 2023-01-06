@@ -131,10 +131,18 @@ namespace BusinessManagementApp.ViewModels
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         public BonusesVM(BonusRecordsRepo bonusesRepo,
                          BonusTypesRepo bonusTypesRepo,
-                         EmployeeRepo employeesRepo)
+                         EmployeeRepo employeesRepo,
+                         SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageHr)
+            {
+                AllowEdit = true;
+            }
+
             this.bonusesRepo = bonusesRepo;
             this.bonusTypesRepo = bonusTypesRepo;
             this.employeesRepo = employeesRepo;

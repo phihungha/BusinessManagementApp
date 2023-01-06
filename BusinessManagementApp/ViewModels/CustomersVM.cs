@@ -44,8 +44,15 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
-        public CustomersVM(CustomersRepo customersRepo)
+        public bool AllowAdd { get; } = false;
+
+        public CustomersVM(CustomersRepo customersRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageCustomers)
+            {
+                AllowAdd = true;
+            }
+
             this.customersRepo = customersRepo;
 
             // DataGrid accesses the ObservableCollection of model objects

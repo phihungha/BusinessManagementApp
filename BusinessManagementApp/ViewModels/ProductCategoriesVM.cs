@@ -38,10 +38,17 @@ namespace BusinessManagementApp.ViewModels
         public ICommand Search { get; }
         public ICommand Edit { get; }
 
+        public bool AllowAdd { get; } = false;
+
         // Declare dependencies (e.g repositories) to use as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public ProductCategoriesVM(ProductCategoriesRepo productCategoriesRepo)
+        public ProductCategoriesVM(ProductCategoriesRepo productCategoriesRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowAdd = true;
+            }
+
             this.productCategoriesRepo = productCategoriesRepo;
 
             // DataGrid accesses the ObservableCollection of model objects
