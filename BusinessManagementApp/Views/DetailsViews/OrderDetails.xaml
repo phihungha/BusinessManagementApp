@@ -178,7 +178,7 @@
                                             <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                                         </ui:SimpleStackPanel>
 
-                                        <ui:NumberBox IsEnabled="{Binding AllowEdit}" Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
+                                        <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
                                           Minimum="0" Maximum="{Binding Product.Stock}"
                                           SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                                     </Grid>
@@ -228,7 +228,7 @@
                                             <TextBlock FontSize="13" Text="{Binding ExpiryDate, StringFormat=Expiry date: {0:d}}" />
                                         </ui:SimpleStackPanel>
 
-                                        <Button IsEnabled="{Binding AllowEdit}" Grid.Column="1" Background="{StaticResource DangerColorBrush}"
+                                        <Button Grid.Column="1" Background="{StaticResource DangerColorBrush}"
                                                 Margin="5" Command="{Binding Path=DataContext.DeleteVoucher,
                                                 RelativeSource= {RelativeSource FindAncestor,
                                                                AncestorType={x:Type ListBox}}}"

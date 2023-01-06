@@ -32,7 +32,7 @@ namespace BusinessManagementApp.Data
                     Name = "Sales",
 
                     CanViewOrders = true,
-                    CanManageOrders = false,
+                    CanManageOrders = true,
 
                     CanViewCustomers = true,
                     CanManageCustomers = true,
@@ -44,7 +44,7 @@ namespace BusinessManagementApp.Data
                     CanManageHr = true,
 
                     CanViewConfig = true,
-                    CanManageConfig = false
+                    CanManageConfig = true
                 }
             };
         }
