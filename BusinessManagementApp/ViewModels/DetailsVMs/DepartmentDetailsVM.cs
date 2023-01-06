@@ -123,10 +123,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public DepartmentDetailsVM(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo)
+        public DepartmentDetailsVM(EmployeeRepo employeeRepo, DepartmentsRepo departmentsRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowEdit = true;
+            }
+
             this.employeeRepo = employeeRepo;
             this.departmentsRepo = departmentsRepo;
 
@@ -194,7 +201,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private void DeleteDepartment()
         {
             ConfirmDialog dialog = new ConfirmDialog(
-                "Delete department", 
+                "Delete department",
                 "Do you want to delete this department?\n" +
                 "This action cannot be undone!");
             dialog.Closed += async (sender, eventArgs) =>

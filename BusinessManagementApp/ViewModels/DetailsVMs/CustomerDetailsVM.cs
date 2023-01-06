@@ -126,8 +126,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public CustomerDetailsVM(CustomersRepo customersRepo)
+        public bool AllowEdit { get; } = false;
+
+        public CustomerDetailsVM(CustomersRepo customersRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageCustomers)
+            {
+                AllowEdit = true;
+            }
+
             this.customersRepo = customersRepo;
 
             Save = new AsyncRelayCommand(SaveCustomer);

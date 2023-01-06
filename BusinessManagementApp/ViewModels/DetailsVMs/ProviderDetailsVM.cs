@@ -96,10 +96,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public ProviderDetailsVM(ProvidersRepo providersRepo)
+        public ProviderDetailsVM(ProvidersRepo providersRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageSales)
+            {
+                AllowEdit = true;
+            }
+
             this.providersRepo = providersRepo;
 
             Save = new AsyncRelayCommand(SaveProvider);

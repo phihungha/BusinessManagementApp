@@ -135,11 +135,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
-        public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo)
+        public VoucherTypeDetailsVM(VoucherTypesRepo voucherTypesRepo,
+                                    SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowEdit = true;
+            }
+
             this.voucherTypesRepo = voucherTypesRepo;
+
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
             Save = new AsyncRelayCommand(SaveVoucherType);
             Delete = new RelayCommand(DeleteVoucherType);

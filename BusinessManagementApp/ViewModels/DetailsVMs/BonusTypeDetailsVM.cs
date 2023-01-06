@@ -88,12 +88,19 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public BonusTypeDetailsVM(BonusTypesRepo bonusTypesRepo)
+        public bool AllowEdit { get; } = false;
+
+        public BonusTypeDetailsVM(SessionsRepo sessionsRepo, BonusTypesRepo bonusTypesRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowEdit = true;
+            }
+
             this.bonusTypesRepo = bonusTypesRepo;
 
             Save = new AsyncRelayCommand(SaveBonusType);
-            Delete = new AsyncRelayCommand(DeleteBonusType);
+            Delete = new RelayCommand(DeleteBonusType);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes)
                 );
@@ -149,7 +156,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             WorkspaceNavUtils.NavigateTo(WorkspaceViewName.BonusTypes);
         }
 
-        private async Task DeleteBonusType()
+        private void DeleteBonusType()
         {
             ConfirmDialog dialog = new ConfirmDialog(
                 "Delete Bonus Type",

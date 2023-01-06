@@ -4,7 +4,7 @@ namespace BusinessManagementApp.Data
 {
     public class ConfigRepo
     {
-        public Config? Config { get; private set; } = null;
+        public Config Config { get; private set; } = new();
 
         public ConfigRepo()
         {

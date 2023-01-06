@@ -58,8 +58,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public SkillRatingDetailsVM(SkillRecordsRepo skillsRepo)
+        public bool AllowEdit { get; } = false;
+
+        public SkillRatingDetailsVM(SkillRecordsRepo skillsRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageHr)
+            {
+                AllowEdit = true;
+            }
+
             this.skillsRepo = skillsRepo;
 
             Save = new AsyncRelayCommand(SaveSkillRatings);

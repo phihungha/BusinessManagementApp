@@ -282,6 +282,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         // Declare dependencies (e.g repositories) as constructor parameters
         // Go into Startup.cs to add new depencencies if needed
         public EmployeeDetailsVM(EmployeeRepo employeesRepo,
@@ -290,6 +292,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                                  ContractTypesRepo contractTypesRepo,
                                  SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageHr)
+            {
+                AllowEdit = true;
+            }
+
             this.employeesRepo = employeesRepo;
             this.departmentsRepo = departmentsRepo;
             this.positionsRepo = positionsRepo;

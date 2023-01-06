@@ -154,8 +154,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public OvertimeDetailsVM(OvertimeRecordsRepo overtimeRepo, ConfigRepo configRepo)
+        public bool AllowEdit { get; } = false;
+
+        public OvertimeDetailsVM(OvertimeRecordsRepo overtimeRepo,
+                                 ConfigRepo configRepo,
+                                 SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageHr)
+            {
+                AllowEdit = true;
+            }
+
             this.overtimeRepo = overtimeRepo;
 
             MaxNumOfOvertimeHours = configRepo.Config.MaxNumOfOvertimeHours;

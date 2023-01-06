@@ -228,22 +228,37 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
-        public OrderDetailsVM(OrdersRepo ordersRepo, VouchersRepo vouchersRepo)
+        public bool AllowEdit { get; } = false;
+
+        public OrderDetailsVM(OrdersRepo ordersRepo,
+                              VouchersRepo vouchersRepo,
+                              SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageOrders)
+            {
+                AllowEdit = true;
+            }
+
             this.ordersRepo = ordersRepo;
             this.vouchersRepo = vouchersRepo;
+
             var collectionViewSource = new CollectionViewSource() { Source = orderItemVMs };
+
             DeleteVoucher = new RelayCommand<string>(id => ExcuteDeleteVoucher(id));
             ApplyVoucher = new RelayCommand(ExcuteApplyVoucher);
+
             OrderItemsView = collectionViewSource.View;
             VouchersView = new CollectionViewSource { Source = AppliedVouchers }.View;
+
             CreateCustomer = new RelayCommand(ExecuteCreateCustomer);
             SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
+
             Save = new AsyncRelayCommand(SaveOrder);
-            Terminate = new AsyncRelayCommand(TerminateOrder);
             Return = new AsyncRelayCommand(ReturnOrder);
             Complete = new AsyncRelayCommand(CompleteOrder);
+
+            Terminate = new AsyncRelayCommand(TerminateOrder);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders)
                 );

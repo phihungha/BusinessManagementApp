@@ -44,7 +44,7 @@ namespace BusinessManagementApp.Data
                     CanManageHr = true,
 
                     CanViewConfig = true,
-                    CanManageConfig = true
+                    CanManageConfig = false
                 }
             };
         }

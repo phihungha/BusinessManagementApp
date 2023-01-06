@@ -81,9 +81,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Commands for buttons
 
+        public bool AllowEdit { get; } = false;
+
         public VoucherDetailsVM(VouchersRepo vouchersRepo,
-                                 VoucherTypesRepo voucherTypesRepo)
+                                VoucherTypesRepo voucherTypesRepo,
+                                SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageSales)
+            {
+                AllowEdit = true;
+            }
+
             this.vouchersRepo = vouchersRepo;
             this.voucherTypesRepo = voucherTypesRepo;
 
