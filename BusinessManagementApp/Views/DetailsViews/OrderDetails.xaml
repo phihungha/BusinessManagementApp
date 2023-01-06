@@ -154,7 +154,7 @@
                                     Background="#FF358AFF" Foreground="White"
                                     VerticalAlignment="Stretch" Command="{Binding SelectProducts}" />
 
-                        <ListBox Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="500"
+                        <ListBox IsEnabled="{Binding AllowEdit}" Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="500"
                                  ItemsSource="{Binding OrderItemsView}" HorizontalContentAlignment="Stretch"
                                  Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
@@ -205,7 +205,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <ListBox Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="2" MaxHeight="300"
+                        <ListBox IsEnabled="{Binding AllowEdit}" Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="2" MaxHeight="300"
                                  ItemsSource="{Binding VouchersView}" HorizontalContentAlignment="Stretch"
                                  Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
