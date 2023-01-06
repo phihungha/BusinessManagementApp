@@ -31,18 +31,18 @@
 
         <StackPanel Grid.Row="1" Margin="0,0,15,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
-            <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
+            <TextBox IsEnabled="{Binding AllowEdit}" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,0,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter name..."
+            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter name..."
                      Text="{Binding Name}" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Description</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter description..."
+            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter description..."
                      Text="{Binding Description}" Height="200"/>
         </StackPanel>
 

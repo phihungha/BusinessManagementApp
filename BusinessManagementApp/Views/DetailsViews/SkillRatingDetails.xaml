@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignWidth="1290" d:DesignHeight="720">
+             d:DesignWidth="1290" d:DesignHeight="720" IsEnabled="{Binding AllowEdit}">
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

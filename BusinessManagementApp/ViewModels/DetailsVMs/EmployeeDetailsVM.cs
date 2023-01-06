@@ -332,11 +332,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             if (id != null)
             {
-                IsEditMode = true;
+                if (AllowEdit)
+                    IsEditMode = true;
                 await LoadEmployee((string)id);
             }
 
-            CanSave = true;
+            if (AllowEdit)
+                CanSave = true;
 
             BusyIndicatorUtils.SetBusyIndicator(false);
         }

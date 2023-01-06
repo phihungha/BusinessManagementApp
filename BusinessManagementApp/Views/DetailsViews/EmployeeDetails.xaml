@@ -55,25 +55,25 @@
 
                 <StackPanel Grid.Row="1" Margin="0,0,15,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
-                    <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
+                    <TextBox IsEnabled="{Binding AllowEdit}" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,0,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Name</TextBlock>
-                    <TextBox ui:ControlHelper.PlaceholderText="Enter name..."
+                    <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter name..."
                      Text="{Binding Name}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Citizen ID</TextBlock>
-                    <TextBox ui:ControlHelper.PlaceholderText="Enter Citizen ID number... (12 digits)"
+                    <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter Citizen ID number... (12 digits)"
                      Text="{Binding CitizenId}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="3" Margin="0,10,0,0" Width="250" HorizontalAlignment="Left">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Gender</TextBlock>
                     <!-- Example of a combobox that binds to an enum property -->
-                    <ComboBox HorizontalAlignment="Stretch"
+                    <ComboBox IsEnabled="{Binding AllowEdit}" HorizontalAlignment="Stretch"
                       ItemsSource="{Binding Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
@@ -84,7 +84,7 @@
                     Width="250" HorizontalAlignment="Center">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Department</TextBlock>
                     <!-- Example of a combobox that binds to a non-enum property -->
-                    <ComboBox HorizontalAlignment="Stretch"
+                    <ComboBox IsEnabled="{Binding AllowEdit}" HorizontalAlignment="Stretch"
                       ItemsSource="{Binding Departments}"
                       SelectedItem="{Binding Department}"
                       SelectedIndex="0"
@@ -99,24 +99,24 @@
 
                 <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Education</TextBlock>
-                    <TextBox HorizontalAlignment="Stretch" Text="{Binding Education}" />
+                    <TextBox IsEnabled="{Binding AllowEdit}" HorizontalAlignment="Stretch" Text="{Binding Education}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="5" Margin="0,5,15,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Phone number</TextBlock>
-                    <TextBox ui:ControlHelper.PlaceholderText="Enter phone number... (10 digits)"
+                    <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter phone number... (10 digits)"
                      Text="{Binding PhoneNumber}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,5,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Email</TextBlock>
-                    <TextBox ui:ControlHelper.PlaceholderText="Enter email..."
+                    <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter email..."
                      Text="{Binding Email}" />
                 </StackPanel>
 
                 <StackPanel Grid.Row="6" Grid.ColumnSpan="3" Margin="0,10,0,0">
                     <TextBlock Style="{StaticResource TextBoxTopLabel}">Address</TextBlock>
-                    <TextBox ui:ControlHelper.PlaceholderText="Enter address..."
+                    <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter address..."
                      Text="{Binding Address}" />
                 </StackPanel>
 
@@ -130,7 +130,7 @@
                 <ui:SimpleStackPanel Grid.Row="10" Grid.ColumnSpan="3" HorizontalAlignment="Stretch"
                                      Orientation="Horizontal" Margin="0,25,0,0" Spacing="15">
                     <TextBlock Style="{StaticResource TextBoxLeftLabel}">Change position</TextBlock>
-                    <ComboBox Width="250"
+                    <ComboBox IsEnabled="{Binding AllowEdit}" Width="250"
                               ItemsSource="{Binding Positions}"
                               SelectedItem="{Binding Position}"
                               SelectedIndex="0"
@@ -235,7 +235,7 @@
                         <TextBlock Style="{StaticResource TextBoxLeftLabel}">
                             Contract type
                         </TextBlock>
-                        <ComboBox Grid.Column="1" HorizontalAlignment="Stretch"
+                        <ComboBox IsEnabled="{Binding AllowEdit}" Grid.Column="1" HorizontalAlignment="Stretch"
                                   ItemsSource="{Binding ContractTypes}"
                                   SelectedItem="{Binding NewContractType}"
                                   SelectedIndex="0"
@@ -252,7 +252,7 @@
                         <TextBlock Grid.Row="2" Style="{StaticResource TextBoxLeftLabel}">
                             End date
                         </TextBlock>
-                        <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,0"
+                        <TextBox IsEnabled="{Binding AllowEdit}" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0"
                                  Text="{Binding NewContractEndDate, Converter={converters:ContractEndDateToString}}"
                                  IsReadOnly="True" />
 
@@ -332,14 +332,14 @@
                     <TextBlock Style="{StaticResource TextBoxLeftLabel}">
                             Allow login
                     </TextBlock>
-                    <CheckBox Grid.Column="1" IsChecked="{Binding AllowLogin}" />
+                    <CheckBox IsEnabled="{Binding AllowEdit}" Grid.Column="1" IsChecked="{Binding AllowLogin}" />
 
                     <TextBlock Grid.Row="1" Style="{StaticResource TextBoxLeftLabel}"
                                Visibility="{Binding AllowLogin, 
                                             Converter={StaticResource BoolToVisibilityConverter}}">
                             User name
                     </TextBlock>
-                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" 
+                    <TextBox IsEnabled="{Binding AllowEdit}" Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" 
                              Visibility="{Binding AllowLogin, 
                                           Converter={StaticResource BoolToVisibilityConverter}}"
                              Text="{Binding UserName}" />
@@ -349,7 +349,7 @@
                                             Converter={StaticResource BoolToVisibilityConverter}}">
                             New password
                     </TextBlock>
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" 
+                    <TextBox IsEnabled="{Binding AllowEdit}" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" 
                              Visibility="{Binding AllowLogin, 
                                           Converter={StaticResource BoolToVisibilityConverter}}"
                              Text="{Binding NewPassword}"/>

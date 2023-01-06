@@ -40,7 +40,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref selectedCustomer, value);
         }
 
-        private ObservableCollection<Voucher>? AppliedVouchers { get; } = new();
+        private ObservableCollection<Voucher> AppliedVouchers { get; } = new();
 
         private ObservableCollection<OrderItem> OrderItems { get; } = new();
 
@@ -438,11 +438,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
-                IsEditMode = true;
                 await LoadOrder((int)id);
-                SetEnableValue();
+                if (AllowEdit)
+                {
+                    IsEditMode = true;
+                    SetEnableValue();
+                }
             }
-            CanSave = true;
+            if (AllowEdit) 
+                CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -510,18 +514,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             Status = OrderStatus.Canceled;
             await SaveOrder();
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
 
         private async Task ReturnOrder()
         {
             Status = OrderStatus.Returned;
             await SaveOrder();
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
 
         private async Task CompleteOrder()
         {
             Status = OrderStatus.Completed;
             await SaveOrder();
+            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
     }
 }

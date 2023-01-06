@@ -88,7 +88,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             CurrentEmployee = overview.Employee;
             LastUpdatedTime = overview.LastUpdatedTime;
 
-            CanSave = true;
+            if (AllowEdit)
+                CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 

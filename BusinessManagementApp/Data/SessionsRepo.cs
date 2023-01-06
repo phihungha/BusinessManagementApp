@@ -32,7 +32,7 @@ namespace BusinessManagementApp.Data
                     Name = "Sales",
 
                     CanViewOrders = true,
-                    CanManageOrders = true,
+                    CanManageOrders = false,
 
                     CanViewCustomers = true,
                     CanManageCustomers = true,

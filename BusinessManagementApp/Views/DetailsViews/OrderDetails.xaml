@@ -65,12 +65,12 @@
                                 <TextBlock Text="Customer information" Margin="0,20,0,0"  FontSize="30" />
                             </StackPanel>
                             <DockPanel Grid.Row="0" Grid.Column="1" LastChildFill="False" HorizontalAlignment="Right">
-                                <Button Margin="10,20,10,0" Content="Create Customer" Height="40"
+                                <Button IsEnabled="{Binding AllowEdit}" Margin="10,20,10,0" Content="Create Customer" Height="40"
                                         Background="#FF358AFF" Foreground="White"
                                         VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                         Command="{Binding CreateCustomer}" />
 
-                                <Button Margin="10,20,10,0" Height="40" Content="Choose Customer"
+                                <Button IsEnabled="{Binding AllowEdit}" Margin="10,20,10,0" Height="40" Content="Choose Customer"
                                 Background="#FF358AFF" Foreground="White"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Command="{Binding SelectCustomer}" />
@@ -114,7 +114,7 @@
                         <Grid Grid.Row="1">
                             <StackPanel Margin="0,10,0,0">
                                 <TextBlock  Text="Address" />
-                                <TextBox Text="{Binding Address}" HorizontalAlignment="Stretch" />
+                                <TextBox IsEnabled="{Binding AllowEdit}" Text="{Binding Address}" HorizontalAlignment="Stretch" />
                             </StackPanel>
                         </Grid>
 
@@ -126,7 +126,7 @@
 
                             <StackPanel Margin="0,5,15,0">
                                 <TextBlock  Text="Status" />
-                                <TextBox IsReadOnly="True" Text="{Binding Status}" />
+                                <TextBox IsEnabled="{Binding AllowEdit}" IsReadOnly="True" Text="{Binding Status}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Margin="15,5,0,0">
@@ -150,7 +150,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Button Grid.Row="0" Grid.Column="1" Margin="10,20,10,0" Content="Choose products"
+                        <Button IsEnabled="{Binding AllowEdit}" Grid.Row="0" Grid.Column="1" Margin="10,20,10,0" Content="Choose products"
                                     Background="#FF358AFF" Foreground="White"
                                     VerticalAlignment="Stretch" Command="{Binding SelectProducts}" />
 
@@ -178,7 +178,7 @@
                                             <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                                         </ui:SimpleStackPanel>
 
-                                        <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
+                                        <ui:NumberBox IsEnabled="{Binding AllowEdit}" Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
                                           Minimum="0" Maximum="{Binding Product.Stock}"
                                           SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                                     </Grid>
@@ -228,7 +228,7 @@
                                             <TextBlock FontSize="13" Text="{Binding ExpiryDate, StringFormat=Expiry date: {0:d}}" />
                                         </ui:SimpleStackPanel>
 
-                                        <Button Grid.Column="1" Background="{StaticResource DangerColorBrush}"
+                                        <Button IsEnabled="{Binding AllowEdit}" Grid.Column="1" Background="{StaticResource DangerColorBrush}"
                                                 Margin="5" Command="{Binding Path=DataContext.DeleteVoucher,
                                                 RelativeSource= {RelativeSource FindAncestor,
                                                                AncestorType={x:Type ListBox}}}"
@@ -245,10 +245,10 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="0,20,0,0">
-                            <TextBox ui:ControlHelper.PlaceholderText="Enter voucher..." Text="{Binding Voucher}" />
+                            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter voucher..." Text="{Binding Voucher}" />
                         </StackPanel>
 
-                        <Button Grid.Row="1" Margin="10,20,10,0" Grid.Column="1" Content="Apply"
+                        <Button IsEnabled="{Binding AllowEdit}" Grid.Row="1" Margin="10,20,10,0" Grid.Column="1" Content="Apply"
                                 Background="#FF358AFF" Foreground="White"
                                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
                                 Command="{Binding ApplyVoucher}" />

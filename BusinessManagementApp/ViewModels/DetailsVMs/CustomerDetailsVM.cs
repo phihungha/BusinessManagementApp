@@ -149,11 +149,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
-                IsEditMode = true;
+                if (AllowEdit)
+                    IsEditMode = true;
                 await LoadCustomer((string)id);
             }
 
-            CanSave = true;
+            if (AllowEdit)
+                CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 

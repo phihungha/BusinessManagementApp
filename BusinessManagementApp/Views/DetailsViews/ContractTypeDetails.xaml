@@ -30,12 +30,12 @@
 
         <StackPanel Grid.Row="1" Margin="0,0,15,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">ID</TextBlock>
-            <TextBox Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
+            <TextBox IsEnabled="{Binding AllowEdit}" Text="{Binding Id, Mode=OneWay}" IsReadOnly="True" />
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="15,0,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Contract name</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter name..."
+            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter name..."
                      Text="{Binding Name}" />
         </StackPanel>
 
@@ -46,7 +46,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:NumberBox Minimum="1000" Value="{Binding BaseSalary}" />
+                <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1000" Value="{Binding BaseSalary}" />
                 <TextBlock Grid.Column="1"  Style="{StaticResource TextBoxLeftLabel}" Margin="5,0,0,0">
                     $
                 </TextBlock>
@@ -60,7 +60,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:NumberBox Minimum="1" SpinButtonPlacementMode="Inline" Text="{Binding Period}" />
+                <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1" SpinButtonPlacementMode="Inline" Text="{Binding Period}" />
                 <TextBlock Grid.Column="1"  Style="{StaticResource TextBoxLeftLabel}" Margin="5,0,0,0">
                     days
                 </TextBlock>
@@ -69,7 +69,7 @@
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="3" Margin="0,10,0,0">
             <TextBlock Style="{StaticResource TextBoxTopLabel}">Description</TextBlock>
-            <TextBox ui:ControlHelper.PlaceholderText="Enter description..." Text="{Binding Description}" Height="200"/>
+            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter description..." Text="{Binding Description}" Height="200"/>
         </StackPanel>
 
         <Button Grid.Row="5" Margin="0,5,5,5" Width="170" VerticalAlignment="Stretch"

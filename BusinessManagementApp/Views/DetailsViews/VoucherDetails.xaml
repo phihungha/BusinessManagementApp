@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1290">
+             d:DesignHeight="720" d:DesignWidth="1290" IsEnabled="{Binding AllowEdit}">
     <Grid Margin="15">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />

@@ -123,11 +123,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             BusyIndicatorUtils.SetBusyIndicator(true);
             if (id != null)
             {
-                IsEditMode = true;
+                if (AllowEdit)
+                    IsEditMode = true;
                 await LoadProductCategory((int)id);
             }
 
-            CanSave = true;
+            if (AllowEdit)
+                CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 

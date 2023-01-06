@@ -192,7 +192,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             CurrentMonthYear = parameter.MonthYear;
             LoadOvertimeRecordVMs(overview.Records);
 
-            CanSave = true;
+            if (AllowEdit)
+                CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
