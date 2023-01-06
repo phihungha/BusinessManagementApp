@@ -5,7 +5,7 @@
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             d:DesignWidth="1290" d:DesignHeight="820">
+             d:DesignWidth="1290" d:DesignHeight="1020">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid Margin="15">
             <Grid.ColumnDefinitions>
@@ -54,12 +54,22 @@
             <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">
                 <TextBlock Style="{StaticResource TextBoxTopLabel}">Permissions</TextBlock>
                 <StackPanel>
-                    <CheckBox Content="Can view and change everything"  IsChecked="{Binding CanManageAll}" ></CheckBox>
-                    <CheckBox Content="Can manage orders (place, edit, cancel orders)" IsChecked="{Binding CanManageOrders}"></CheckBox>
-                    <CheckBox Content="Can view sales-related information (products, providers, sales report)" IsChecked="{Binding CanViewSales}"></CheckBox>
-                    <CheckBox Content="Can manage sales-related information (products, providers, sales report)" IsChecked="{Binding CanManageSales}"></CheckBox>
-                    <CheckBox Content="Can view HR-related information  (salary, overtime, skills, bonus)" IsChecked="{Binding CanViewHr}"></CheckBox>
-                    <CheckBox Content="Can manage HR-related information (salary, overtime, skills, bonus)" IsChecked="{Binding CanManageHr}"></CheckBox>
+                    <CheckBox Content="View orders"  IsChecked="{Binding CanViewOrders}" ></CheckBox>
+                    <CheckBox Content="Manage orders" IsChecked="{Binding CanManageOrders}"></CheckBox>
+                    <CheckBox Content="View customers" IsChecked="{Binding CanViewCustomers}"></CheckBox>
+                    <CheckBox Content="Manage customers" IsChecked="{Binding CanManageCustomers}"></CheckBox>
+                    <CheckBox Content="Can view sales information (products, providers, vouchers, sales report)" 
+                              IsChecked="{Binding CanViewSales}" />
+                    <CheckBox Content="Can manage sales information (products, providers, vouchers, sales report)" 
+                              IsChecked="{Binding CanManageSales}" />
+                    <CheckBox Content="Can view HR information (salary, overtime, skill ratings, bonuses)" 
+                              IsChecked="{Binding CanViewHr}" />
+                    <CheckBox Content="Can manage HR information (salary, overtime, skill ratings, bonuses)" 
+                              IsChecked="{Binding CanManageHr}" />
+                    <CheckBox Content="Can view configuration (product categories, departments, skill types, voucher types, positions,...)" 
+                              IsChecked="{Binding CanViewConfig}" />
+                    <CheckBox Content="Can manage configuration (product categories, departments, skill types, voucher types, positions,...)" 
+                              IsChecked="{Binding CanManageConfig}" />
                 </StackPanel>
             </StackPanel>
 

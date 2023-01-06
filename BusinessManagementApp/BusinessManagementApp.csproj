@@ -10,12 +10,16 @@
   <ItemGroup>
     <Compile Remove="Services\Common\**" />
     <Compile Remove="ViewModels\DialogVMs\**" />
+    <Compile Remove="ViewModels\Utils\**" />
     <EmbeddedResource Remove="Services\Common\**" />
     <EmbeddedResource Remove="ViewModels\DialogVMs\**" />
+    <EmbeddedResource Remove="ViewModels\Utils\**" />
     <None Remove="Services\Common\**" />
     <None Remove="ViewModels\DialogVMs\**" />
+    <None Remove="ViewModels\Utils\**" />
     <Page Remove="Services\Common\**" />
     <Page Remove="ViewModels\DialogVMs\**" />
+    <Page Remove="ViewModels\Utils\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,10 +41,6 @@
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Refit.Newtonsoft.Json" Version="6.3.2" />
     <PackageReference Include="System.Reactive.Core" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ViewModels\Utils\" />
   </ItemGroup>
 
 </Project>

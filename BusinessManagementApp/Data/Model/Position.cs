@@ -12,23 +12,35 @@ namespace BusinessManagementApp.Data.Model
 
         public decimal SupplementSalary { get; set; }
 
-        // Can view and change everything
-        public bool CanManageAll { get; set; }
+        // Can view orders
+        public bool CanViewOrders { get; set; }
 
-        // Can manage orders (place, edit, cancel orders)
+        // Can manage orders
         public bool CanManageOrders { get; set; }
 
-        // Can manage sales-related info (products, providers, sales report)
-        public bool CanManageSales { get; set; }
+        // Can view customers
+        public bool CanViewCustomers { get; set; }
 
-        // Can view sales-related info (products, providers, sales report)
+        // Can manage customers
+        public bool CanManageCustomers { get; set; }
+
+        // Can view sales info  (products, providers, vouchers, sales report)
         public bool CanViewSales { get; set; }
 
-        // Can view HR-related info  (salary, overtime, skills, bonus)
+        // Can manage sales info (products, providers, vouchers, sales report)
+        public bool CanManageSales { get; set; }
+
+        // Can view human resources (salary, overtime, skill ratings, bonuses)
         public bool CanViewHr { get; set; }
 
-        // Can manage HR-related  (salary, overtime, skills, bonus)
+        // Can manage human resources (salary, overtime, skill ratings, bonuses)
         public bool CanManageHr { get; set; }
+
+        // Can view configuration  (departments, product categories, positions, contract types,...)
+        public bool CanViewConfig { get; set; }
+
+        // Can manage configuration  (departments, product categories, positions, contract types,...)
+        public bool CanManageConfig { get; set; }
 
         public bool Equals(Position? other)
         {

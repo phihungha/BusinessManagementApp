@@ -62,12 +62,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref supplementSalary, value);
         }
 
-        private bool canManageAll = false;
+        private bool canViewOrders = false;
 
-        public bool CanManageAll
+        public bool CanViewOrders
         {
-            get => canManageAll;
-            set => SetProperty(ref canManageAll, value);
+            get => canViewOrders;
+            set => SetProperty(ref canViewOrders, value);
         }
 
         private bool canManageOrders = false;
@@ -78,12 +78,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref canManageOrders, value);
         }
 
-        private bool canManageSales = false;
+        private bool canViewCustomers = false;
 
-        public bool CanManageSales
+        public bool CanViewCustomers
         {
-            get => canManageSales;
-            set => SetProperty(ref canManageSales, value);
+            get => canViewCustomers;
+            set => SetProperty(ref canViewCustomers, value);
+        }
+
+        private bool canManageCustomers = false;
+
+        public bool CanManageCustomers
+        {
+            get => canManageCustomers;
+            set => SetProperty(ref canManageCustomers, value);
         }
 
         private bool canViewSales = false;
@@ -92,6 +100,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             get => canViewSales;
             set => SetProperty(ref canViewSales, value);
+        }
+
+        private bool canManageSales = false;
+
+        public bool CanManageSales
+        {
+            get => canManageSales;
+            set => SetProperty(ref canManageSales, value);
         }
 
         private bool canViewHr = false;
@@ -110,12 +126,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref canManageHr, value);
         }
 
-        //private List<Permission> permissions = new List<Permission>();
-        //public List<Permission> Permissions
-        //{
-        //    get => permissions;
-        //    set => SetProperty(ref permissions, value);
-        //}
+        private bool canViewConfig = false;
+
+        public bool CanViewConfig
+        {
+            get => canViewConfig;
+            set => SetProperty(ref canViewConfig, value);
+        }
+
+        private bool canManageConfig = false;
+
+        public bool CanManageConfig
+        {
+            get => canManageConfig;
+            set => SetProperty(ref canManageConfig, value);
+        }
 
         #endregion Input properties
 
@@ -195,12 +220,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Name = position.Name;
             Description = position.Description;
             SupplementSalary = position.SupplementSalary;
-            CanManageAll = position.CanManageAll;
-            CanManageHr = position.CanManageHr;
-            CanViewHr = position.CanViewHr;
+
+            CanViewOrders = position.CanViewOrders;
+            CanManageOrders = position.CanManageOrders;
+
+            CanViewCustomers = position.CanViewCustomers;
+            CanManageCustomers = position.CanManageCustomers;
+
             CanViewSales = position.CanViewSales;
             CanManageSales = position.CanManageSales;
-            CanManageOrders = position.CanManageOrders;
+
+            CanViewHr = position.CanViewHr;
+            CanManageHr = position.CanManageHr;
+
+            CanViewConfig = position.CanViewConfig;
+            CanManageConfig = position.CanManageConfig;
         }
 
         private async Task SavePosition()
@@ -216,12 +250,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Name = Name,
                 Description = Description,
                 SupplementSalary = SupplementSalary,
-                CanManageAll = CanManageAll,
-                CanManageHr = CanManageHr,
-                CanViewHr = CanViewHr,
-                CanViewSales = CanViewSales,
+
+                CanViewOrders = CanViewOrders,
                 CanManageOrders = CanManageOrders,
-                CanManageSales = CanManageSales
+
+                CanViewCustomers = CanViewCustomers,
+                CanManageCustomers = CanManageCustomers,
+
+                CanViewSales = CanViewSales,
+                CanManageSales = CanManageSales,
+
+                CanViewHr = CanViewHr,
+                CanManageHr = CanManageHr,
+
+                CanViewConfig = CanViewConfig,
+                CanManageConfig = CanManageConfig
             };
 
             if (IsEditMode)

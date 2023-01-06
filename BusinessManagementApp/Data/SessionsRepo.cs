@@ -29,7 +29,22 @@ namespace BusinessManagementApp.Data
                 Name = "Ha Phi Hung",
                 CurrentPosition = new Position()
                 {
-                    Name = "Sales"
+                    Name = "Sales",
+
+                    CanViewOrders = true,
+                    CanManageOrders = true,
+
+                    CanViewCustomers = true,
+                    CanManageCustomers = true,
+
+                    CanViewSales = true,
+                    CanManageSales = true,
+
+                    CanViewHr = true,
+                    CanManageHr = true,
+
+                    CanViewConfig = true,
+                    CanManageConfig = true
                 }
             };
         }

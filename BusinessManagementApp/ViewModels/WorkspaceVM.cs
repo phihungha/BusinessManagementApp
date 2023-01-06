@@ -1,10 +1,12 @@
 ﻿using BusinessManagementApp.Data;
 using BusinessManagementApp.Data.Model;
+using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
@@ -54,6 +56,41 @@ namespace BusinessManagementApp.ViewModels
 
     public class WorkspaceVM : ObservableObject, ISupportBusyIndicator
     {
+        private readonly WorkspaceViewName[] orderViewNames = new[]
+        {
+            WorkspaceViewName.Overview,
+            WorkspaceViewName.Orders
+        };
+
+        private readonly WorkspaceViewName[] salesViewNames = new[]
+        {
+            WorkspaceViewName.Products,
+            WorkspaceViewName.Providers,
+            WorkspaceViewName.Vouchers,
+            WorkspaceViewName.SalesReport
+        };
+
+        private readonly WorkspaceViewName[] hrViewNames = new[]
+        {
+            WorkspaceViewName.EmployeeInfo,
+            WorkspaceViewName.Overtime,
+            WorkspaceViewName.Bonuses,
+            WorkspaceViewName.SalaryReport,
+            WorkspaceViewName.SkillRating,
+        };
+
+        private readonly WorkspaceViewName[] configViewNames = new[]
+        {
+            WorkspaceViewName.ProductCategories,
+            WorkspaceViewName.VoucherTypes,
+            WorkspaceViewName.BonusTypes,
+            WorkspaceViewName.ContractTypes,
+            WorkspaceViewName.Positions,
+            WorkspaceViewName.Departments,
+            WorkspaceViewName.SkillTypes,
+            WorkspaceViewName.Config,
+        };
+
         private WorkspaceNavHelper navHelper;
         private BusyIndicatorHelper busyIndicatorHelper;
 
@@ -65,31 +102,7 @@ namespace BusinessManagementApp.ViewModels
             set => SetProperty(ref currentViewVM, value);
         }
 
-        public WorkspaceViewName[] SidebarViewNames { get; } = new[]
-        {
-            WorkspaceViewName.Overview,
-            WorkspaceViewName.Orders,
-            WorkspaceViewName.Vouchers,
-            WorkspaceViewName.Customers,
-            WorkspaceViewName.Products,
-            WorkspaceViewName.Providers,
-            WorkspaceViewName.SalesReport,
-
-            WorkspaceViewName.EmployeeInfo,
-            WorkspaceViewName.SalaryReport,
-            WorkspaceViewName.Overtime,
-            WorkspaceViewName.Bonuses,
-            WorkspaceViewName.SkillRating,
-
-            WorkspaceViewName.ProductCategories,
-            WorkspaceViewName.VoucherTypes,
-            WorkspaceViewName.BonusTypes,
-            WorkspaceViewName.ContractTypes,
-            WorkspaceViewName.Positions,
-            WorkspaceViewName.Departments,
-            WorkspaceViewName.SkillTypes,
-            WorkspaceViewName.Config,
-        };
+        public ObservableCollection<WorkspaceViewName> SidebarViewNames { get; } = new();
 
         private WorkspaceViewName selectedSidebarViewName = WorkspaceViewName.Overview;
 
@@ -126,9 +139,39 @@ namespace BusinessManagementApp.ViewModels
             CurrentUser = sessionsRepo.CurrentUser;
             CurrentPosition = sessionsRepo.CurrentPosition;
 
+            SetSidebarViewNames();
+
             // This needed to be done after initiating the helpers so
             // messenger-dependent features such as navigation and busy indicator can work.
             currentViewVM = App.Current.ServiceProvider.GetRequiredService<OverviewVM>();
+        }
+
+        private void SetSidebarViewNames()
+        {
+            if (CurrentPosition.CanViewOrders)
+            {
+                SidebarViewNames.AddRange(orderViewNames);
+            }
+
+            if (CurrentPosition.CanViewCustomers)
+            {
+                SidebarViewNames.Add(WorkspaceViewName.Customers);
+            }
+
+            if (CurrentPosition.CanViewSales)
+            {
+                SidebarViewNames.AddRange(salesViewNames);
+            }
+
+            if (CurrentPosition.CanViewHr)
+            {
+                SidebarViewNames.AddRange(hrViewNames);
+            }
+
+            if (CurrentPosition.CanViewConfig)
+            {
+                SidebarViewNames.AddRange(configViewNames);
+            }
         }
     }
 }

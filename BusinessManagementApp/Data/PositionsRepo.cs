@@ -21,7 +21,21 @@ namespace BusinessManagementApp.Data
                 Name = "director",
                 Description = "a",
                 SupplementSalary = 100000,
-                CanManageAll = true,
+
+                CanViewOrders = true,
+                CanManageOrders = true,
+
+                CanViewCustomers = true,
+                CanManageCustomers = true,
+
+                CanViewSales = true,
+                CanManageSales = true,
+
+                CanViewHr = true,
+                CanManageHr = true,
+
+                CanViewConfig = true,
+                CanManageConfig = true
             };
 
             return Observable.FromAsync(() => Task.FromResult(position));
