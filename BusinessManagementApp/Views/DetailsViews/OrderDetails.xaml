@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
              d:DesignHeight="1500" d:DesignWidth="1290">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -47,6 +48,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
 
                         <Grid.Resources>
@@ -65,11 +67,6 @@
                                 <TextBlock Text="Customer information" Margin="0,20,0,0"  FontSize="30" />
                             </StackPanel>
                             <DockPanel Grid.Row="0" Grid.Column="1" LastChildFill="False" HorizontalAlignment="Right">
-                                <Button IsEnabled="{Binding AllowEdit}" Margin="10,20,10,0" Content="Create Customer" Height="40"
-                                        Background="#FF358AFF" Foreground="White"
-                                        VerticalAlignment="Center" HorizontalAlignment="Stretch"
-                                        Command="{Binding CreateCustomer}" />
-
                                 <Button IsEnabled="{Binding AllowEdit}" Margin="10,20,10,0" Height="40" Content="Choose Customer"
                                 Background="#FF358AFF" Foreground="White"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch"
@@ -79,22 +76,37 @@
 
                         <StackPanel Grid.Row="1" Margin="0,10,0,0" Grid.ColumnSpan="2">
                             <TextBlock  Text="Name" />
-                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Name}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Name}" />
                         </StackPanel>
 
-                        <StackPanel Margin="15,5,0,0" Grid.Row="2" Grid.Column="1">
+                        <StackPanel Grid.Row="2" Margin="0,10,15,0">
+                            <TextBlock Style="{StaticResource TextBoxTopLabel}">Gender</TextBlock>
+                            <!-- Example of a combobox that binds to an enum property -->
+                            <ComboBox IsEnabled="{Binding AllowEdit}" HorizontalAlignment="Stretch"
+                                      ItemsSource="{Binding SelectedCustomer.Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                                      SelectedValuePath="Value"
+                                      DisplayMemberPath="Description"                                    
+                                     SelectedValue="{Binding SelectedCustomer.Gender}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Grid.Column="2" Margin="15,10,0,0">
+                            <TextBlock Style="{StaticResource TextBoxTopLabel}">Birthday</TextBlock>
+                            <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding SelectedCustomer.Birthday}" />
+                        </StackPanel>
+
+                        <StackPanel Margin="15,5,0,0" Grid.Row="3" Grid.Column="1">
                             <TextBlock  Text="Phone number" />
-                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Phone}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Phone}" />
                         </StackPanel>
 
-                        <StackPanel Margin="0,5,15,0" Grid.Row="2" Grid.Column="0">
+                        <StackPanel Margin="0,5,15,0" Grid.Row="3" Grid.Column="0">
                             <TextBlock  Text="Email" />
-                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Email}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Email}" />
                         </StackPanel>
 
-                        <StackPanel Margin="0,10,0,0" Grid.Row="3" Grid.ColumnSpan="2">
+                        <StackPanel Margin="0,10,0,0" Grid.Row="4" Grid.ColumnSpan="2">
                             <TextBlock  Text="Address" />
-                            <TextBlock FontSize="20"  Text="{Binding SelectedCustomer.Address}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Address}" />
                         </StackPanel>
                     </Grid>
                 </Border>
@@ -131,7 +143,7 @@
 
                             <StackPanel Grid.Column="1" Margin="15,5,0,0">
                                 <TextBlock  Text="Employee in charge" />
-                                <TextBlock Text="{Binding EmployeeName}" FontSize="20" />
+                                <TextBox IsReadOnly="True" Text="{Binding EmployeeName}" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -269,7 +281,7 @@
                         <StackPanel>
                             <TextBlock Margin="0,20,0,0"  FontSize="30" Text="Total Payment Amount" />
                         </StackPanel>
-                        <DockPanel Grid.Row="1" Margin="0,10,0,0">
+                        <DockPanel Grid.Row="3" Margin="0,10,0,0">
                             <TextBlock  Text="Net Price: " />
                             <TextBlock  FontSize="16" TextAlignment="Right"  Margin="5,0,0,0" Text="{Binding NetPrice, StringFormat='{}{0:c}'}" />
                         </DockPanel>
@@ -277,7 +289,7 @@
                             <TextBlock  Text="VAT rate: " />
                             <TextBlock  FontSize="16" TextAlignment="Right" Margin="5,0,0,0" Text="{Binding VatRate, StringFormat='{}{0:p0}'}" />
                         </DockPanel>
-                        <DockPanel Grid.Row="3" Margin="0,10,0,0">
+                        <DockPanel Grid.Row="1" Margin="0,10,0,0">
                             <TextBlock  Text="Total price: " />
                             <TextBlock FontSize="16" TextAlignment="Right" Margin="5,0,0,0" Text="{Binding TotalPrice, StringFormat='{}{0:c}'}" />
                         </DockPanel>
