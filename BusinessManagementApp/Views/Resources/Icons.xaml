@@ -391,4 +391,16 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+
+    <DrawingImage x:Key="TimelinePointBlackIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,9.8817652C13.169931,9.8817652 14.118385,10.830198 14.118385,12.000151 14.118385,13.170082 13.169931,14.118536 12,14.118536 M12,9.8817652C10.830048,9.8817652 9.8816146,10.830198 9.8816146,12.000151 9.8816146,13.170082 10.830048,14.118536 12,14.118536 M12,9.8817652L12,3.8459728 M12,14.118536L12,20.934133">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#FF000000" Thickness="0.529596" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
 </ResourceDictionary>
