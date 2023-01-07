@@ -1,15 +1,17 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
+using Newtonsoft.Json;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class BonusRecord
     {
-        public DateTime MonthYear { get; set; }
+        [JsonProperty("month_year")] public DateTime MonthYear { get; set; }
 
-        public Employee Employee { get; set; }
+        [JsonProperty("employee")] public Employee Employee { get; set; }
 
-        public BonusType Type { get; set; }
+        [JsonProperty("type")] public BonusType Type { get; set; }
 
-        public decimal Amount { get; set; }
+        [JsonProperty("amount")] public decimal Amount { get; set; }
     }
 }

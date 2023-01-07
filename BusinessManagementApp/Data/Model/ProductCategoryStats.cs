@@ -1,9 +1,11 @@
-﻿namespace BusinessManagementApp.Data.Model
+using Newtonsoft.Json;
+
+namespace BusinessManagementApp.Data.Model
 {
     public class ProductCategoryStats
     {
-        public ProductCategory Category { get; set; }
+        [JsonProperty("category")] public ProductCategory Category { get; set; }
 
-        public int QuantitySold { get; set; }
+        [JsonProperty("quantity_sold")] public int QuantitySold { get; set; }
     }
 }

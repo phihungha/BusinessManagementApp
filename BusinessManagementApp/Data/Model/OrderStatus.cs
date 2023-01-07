@@ -1,4 +1,6 @@
-﻿namespace BusinessManagementApp.Data.Model
+﻿using Newtonsoft.Json;
+
+namespace BusinessManagementApp.Data.Model
 {
     public enum OrderStatus
     {

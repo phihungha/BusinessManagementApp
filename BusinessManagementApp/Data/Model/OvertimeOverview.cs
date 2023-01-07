@@ -1,22 +1,24 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class OvertimeOverview
     {
-        public DateTime MonthYear { get; set; }
+        [JsonProperty("month_year")] public DateTime MonthYear { get; set; }
 
         // Only returns Id and Name
-        public Employee Employee { get; set; }
+        [JsonProperty("employee")] public Employee Employee { get; set; }
 
-        public int NumOfOvertimeDays { get; set; }
+        [JsonProperty("num_of_overtime_days")] public int NumOfOvertimeDays { get; set; }
 
+        [JsonProperty("avg_overtime_duration")]
         public double AvgOvertimeDuration { get; set; }
 
-        public decimal TotalOvertimePay { get; set; }
+        [JsonProperty("total_overtime_pay")] public decimal TotalOvertimePay { get; set; }
 
         // Only returns when getting details
-        public List<OvertimeRecord> Records { get; set; }
+        [JsonProperty("records")] public List<OvertimeRecord> Records { get; set; }
     }
 }

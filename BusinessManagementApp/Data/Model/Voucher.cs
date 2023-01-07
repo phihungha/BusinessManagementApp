@@ -1,4 +1,5 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -6,14 +7,14 @@ namespace BusinessManagementApp.Data.Model
 {
     public class Voucher : IEquatable<Voucher>
     {
-        public string Code { get; set; }
+        [JsonProperty("code")] public string Code { get; set; }
 
         // Only returns Id, Name
-        public VoucherType Type { get; set; }
+        [JsonProperty("type")] public VoucherType Type { get; set; }
 
-        public DateTime ReleaseDate { get; set; }
+        [JsonProperty("release_date")] public DateTime ReleaseDate { get; set; }
 
-        public DateTime ExpiryDate { get; set; }
+        [JsonProperty("expiry_date")] public DateTime ExpiryDate { get; set; }
 
         public bool Equals(Voucher? other)
         {
@@ -25,28 +26,26 @@ namespace BusinessManagementApp.Data.Model
 
     public class VoucherType
     {
-        public int Id { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        public string Description { get; set; }
+        [JsonProperty("description")] public string Description { get; set; }
 
-        public DiscountType DiscountType { get; set; }
+        [JsonProperty("discount_type")] public DiscountType DiscountType { get; set; }
 
-        public double DiscountValue { get; set; }
+        [JsonProperty("discount_value")] public double DiscountValue { get; set; }
 
-        public decimal MinNetPrice { get; set; }
+        [JsonProperty("min_net_price")] public decimal MinNetPrice { get; set; }
 
         // Only return Id and Name
-        public List<Product> AppliedProducts { get; set; }
+        [JsonProperty("applied_products")] public List<Product> AppliedProducts { get; set; }
     }
 
     public enum DiscountType
     {
-        [Description("Percentage")]
-        Percent,
+        [Description("Percentage")] Percent,
 
-        [Description("Raw value")]
-        Raw
+        [Description("Raw value")] Raw
     }
 }

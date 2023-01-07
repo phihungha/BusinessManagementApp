@@ -1,15 +1,17 @@
-﻿namespace BusinessManagementApp.Data.Model
+using Newtonsoft.Json;
+
+namespace BusinessManagementApp.Data.Model
 {
     public class ContractType
     {
-        public int Id { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        public string Description { get; set; }
+        [JsonProperty("description")] public string Description { get; set; }
 
-        public decimal BaseSalary { get; set; }
+        [JsonProperty("base_salary")] public decimal BaseSalary { get; set; }
 
-        public int? Period { get; set; }
+        [JsonProperty("period")] public int? Period { get; set; }
     }
 }

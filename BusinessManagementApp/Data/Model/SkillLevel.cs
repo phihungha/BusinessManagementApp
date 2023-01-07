@@ -1,19 +1,16 @@
-﻿using System.ComponentModel;
+﻿using Newtonsoft.Json;
+using System.ComponentModel;
 
 namespace BusinessManagementApp.Data.Model
 {
     public enum SkillLevel
     {
-        [Description("Unrated")]
-        Unrated,
+        [Description("Unrated")] Unrated,
 
-        [Description("Acceptable")]
-        Acceptable,
+        [Description("Acceptable")] Acceptable,
 
-        [Description("Good")]
-        Good,
+        [Description("Good")] Good,
 
-        [Description("Excellent")]
-        Excellent
+        [Description("Excellent")] Excellent
     }
 }

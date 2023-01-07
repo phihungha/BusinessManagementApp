@@ -1,19 +1,20 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class Department : IEquatable<Department>
     {
-        public int Id { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        public string Description { get; set; }
+        [JsonProperty("description")] public string Description { get; set; }
 
-        public string PhoneNumber { get; set; }
+        [JsonProperty("phone_number")] public string PhoneNumber { get; set; }
 
         // Only include Id and Name
-        public Employee Head { get; set; }
+        [JsonProperty("head")] public Employee Head { get; set; }
 
         // Supports WPF ComboBox binding.
         // Comparing Id is usually enough.

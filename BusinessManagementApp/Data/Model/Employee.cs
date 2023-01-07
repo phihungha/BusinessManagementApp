@@ -1,44 +1,45 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class Employee : IEquatable<Employee>
     {
-        public string Id { get; set; }
+        [JsonProperty("id")] public string Id { get; set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        public Gender Gender { get; set; }
+        [JsonProperty("gender")] public Gender Gender { get; set; }
 
-        public string CitizenId { get; set; }
+        [JsonProperty("citizen_id")] public string CitizenId { get; set; }
 
-        public DateTime BirthDate { get; set; }
+        [JsonProperty("birth_date")] public DateTime BirthDate { get; set; }
 
-        public string Education { get; set; }
+        [JsonProperty("education")] public string Education { get; set; }
 
-        public string PhoneNumber { get; set; }
+        [JsonProperty("phone_number")] public string PhoneNumber { get; set; }
 
-        public string Email { get; set; }
+        [JsonProperty("email")] public string Email { get; set; }
 
-        public string Address { get; set; }
+        [JsonProperty("address")] public string Address { get; set; }
 
-        public string? UserName { get; set; }
+        [JsonProperty("user_name")] public string? UserName { get; set; }
 
-        public string? NewPassword { get; set; }
+        [JsonProperty("new_password")] public string? NewPassword { get; set; }
 
         // Only include Id and Name
-        public Department Department { get; set; }
+        [JsonProperty("department")] public Department Department { get; set; }
 
-        public Position CurrentPosition { get; set; }
+        [JsonProperty("current_position")] public Position CurrentPosition { get; set; }
 
-        public List<PositionRecord> PositionRecords { get; set; }
+        [JsonProperty("position_records")] public List<PositionRecord> PositionRecords { get; set; }
 
-        public Contract CurrentContract { get; set; }
+        [JsonProperty("current_contract")] public Contract CurrentContract { get; set; }
 
-        public List<Contract> Contracts { get; set; }
+        [JsonProperty("contracts")] public List<Contract> Contracts { get; set; }
 
-        public DateTime? TerminationDate { get; set; }
+        [JsonProperty("termination_date")] public DateTime? TerminationDate { get; set; }
 
         public bool Equals(Employee? other)
         {
