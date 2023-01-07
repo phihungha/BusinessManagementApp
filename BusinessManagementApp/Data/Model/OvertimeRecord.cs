@@ -1,13 +1,14 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class OvertimeRecord
     {
-        public string EmployeeId { get; set; }
+        [JsonProperty("employee_id")] public string EmployeeId { get; set; }
 
-        public DateTime Date { get; set; }
+        [JsonProperty("date")] public DateTime Date { get; set; }
 
-        public int NumOfHours { get; set; }
+        [JsonProperty("num_of_hours")] public int NumOfHours { get; set; }
     }
 }

@@ -1,15 +1,16 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class SkillRecord
     {
-        public string EmployeeId { get; set; }
+        [JsonProperty("employee_id")] public string EmployeeId { get; set; }
 
-        public SkillType SkillType { get; set; }
+        [JsonProperty("skill_type")] public SkillType SkillType { get; set; }
 
-        public SkillLevel Level { get; set; }
+        [JsonProperty("level")] public SkillLevel Level { get; set; }
 
-        public DateTime LastUpdatedTime { get; set; }
+        [JsonProperty("last_updated_time")] public DateTime LastUpdatedTime { get; set; }
     }
 }

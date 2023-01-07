@@ -1,11 +1,13 @@
-﻿namespace BusinessManagementApp.Data.Model
+using Newtonsoft.Json;
+
+namespace BusinessManagementApp.Data.Model
 {
     public class CustomerStats
     {
-        public Customer Customer { get; set; }
+        [JsonProperty("customer")] public Customer Customer { get; set; }
 
-        public int NumOfOrders { get; set; }
+        [JsonProperty("num_of_orders")] public int NumOfOrders { get; set; }
 
-        public decimal Revenue { get; set; }
+        [JsonProperty("revenue")] public decimal Revenue { get; set; }
     }
 }

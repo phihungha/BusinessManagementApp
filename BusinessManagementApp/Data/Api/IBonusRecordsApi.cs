@@ -8,13 +8,13 @@ namespace BusinessManagementApp.Data.Api
     // TODO
     public interface IBonusRecordsApi
     {
-        [Get("/{year}/{month}")]
+        [Get("/{month}/{year}")]
         IObservable<List<BonusRecord>> GetBonusRecords(int month, int year);
 
-        [Post("/{year}/{month}")]
+        [Post("/{month}/{year}")]
         IObservable<List<BonusRecord>> UpdateBonusRecords(
             int month,
             int year,
-            [Body] IEnumerable<BonusRecord> bonusRecords);
+            [Body] IEnumerable<BonusRecord> records);
     }
 }

@@ -1,14 +1,15 @@
-﻿using System;
+using Newtonsoft.Json;
+using System;
 
 namespace BusinessManagementApp.Data.Model
 {
     public class ProductCategory : IEquatable<ProductCategory>
     {
-        public int Id { get; set; }
+        [JsonProperty("id")] public int Id { get; set; }
 
-        public string Name { get; set; }
+        [JsonProperty("name")] public string Name { get; set; }
 
-        public string Description { get; set; }
+        [JsonProperty("description")] public string Description { get; set; }
 
         public bool Equals(ProductCategory? other)
         {
