@@ -31,11 +31,11 @@ namespace BusinessManagementApp.Data.Model
         // Only include Id and Name
         [JsonProperty("department")] public Department Department { get; set; }
 
-        [JsonProperty("current_position")] public Position CurrentPosition { get; set; }
+        [JsonProperty("current_position")] public Position? CurrentPosition { get; set; }
 
         [JsonProperty("position_records")] public List<PositionRecord> PositionRecords { get; set; }
 
-        [JsonProperty("current_contract")] public Contract CurrentContract { get; set; }
+        [JsonProperty("current_contract")] public Contract? CurrentContract { get; set; }
 
         [JsonProperty("contracts")] public List<Contract> Contracts { get; set; }
 

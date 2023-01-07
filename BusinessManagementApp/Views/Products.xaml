@@ -66,9 +66,8 @@
                 <!-- Set the columns to display here. -->
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=c}" Width="*" />
                 <DataGridTextColumn Header="Unit" Binding="{Binding Unit}" Width="*" />
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*" />
                 <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" Width="*" />
                 <DataGridTextColumn Header="Category" Binding="{Binding Category.Name}" Width="*" />
 

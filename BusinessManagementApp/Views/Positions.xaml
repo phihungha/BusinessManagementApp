@@ -66,11 +66,9 @@
             <DataGrid.Columns>
                 <!-- Set the columns to display here. -->
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Supplement salary" Binding="{Binding SupplementSalary, StringFormat=c}" Width="*" />
-                <!-- NOT BINDED. -->
-                <DataGridTextColumn Header="Permission"  Width="*" />
-               
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="350" />
+                <DataGridTextColumn Header="Supplement salary" Binding="{Binding SupplementSalary, StringFormat=c}" Width="200" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
 
                 <!-- Edit button -->
                 <DataGridTemplateColumn Width="60">

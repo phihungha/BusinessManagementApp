@@ -59,7 +59,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Bonus amount" Binding="{Binding BonusAmount}" Width="*" />
+                <DataGridTextColumn Header="Bonus amount" Binding="{Binding BonusAmount, StringFormat=c}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 

@@ -250,20 +250,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref allowRenewContract, value);
         }
 
-        private bool allowTerminateContract = false;
+        private bool allowTerminateCurrentContract = false;
 
-        public bool AllowTerminateContract
+        public bool AllowTerminateCurrentContract
         {
-            get => allowTerminateContract;
-            set => SetProperty(ref allowTerminateContract, value);
+            get => allowTerminateCurrentContract;
+            set => SetProperty(ref allowTerminateCurrentContract, value);
         }
 
-        private string newContractBtnText = "Create";
+        private bool newContractExists = false;
 
-        public string NewContractBtnText
+        public bool NewContractExists
         {
-            get => newContractBtnText;
-            set => SetProperty(ref newContractBtnText, value);
+            get => newContractExists;
+            set => SetProperty(ref newContractExists, value);
         }
 
         #endregion Button enable/disable logic
@@ -369,20 +369,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             // Edit the latest contract if it is not yet active
             if (!Contracts.First().IsCurrent)
             {
-                Contract latestContract = Contracts.Last();
+                Contract latestContract = Contracts.First();
                 NewContractType = latestContract.Type;
                 NewContractStartDate = latestContract.StartDate;
-                NewContractBtnText = "Edit";
-            }
-            else
-            {
-                AllowTerminateContract = true;
+                NewContractExists = true;
             }
 
-            // Permanent contracts cannot be renewed
-            if (employee.CurrentContract.Type.Period != null)
+            if (employee.CurrentContract != null)
             {
-                AllowRenewContract = true;
+                AllowTerminateCurrentContract = true;
+
+                // Permanent contracts cannot be renewed
+                if (employee.CurrentContract.Type.Period != null)
+                {
+                    AllowRenewContract = true;
+                }
             }
         }
 
@@ -406,7 +407,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             BusyIndicatorUtils.SetBusyIndicator(true);
             Contracts.ClearAndAddRange(await employeesRepo.AddFutureContract(Id, contract));
-            NewContractBtnText = "Edit";
+            NewContractExists = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -424,6 +425,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
             Contracts.ClearAndAddRange(await employeesRepo.TerminateCurrentContract(Id));
+            AllowTerminateCurrentContract = false;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -431,7 +433,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
             Contracts.ClearAndAddRange(await employeesRepo.DeleteFutureContract(Id));
-            NewContractBtnText = "Create";
+            NewContractExists = false;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
