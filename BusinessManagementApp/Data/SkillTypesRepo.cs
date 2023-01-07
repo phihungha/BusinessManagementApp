@@ -1,57 +1,42 @@
-﻿using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class SkillTypesRepo
     {
+        private ISkillTypesApi api;
+
+        public SkillTypesRepo(ISkillTypesApi api)
+        {
+            this.api = api;
+        }
+
         public IObservable<object> DeleteSkillType(int id)
         {
-            throw new NotImplementedException();
+            return api.DeleteSkillType(id);
         }
 
         public IObservable<SkillType> GetSkillType(int id)
         {
-            var skillType = new SkillType()
-            {
-                Id = 1,
-                Name = "quan ly",
-                Description = "quan li gioi"
-            };
-            return Observable.FromAsync(() => Task.FromResult(skillType));
+            return api.GetSkillType(id);
         }
 
         public IObservable<List<SkillType>> GetSkillTypes()
         {
-            var skillTypes = new List<SkillType>()
-            {
-                new SkillType()
-                {
-                    Id = 1,
-                    Name = "quan li",
-                    Description = "quan li gioi"
-                },
-                new SkillType()
-                {
-                    Id = 2,
-                    Name = "code",
-                    Description = "code gioi"
-                },
-            };
-            return Observable.FromAsync(() => Task.FromResult(skillTypes));
+            return api.GetSkillTypes();
         }
 
         public IObservable<SkillType> AddSkillType(SkillType skillType)
         {
-            throw new NotImplementedException();
+            return api.SaveSkillType(skillType);
         }
 
         public IObservable<SkillType> UpdateSkillType(int skillTypeId, SkillType skillType)
         {
-            throw new NotImplementedException();
+            return api.UpdateSkillType(skillTypeId, skillType);
         }
     }
 }

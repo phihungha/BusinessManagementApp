@@ -16,7 +16,7 @@ namespace BusinessManagementApp.Data
         public Employee CurrentUser { get; private set; } = new();
         public Position CurrentPosition
         {
-            get => CurrentUser.CurrentPosition;
+            get => CurrentUser.CurrentPosition ?? new();
         }
 
         public SessionsRepo(IAuthApi api, SessionAuthData session)

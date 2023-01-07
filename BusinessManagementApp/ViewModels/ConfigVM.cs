@@ -84,7 +84,6 @@ namespace BusinessManagementApp.ViewModels
         private void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            configRepo = new ConfigRepo();
             OvertimeHourlyRate = configRepo.Config.OvertimeHourlyRate;
             MaxNumOfOvertimeHours = configRepo.Config.MaxNumOfOvertimeHours;
             VATRate = configRepo.Config.VATRate;

@@ -63,8 +63,8 @@ namespace BusinessManagementApp
             {
                 service.AddSingleton<SessionAuthData>();
                 service.AddSingleton<SchedulerProvider>();
-                service.AddSingleton<HttpAuthHandler>();
-                service.AddSingleton<HttpLoggingHandler>();
+                service.AddTransient<HttpAuthHandler>();
+                service.AddTransient<HttpLoggingHandler>();
 
                 var jsonSettings = new JsonSerializerSettings()
                 {
@@ -81,6 +81,7 @@ namespace BusinessManagementApp
                 service.AddRefitClient<IDepartmentsApi>(settings).ConfigHttpClientBuilder("departments", true);
                 service.AddRefitClient<IEmployeesApi>(settings).ConfigHttpClientBuilder("employees", true);
                 service.AddRefitClient<IOrdersApi>(settings).ConfigHttpClientBuilder("orders", true);
+                service.AddRefitClient<IOverviewApi>(settings).ConfigHttpClientBuilder("overview", true);
                 service.AddRefitClient<IPositionsApi>(settings).ConfigHttpClientBuilder("positions", true);
                 service.AddRefitClient<IProductsApi>(settings).ConfigHttpClientBuilder("products", true);
                 service.AddRefitClient<IProductCategoriesApi>(settings).ConfigHttpClientBuilder("product-categories", true);
@@ -89,6 +90,7 @@ namespace BusinessManagementApp
                 service.AddRefitClient<IOvertimeRecordsApi>(settings).ConfigHttpClientBuilder("overtime", true);
                 service.AddRefitClient<ISkillRecordsApi>(settings).ConfigHttpClientBuilder("skill-ratings", true);
                 service.AddRefitClient<ISkillTypesApi>(settings).ConfigHttpClientBuilder("skill-types", true);
+                service.AddRefitClient<ISalesReportsApi>(settings).ConfigHttpClientBuilder("sales-reports", true);
                 service.AddRefitClient<IVouchersApi>(settings).ConfigHttpClientBuilder("vouchers", true);
                 service.AddRefitClient<IVoucherTypesApi>(settings).ConfigHttpClientBuilder("voucher-types", true);
             });

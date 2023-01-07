@@ -23,7 +23,7 @@ namespace BusinessManagementApp.Data.Api
         IObservable<object> DeleteEmployee(string id);
 
         /// <summary>
-        /// TODO: Get all contracts of an employee.
+        /// Get all contracts of an employee.
         /// </summary>
         /// <param name="employeeId">Employee ID</param>
         /// <returns>List of contracts</returns>
@@ -31,28 +31,36 @@ namespace BusinessManagementApp.Data.Api
         IObservable<List<Contract>> GetContracts(string employeeId);
 
         /// <summary>
-        /// TODO: Create a future contract for an employee.
+        /// Terminate current contract.
+        /// </summary>
+        /// <param name="employeeId">Employee ID</param>
+        /// <returns>List of contracts</returns>
+        [Get("/{employeeId}/terminate_current")]
+        IObservable<List<Contract>> TerminateCurrentContract(string employeeId);
+
+        /// <summary>
+        /// Create a future contract for an employee.
         /// </summary>
         /// <param name="employeeId">Employee ID</param>
         /// <param name="contract">Future contract</param>
-        /// <returns>Future contract</returns>
+        /// <returns>List of contracts</returns>
         [Post("/{employeeId}/contracts")]
-        IObservable<Contract> SaveFutureContract(string employeeId, [Body] Contract contract);
+        IObservable<List<Contract>> SaveFutureContract(string employeeId, [Body] Contract contract);
 
         /// <summary>
-        /// TODO: Update the future contract of an employee.
+        /// Update the future contract of an employee.
         /// </summary>
         /// <param name="employeeId">Employee ID</param>
         /// <param name="contract">Future contract</param>
-        /// <returns>Future contract</returns>
+        /// <returns>List of contracts</returns>
         [Patch("/{employeeId}/contracts")]
-        IObservable<Contract> UpdateFutureContract(string employeeId, [Body] Contract contract);
+        IObservable<List<Contract>> UpdateFutureContract(string employeeId, [Body] Contract contract);
 
         /// <summary>
-        /// TODO: Delete the future contract of an employee.
+        /// Delete the future contract of an employee.
         /// </summary>
         /// <param name="employeeId">Employee ID</param>
         [Delete("/{employeeId}/contracts")]
-        IObservable<object> DeleteFutureContract(string employeeId);
+        IObservable<List<Contract>> DeleteFutureContract(string employeeId);
     }
 }

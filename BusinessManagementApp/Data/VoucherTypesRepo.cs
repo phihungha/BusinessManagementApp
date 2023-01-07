@@ -1,70 +1,42 @@
-﻿using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class VoucherTypesRepo
     {
+        private IVoucherTypesApi api;
+
+        public VoucherTypesRepo(IVoucherTypesApi api)
+        {
+            this.api = api;
+        }
+
         public IObservable<object> DeleteVoucherType(int id)
         {
-            throw new NotImplementedException();
+            return api.DeleteVoucherType(id);
         }
 
         public IObservable<VoucherType> GetVoucherType(int id)
         {
-            var voucherType = new VoucherType()
-            {
-                Id = 1,
-                Name = "Voucher giang sinh",
-                Description = "giang sinh",
-                DiscountType = DiscountType.Percent,
-                DiscountValue = 0.2,
-                MinNetPrice = 10000,
-                AppliedProducts = new List<Product>() { new Product { Id = 1, Name = "Quan", Price = 10000, Stock = 1 } }
-            };
-            return Observable.FromAsync(() => Task.FromResult(voucherType));
+            return api.GetVoucherType(id);
         }
 
         public IObservable<List<VoucherType>> GetVoucherTypes()
         {
-            var voucherTypes = new List<VoucherType>()
-            {
-                new VoucherType()
-                {
-                    Id = 1,
-                    Name = "Christmas discount",
-                    Description = "giang sinh",
-                    DiscountType = DiscountType.Percent,
-                    DiscountValue = 0.2,
-                    MinNetPrice = 10000,
-                    AppliedProducts = new List<Product>() { new Product { Id = 1, Name = "Quan", Price = 10000, Stock = 1 } }
-                },
-
-                new VoucherType()
-                {
-                    Id = 2,
-                    Name = "New Year discount",
-                    Description = "tet",
-                    DiscountType = DiscountType.Percent,
-                    DiscountValue = 0.5,
-                    MinNetPrice = 10000,
-                    AppliedProducts = new List<Product>() { new Product { Id = 2, Name = "Ao", Price = 50000, Stock = 2 } }
-                }
-            };
-            return Observable.FromAsync(() => Task.FromResult(voucherTypes));
+            return api.GetVoucherTypes();
         }
 
         public IObservable<VoucherType> AddVoucherType(VoucherType voucherType)
         {
-            throw new NotImplementedException();
+            return api.SaveVoucherType(voucherType);
         }
 
         public IObservable<VoucherType> UpdateVoucherType(int voucherTypeId, VoucherType voucherType)
         {
-            throw new NotImplementedException();
+            return api.UpdateVoucherType(voucherTypeId, voucherType);
         }
     }
 }

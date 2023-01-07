@@ -95,7 +95,7 @@ namespace BusinessManagementApp.ViewModels
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
 
-            Overview overview = await overviewRepo.GetOverview();
+            miOverview overview = await overviewRepo.GetOverview();
             PendingOrders.AddRange(overview.PendingOrders);
             numOfPendingOrders.Value = overview.NumOfPendingOrders;
             totalStock.Value = overview.TotalStock;

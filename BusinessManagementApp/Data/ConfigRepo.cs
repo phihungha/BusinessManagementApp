@@ -1,29 +1,31 @@
-﻿using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
+using System;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class ConfigRepo
     {
+        private IConfigApi api;
+
         public Config Config { get; private set; } = new();
 
-        public ConfigRepo()
+        public ConfigRepo(IConfigApi api)
         {
-            // TODO: Remove when using real API
-            LoadConfig();
+            this.api = api;
         }
 
-        public void LoadConfig()
+        public async Task<Config> LoadConfig()
         {
-            Config = new Config()
-            {
-                MaxNumOfOvertimeHours = 4,
-                OvertimeHourlyRate = 150_000,
-                VATRate = 0.05
-            };
+            Config = await api.GetConfig();
+            return Config;
         }
 
-        public void SaveConfig(Config config)
+        public IObservable<Config> SaveConfig(Config config)
         {
+            return api.SaveConfig(config);
         }
     }
 }

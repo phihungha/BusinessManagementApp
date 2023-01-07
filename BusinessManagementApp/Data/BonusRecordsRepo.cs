@@ -1,43 +1,27 @@
-﻿using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class BonusRecordsRepo
     {
+        private IBonusRecordsApi api;
+
+        public BonusRecordsRepo(IBonusRecordsApi api)
+        {
+            this.api = api;
+        }
+
         public IObservable<List<BonusRecord>> GetBonusRecords(int year, int month)
         {
-            var records = new List<BonusRecord>();
-            if (year == 2022 && month == 12)
-            {
-                records = new List<BonusRecord>()
-                {
-                    new BonusRecord()
-                    {
-                        MonthYear = new DateTime(2022, 12, 1),
-                        Employee = new Employee() { Id = "1", Name = "Nguyen Van A"},
-                        Amount = 1_000_000,
-                        Type = new BonusType() { Id = 1, Name = "Excellent" }
-                    },
-                    new BonusRecord()
-                    {
-                        MonthYear = new DateTime(2022, 12, 1),
-                        Employee = new Employee() { Id = "2", Name = "Mai Thi Xuan"},
-                        Amount = 500_000,
-                        Type = new BonusType() { Id = 2, Name = "Good" }
-                    }
-                };
-            }
-
-            return Observable.FromAsync(() => Task.FromResult(records));
+            return api.GetBonusRecords(month, year);
         }
 
         public IObservable<List<BonusRecord>> UpdateBonusRecords(int year, int month, List<BonusRecord> records)
         {
-            return Observable.FromAsync(() => Task.FromResult(records));
+            return api.UpdateBonusRecords(month, year, records);
         }
     }
 }

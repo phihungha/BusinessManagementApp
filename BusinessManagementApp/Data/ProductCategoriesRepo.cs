@@ -1,57 +1,42 @@
-﻿using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class ProductCategoriesRepo
     {
+        private IProductCategoriesApi api;
+
+        public ProductCategoriesRepo(IProductCategoriesApi api)
+        {
+            this.api = api;
+        }
+
         public IObservable<object> DeleteProductCategory(int id)
         {
-            throw new NotImplementedException();
+            return api.DeleteProductCategory(id);
         }
 
         public IObservable<ProductCategory> GetProductCategory(int id)
         {
-            var productCategory = new ProductCategory()
-            {
-                Id = 1,
-                Name = "may tinh",
-                Description = "hang de vo"
-            };
-            return Observable.FromAsync(() => Task.FromResult(productCategory));
+            return api.GetProductCategory(id);
         }
 
         public IObservable<List<ProductCategory>> GetProductCategories()
         {
-            var productCategories = new List<ProductCategory>()
-            {
-                new ProductCategory()
-                {
-                    Id = 1,
-                    Name = "may tinh",
-                    Description = "hang de vo"
-                },
-                new ProductCategory()
-                {
-                    Id = 2,
-                    Name = "ram",
-                    Description = "hang de vo"
-                },
-            };
-            return Observable.FromAsync(() => Task.FromResult(productCategories));
+            return api.GetProductCategories();
         }
 
-        public IObservable<SkillType> AddProductCategory(ProductCategory productCategory)
+        public IObservable<ProductCategory> AddProductCategory(ProductCategory productCategory)
         {
-            throw new NotImplementedException();
+            return api.SaveProductCategory(productCategory);
         }
 
         public IObservable<ProductCategory> UpdateProductCategory(int productCategoryId, ProductCategory productCategory)
         {
-            throw new NotImplementedException();
+            return api.UpdateProductCategory(productCategoryId, productCategory);
         }
     }
 }

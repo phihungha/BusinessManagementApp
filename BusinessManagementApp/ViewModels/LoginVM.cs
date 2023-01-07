@@ -71,7 +71,7 @@ namespace BusinessManagementApp.ViewModels
             if (await sessionsRepo.Authenticate(UserName, Password))
             {
                 MainWindowNavUtils.NavigateTo(MainWindowViewName.Workspace);
-                configRepo.LoadConfig();
+                await configRepo.LoadConfig();
             }
             else
             {

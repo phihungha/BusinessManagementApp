@@ -11,12 +11,12 @@ namespace BusinessManagementApp.Data.Api
         IObservable<List<Voucher>> GetVouchers();
 
         [Get("/{id}")]
-        IObservable<Voucher> GetVoucher(int id);
+        IObservable<Voucher> GetVoucher(string id);
 
         [Post("/")]
         IObservable<List<Voucher>> GenerateVouchers([Body] VoucherType voucherType, int numOfVouchers);
 
         [Delete("/")]
-        IObservable<object> DeleteVouchers([Body] IEnumerable<int> voucherIds);
+        IObservable<List<Voucher>> DeleteVouchers([Body] IEnumerable<string> voucherIds);
     }
 }

@@ -1,84 +1,42 @@
-﻿using BusinessManagementApp.Data.Model;
+﻿using BusinessManagementApp.Data.Api;
+using BusinessManagementApp.Data.Model;
 using System;
 using System.Collections.Generic;
-using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace BusinessManagementApp.Data
 {
     public class PositionsRepo
     {
+        private IPositionsApi api;
+
+        public PositionsRepo(IPositionsApi api)
+        {
+            this.api = api;
+        }
+
         public IObservable<object> DeletePosition(int id)
         {
-            throw new NotImplementedException();
+            return api.DeletePosition(id);
         }
 
         public IObservable<Position> GetPosition(int id)
         {
-            var position = new Position()
-            {
-                Id = 1,
-                Name = "director",
-                Description = "a",
-                SupplementSalary = 100000,
-
-                CanViewOrders = true,
-                CanManageOrders = true,
-
-                CanViewCustomers = true,
-                CanManageCustomers = true,
-
-                CanViewSales = true,
-                CanManageSales = true,
-
-                CanViewHr = true,
-                CanManageHr = true,
-
-                CanViewConfig = true,
-                CanManageConfig = true
-            };
-
-            return Observable.FromAsync(() => Task.FromResult(position));
+            return api.GetPosition(id);
         }
 
         public IObservable<List<Position>> GetPositions()
         {
-            var positions = new List<Position>()
-            {
-                new Position()
-                {
-                    Id = 1,
-                    Name = "Director",
-                    Description = "a",
-                    SupplementSalary = 100000,
-                },
-
-                new Position()
-                {
-                    Id = 2,
-                    Name = "Sales",
-                    Description = "b",
-                    SupplementSalary = 500000,
-                },
-                new Position()
-                {
-                    Id = 3,
-                    Name = "Sales manager",
-                    Description = "b",
-                    SupplementSalary = 500000,
-                }
-            };
-            return Observable.FromAsync(() => Task.FromResult(positions));
+            return api.GetPositions();
         }
 
         public IObservable<Position> AddPosition(Position position)
         {
-            throw new NotImplementedException();
+            return api.SavePosition(position);
         }
 
         public IObservable<Position> UpdatePosition(int positionId, Position position)
         {
-            throw new NotImplementedException();
+            return api.UpdatePosition(positionId, position);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace BusinessManagementApp.Data.Api
         IObservable<List<SkillOverview>> GetSkillOverviews();
 
         [Get("/{employeeId}")]
-        IObservable<List<SkillRecord>> GetEmployeeSkills(string employeeId);
+        IObservable<SkillOverview> GetSkillDetails(string employeeId);
 
         [Post("/{employeeId}")]
         IObservable<List<SkillRecord>> UpdateEmployeeSkills(string employeeId, [Body] IEnumerable<SkillRecord> skillRecords);

@@ -7,7 +7,7 @@ namespace BusinessManagementApp.Data.Api
 {
     public interface ISalaryRecordsApi
     {
-        [Get("/")]
-        IObservable<List<SalaryRecord>> GetSalaryRecords();
+        [Get("/{year}/{month}")]
+        IObservable<List<SalaryRecord>> GetSalaryRecords(int year, int month);
     }
 }

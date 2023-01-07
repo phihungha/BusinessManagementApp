@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 namespace BusinessManagementApp.Data.Api
 {
-    // TODO
     public interface IBonusRecordsApi
     {
         [Get("/{month}/{year}")]

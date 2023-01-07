@@ -11,15 +11,15 @@ namespace BusinessManagementApp.Data.Api
         IObservable<List<ContractType>> GetContractTypes();
 
         [Get("/{id}")]
-        IObservable<ContractType> GetContractType(string id);
+        IObservable<ContractType> GetContractType(int id);
 
         [Post("/")]
         IObservable<ContractType> SaveContractType([Body] ContractType contractType);
 
         [Patch("/{id}")]
-        IObservable<ContractType> UpdateContractType(string id, [Body] ContractType contractType);
+        IObservable<ContractType> UpdateContractType(int id, [Body] ContractType contractType);
 
         [Delete("/{id}")]
-        IObservable<object> DeleteContractType(string id);
+        IObservable<object> DeleteContractType(int id);
     }
 }
