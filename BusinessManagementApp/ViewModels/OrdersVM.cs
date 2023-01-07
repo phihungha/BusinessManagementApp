@@ -2,6 +2,7 @@
 using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
+using BusinessManagementApp.ViewModels.Filters;
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -13,18 +14,6 @@ using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
 {
-    public enum OrderInfoSearchBy
-    {
-        [Description("ID")]
-        Id,
-
-        [Description("Name")]
-        Name,
-
-        [Description("Address")]
-        Address,
-    }
-
     public class OrdersVM : ViewModelBase
     {
         private OrdersRepo ordersRepo;
@@ -33,29 +22,154 @@ namespace BusinessManagementApp.ViewModels
 
         public ICollectionView OrdersView { get; }
 
-        public string SearchText { get; set; } = string.Empty;
+        #region Filters
 
-        public OrderInfoSearchBy SearchBy { get; set; } = OrderInfoSearchBy.Name;
+        private OrderContainsFilter containsFilter;
+        private TimeRangeFilter<Order> creationTimeFilter;
+        private TimeRangeFilter<Order> completionTimeFilter;
+        private OrderStatusFilter statusFilter;
+
+        #endregion Filters
+
+        #region Filter properties
+
+        public string SearchText
+        {
+            get => containsFilter.SearchText;
+            set
+            {
+                SetProperty(containsFilter.SearchText, value, containsFilter,
+                            (obj, val) => obj.SearchText = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public OrderInfoSearchBy SearchBy
+        {
+            get => containsFilter.SearchBy;
+            set
+            {
+                SetProperty(containsFilter.SearchBy, value, containsFilter,
+                            (obj, val) => obj.SearchBy = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public bool StatusFilterEnabled
+        {
+            get => statusFilter.IsEnabled;
+            set
+            {
+                SetProperty(statusFilter.IsEnabled, value, statusFilter,
+                            (obj, val) => obj.IsEnabled = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public OrderStatus StatusFilterOption
+        {
+            get => statusFilter.Status;
+            set
+            {
+                SetProperty(statusFilter.Status, value, statusFilter,
+                            (obj, val) => obj.Status = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public bool CreationStartTimeFilterEnabled
+        {
+            get => creationTimeFilter.StartTimeFilterEnabled;
+            set
+            {
+                SetProperty(creationTimeFilter.StartTimeFilterEnabled, value, creationTimeFilter,
+                            (obj, val) => obj.StartTimeFilterEnabled = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public DateTime CreationStartTimeFilterOption
+        {
+            get => creationTimeFilter.StartTime;
+            set
+            {
+                SetProperty(creationTimeFilter.StartTime, value, creationTimeFilter,
+                            (obj, val) => obj.StartTime = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public bool CreationEndTimeFilterEnabled
+        {
+            get => creationTimeFilter.EndTimeFilterEnabled;
+            set
+            {
+                SetProperty(creationTimeFilter.EndTimeFilterEnabled, value, creationTimeFilter,
+                            (obj, val) => obj.EndTimeFilterEnabled = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public DateTime CreationEndTimeFilterOption
+        {
+            get => creationTimeFilter.EndTime;
+            set
+            {
+                SetProperty(creationTimeFilter.EndTime, value, creationTimeFilter,
+                            (obj, val) => obj.EndTime = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public bool CompletionStartTimeFilterEnabled
+        {
+            get => completionTimeFilter.StartTimeFilterEnabled;
+            set
+            {
+                SetProperty(completionTimeFilter.StartTimeFilterEnabled, value, completionTimeFilter,
+                            (obj, val) => obj.StartTimeFilterEnabled = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public DateTime CompletionStartTimeFilterOption
+        {
+            get => completionTimeFilter.StartTime;
+            set
+            {
+                SetProperty(completionTimeFilter.StartTime, value, completionTimeFilter,
+                            (obj, val) => obj.StartTime = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public bool CompletionEndTimeFilterEnabled
+        {
+            get => completionTimeFilter.EndTimeFilterEnabled;
+            set
+            {
+                SetProperty(completionTimeFilter.EndTimeFilterEnabled, value, completionTimeFilter,
+                            (obj, val) => obj.EndTimeFilterEnabled = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        public DateTime CompletionEndTimeFilterOption
+        {
+            get => completionTimeFilter.EndTime;
+            set
+            {
+                SetProperty(completionTimeFilter.EndTime, value, completionTimeFilter,
+                            (obj, val) => obj.EndTime = val);
+                OrdersView.Refresh();
+            }
+        }
+
+        #endregion Filter properties
 
         public ICommand AddOrder { get; }
         public ICommand Search { get; }
         public ICommand Edit { get; }
-
-        private DateTime selectedCreation = DateTime.Now;
-
-        public DateTime SelectedCreation
-        {
-            get => selectedCreation;
-            set => SetProperty(ref selectedCreation, value, true);
-        }
-
-        private DateTime selectedCompletion = DateTime.Now.AddDays(1);
-
-        public DateTime SelectedCompletion
-        {
-            get => selectedCompletion;
-            set => SetProperty(ref selectedCompletion, value, true);
-        }
 
         public bool AllowAdd { get; } = false;
 
@@ -67,6 +181,11 @@ namespace BusinessManagementApp.ViewModels
             }
 
             this.ordersRepo = ordersRepo;
+
+            containsFilter = new OrderContainsFilter() { IsEnabled = true };
+            completionTimeFilter = new TimeRangeFilter<Order>(order => order.CompletionTime, containsFilter);
+            creationTimeFilter = new TimeRangeFilter<Order>(order => order.CreationTime, completionTimeFilter);
+            statusFilter = new OrderStatusFilter(creationTimeFilter) { IsEnabled = true };
 
             var collectionViewSource = new CollectionViewSource() { Source = orders };
             OrdersView = collectionViewSource.View;
@@ -82,22 +201,7 @@ namespace BusinessManagementApp.ViewModels
         private bool FilterList(object item)
         {
             var order = (Order)item;
-            bool kqDate = (order.CreationTime.Date == selectedCreation.Date) && (order.CompletionTime.Date == selectedCompletion.Date);
-
-            switch (SearchBy)
-            {
-                case OrderInfoSearchBy.Name:
-                    return order.Customer.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && kqDate;
-
-                case OrderInfoSearchBy.Id:
-                    return order.Id.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && kqDate;
-
-                case OrderInfoSearchBy.Address:
-                    return order.Address.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && kqDate;
-
-                default:
-                    return kqDate;
-            }
+            return statusFilter.Filter(order);
         }
 
         private void OpenDetailsView(int? id)
