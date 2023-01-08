@@ -35,6 +35,6 @@ namespace BusinessManagementApp.Data.Model
         [JsonProperty("vat_rate")] public double VATRate { get; set; }
 
         // Net price after VAT tax
-        [JsonProperty("total_amount")] public double TotalAmount { get; set; }
+        [JsonProperty("total_amount")] public decimal TotalAmount { get; set; }
     }
 }

@@ -1,6 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using Newtonsoft.Json;
 
 namespace BusinessManagementApp.Data.Model
 {
