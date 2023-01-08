@@ -198,6 +198,11 @@ namespace BusinessManagementApp.ViewModels
             LoadData();
         }
 
+        public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
+        {
+            LoadData();
+        }
+
         private bool FilterList(object item)
         {
             var order = (Order)item;
@@ -218,7 +223,7 @@ namespace BusinessManagementApp.ViewModels
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            orders.AddRange(await ordersRepo.GetOrders());
+            orders.ClearAndAddRange(await ordersRepo.GetOrders());
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
