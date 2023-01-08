@@ -3,6 +3,7 @@ using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.Views;
 using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -107,8 +108,10 @@ namespace BusinessManagementApp.ViewModels
                 if (dialog.IsConfirmed)
                 {
                     BusyIndicatorUtils.SetBusyIndicator(true);
+
                     var Ids = SelectedVouchers.Select(x => x.Code).ToList();
-                    await vouchersRepo.DeleteVouchers(SelectedVouchers.Select(x => x.Code).ToList());
+                    vouchers.ClearAndAddRange(await vouchersRepo.DeleteVouchers(Ids));
+
                     BusyIndicatorUtils.SetBusyIndicator(false);
                 }
             };
@@ -118,7 +121,7 @@ namespace BusinessManagementApp.ViewModels
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            vouchers.AddRange(await vouchersRepo.GetVouchers());
+            vouchers.ClearAndAddRange(await vouchersRepo.GetVouchers());
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }

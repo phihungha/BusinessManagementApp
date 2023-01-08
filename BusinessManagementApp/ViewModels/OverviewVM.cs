@@ -95,12 +95,17 @@ namespace BusinessManagementApp.ViewModels
             CurrentTime = DateTime.Now;
         }
 
+        public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
+        {
+            LoadData();
+        }
+
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
 
             Overview overview = await overviewRepo.GetOverview();
-            PendingOrders.AddRange(overview.PendingOrders);
+            PendingOrders.ClearAndAddRange(overview.PendingOrders);
             numOfPendingOrders.Value = overview.NumOfPendingOrders;
             totalStock.Value = overview.TotalStock;
             todayRevenue.Value = overview.TodayRevenue;

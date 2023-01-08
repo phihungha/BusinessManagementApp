@@ -413,8 +413,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             };
 
             BusyIndicatorUtils.SetBusyIndicator(true);
-            Contracts.ClearAndAddRange(await employeesRepo.AddFutureContract(Id, contract));
-            NewContractExists = true;
+
+            if (newContractExists)
+            {
+                Contracts.ClearAndAddRange(await employeesRepo.UpdateFutureContract(Id, contract));
+            }
+            else
+            {
+                Contracts.ClearAndAddRange(await employeesRepo.AddFutureContract(Id, contract));
+                NewContractExists = true;
+            }
+
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
