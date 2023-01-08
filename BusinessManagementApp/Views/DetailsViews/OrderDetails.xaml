@@ -125,7 +125,7 @@
 
                         <Grid Grid.Row="1">
                             <StackPanel Margin="0,10,0,0">
-                                <TextBlock  Text="Address" />
+                                <TextBlock  Text="Delivery address" />
                                 <TextBox IsEnabled="{Binding AllowEdit}" Text="{Binding Address}" HorizontalAlignment="Stretch" />
                             </StackPanel>
                         </Grid>
@@ -166,8 +166,9 @@
                                     Background="#FF358AFF" Foreground="White"
                                     VerticalAlignment="Stretch" Command="{Binding SelectProducts}" />
 
-                        <ListBox IsEnabled="{Binding AllowEdit}" Margin="0,20,0,0" Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="500"
-                                 ItemsSource="{Binding OrderItemsView}" HorizontalContentAlignment="Stretch"
+                        <ListBox ItemsSource="{Binding OrderItemVMs}" IsEnabled="{Binding AllowEdit}" Margin="0,20,0,0" 
+                                 Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="500"
+                                 HorizontalContentAlignment="Stretch"
                                  Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
@@ -181,6 +182,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
                                         <ui:SimpleStackPanel Spacing="3">
@@ -190,9 +192,14 @@
                                             <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                                         </ui:SimpleStackPanel>
 
+                                        <ui:SimpleStackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                                            <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding OrderedPrice, StringFormat=c}" />
+                                            <TextBlock FontSize="13" Text="{Binding UnitPrice, StringFormat=Unit Price: {0:c}}" />
+                                        </ui:SimpleStackPanel>
+
                                         <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
-                                          Minimum="0" Maximum="{Binding Product.Stock}"
-                                          SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
+                                                      Minimum="1" Maximum="{Binding Product.Stock}"
+                                                      SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                                     </Grid>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
@@ -218,7 +225,7 @@
                         </Grid.RowDefinitions>
 
                         <ListBox IsEnabled="{Binding AllowEdit}" Margin="0,20,0,0" Grid.Row="2" Grid.ColumnSpan="2" MaxHeight="300"
-                                 ItemsSource="{Binding VouchersView}" HorizontalContentAlignment="Stretch"
+                                 ItemsSource="{Binding AppliedVouchers}" HorizontalContentAlignment="Stretch"
                                  Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
                             <ListBox.ItemContainerStyle>
                                 <Style TargetType="ListBoxItem">
@@ -236,8 +243,8 @@
                                         <ui:SimpleStackPanel Spacing="3">
                                             <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding Type.Name}" />
                                             <TextBlock FontSize="13" Text="{Binding Code, StringFormat=ID: {0}}" />
-                                            <TextBlock FontSize="13" Text="{Binding ReleaseDate, StringFormat=Release date: {0:d}}" />
-                                            <TextBlock FontSize="13" Text="{Binding ExpiryDate, StringFormat=Expiry date: {0:d}}" />
+                                            <TextBlock FontSize="13" Text="{Binding Type.DiscountValue, StringFormat=Discount value: -{0}%}" />
+                                            <TextBlock FontSize="13" Text="{Binding Type.MinNetPrice, StringFormat=Minimum total price: {0:c}}" />
                                         </ui:SimpleStackPanel>
 
                                         <Button Grid.Column="1" Background="{StaticResource DangerColorBrush}"
@@ -257,7 +264,8 @@
                         </StackPanel>
 
                         <StackPanel Grid.Row="1" Grid.Column="0"  Margin="0,20,0,0">
-                            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter voucher..." Text="{Binding Voucher}" />
+                            <TextBox IsEnabled="{Binding AllowEdit}" ui:ControlHelper.PlaceholderText="Enter voucher..."
+                                     Text="{Binding VoucherCode}" />
                         </StackPanel>
 
                         <Button IsEnabled="{Binding AllowEdit}" Grid.Row="1" Margin="10,20,10,0" Grid.Column="1" Content="Apply"
@@ -281,13 +289,13 @@
                         <StackPanel>
                             <TextBlock Margin="0,20,0,0"  FontSize="30" Text="Total Payment Amount" />
                         </StackPanel>
-                        <DockPanel Grid.Row="3" Margin="0,10,0,0">
+                        <DockPanel Grid.Row="2" Margin="0,10,0,0">
                             <TextBlock  Text="Net Price: " />
                             <TextBlock  FontSize="16" TextAlignment="Right"  Margin="5,0,0,0" Text="{Binding NetPrice, StringFormat='{}{0:c}'}" />
                         </DockPanel>
-                        <DockPanel Grid.Row="2" Margin="0,10,0,0">
+                        <DockPanel Grid.Row="3" Margin="0,10,0,0">
                             <TextBlock  Text="VAT rate: " />
-                            <TextBlock  FontSize="16" TextAlignment="Right" Margin="5,0,0,0" Text="{Binding VatRate, StringFormat='{}{0:p0}'}" />
+                            <TextBlock  FontSize="16" TextAlignment="Right" Margin="5,0,0,0" Text="{Binding VatRate, StringFormat='{}{0}%'}" />
                         </DockPanel>
                         <DockPanel Grid.Row="1" Margin="0,10,0,0">
                             <TextBlock  Text="Total price: " />
