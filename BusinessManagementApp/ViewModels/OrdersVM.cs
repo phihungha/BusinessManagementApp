@@ -20,7 +20,9 @@ namespace BusinessManagementApp.ViewModels
 
         private ObservableCollection<Order> orders { get; } = new();
 
-        public ICollectionView OrdersView { get; }
+        private CollectionViewSource ordersCollectionViewSource;
+
+        public ICollectionView OrdersView { get; set; }
 
         #region Filters
 
@@ -187,9 +189,8 @@ namespace BusinessManagementApp.ViewModels
             creationTimeFilter = new TimeRangeFilter<Order>(order => order.CreationTime, completionTimeFilter);
             statusFilter = new OrderStatusFilter(creationTimeFilter) { IsEnabled = true };
 
-            var collectionViewSource = new CollectionViewSource() { Source = orders };
-            OrdersView = collectionViewSource.View;
-            OrdersView.Filter = FilterList;
+            ordersCollectionViewSource = new CollectionViewSource() { Source = orders };
+            setupCollectionView();
 
             AddOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateToWithBackstack(WorkspaceViewName.OrderDetails));
             Search = new RelayCommand(() => OrdersView.Refresh());
@@ -200,7 +201,14 @@ namespace BusinessManagementApp.ViewModels
 
         public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
         {
+            setupCollectionView();
             LoadData();
+        }
+        
+        private void setupCollectionView()
+        {
+            OrdersView = ordersCollectionViewSource.View;
+            OrdersView.Filter = FilterList;
         }
 
         private bool FilterList(object item)
