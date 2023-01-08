@@ -28,6 +28,15 @@ namespace BusinessManagementApp.ViewModels.Navigation
         }
 
         /// <summary>
+        /// Navigate to a view and save current view on the backstack.
+        /// </summary>
+        /// <param name="viewName">Name of view to go to</param>
+        public static void NavigateToWithBackstack(WorkspaceViewName viewName)
+        {
+            WeakReferenceMessenger.Default.Send(new WorkspaceNavMessage(viewName, true));
+        }
+
+        /// <summary>
         /// Navigate to a view, send its view model an object,
         /// and save current view on the backstack.
         /// </summary>

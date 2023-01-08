@@ -54,7 +54,7 @@ namespace BusinessManagementApp.ViewModels
 
             CurrentUser = sessionsRepo.CurrentUser;
 
-            NewOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.OrderDetails));
+            NewOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateToWithBackstack(WorkspaceViewName.OrderDetails));
 
             currentTimeTimer.Interval = 1;
             currentTimeTimer.Elapsed += CurrentTimeTimer_Elapsed;

@@ -140,7 +140,7 @@
                 <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}" Width="*" />
                 <DataGridTextColumn Header="Created at" Binding="{Binding CreationTime, StringFormat='d'}" Width="150" />
                 <DataGridTextColumn Header="Completed at" Binding="{Binding CompletionTime, StringFormat='d'}" Width="150" />
-                <DataGridTextColumn Header="Employee" Binding="{Binding Employee}" Width="*" />
+                <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeInCharge.Name}" Width="*" />
                 <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount,StringFormat=c}" Width="*" />
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
 

@@ -143,7 +143,7 @@
 
                             <StackPanel Grid.Column="1" Margin="15,5,0,0">
                                 <TextBlock  Text="Employee in charge" />
-                                <TextBox IsReadOnly="True" Text="{Binding EmployeeName}" />
+                                <TextBox IsReadOnly="True" Text="{Binding EmployeeInCharge.Name}" />
                             </StackPanel>
                         </Grid>
                     </Grid>

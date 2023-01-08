@@ -191,7 +191,7 @@ namespace BusinessManagementApp.ViewModels
             OrdersView = collectionViewSource.View;
             OrdersView.Filter = FilterList;
 
-            AddOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.OrderDetails));
+            AddOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateToWithBackstack(WorkspaceViewName.OrderDetails));
             Search = new RelayCommand(() => OrdersView.Refresh());
             Edit = new RelayCommand<int?>(id => OpenDetailsView(id));
 
@@ -212,7 +212,7 @@ namespace BusinessManagementApp.ViewModels
             }
 
             // Navigate to details screen
-            WorkspaceNavUtils.NavigateToWithExtra(WorkspaceViewName.OrderDetails, id);
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.OrderDetails, id);
         }
 
         private async void LoadData()
