@@ -44,6 +44,11 @@ namespace BusinessManagementApp.Data
             return api.SaveFutureContract(employeeId, contract);
         }
 
+        public IObservable<List<Contract>> UpdateFutureContract(string employeeId, Contract contract)
+        {
+            return api.UpdateFutureContract(employeeId, contract);
+        }
+
         public IObservable<List<Contract>> TerminateCurrentContract(string employeeId)
         {
             return api.TerminateCurrentContract(employeeId);
