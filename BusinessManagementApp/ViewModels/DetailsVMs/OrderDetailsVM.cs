@@ -546,6 +546,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 return;
             SelectedCustomer = new Customer()
             {
+                Id = SelectedCustomer.Id,
                 Name = Name,
                 Gender = Gender,
                 Birthday = Birthday,
