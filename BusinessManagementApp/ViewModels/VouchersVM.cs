@@ -69,7 +69,7 @@ namespace BusinessManagementApp.ViewModels
             var Ids = SelectedVouchers.Select(x => x.Code).ToList();
             AddVouchers = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.VoucherDetails));
             Search = new RelayCommand(() => VouchersView.Refresh());
-            DeleteVouchers = new AsyncRelayCommand(ExecuteDelete);
+            DeleteVouchers = new RelayCommand(ExecuteDelete);
 
             LoadData();
         }
@@ -96,7 +96,7 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
-        private async Task ExecuteDelete()
+        private void ExecuteDelete()
         {
             ConfirmDialog dialog = new ConfirmDialog(
                 "Delete vouchers",
