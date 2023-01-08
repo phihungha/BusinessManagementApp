@@ -10,13 +10,14 @@ using Newtonsoft.Json;
 using Refit;
 using System;
 using System.Windows;
+using Newtonsoft.Json.Converters;
 
 namespace BusinessManagementApp
 {
     public static class Startup
     {
-        // private const string BaseApiUrl = "http://localhost:3000/";
-        private const string BaseApiUrl = "https://evident-castle-371707.as.r.appspot.com/";
+        private const string BaseApiUrl = "http://localhost:3000/";
+        // private const string BaseApiUrl = "https://evident-castle-371707.as.r.appspot.com/";
 
         private static IHttpClientBuilder ConfigHttpClientBuilder(
             this IHttpClientBuilder builder,
@@ -69,7 +70,11 @@ namespace BusinessManagementApp
 
                 var jsonSettings = new JsonSerializerSettings()
                 {
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters =
+                    {
+                        new StringEnumConverter()
+                    }
                 };
                 RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(jsonSettings));
 

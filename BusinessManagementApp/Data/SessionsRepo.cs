@@ -11,6 +11,7 @@ namespace BusinessManagementApp.Data
     public class SessionsRepo
     {
         private readonly IAuthApi api;
+        private readonly IEmployeesApi employeesApi;
         private readonly SessionAuthData session;
 
         public Employee CurrentUser { get; private set; } = new();
@@ -19,10 +20,11 @@ namespace BusinessManagementApp.Data
             get => CurrentUser.CurrentPosition ?? new();
         }
 
-        public SessionsRepo(IAuthApi api, SessionAuthData session)
+        public SessionsRepo(IAuthApi api, SessionAuthData session, IEmployeesApi employeesApi)
         {
             this.api = api;
             this.session = session;
+            this.employeesApi = employeesApi;
 
             CurrentUser = new Employee()
             {
@@ -63,6 +65,7 @@ namespace BusinessManagementApp.Data
             {
                 session.AccessToken = response.AccessToken;
                 session.RefreshToken = response.RefreshToken;
+                CurrentUser = await employeesApi.GetEmployee(response.User!.Id);
                 return true;
             }
 

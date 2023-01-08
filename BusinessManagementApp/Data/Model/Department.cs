@@ -11,7 +11,7 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("description")] public string Description { get; set; }
 
-        [JsonProperty("phone")] public string PhoneNumber { get; set; }
+        [JsonProperty("phone_number")] public string PhoneNumber { get; set; }
 
         // Only include Id and Name
         [JsonProperty("head_employee")] public Employee Head { get; set; }

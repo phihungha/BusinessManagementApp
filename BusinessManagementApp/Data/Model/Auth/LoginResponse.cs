@@ -12,5 +12,8 @@ namespace BusinessManagementApp.Data.Model.Auth
 
         [JsonProperty(Required = Required.Always, PropertyName = "authenticated")]
         public bool IsAuthenticated { get; set; }
+
+        [JsonProperty("user")]
+        public Employee? User { get; set; }
     }
 }

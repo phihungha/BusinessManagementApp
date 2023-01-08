@@ -155,6 +155,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         }
 
         private ContractType newContractType = new();
+        
+        public int? NewContractId { get; set; }
 
         public ContractType NewContractType
         {
@@ -304,8 +306,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.sessionsRepo = sessionsRepo;
 
             ToggleNewContractEditor = new RelayCommand(
-                () => NewContractEditorDisplayed = !NewContractEditorDisplayed
-                );
+                () =>
+                {
+                    NewContractId = null;
+                    NewContractEditorDisplayed = !NewContractEditorDisplayed;
+                });
             CreateFutureContract = new AsyncRelayCommand(ExecuteCreateFutureContract);
             DeleteFutureContract = new AsyncRelayCommand(ExecuteDeleteFutureContract);
             RenewCurrentContract = new RelayCommand(ExecuteRenewCurrentContract);
@@ -400,9 +405,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             var contract = new Contract()
             {
+                EmployeeId = Id,
                 CompanyRepresentativeEmployeeId = sessionsRepo.CurrentUser.Id,
                 Type = NewContractType,
                 StartDate = NewContractStartDate,
+                EndDate = NewContractEndDate
             };
 
             BusyIndicatorUtils.SetBusyIndicator(true);
@@ -418,6 +425,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             NewContractType = Contract.Type;
             NewContractStartDate = (DateTime)Contract.EndDate;
+            NewContractId = Contracts.Select(c => c.Id).Max();
+            if (NewContractId == null && NewContractId == Contract.Id)
+                NewContractId = null;
             NewContractEditorDisplayed = true;
         }
 
@@ -450,6 +460,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 CitizenId = CitizenId,
                 BirthDate = BirthDate,
                 PhoneNumber = PhoneNumber,
+                Education = Education,
                 Email = Email,
                 Address = Address,
                 Department = Department,
@@ -465,6 +476,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     CompanyRepresentativeEmployeeId = sessionsRepo.CurrentUser.Id,
                     Type = NewContractType,
                     StartDate = NewContractStartDate,
+                    EndDate = NewContractEndDate
                 };
                 employee.CurrentContract = newContract;
             }
