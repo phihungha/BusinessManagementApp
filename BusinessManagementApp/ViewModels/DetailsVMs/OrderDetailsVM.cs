@@ -21,6 +21,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
     {
         #region Dependencies
 
+        private CustomersRepo customersRepo;
         private VouchersRepo vouchersRepo;
         private OrdersRepo ordersRepo;
 
@@ -168,6 +169,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #region Button enable/disable logic
 
+        private bool readOnly = false;
+
+        public bool ReadOnly
+        {
+            get => readOnly;
+            private set => SetProperty(ref readOnly, value);
+        }
+
         private bool isEditMode = false;
 
         private bool IsEditMode
@@ -176,6 +185,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set
             {
                 SetProperty(ref isEditMode, value);
+                ReadOnly = value;
             }
         }
 
@@ -224,7 +234,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ICommand Return { get; private set; }
         public ICommand ApplyVoucher { get; private set; }
         public ICommand DeleteVoucher { get; private set; }
-        public ICommand CreateCustomer { get; private set; }
 
         #endregion Commands for buttons
 
@@ -232,6 +241,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public OrderDetailsVM(OrdersRepo ordersRepo,
                               VouchersRepo vouchersRepo,
+                              CustomersRepo customersRepo,
                               SessionsRepo sessionsRepo)
         {
             if (sessionsRepo.CurrentPosition.CanManageOrders)
@@ -241,6 +251,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             this.ordersRepo = ordersRepo;
             this.vouchersRepo = vouchersRepo;
+            this.customersRepo = customersRepo;
 
             var collectionViewSource = new CollectionViewSource() { Source = orderItemVMs };
 
@@ -250,7 +261,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             OrderItemsView = collectionViewSource.View;
             VouchersView = new CollectionViewSource { Source = AppliedVouchers }.View;
 
-            CreateCustomer = new RelayCommand(ExecuteCreateCustomer);
             SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
 
@@ -394,12 +404,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             TotalAmount = temp - discount;
         }
 
-        private void ExecuteCreateCustomer()
-        {
-            var introMessage = "Create customer for order";
-            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.CreateOrderCustomer, introMessage);
-        }
-
         private void ExecuteSelectCustomers()
         {
             var introMessage = "Select customer for order";
@@ -493,6 +497,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             else
             {
+                List<Customer> customers = await customersRepo.GetCustomers();
+                foreach(Customer customer in customers)
+                {
+                    if(SelectedCustomer == customer)
+                    {
+                        await customersRepo.AddCustomer(SelectedCustomer);
+                    }
+                }
                 await ordersRepo.AddOrder(order);
             }
             BusyIndicatorUtils.SetBusyIndicator(false);
