@@ -33,7 +33,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private DateTime creationTime = new DateTime();
 
-        private Customer selectedCustomer = new();
+        private Customer selectedCustomer = new Customer()
+        {
+            Birthday = new DateTime(2000, 1, 1)
+        };
 
         public Customer SelectedCustomer
         {
@@ -497,14 +500,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             else
             {
-                List<Customer> customers = await customersRepo.GetCustomers();
-                foreach(Customer customer in customers)
-                {
-                    if(SelectedCustomer == customer)
-                    {
-                        await customersRepo.AddCustomer(SelectedCustomer);
-                    }
-                }
+                await customersRepo.AddCustomer(SelectedCustomer);
                 await ordersRepo.AddOrder(order);
             }
             BusyIndicatorUtils.SetBusyIndicator(false);
