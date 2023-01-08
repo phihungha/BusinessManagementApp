@@ -143,10 +143,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveProductCategory()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var productCategory = new ProductCategory()
             {

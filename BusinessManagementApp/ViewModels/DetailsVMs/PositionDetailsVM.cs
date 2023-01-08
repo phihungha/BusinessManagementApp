@@ -248,10 +248,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SavePosition()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var position = new Position()
             {

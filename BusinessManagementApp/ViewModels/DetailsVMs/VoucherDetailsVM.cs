@@ -95,7 +95,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.vouchersRepo = vouchersRepo;
             this.voucherTypesRepo = voucherTypesRepo;
 
-            Save = new AsyncRelayCommand(SaveEmployee);
+            Save = new AsyncRelayCommand(GenerateVouchers);
             Cancel = new RelayCommand(
                 () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Vouchers)
                 );
@@ -110,12 +110,13 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
-        private async Task SaveEmployee()
+        private async Task GenerateVouchers()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var voucher = new Voucher()
             {

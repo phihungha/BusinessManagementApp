@@ -476,10 +476,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveOrder()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var order = new Order()
             {

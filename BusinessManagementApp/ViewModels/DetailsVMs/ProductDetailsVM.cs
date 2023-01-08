@@ -193,10 +193,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveProduct()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var product = new Product()
             {
