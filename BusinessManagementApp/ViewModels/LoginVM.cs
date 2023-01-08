@@ -2,6 +2,7 @@
 using BusinessManagementApp.ViewModels.Navigation;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Refit;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -68,7 +69,21 @@ namespace BusinessManagementApp.ViewModels
         private async Task CheckLogin()
         {
             IsLoggingIn = true;
-            if (await sessionsRepo.Authenticate(UserName, Password))
+
+            bool isAuthenticated = false;
+
+            try
+            {
+                isAuthenticated = await sessionsRepo.Authenticate(UserName, Password);
+
+            }
+            catch (ApiException err)
+            {
+                IsLoggingIn = false;
+                throw err;
+            }
+
+            if (isAuthenticated)
             {
                 MainWindowNavUtils.NavigateTo(MainWindowViewName.Workspace);
                 configRepo.LoadConfig();

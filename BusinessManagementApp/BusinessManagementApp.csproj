@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <None Remove="ViewModels\BonusesVM.cs~RF48ff8f.TMP" />
+    <None Remove="Views\Images\Banner.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,6 +38,12 @@
     <PackageReference Include="Refit.HttpClientFactory" Version="6.3.2" />
     <PackageReference Include="Refit.Newtonsoft.Json" Version="6.3.2" />
     <PackageReference Include="System.Reactive.Core" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\Images\Banner.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

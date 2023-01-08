@@ -15,8 +15,13 @@
         <Border HorizontalAlignment="Center" VerticalAlignment="Center"
                 Width="400" Padding="10,15,10,15" CornerRadius="15" Background="White">
             <ui:SimpleStackPanel Spacing="15">
+                <Image Source="{StaticResource AppIcon}" Width="80"/>
+
                 <TextBox Text="{Binding UserName}" ui:ControlHelper.PlaceholderText="Username..." />
-                <PasswordBox Name="Password" PasswordChanged="Password_PasswordChanged" ui:ControlHelper.PlaceholderText="Password..." />
+                
+                <PasswordBox Name="Password" PasswordChanged="Password_PasswordChanged"
+                             ui:ControlHelper.PlaceholderText="Password..." />
+                
                 <Button Command="{Binding Login}" HorizontalAlignment="Center" Width="100"
                         Foreground="White" Background="{StaticResource PrimaryColorBrush}"
                         Visibility="{Binding DisplayLoginBtn, Converter={StaticResource BoolToVisibilityConverter}}">

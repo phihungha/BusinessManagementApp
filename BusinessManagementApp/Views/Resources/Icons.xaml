@@ -3,6 +3,18 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:Double x:Key="IconThickness">1.5</sys:Double>
 
+    <DrawingImage x:Key="AppIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Geometry="F1 M24,24z M0,0z M13,11L17.8,11C18.9201,11 19.4802,11 19.908,11.218 20.2843,11.4097 20.5903,11.7157 20.782,12.092 21,12.5198 21,13.0799 21,14.2L21,21 M13,21L13,6.2C13,5.0799 13,4.51984 12.782,4.09202 12.5903,3.71569 12.2843,3.40973 11.908,3.21799 11.4802,3 10.9201,3 9.8,3L6.2,3C5.0799,3 4.51984,3 4.09202,3.21799 3.71569,3.40973 3.40973,3.71569 3.21799,4.09202 3,4.51984 3,5.0799 3,6.2L3,21 M22,21L2,21 M6.5,7L9.5,7 M6.5,11L9.5,11 M6.5,15L9.5,15">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#00a6ff" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                    </GeometryDrawing.Pen>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
     <DrawingImage x:Key="XSquareWhiteIcon">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
@@ -378,7 +390,7 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M11.9998,8.99999L11.9998,13 M11.9998,17L12.0098,17 M10.6151,3.89171L2.39019,18.0983C1.93398,18.8863 1.70588,19.2803 1.73959,19.6037 1.769,19.8857 1.91677,20.142 2.14613,20.3088 2.40908,20.5 2.86435,20.5 3.77487,20.5L20.2246,20.5C21.1352,20.5 21.5904,20.5 21.8534,20.3088 22.0827,20.142 22.2305,19.8857 22.2599,19.6037 22.2936,19.2803 22.0655,18.8863 21.6093,18.0983L13.3844,3.89171C12.9299,3.10654 12.7026,2.71396 12.4061,2.58211 12.1474,2.4671 11.8521,2.4671 11.5935,2.58211 11.2969,2.71396 11.0696,3.10655 10.6151,3.89171z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="{StaticResource WarningColorBrush}" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="{StaticResource WarningColorBrush}" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
@@ -390,7 +402,7 @@
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
                 <GeometryDrawing Geometry="F1 M24,24z M0,0z M12,8L12,12 M12,16L12.01,16 M22,12C22,17.5228 17.5228,22 12,22 6.47715,22 2,17.5228 2,12 2,6.47715 6.47715,2 12,2 17.5228,2 22,6.47715 22,12z">
                     <GeometryDrawing.Pen>
-                        <Pen Brush="Red" Thickness="{StaticResource IconThickness}" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
+                        <Pen Brush="Red" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" MiterLimit="1" />
                     </GeometryDrawing.Pen>
                 </GeometryDrawing>
             </DrawingGroup>
