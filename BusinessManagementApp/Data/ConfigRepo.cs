@@ -23,9 +23,10 @@ namespace BusinessManagementApp.Data
             return Config;
         }
 
-        public IObservable<Config> SaveConfig(Config config)
+        public async Task<Config> SaveConfig(Config config)
         {
-            return api.SaveConfig(config);
+            Config = await api.SaveConfig(config);
+            return Config;
         }
     }
 }

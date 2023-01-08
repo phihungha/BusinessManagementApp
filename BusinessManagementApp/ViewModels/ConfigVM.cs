@@ -3,6 +3,7 @@ using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.ViewModels.BusyIndicator;
 using CommunityToolkit.Mvvm.Input;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels
@@ -74,7 +75,7 @@ namespace BusinessManagementApp.ViewModels
             }
 
             this.configRepo = configRepo;
-            Save = new RelayCommand(SaveConfig);
+            Save = new AsyncRelayCommand(SaveConfig);
             Reset = new RelayCommand(ResetConfig);
             LoadData();
         }
@@ -98,7 +99,7 @@ namespace BusinessManagementApp.ViewModels
             oldMaxNumOfOvertimeHours = MaxNumOfOvertimeHours;
         }
 
-        private void SaveConfig()
+        private async Task SaveConfig()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
@@ -110,8 +111,8 @@ namespace BusinessManagementApp.ViewModels
                 VATRate = VATRate,
                 OvertimeHourlyRate = OvertimeHourlyRate,
             };
-            configRepo.SaveConfig(config);
-            UpdateOldValue();
+            await configRepo.SaveConfig(config);
+            LoadData();
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
