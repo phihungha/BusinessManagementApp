@@ -14,7 +14,7 @@ namespace BusinessManagementApp.ViewModels
     public class MainWindowVM : ObservableObject
     {
         private ObservableObject currentViewVM
-            = App.Current.ServiceProvider.GetRequiredService<WorkspaceVM>();
+            = App.Current.ServiceProvider.GetRequiredService<LoginVM>();
 
         public ObservableObject CurrentViewVM
         {
