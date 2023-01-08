@@ -37,6 +37,8 @@ namespace BusinessManagementApp.ViewModels
             get => bonusType;
             set
             {
+                if (value == null)
+                    return;
                 SetProperty(ref bonusType, value);
                 BonusAmount = value.Amount;
             }
@@ -160,7 +162,6 @@ namespace BusinessManagementApp.ViewModels
                 Id = -1,
                 Name = "<No bonus>"
             };
-            BonusTypes.Add(NoBonusType);
 
             LoadData();
         }
@@ -187,13 +188,23 @@ namespace BusinessManagementApp.ViewModels
             }
         }
 
+        private async Task LoadDependentData()
+        {
+            BonusTypes.Clear();
+            BonusTypes.Add(NoBonusType);
+            BonusTypes.AddRange(await bonusTypesRepo.GetBonusTypes());
+            employees = await employeesRepo.GetEmployees();
+        }
+
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            BonusTypes.ClearAndAddRange(await bonusTypesRepo.GetBonusTypes());
+
+            await LoadDependentData();
+
             bonusRecords = await bonusesRepo.GetBonusRecords(Year, Month);
-            employees = await employeesRepo.GetEmployees();
             LoadBonusRecordVMs();
+
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -231,6 +242,8 @@ namespace BusinessManagementApp.ViewModels
 
         private async Task SaveBonusRecords()
         {
+            BusyIndicatorUtils.SetBusyIndicator(true);
+
             List<BonusRecord> recordsToUpdate = bonusRecordVMs.Where(i => i.BonusType != NoBonusType)
                  .Select(i => new BonusRecord()
                  {
@@ -240,8 +253,12 @@ namespace BusinessManagementApp.ViewModels
                      Amount = i.BonusType.Amount
                  })
                  .ToList();
-            await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);
-            LoadData();
+
+            bonusRecords = await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);
+            await LoadDependentData();
+            LoadBonusRecordVMs();
+
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
 }
