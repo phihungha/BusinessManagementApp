@@ -19,6 +19,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         #region Dependencies
 
         private ProductsRepo productsRepo;
+        private ProductCategoriesRepo productsCategoriesRepo;
 
         #endregion Dependencies
 
@@ -131,7 +132,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public bool AllowEdit { get; } = false;
 
-        public ProductDetailsVM(ProductsRepo productsRepo, SessionsRepo sessionsRepo)
+        public ProductDetailsVM(ProductsRepo productsRepo, ProductCategoriesRepo productsCategoriesRepo, SessionsRepo sessionsRepo)
         {
             if (sessionsRepo.CurrentPosition.CanManageSales)
             {
@@ -139,7 +140,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
 
             this.productsRepo = productsRepo;
-
+            this.productsCategoriesRepo = productsCategoriesRepo;
             Save = new AsyncRelayCommand(SaveProduct);
             Delete = new RelayCommand(DeleteProduct);
             Cancel = new RelayCommand(
@@ -151,7 +152,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
 
-            Categories.AddRange(await productsRepo.GetCategories());
+            Categories.AddRange(await productsCategoriesRepo.GetProductCategories());
 
             if (id != null)
             {
