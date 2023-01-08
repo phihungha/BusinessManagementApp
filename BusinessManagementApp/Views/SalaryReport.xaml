@@ -54,7 +54,9 @@
                 Month: 
             </TextBlock>
 
-            <ui:NumberBox Value="{Binding SelectedMonth}" Minimum="1" Maximum="12" Margin="10,0,0,0" Width="100"/>
+            <ComboBox Margin="10,0,0,0" Width="100"
+                      ItemsSource="{Binding MonthSelections}"
+                      SelectedItem="{Binding Month}" />
 
             <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
                 Year:
