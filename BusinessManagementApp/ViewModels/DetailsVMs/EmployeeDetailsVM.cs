@@ -309,7 +309,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             CreateFutureContract = new AsyncRelayCommand(ExecuteCreateFutureContract);
             DeleteFutureContract = new AsyncRelayCommand(ExecuteDeleteFutureContract);
             RenewCurrentContract = new RelayCommand(ExecuteRenewCurrentContract);
-            TerminateCurrentContract = new AsyncRelayCommand(ExecuteTerminateCurrentContract);
+            TerminateCurrentContract = new RelayCommand(ExecuteTerminateCurrentContract);
 
             Save = new AsyncRelayCommand(SaveEmployee);
             Delete = new RelayCommand(DeleteEmployee);
@@ -430,12 +430,22 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             NewContractEditorDisplayed = true;
         }
 
-        private async Task ExecuteTerminateCurrentContract()
+        private void ExecuteTerminateCurrentContract()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
-            Contracts.ClearAndAddRange(await employeesRepo.TerminateCurrentContract(Id));
-            AllowTerminateCurrentContract = false;
-            BusyIndicatorUtils.SetBusyIndicator(false);
+            var dialog = new ConfirmDialog(
+                "Terminate current contract?",
+                "Do you want to terminate the current contract. This cannot be undone!");
+            dialog.Closed += async (sender, eventArgs) =>
+            {
+                if (dialog.IsConfirmed)
+                {
+                    BusyIndicatorUtils.SetBusyIndicator(true);
+                    Contracts.ClearAndAddRange(await employeesRepo.TerminateCurrentContract(Id));
+                    AllowTerminateCurrentContract = false;
+                    BusyIndicatorUtils.SetBusyIndicator(false);
+                }
+            };
+            dialog.Show();
         }
 
         private async Task ExecuteDeleteFutureContract()
