@@ -34,10 +34,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private DateTime creationTime = new DateTime();
 
-        private Customer selectedCustomer = new Customer()
-        {
-            Birthday = new DateTime(2000, 1, 1)
-        };
+        private Customer selectedCustomer = new();
 
         public Customer SelectedCustomer
         {
@@ -542,7 +539,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveOrder()
         {
-           
+            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
