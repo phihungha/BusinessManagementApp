@@ -17,11 +17,9 @@ namespace BusinessManagementApp.ViewModels
 {
     public enum BonusRecordsSearchBy
     {
-        [Description("ID")]
-        Id,
+        [Description("ID")] Id,
 
-        [Description("Employee name")]
-        Name
+        [Description("Employee name")] Name
     }
 
     public class BonusRecordVM : ViewModelBase
@@ -136,9 +134,9 @@ namespace BusinessManagementApp.ViewModels
         public bool AllowEdit { get; } = false;
 
         public BonusesVM(BonusRecordsRepo bonusesRepo,
-                         BonusTypesRepo bonusTypesRepo,
-                         EmployeeRepo employeesRepo,
-                         SessionsRepo sessionsRepo)
+            BonusTypesRepo bonusTypesRepo,
+            EmployeeRepo employeesRepo,
+            SessionsRepo sessionsRepo)
         {
             if (sessionsRepo.CurrentPosition.CanManageHr)
             {
@@ -149,7 +147,7 @@ namespace BusinessManagementApp.ViewModels
             this.bonusTypesRepo = bonusTypesRepo;
             this.employeesRepo = employeesRepo;
 
-            var collectionViewSource = new CollectionViewSource() { Source = bonusRecordVMs };
+            var collectionViewSource = new CollectionViewSource() {Source = bonusRecordVMs};
             BonusesView = collectionViewSource.View;
             BonusesView.Filter = FilterList;
 
@@ -168,7 +166,7 @@ namespace BusinessManagementApp.ViewModels
 
         private bool FilterList(object item)
         {
-            var record = (BonusRecordVM)item;
+            var record = (BonusRecordVM) item;
 
             if (SearchText == null)
             {
@@ -193,6 +191,7 @@ namespace BusinessManagementApp.ViewModels
             BonusTypes.Clear();
             BonusTypes.Add(NoBonusType);
             BonusTypes.AddRange(await bonusTypesRepo.GetBonusTypes());
+            bonusRecords = await bonusesRepo.GetBonusRecords(Year, Month);
             employees = await employeesRepo.GetEmployees();
         }
 
@@ -244,17 +243,22 @@ namespace BusinessManagementApp.ViewModels
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
 
-            List<BonusRecord> recordsToUpdate = bonusRecordVMs.Where(i => i.BonusType != NoBonusType)
-                 .Select(i => new BonusRecord()
-                 {
-                     MonthYear = new DateTime(Year, Month, 1),
-                     Employee = i.Employee,
-                     Type = i.BonusType,
-                     Amount = i.BonusType.Amount
-                 })
-                 .ToList();
+            List<BonusRecord> recordsToUpdate = new List<BonusRecord>();
+            for (var i = 0; i < bonusRecordVMs.Count; i++)
+            {
+                var vm = bonusRecordVMs[i];
+                if (vm.BonusType != NoBonusType)
+                {
+                    var record = new BonusRecord();
+                    record.MonthYear = new DateTime(Year, Month, 1);
+                    record.Employee = vm.Employee;
+                    record.Type = vm.BonusType;
+                    record.Amount = vm.BonusType.Amount;
+                    recordsToUpdate.Add(record);
+                }
+            }
 
-            bonusRecords = await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);
+            await bonusesRepo.UpdateBonusRecords(Year, Month, recordsToUpdate);
             await LoadDependentData();
             LoadBonusRecordVMs();
 
