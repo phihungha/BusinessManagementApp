@@ -44,6 +44,11 @@ namespace BusinessManagementApp.ViewModels
         // Go into Startup.cs to add new depencencies if needed
         public PositionsVM(PositionsRepo positionsRepo, SessionsRepo sessionsRepo)
         {
+            if (sessionsRepo.CurrentPosition.CanManageConfig)
+            {
+                AllowAdd = true;
+            }
+
             this.positionsRepo = positionsRepo;
 
             // DataGrid accesses the ObservableCollection of model objects
