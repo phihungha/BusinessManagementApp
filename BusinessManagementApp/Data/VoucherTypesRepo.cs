@@ -21,7 +21,7 @@ namespace BusinessManagementApp.Data
                 Name = "Voucher giang sinh",
                 Description = "giang sinh",
                 DiscountType = DiscountType.Percent,
-                DiscountValue = 0.2,
+                DiscountValue = 20,
                 MinNetPrice = 10000,
                 AppliedProducts = new List<Product>() { new Product { Id = 1, Name = "Quan", Price = 10000, Stock = 1 } }
             };
@@ -38,7 +38,7 @@ namespace BusinessManagementApp.Data
                     Name = "Christmas discount",
                     Description = "giang sinh",
                     DiscountType = DiscountType.Percent,
-                    DiscountValue = 0.2,
+                    DiscountValue = 20,
                     MinNetPrice = 10000,
                     AppliedProducts = new List<Product>() { new Product { Id = 1, Name = "Quan", Price = 10000, Stock = 1 } }
                 },
@@ -49,7 +49,7 @@ namespace BusinessManagementApp.Data
                     Name = "New Year discount",
                     Description = "tet",
                     DiscountType = DiscountType.Percent,
-                    DiscountValue = 0.5,
+                    DiscountValue = 20,
                     MinNetPrice = 10000,
                     AppliedProducts = new List<Product>() { new Product { Id = 2, Name = "Ao", Price = 50000, Stock = 2 } }
                 }

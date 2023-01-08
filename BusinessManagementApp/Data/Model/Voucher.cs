@@ -9,7 +9,7 @@ namespace BusinessManagementApp.Data.Model
     {
         [JsonProperty("code")] public string Code { get; set; }
 
-        // Only returns Id, Name
+        // Only returns Id, Name on list. Return everything on details.
         [JsonProperty("type")] public VoucherType Type { get; set; }
 
         [JsonProperty("release_date")] public DateTime ReleaseDate { get; set; }
@@ -34,8 +34,9 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("discount_type")] public DiscountType DiscountType { get; set; }
 
-        [JsonProperty("discount_value")] public double DiscountValue { get; set; }
+        [JsonProperty("discount_value")] public decimal DiscountValue { get; set; }
 
+        // Min total price
         [JsonProperty("min_net_price")] public decimal MinNetPrice { get; set; }
 
         // Only return Id and Name

@@ -8,12 +8,10 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using System.Windows.Data;
 using System.Windows.Input;
 
 namespace BusinessManagementApp.ViewModels.DetailsVMs
@@ -24,26 +22,42 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             private OrderDetailsVM parentVM;
 
-            public Product Product { get; }
+            private OrderItem orderItem;
 
-            private int quantity;
+            public int OrderId
+            {
+                get => orderItem.OrderId;
+            }
+
+            public Product Product
+            {
+                get => orderItem.Product;
+            }
+
+            public decimal UnitPrice
+            {
+                get => orderItem.UnitPrice;
+            }
 
             public int Quantity
             {
-                get => quantity;
+                get => orderItem.Quantity;
                 set
                 {
-                    SetProperty(ref quantity, value);
-                    OrderedPrice = value * Product.Price;
+                    if (value == 0)
+                        return;
+                    SetProperty(orderItem.Quantity, value, orderItem,
+                                (obj, val) => obj.Quantity = val);
+                    OrderedPrice = value * UnitPrice;
                 }
             }
 
-            private decimal orderedPrice;
+            private decimal orderedPrice = 0;
 
             public decimal OrderedPrice
             {
                 get => orderedPrice;
-                set
+                private set
                 {
                     parentVM.TotalPrice -= orderedPrice;
                     SetProperty(ref orderedPrice, value);
@@ -51,11 +65,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 }
             }
 
-            public OrderItemVM(Product product, int quantity, OrderDetailsVM parentVM)
+            public OrderItemVM(OrderItem item, OrderDetailsVM parentVM)
             {
                 this.parentVM = parentVM;
-                Product = product;
-                Quantity = quantity;
+                orderItem = item;
+                OrderedPrice = item.UnitPrice * item.Quantity;
             }
         }
 
@@ -67,18 +81,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #endregion Dependencies
 
-        #region Input properties
+        #region Customer input properties
 
-        private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
+        private string customerId = string.Empty;
 
-        private DateTime creationTime = new DateTime();
-
-        private Customer selectedCustomer = new();
-
-        public Customer SelectedCustomer
+        public string CustomerId
         {
-            get => selectedCustomer;
-            set => SetProperty(ref selectedCustomer, value);
+            get => customerId;
+            private set => SetProperty(ref customerId, value);
         }
 
         private string name = string.Empty;
@@ -133,13 +143,17 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref customeraddress, value, true);
         }
 
-        private ObservableCollection<Voucher> AppliedVouchers { get; } = new();
+        #endregion Customer input properties
 
-        private ObservableCollection<OrderItem> OrderItems { get; } = new();
+        #region Input properties
 
-        public ICollectionView OrderItemsView { get; }
+        private DateTime creationTime = new DateTime();
 
-        public ICollectionView VouchersView { get; set; }
+        private List<OrderItem> orderItems = new();
+
+        public ObservableCollection<OrderItemVM> OrderItemVMs { get; } = new();
+
+        public ObservableCollection<Voucher> AppliedVouchers { get; } = new();
 
         private int id = 0;
 
@@ -174,20 +188,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref employeeInCharge, value, true);
         }
 
-        private string voucher = string.Empty;
+        private string voucherCode = string.Empty;
 
-        public string Voucher
+        public string VoucherCode
         {
-            get => voucher;
-            set => SetProperty(ref voucher, value, true);
-        }
-
-        private decimal netPrice = 0;
-
-        public decimal NetPrice
-        {
-            get => netPrice;
-            set => SetProperty(ref netPrice, value, true);
+            get => voucherCode;
+            set => SetProperty(ref voucherCode, value, true);
         }
 
         private decimal totalPrice = 0;
@@ -197,8 +203,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             get => totalPrice;
             set
             {
-                SetProperty(ref totalPrice, value, true);
-                NetPrice = value + value * (decimal)VatRate;
+                SetProperty(ref totalPrice, value);
+                CalculateNetPrice(value);
+            }
+        }
+
+        private decimal netPrice = 0;
+
+        public decimal NetPrice
+        {
+            get => netPrice;
+            set
+            {
+                SetProperty(ref netPrice, value);
+                TotalAmount = value + value * (decimal)VatRate / 100;
             }
         }
 
@@ -207,15 +225,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public double VatRate
         {
             get => vatRate;
-            set => SetProperty(ref vatRate, value, true);
+            set => SetProperty(ref vatRate, value);
         }
 
-        private double totalAmount = 0;
+        private decimal totalAmount = 0;
 
-        public double TotalAmount
+        public decimal TotalAmount
         {
             get => totalAmount;
-            set => SetProperty(ref totalAmount, value, true);
+            set
+            {
+                SetProperty(ref totalAmount, value);
+            }
         }
 
         #endregion Input properties
@@ -280,11 +301,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public ICommand SelectProducts { get; }
         public ICommand SelectCustomer { get; }
+
         public ICommand Save { get; private set; }
         public ICommand Cancel { get; private set; }
+
         public ICommand Complete { get; private set; }
         public ICommand Terminate { get; private set; }
         public ICommand Return { get; private set; }
+
         public ICommand ApplyVoucher { get; private set; }
         public ICommand DeleteVoucher { get; private set; }
 
@@ -310,13 +334,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             this.vouchersRepo = vouchersRepo;
             this.customersRepo = customersRepo;
 
-            var collectionViewSource = new CollectionViewSource() { Source = orderItemVMs };
-
-            DeleteVoucher = new RelayCommand<string>(id => ExcuteDeleteVoucher(id));
-            ApplyVoucher = new RelayCommand(ExcuteApplyVoucher);
-
-            OrderItemsView = collectionViewSource.View;
-            VouchersView = new CollectionViewSource { Source = AppliedVouchers }.View;
+            DeleteVoucher = new RelayCommand<string>(id => ExecuteDeleteVoucher(id));
+            ApplyVoucher = new RelayCommand(ExecuteApplyVouchers);
 
             SelectCustomer = new RelayCommand(ExecuteSelectCustomers);
             SelectProducts = new RelayCommand(ExecuteSelectProducts);
@@ -325,144 +344,30 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Return = new AsyncRelayCommand(ReturnOrder);
             Complete = new AsyncRelayCommand(CompleteOrder);
 
-            Terminate = new AsyncRelayCommand(TerminateOrder);
+            Terminate = new AsyncRelayCommand(CancelOrder);
             Cancel = new RelayCommand(() => WorkspaceNavUtils.NavigateBack());
         }
 
-        private void SetOrderItemsValue()
+        // Load data from repositories here.
+        // An object passed when navigating to this screen is also received here.
+        public override async void LoadData(object? id = null)
         {
-            orderItemVMs.Clear();
-            foreach (var orderitem in OrderItems)
-            {
-                OrderItemVM orderItemVM;
-                orderItemVM = new OrderItemVM(orderitem.Product, orderitem.Quantity, this);
-                orderItemVMs.Add(orderItemVM);
-            }
-        }
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
-        private void SetEnableValue()
-        {
-            if (Status == OrderStatus.Pending)
+            if (id != null)
             {
-                CanComplete = true;
-                CanCancel = true;
-            }
-            if (Status == OrderStatus.Completed)
-            {
-                TimeSpan timeSpan = DateTime.Now - creationTime;
-                if (timeSpan.Days < 30)
+                await LoadOrder((int)id);
+
+                if (AllowEdit)
                 {
-                    CanReturn = true;
+                    IsEditMode = true;
                 }
             }
-        }
 
-        private async void ExcuteDeleteVoucher(string? code)
-        {
-            if (code == null)
-            {
-                throw new ArgumentException("Code is null");
-            }
-            Voucher voucher = await vouchersRepo.GetVoucher(code);
-            AppliedVouchers.Remove(voucher);
-            VouchersView.Refresh();
-            CalculateTotalPrice();
-        }
+            if (AllowEdit)
+                CanSave = true;
 
-        private async void ExcuteApplyVoucher()
-        {
-            Voucher voucher = await vouchersRepo.GetVoucher(Voucher);
-            if (AppliedVouchers.Count == 0)
-            {
-                if (DateTime.Now > voucher.ReleaseDate && DateTime.Now < voucher.ExpiryDate)
-                {
-                    AppliedVouchers.Add(voucher);
-                    VouchersView.Refresh();
-                }
-            }
-            else
-            {
-                foreach (Voucher voucher1 in AppliedVouchers.ToList())
-                {
-                    if (!(voucher1.Code == voucher.Code))
-                    {
-                        if (DateTime.Now > voucher.ReleaseDate && DateTime.Now < voucher.ExpiryDate)
-                        {
-                            AppliedVouchers.Add(voucher);
-                            VouchersView.Refresh();
-                        }
-                    }
-                }
-            }
-            CalculateTotalPrice();
-        }
-
-        private void CalculateTotalPrice()
-        {
-            double discount = 0;
-            double temp = (double)NetPrice;
-            //No applied product
-            foreach (Voucher voucher in AppliedVouchers)
-            {
-                if (voucher.Type.AppliedProducts.Count == 0)
-                {
-                    //Check condition of voucher that has  no applied product
-                    if (voucher.Type.MinNetPrice <= NetPrice)
-                    {
-                        if (voucher.Type.DiscountType == DiscountType.Raw)
-                        {
-                            discount += voucher.Type.DiscountValue;
-                        }
-                        else
-                        {
-                            discount += (double)NetPrice * voucher.Type.DiscountValue;
-                        }
-                    }
-                }
-                else //Have applied product
-                {
-                    decimal ProductsNetPrice = 0;
-                    //Get Products'Net price to check condition of voucher that has no applied product
-                    foreach (OrderItem orderItem in OrderItems)
-                    {
-                        if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
-                        {
-                            ProductsNetPrice += orderItem.UnitPrice * orderItem.Quantity * (decimal)(1 + VatRate);
-                        }
-                    }
-                    //Begin calculate discount money of voucher that has no applied product
-                    if (ProductsNetPrice >= voucher.Type.MinNetPrice)
-                    {
-                        if (voucher.Type.DiscountType == DiscountType.Raw)
-                        {
-                            foreach (OrderItem orderItem in OrderItems)
-                            {
-                                if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
-                                {
-                                    discount += voucher.Type.DiscountValue;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            foreach (OrderItem orderItem in OrderItems)
-                            {
-                                if (voucher.Type.AppliedProducts.Exists(i => i.Id == orderItem.Product.Id))
-                                {
-                                    discount += ((double)orderItem.UnitPrice * orderItem.Quantity * (1 + VatRate)) * voucher.Type.DiscountValue;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            TotalAmount = temp - discount;
-        }
-
-        private void ExecuteSelectCustomers()
-        {
-            var introMessage = "Select customer for order";
-            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectCustomers, introMessage);
+            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         public override void OnBack(WorkspaceViewName prevViewName, object? extra = null)
@@ -474,69 +379,177 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             if (prevViewName == WorkspaceViewName.SelectCustomers)
             {
-                SelectedCustomer = (Customer)extra;
-                Name = SelectedCustomer.Name;
-                Gender = SelectedCustomer.Gender;
-                Birthday = SelectedCustomer.Birthday;
-                CustomerAddress = SelectedCustomer.Address;
-                Email = SelectedCustomer.Email;
-                Phone = SelectedCustomer.Phone;
+                var customer = (Customer)extra;
+                CustomerId = customer.Id;
+                Name = customer.Name;
+                Gender = customer.Gender;
+                Birthday = customer.Birthday;
+                CustomerAddress = customer.Address;
+                Email = customer.Email;
+                Phone = customer.Phone;
             }
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {
-                OrderItems.ClearAndAddRange((List<OrderItem>)extra);
-                VouchersView = CollectionViewSource.GetDefaultView(AppliedVouchers);
-                SetOrderItemsValue();
-                CalculateTotalPrice();
+                orderItems = (List<OrderItem>)extra;
+                CreateOrderItemVMs();
             }
-            else if (prevViewName == WorkspaceViewName.CreateOrderCustomer)
-            {
-                SelectedCustomer = (Customer)extra;
-            }
-            VouchersView = CollectionViewSource.GetDefaultView(AppliedVouchers);
-        }
-
-        // Load data from repositories here.
-        // An object passed when navigating to this screen is also received here.
-        public override async void LoadData(object? id = null)
-        {
-            BusyIndicatorUtils.SetBusyIndicator(true);
-            if (id != null)
-            {
-                await LoadOrder((int)id);
-                if (AllowEdit)
-                {
-                    IsEditMode = true;
-                    SetEnableValue();
-                }
-            }
-            if (AllowEdit)
-                CanSave = true;
-            BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
         private async Task LoadOrder(int id)
         {
             Order order = await ordersRepo.GetOrder(id);
+
             Id = order.Id;
-            SelectedCustomer = order.Customer;
-            Name = SelectedCustomer.Name;
-            Gender = SelectedCustomer.Gender;
-            Birthday = SelectedCustomer.Birthday;
-            CustomerAddress = SelectedCustomer.Address;
-            Email = SelectedCustomer.Email;
-            Phone = SelectedCustomer.Phone;
+
+            Name = order.Customer.Name;
+            Gender = order.Customer.Gender;
+            Birthday = order.Customer.Birthday;
+            CustomerAddress = order.Customer.Address;
+            Email = order.Customer.Email;
+            Phone = order.Customer.Phone;
+
             Address = order.Address;
-            Status = order.Status;
+
             EmployeeInCharge = order.EmployeeInCharge;
-            NetPrice = order.NetPrice;
-            TotalPrice = order.TotalPrice;
-            TotalAmount = order.TotalAmount;
-            VatRate = order.VATRate;
-            OrderItems.AddRange(order.Items);
-            AppliedVouchers.AddRange(order.AppliedVouchers);
             creationTime = order.CreationTime;
-            SetOrderItemsValue();
+
+            orderItems = order.Items;
+            CreateOrderItemVMs();
+
+            AppliedVouchers.AddRange(order.AppliedVouchers);
+
+            TotalPrice = order.TotalPrice;
+            NetPrice = order.NetPrice;
+            VatRate = order.VATRate;
+            TotalAmount = order.TotalAmount;
+
+            Status = order.Status;
+            EnableStatusButtons();
+        }
+
+        private void CreateOrderItemVMs()
+        {
+            OrderItemVMs.Clear();
+            TotalPrice = 0;
+            foreach (var item in orderItems)
+            {
+                OrderItemVM orderItemVM = new OrderItemVM(item, this);
+                OrderItemVMs.Add(orderItemVM);
+            }
+        }
+
+        private void EnableStatusButtons()
+        {
+            if (Status == OrderStatus.Pending)
+            {
+                CanComplete = true;
+                CanCancel = true;
+            }
+
+            if (Status == OrderStatus.Completed)
+            {
+                TimeSpan timeSinceCreation = DateTime.Now - creationTime;
+                if (timeSinceCreation.Days < 30)
+                {
+                    CanReturn = true;
+                }
+            }
+        }
+
+        private async void ExecuteApplyVouchers()
+        {
+            Voucher voucher = await vouchersRepo.GetVoucher(VoucherCode);
+            if (DateTime.Now >= voucher.ReleaseDate &&
+                DateTime.Now <= voucher.ExpiryDate &&
+                !AppliedVouchers.Contains(voucher))
+            {
+                AppliedVouchers.Add(voucher);
+            }
+            CalculateNetPrice(TotalPrice);
+        }
+
+        private async void ExecuteDeleteVoucher(string code)
+        {
+            Voucher voucher = await vouchersRepo.GetVoucher(code);
+            AppliedVouchers.Remove(voucher);
+            CalculateNetPrice(TotalPrice);
+        }
+
+        private void CalculateNetPrice(decimal totalPrice)
+        {
+            decimal discountPrice = 0;
+            foreach (Voucher voucher in AppliedVouchers)
+            {
+                VoucherType voucherType = voucher.Type;
+
+                if (voucherType.AppliedProducts.Count == 0)
+                {
+                    discountPrice += CalcDiscountForEntireOrder(voucherType, totalPrice);
+                }
+                else
+                {
+                    discountPrice += CalcDiscountPerOrderItems(voucherType);
+                }
+            }
+            NetPrice = totalPrice - discountPrice;
+        }
+
+        private decimal CalcDiscountForEntireOrder(VoucherType voucherType, decimal totalPrice)
+        {
+            if (totalPrice >= voucherType.MinNetPrice)
+            {
+                return CalcDiscountPriceFromVoucher(voucherType, totalPrice);
+            }
+            return 0;
+        }
+
+        private decimal CalcDiscountPerOrderItems(VoucherType voucherType)
+        {
+            decimal appliedItemsTotalPrice = 0;
+            decimal discountPrice = 0;
+
+            foreach (OrderItem item in orderItems)
+            {
+                if (voucherType.AppliedProducts.Exists(i => i.Id == item.Product.Id))
+                {
+                    decimal totalItemsPrice = item.UnitPrice * item.Quantity;
+                    appliedItemsTotalPrice += totalItemsPrice;
+                    discountPrice += CalcDiscountPriceFromVoucher(voucherType, totalItemsPrice);
+                }
+            }
+
+            if (appliedItemsTotalPrice < voucherType.MinNetPrice)
+                return 0;
+
+            return discountPrice;
+        }
+
+        private decimal CalcDiscountPriceFromVoucher(VoucherType voucherType, decimal originalPrice)
+        {
+            decimal discountValue = voucherType.DiscountValue;
+            if (voucherType.DiscountType == DiscountType.Raw)
+            {
+                return discountValue;
+            }
+            return originalPrice * discountValue / 100;
+        }
+
+        private void ExecuteSelectCustomers()
+        {
+            var introMessage = "Select customer for order";
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(
+                WorkspaceViewName.SelectCustomers, introMessage);
+        }
+
+        private void ExecuteSelectProducts()
+        {
+            var param = new SelectProductOrderItemsVM.Param()
+            {
+                Title = "Select products for order",
+                OrderItems = orderItems.ToList()
+            };
+            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(
+                WorkspaceViewName.SelectProductOrderItems, param);
         }
 
         private async Task SaveOrder()
@@ -544,8 +557,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             ValidateAllProperties();
             if (HasErrors)
                 return;
-            SelectedCustomer = new Customer()
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
+
+            var customer = new Customer()
             {
+                Id = CustomerId,
                 Name = Name,
                 Gender = Gender,
                 Birthday = Birthday,
@@ -554,18 +571,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Phone = Phone,
             };
 
-            BusyIndicatorUtils.SetBusyIndicator(true);
-
             var order = new Order()
             {
-                Customer = SelectedCustomer,
+                Customer = customer,
+                EmployeeInCharge = EmployeeInCharge,
                 Address = Address,
                 Status = Status,
-                TotalAmount = TotalAmount,
-                TotalPrice = TotalPrice,
-                NetPrice = NetPrice,
                 VATRate = VatRate,
-                Items = OrderItems.ToList()
+                Items = orderItems,
+                AppliedVouchers = AppliedVouchers.ToList()
             };
 
             if (IsEditMode)
@@ -574,25 +588,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             else
             {
-                await customersRepo.AddCustomer(SelectedCustomer);
                 await ordersRepo.AddOrder(order);
             }
+
             BusyIndicatorUtils.SetBusyIndicator(false);
-            // Navigate back to list screen
             WorkspaceNavUtils.NavigateBack();
         }
 
-        private void ExecuteSelectProducts()
-        {
-            var param = new SelectProductOrderItemsVM.Param()
-            {
-                Title = "Select products for the order",
-                OrderItems = OrderItems.ToList()
-            };
-            WorkspaceNavUtils.NavigateToWithExtraAndBackstack(WorkspaceViewName.SelectProductOrderItems, param);
-        }
-
-        private async Task TerminateOrder()
+        private async Task CancelOrder()
         {
             Status = OrderStatus.Canceled;
             await SaveOrder();

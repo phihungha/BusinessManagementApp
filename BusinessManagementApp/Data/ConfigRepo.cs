@@ -18,7 +18,7 @@ namespace BusinessManagementApp.Data
             {
                 MaxNumOfOvertimeHours = 4,
                 OvertimeHourlyRate = 150_000,
-                VATRate = 0.05
+                VATRate = 5
             };
         }
 

@@ -76,9 +76,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref discountType, value, true);
         }
 
-        private double discountValue = 0;
+        private decimal discountValue = 0;
 
-        public double DiscountValue
+        public decimal DiscountValue
         {
             get => discountValue;
             set => SetProperty(ref discountValue, value, true);

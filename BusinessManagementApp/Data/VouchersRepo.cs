@@ -19,7 +19,7 @@ namespace BusinessManagementApp.Data
                     Name = "Voucher giang sinh",
                     Description = "giang sinh",
                     DiscountType = DiscountType.Percent,
-                    DiscountValue = 0.2,
+                    DiscountValue = 20,
                     MinNetPrice = 10000,
                     AppliedProducts = new List<Product>()
                     {
