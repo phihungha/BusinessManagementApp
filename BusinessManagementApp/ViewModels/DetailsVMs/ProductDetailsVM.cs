@@ -20,12 +20,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private ProductsRepo productsRepo;
         private ProductCategoriesRepo productsCategoriesRepo;
+        private ProvidersRepo providersRepo;
 
         #endregion Dependencies
 
         #region Combobox items
 
         public ObservableCollection<ProductCategory> Categories { get; } = new();
+        public ObservableCollection<Provider> Providers { get; } = new();
 
         #endregion Combobox items
 
@@ -88,6 +90,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref productCategory, value);
         }
 
+        private Provider selectedProvider = new();
+
+        public Provider SelectedProvider
+        {
+            get => selectedProvider;
+            set => SetProperty(ref selectedProvider, value);
+        }
+
         #endregion Input properties
 
         #region Button enable/disable logic
@@ -132,7 +142,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public bool AllowEdit { get; } = false;
 
-        public ProductDetailsVM(ProductsRepo productsRepo, ProductCategoriesRepo productsCategoriesRepo, SessionsRepo sessionsRepo)
+        public ProductDetailsVM(ProductsRepo productsRepo, ProductCategoriesRepo productsCategoriesRepo, ProvidersRepo providersRepo, SessionsRepo sessionsRepo)
         {
             if (sessionsRepo.CurrentPosition.CanManageSales)
             {
@@ -141,6 +151,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             this.productsRepo = productsRepo;
             this.productsCategoriesRepo = productsCategoriesRepo;
+            this.providersRepo = providersRepo;
             Save = new AsyncRelayCommand(SaveProduct);
             Delete = new RelayCommand(DeleteProduct);
             Cancel = new RelayCommand(
@@ -153,6 +164,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             BusyIndicatorUtils.SetBusyIndicator(true);
 
             Categories.AddRange(await productsCategoriesRepo.GetProductCategories());
+            Providers.AddRange(await providersRepo.GetProviders());
 
             if (id != null)
             {
@@ -176,6 +188,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Price = product.Price;
             Stock = product.Stock;
             ProductCategory = product.Category;
+            SelectedProvider = product.Provider;
         }
 
         private async Task SaveProduct()
@@ -192,7 +205,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Unit = Unit,
                 Description = Description,
                 Price = Price,
-                Category = ProductCategory
+                Category = ProductCategory,
+                Provider = SelectedProvider
             };
 
             if (IsEditMode)
