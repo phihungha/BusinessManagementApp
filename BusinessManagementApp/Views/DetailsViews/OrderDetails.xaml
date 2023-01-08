@@ -76,37 +76,37 @@
 
                         <StackPanel Grid.Row="1" Margin="0,10,0,0" Grid.ColumnSpan="2">
                             <TextBlock  Text="Name" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Name}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding Name}" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Margin="0,10,15,0">
                             <TextBlock Style="{StaticResource TextBoxTopLabel}">Gender</TextBlock>
                             <!-- Example of a combobox that binds to an enum property -->
                             <ComboBox IsEnabled="{Binding AllowEdit}" HorizontalAlignment="Stretch"
-                                      ItemsSource="{Binding SelectedCustomer.Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
+                                      ItemsSource="{Binding Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
                                       SelectedValuePath="Value"
                                       DisplayMemberPath="Description"                                    
-                                     SelectedValue="{Binding SelectedCustomer.Gender}" />
+                                     SelectedValue="{Binding Gender}" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Grid.Column="2" Margin="15,10,0,0">
                             <TextBlock Style="{StaticResource TextBoxTopLabel}">Birthday</TextBlock>
-                            <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding SelectedCustomer.Birthday}" />
+                            <DatePicker HorizontalAlignment="Stretch" SelectedDate="{Binding Birthday}" />
                         </StackPanel>
 
                         <StackPanel Margin="15,5,0,0" Grid.Row="3" Grid.Column="1">
                             <TextBlock  Text="Phone number" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Phone}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding Phone}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,5,15,0" Grid.Row="3" Grid.Column="0">
                             <TextBlock  Text="Email" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Email}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding Email}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,10,0,0" Grid.Row="4" Grid.ColumnSpan="2">
                             <TextBlock  Text="Address" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding SelectedCustomer.Address}" />
+                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding CusAddress}" />
                         </StackPanel>
                     </Grid>
                 </Border>
