@@ -20,6 +20,45 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class OrderDetailsVM : ViewModelBase
     {
+        public class OrderItemVM : ViewModelBase
+        {
+            private OrderDetailsVM parentVM;
+
+            public Product Product { get; }
+
+            private int quantity;
+
+            public int Quantity
+            {
+                get => quantity;
+                set
+                {
+                    SetProperty(ref quantity, value);
+                    OrderedPrice = value * Product.Price;
+                }
+            }
+
+            private decimal orderedPrice;
+
+            public decimal OrderedPrice
+            {
+                get => orderedPrice;
+                set
+                {
+                    parentVM.TotalPrice -= orderedPrice;
+                    SetProperty(ref orderedPrice, value);
+                    parentVM.TotalPrice += value;
+                }
+            }
+
+            public OrderItemVM(Product product, int quantity, OrderDetailsVM parentVM)
+            {
+                this.parentVM = parentVM;
+                Product = product;
+                Quantity = quantity;
+            }
+        }
+
         #region Dependencies
 
         private CustomersRepo customersRepo;
@@ -101,45 +140,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public ICollectionView OrderItemsView { get; }
 
         public ICollectionView VouchersView { get; set; }
-
-        public class OrderItemVM : ViewModelBase
-        {
-            private OrderDetailsVM parentVM;
-
-            public Product Product { get; }
-
-            private int quantity;
-
-            public int Quantity
-            {
-                get => quantity;
-                set
-                {
-                    SetProperty(ref quantity, value);
-                    OrderedPrice = value * Product.Price;
-                }
-            }
-
-            private decimal orderedPrice;
-
-            public decimal OrderedPrice
-            {
-                get => orderedPrice;
-                set
-                {
-                    parentVM.TotalPrice -= orderedPrice;
-                    SetProperty(ref orderedPrice, value);
-                    parentVM.TotalPrice += value;
-                }
-            }
-
-            public OrderItemVM(Product product, int quantity, OrderDetailsVM parentVM)
-            {
-                this.parentVM = parentVM;
-                Product = product;
-                Quantity = quantity;
-            }
-        }
 
         private int id = 0;
 
@@ -508,7 +508,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     SetEnableValue();
                 }
             }
-            if (AllowEdit) 
+            if (AllowEdit)
                 CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
@@ -551,7 +551,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 Address = CustomerAddress,
                 Email = Email,
                 Phone = Phone,
-
             };
 
             var order = new Order()
