@@ -182,6 +182,7 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
 
                                         <ui:SimpleStackPanel Spacing="3">
@@ -191,7 +192,12 @@
                                             <TextBlock FontSize="13" Text="{Binding Product.Description}" />
                                         </ui:SimpleStackPanel>
 
-                                        <ui:NumberBox Grid.Column="2" VerticalAlignment="Center"
+                                        <ui:SimpleStackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="3">
+                                            <TextBlock FontWeight="Bold" FontSize="16" Text="{Binding OrderedPrice, StringFormat=c}" />
+                                            <TextBlock FontSize="13" Text="{Binding UnitPrice, StringFormat=Unit Price: {0:c}}" />
+                                        </ui:SimpleStackPanel>
+
+                                        <ui:NumberBox Grid.Column="2" Margin="30,0,0,0" VerticalAlignment="Center"
                                                       Minimum="1" Maximum="{Binding Product.Stock}"
                                                       SpinButtonPlacementMode="Compact" Value="{Binding Quantity}" />
                                     </Grid>
