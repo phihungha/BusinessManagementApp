@@ -35,7 +35,7 @@ namespace BusinessManagementApp.Data.Api
         /// </summary>
         /// <param name="employeeId">Employee ID</param>
         /// <returns>List of contracts</returns>
-        [Get("/{employeeId}/terminate_current")]
+        [Delete("/{employeeId}/current_contract")]
         IObservable<List<Contract>> TerminateCurrentContract(string employeeId);
 
         /// <summary>
