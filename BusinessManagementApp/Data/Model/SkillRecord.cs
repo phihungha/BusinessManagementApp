@@ -7,7 +7,7 @@ namespace BusinessManagementApp.Data.Model
     {
         [JsonProperty("employee_id")] public string EmployeeId { get; set; }
 
-        [JsonProperty("skill_type")] public SkillType SkillType { get; set; }
+        [JsonProperty("skill")] public SkillType SkillType { get; set; }
 
         [JsonProperty("level")] public SkillLevel Level { get; set; }
 

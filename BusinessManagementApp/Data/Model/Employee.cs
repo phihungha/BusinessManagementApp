@@ -14,11 +14,11 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("citizen_id")] public string CitizenId { get; set; }
 
-        [JsonProperty("birth_date")] public DateTime BirthDate { get; set; }
+        [JsonProperty("birthday")] public DateTime BirthDate { get; set; }
 
         [JsonProperty("education")] public string Education { get; set; }
 
-        [JsonProperty("phone_number")] public string PhoneNumber { get; set; }
+        [JsonProperty("phone")] public string PhoneNumber { get; set; }
 
         [JsonProperty("email")] public string Email { get; set; }
 

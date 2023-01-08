@@ -7,7 +7,7 @@ namespace BusinessManagementApp.Data.Api
 {
     public interface IOvertimeRecordsApi
     {
-        [Get("/")]
+        [Get("/{year}/{month}")]
         IObservable<List<OvertimeOverview>> GetOvertimeOverviews(int year, int month);
 
         [Get("/{employeeId}/{year}/{month}")]

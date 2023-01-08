@@ -14,7 +14,7 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("release_date")] public DateTime ReleaseDate { get; set; }
 
-        [JsonProperty("expiry_date")] public DateTime ExpiryDate { get; set; }
+        [JsonProperty("expire_date")] public DateTime ExpiryDate { get; set; }
 
         public bool Equals(Voucher? other)
         {
@@ -34,7 +34,7 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("discount_type")] public DiscountType DiscountType { get; set; }
 
-        [JsonProperty("discount_value")] public decimal DiscountValue { get; set; }
+        [JsonProperty("discount")] public decimal DiscountValue { get; set; }
 
         // Min total price
         [JsonProperty("min_net_price")] public decimal MinNetPrice { get; set; }
@@ -45,8 +45,8 @@ namespace BusinessManagementApp.Data.Model
 
     public enum DiscountType
     {
-        [Description("Percentage")] Percent,
+        [Description("Percentage")] Percentage,
 
-        [Description("Raw value")] Raw
+        [Description("Raw value")] Amount
     }
 }

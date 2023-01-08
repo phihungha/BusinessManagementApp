@@ -68,7 +68,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref minNetPrice, value, true);
         }
 
-        private DiscountType discountType = DiscountType.Percent;
+        private DiscountType discountType = DiscountType.Percentage;
 
         public DiscountType DiscountType
         {
