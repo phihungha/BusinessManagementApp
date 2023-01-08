@@ -190,7 +190,7 @@ namespace BusinessManagementApp.ViewModels
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            BonusTypes.AddRange(await bonusTypesRepo.GetBonusTypes());
+            BonusTypes.ClearAndAddRange(await bonusTypesRepo.GetBonusTypes());
             bonusRecords = await bonusesRepo.GetBonusRecords(Year, Month);
             employees = await employeesRepo.GetEmployees();
             LoadBonusRecordVMs();
