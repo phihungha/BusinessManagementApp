@@ -24,7 +24,7 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("address")] public string Address { get; set; }
 
-        [JsonProperty("user_name")] public string? UserName { get; set; }
+        [JsonProperty("username")] public string? UserName { get; set; }
 
         [JsonProperty("new_password")] public string? NewPassword { get; set; }
 
