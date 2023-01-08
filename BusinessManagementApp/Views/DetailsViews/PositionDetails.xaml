@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:app="clr-namespace:BusinessManagementApp"
              mc:Ignorable="d"
              d:DesignWidth="1290" d:DesignHeight="1020">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
@@ -48,7 +49,15 @@
 
             <StackPanel Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0">
                 <TextBlock Style="{StaticResource TextBoxTopLabel}">Supplement salary</TextBlock>
-                <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1000" Value="{Binding SupplementSalary}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1" Value="{Binding SupplementSalary}" />
+                    <TextBlock Grid.Column="1" Style="{StaticResource TextBoxLeftLabel}"
+                               Margin="5,0,0,0" Text="{x:Static app:App.CurrencySymbol}" />
+                </Grid>
             </StackPanel>
 
             <StackPanel Grid.Row="4" Grid.ColumnSpan="3" Margin="0,10,0,0">

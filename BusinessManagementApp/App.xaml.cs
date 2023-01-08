@@ -17,11 +17,13 @@ namespace BusinessManagementApp
 
         public IServiceProvider ServiceProvider => host.Services;
 
+        public static string? CurrencySymbol { get; } = NumberFormatInfo.CurrentInfo.CurrencySymbol;
+
         public App()
         {
             SetupCulture();
             host = CreateHostBuilder().Build();
-            Dispatcher.UnhandledException += Dispatcher_UnhandledException; ;
+            Dispatcher.UnhandledException += Dispatcher_UnhandledException;
         }
 
         private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)

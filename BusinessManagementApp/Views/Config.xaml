@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:app="clr-namespace:BusinessManagementApp"
              mc:Ignorable="d"
              d:DesignWidth="1290" d:DesignHeight="720">
     <Grid Margin="15">
@@ -54,9 +55,8 @@
                           Value="{Binding VATRate, StringFormat={} {0}%}" />
 
             <TextBlock Grid.Column="2" Margin="15,0,0,0" 
-                       Style="{StaticResource TextBoxLeftLabel}">
-                $
-            </TextBlock>
+                       Style="{StaticResource TextBoxLeftLabel}"
+                       Text="{x:Static app:App.CurrencySymbol}" />
             <TextBlock Grid.Column="2" Grid.Row="1" Margin="15,15,0,0" 
                        Style="{StaticResource TextBoxLeftLabel}">
                 hours

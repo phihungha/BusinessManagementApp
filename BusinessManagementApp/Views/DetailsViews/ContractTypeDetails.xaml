@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BusinessManagementApp.Views.DetailsViews"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
+             xmlns:app="clr-namespace:BusinessManagementApp"
              xmlns:ui="http://schemas.modernwpf.com/2019"
              mc:Ignorable="d" 
              d:DesignWidth="1290" d:DesignHeight="720">
@@ -47,9 +48,8 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1000" Value="{Binding BaseSalary}" />
-                <TextBlock Grid.Column="1"  Style="{StaticResource TextBoxLeftLabel}" Margin="5,0,0,0">
-                    $
-                </TextBlock>
+                <TextBlock Grid.Column="1"  Style="{StaticResource TextBoxLeftLabel}" 
+                           Margin="5,0,0,0" Text="{x:Static app:App.CurrencySymbol}" />
             </Grid>
         </StackPanel>
 
