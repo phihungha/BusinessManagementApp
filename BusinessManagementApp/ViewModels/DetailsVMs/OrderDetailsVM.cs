@@ -499,14 +499,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             else
             {
-                List<Customer> customers = await customersRepo.GetCustomers();
-                foreach(Customer customer in customers)
-                {
-                    if(SelectedCustomer == customer)
-                    {
-                        await customersRepo.AddCustomer(SelectedCustomer);
-                    }
-                }
+                await customersRepo.AddCustomer(SelectedCustomer);
                 await ordersRepo.AddOrder(order);
             }
             BusyIndicatorUtils.SetBusyIndicator(false);

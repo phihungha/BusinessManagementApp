@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Reactive.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
@@ -47,15 +48,17 @@ namespace BusinessManagementApp.ViewModels
         public string SearchText { get; set; } = string.Empty;
 
         public SalaryInfoSearchBy SearchBy { get; set; } = SalaryInfoSearchBy.Name;
-
+        public ICommand Generate { get; }
         public ICommand Search { get; }
+        public int MaxYear { get; } = DateTime.Now.Year;
+        public int[] MonthSelections { get; } = Enumerable.Range(1, 12).ToArray();
 
-        private decimal selectedmonth = DateTime.Now.Month;
+        private int month = DateTime.Now.Month;
 
-        public decimal SelectedMonth
+        public int Month
         {
-            get => selectedmonth;
-            set => SetProperty(ref selectedmonth, value, true);
+            get => month;
+            set => SetProperty(ref month, value);
         }
 
         private decimal selectedyear = DateTime.Now.Year;
@@ -73,7 +76,7 @@ namespace BusinessManagementApp.ViewModels
             var collectionViewSource = new CollectionViewSource() { Source = salaries };
             SalaryRecordView = collectionViewSource.View;
             SalaryRecordView.Filter = FilterList;
-
+            Generate = new RelayCommand(LoadData);
             Search = new RelayCommand(() => SalaryRecordView.Refresh());
 
             LoadData();
@@ -85,35 +88,35 @@ namespace BusinessManagementApp.ViewModels
             switch (SearchBy)
             {
                 case SalaryInfoSearchBy.Department:
-                    return salaryrecord.Employee.Department.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.Employee.Department.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 case SalaryInfoSearchBy.Name:
-                    return salaryrecord.Employee.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.Employee.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 case SalaryInfoSearchBy.Id:
-                    return salaryrecord.Employee.Id.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.Employee.Id.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 case SalaryInfoSearchBy.BaseSalary:
-                    return salaryrecord.BaseSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.BaseSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 case SalaryInfoSearchBy.SupplementSalary:
-                    return salaryrecord.BaseSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.BaseSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 case SalaryInfoSearchBy.BonusSalary:
-                    return salaryrecord.BonusSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.BonusSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 case SalaryInfoSearchBy.TotalSalary:
-                    return salaryrecord.TotalSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.TotalSalary.ToString().Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) && salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
 
                 default:
-                    return salaryrecord.Month == SelectedMonth && salaryrecord.Year == SelectedYear;
+                    return salaryrecord.Month == Month && salaryrecord.Year == SelectedYear;
             }
         }
 
         private async void LoadData()
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
-            salaries.AddRange(await salaryRecordsRepo.GetSalaryRecords());
+            salaries.ClearAndAddRange(await salaryRecordsRepo.GetSalaryRecords());
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
     }
