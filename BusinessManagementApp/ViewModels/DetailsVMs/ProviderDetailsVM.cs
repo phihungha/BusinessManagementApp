@@ -143,10 +143,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveProvider()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var provider = new Provider()
             {

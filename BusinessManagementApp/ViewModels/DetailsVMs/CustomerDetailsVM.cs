@@ -173,10 +173,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveCustomer()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var customer = new Customer()
             {

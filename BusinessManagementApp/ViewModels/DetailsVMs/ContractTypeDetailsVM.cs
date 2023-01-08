@@ -164,11 +164,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveContractType()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
 
+            BusyIndicatorUtils.SetBusyIndicator(true);
             var contracttype = new ContractType()
             {
                 Id = Id,

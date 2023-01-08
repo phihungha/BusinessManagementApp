@@ -215,10 +215,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveVoucherType()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var voucherType = new VoucherType()
             {

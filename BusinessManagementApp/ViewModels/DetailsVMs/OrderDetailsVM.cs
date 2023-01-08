@@ -3,6 +3,7 @@ using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
+using BusinessManagementApp.ViewModels.ValidationAttributes;
 using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
@@ -19,36 +20,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 {
     public class OrderDetailsVM : ViewModelBase
     {
-        #region Dependencies
-
-        private CustomersRepo customersRepo;
-        private VouchersRepo vouchersRepo;
-        private OrdersRepo ordersRepo;
-
-        #endregion Dependencies
-
-        #region Input properties
-
-        private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
-
-        private DateTime creationTime = new DateTime();
-
-        private Customer selectedCustomer = new();
-
-        public Customer SelectedCustomer
-        {
-            get => selectedCustomer;
-            set => SetProperty(ref selectedCustomer, value);
-        }
-
-        private ObservableCollection<Voucher> AppliedVouchers { get; } = new();
-
-        private ObservableCollection<OrderItem> OrderItems { get; } = new();
-
-        public ICollectionView OrderItemsView { get; }
-
-        public ICollectionView VouchersView { get; set; }
-
         public class OrderItemVM : ViewModelBase
         {
             private OrderDetailsVM parentVM;
@@ -88,6 +59,88 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
         }
 
+        #region Dependencies
+
+        private CustomersRepo customersRepo;
+        private VouchersRepo vouchersRepo;
+        private OrdersRepo ordersRepo;
+
+        #endregion Dependencies
+
+        #region Input properties
+
+        private ObservableCollection<OrderItemVM> orderItemVMs { get; } = new();
+
+        private DateTime creationTime = new DateTime();
+
+        private Customer selectedCustomer = new();
+
+        public Customer SelectedCustomer
+        {
+            get => selectedCustomer;
+            set => SetProperty(ref selectedCustomer, value);
+        }
+
+        private string name = string.Empty;
+
+        [Required]
+        public string Name
+        {
+            get => name;
+            set => SetProperty(ref name, value);
+        }
+
+        private Gender gender = Gender.Male;
+
+        public Gender Gender
+        {
+            get => gender;
+            set => SetProperty(ref gender, value, true);
+        }
+
+        private DateTime birthday = new DateTime(2000, 1, 1);
+
+        public DateTime Birthday
+        {
+            get => birthday;
+            set => SetProperty(ref birthday, value, true);
+        }
+
+        private string email = string.Empty;
+
+        [EmailAddress]
+        public string Email
+        {
+            get => email;
+            set => SetProperty(ref email, value, true);
+        }
+
+        private string phone = string.Empty;
+
+        [PhoneNumber]
+        public string Phone
+        {
+            get => phone;
+            set => SetProperty(ref phone, value, true);
+        }
+
+        private string customeraddress = string.Empty;
+
+        [Required]
+        public string CustomerAddress
+        {
+            get => customeraddress;
+            set => SetProperty(ref customeraddress, value, true);
+        }
+
+        private ObservableCollection<Voucher> AppliedVouchers { get; } = new();
+
+        private ObservableCollection<OrderItem> OrderItems { get; } = new();
+
+        public ICollectionView OrderItemsView { get; }
+
+        public ICollectionView VouchersView { get; set; }
+
         private int id = 0;
 
         public int Id
@@ -113,12 +166,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref address, value, true);
         }
 
-        private string employeeName = string.Empty;
+        private Employee employeeInCharge;
 
-        public string EmployeeName
+        public Employee EmployeeInCharge
         {
-            get => employeeName;
-            set => SetProperty(ref employeeName, value, true);
+            get => employeeInCharge;
+            set => SetProperty(ref employeeInCharge, value, true);
         }
 
         private string voucher = string.Empty;
@@ -149,7 +202,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
         }
 
-        private double vatRate = 0.1;
+        private double vatRate = 0;
 
         public double VatRate
         {
@@ -242,12 +295,16 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         public OrderDetailsVM(OrdersRepo ordersRepo,
                               VouchersRepo vouchersRepo,
                               CustomersRepo customersRepo,
-                              SessionsRepo sessionsRepo)
+                              SessionsRepo sessionsRepo,
+                              ConfigRepo configRepo)
         {
             if (sessionsRepo.CurrentPosition.CanManageOrders)
             {
                 AllowEdit = true;
             }
+
+            EmployeeInCharge = sessionsRepo.CurrentUser;
+            VatRate = configRepo.Config.VATRate;
 
             this.ordersRepo = ordersRepo;
             this.vouchersRepo = vouchersRepo;
@@ -269,9 +326,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Complete = new AsyncRelayCommand(CompleteOrder);
 
             Terminate = new AsyncRelayCommand(TerminateOrder);
-            Cancel = new RelayCommand(
-                () => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders)
-                );
+            Cancel = new RelayCommand(() => WorkspaceNavUtils.NavigateBack());
         }
 
         private void SetOrderItemsValue()
@@ -420,6 +475,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             if (prevViewName == WorkspaceViewName.SelectCustomers)
             {
                 SelectedCustomer = (Customer)extra;
+                Name = SelectedCustomer.Name;
+                Gender = SelectedCustomer.Gender;
+                Birthday = SelectedCustomer.Birthday;
+                CustomerAddress = SelectedCustomer.Address;
+                Email = SelectedCustomer.Email;
+                Phone = SelectedCustomer.Phone;
             }
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {
@@ -449,7 +510,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     SetEnableValue();
                 }
             }
-            if (AllowEdit) 
+            if (AllowEdit)
                 CanSave = true;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
@@ -459,9 +520,15 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Order order = await ordersRepo.GetOrder(id);
             Id = order.Id;
             SelectedCustomer = order.Customer;
+            Name = SelectedCustomer.Name;
+            Gender = SelectedCustomer.Gender;
+            Birthday = SelectedCustomer.Birthday;
+            CustomerAddress = SelectedCustomer.Address;
+            Email = SelectedCustomer.Email;
+            Phone = SelectedCustomer.Phone;
             Address = order.Address;
             Status = order.Status;
-            EmployeeName = order.EmployeeInCharge.Name;
+            EmployeeInCharge = order.EmployeeInCharge;
             NetPrice = order.NetPrice;
             TotalPrice = order.TotalPrice;
             TotalAmount = order.TotalAmount;
@@ -474,10 +541,20 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveOrder()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+            SelectedCustomer = new Customer()
+            {
+                Name = Name,
+                Gender = Gender,
+                Birthday = Birthday,
+                Address = CustomerAddress,
+                Email = Email,
+                Phone = Phone,
+            };
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var order = new Order()
             {
@@ -497,19 +574,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             }
             else
             {
-                List<Customer> customers = await customersRepo.GetCustomers();
-                foreach(Customer customer in customers)
-                {
-                    if(SelectedCustomer == customer)
-                    {
-                        await customersRepo.AddCustomer(SelectedCustomer);
-                    }
-                }
+                await customersRepo.AddCustomer(SelectedCustomer);
                 await ordersRepo.AddOrder(order);
             }
             BusyIndicatorUtils.SetBusyIndicator(false);
             // Navigate back to list screen
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
+            WorkspaceNavUtils.NavigateBack();
         }
 
         private void ExecuteSelectProducts()
@@ -526,21 +596,18 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             Status = OrderStatus.Canceled;
             await SaveOrder();
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
 
         private async Task ReturnOrder()
         {
             Status = OrderStatus.Returned;
             await SaveOrder();
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
 
         private async Task CompleteOrder()
         {
             Status = OrderStatus.Completed;
             await SaveOrder();
-            WorkspaceNavUtils.NavigateTo(WorkspaceViewName.Orders);
         }
     }
 }

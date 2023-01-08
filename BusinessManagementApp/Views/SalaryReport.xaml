@@ -15,19 +15,29 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Style="{StaticResource ViewTitleBorder}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Style="{StaticResource ViewTitleText}">
-                    Salary Report
+        <Border Style="{StaticResource FancyBorder}" CornerRadius="0" Padding="15">
+            <ui:SimpleStackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
+                        Month
                 </TextBlock>
 
+                <ComboBox Margin="10,0,0,0" Width="100"
+                      ItemsSource="{Binding MonthSelections}"
+                      SelectedItem="{Binding Month}" />
 
-            </Grid>
+                <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
+                        Year
+                </TextBlock>
+
+                <ui:NumberBox Margin="10,0,0,0" Width="100"
+                          Minimum="1900" Maximum="{Binding MaxYear}"
+                          Value="{Binding SelectedYear}" />
+
+                <Button Margin="20,0,0,0" FontSize="16" Command="{Binding Generate}"
+                        Foreground="White" Background="{StaticResource PrimaryColorBrush}">
+                    Generate
+                </Button>
+            </ui:SimpleStackPanel>
         </Border>
 
         <StackPanel Grid.Row="1" Height="Auto" Orientation="Horizontal" 
@@ -50,17 +60,6 @@
                       DisplayMemberPath="Description"
                       SelectedValue="{Binding SearchBy}" />
 
-            <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
-                Month: 
-            </TextBlock>
-
-            <ui:NumberBox Value="{Binding SelectedMonth}" Minimum="1" Maximum="12" Margin="10,0,0,0" Width="100"/>
-
-            <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
-                Year:
-            </TextBlock>
-
-            <ui:NumberBox Value="{Binding SelectedYear}" Minimum="1" Margin="10,0,0,0" Width="100"/>
         </StackPanel>
 
         <DataGrid ItemsSource="{Binding SalaryRecordView}" Grid.Row="3" 

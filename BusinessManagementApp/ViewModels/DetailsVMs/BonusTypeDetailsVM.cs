@@ -132,11 +132,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveBonusType()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
 
+            BusyIndicatorUtils.SetBusyIndicator(true);
             var bonusType = new BonusType()
             {
                 Id = Id,

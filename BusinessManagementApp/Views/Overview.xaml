@@ -10,14 +10,26 @@
     <ScrollViewer>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="65" />
+                <RowDefinition Height="70" />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Border Grid.ColumnSpan="3" Background="Black">
+            <Border Grid.ColumnSpan="3">
+                <Border.Background>
+                    <ImageBrush ImageSource="Images/Banner.png" Stretch="UniformToFill" />
+                </Border.Background>
+
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Foreground="White" FontSize="25">
-                    Welcome, Ha Phi Hung!
+                           Foreground="White" FontSize="30" FontFamily="Times New Roman"
+                           Text="{Binding CurrentUser.Name, StringFormat=Welcome\, {0}}">
+                    <TextBlock.Effect>
+                        <DropShadowEffect
+                              ShadowDepth="4"
+                              Direction="330"
+                              Color="Black"
+                              Opacity="0.5"
+                              BlurRadius="4"/>       
+                    </TextBlock.Effect>
                 </TextBlock>
             </Border>
 

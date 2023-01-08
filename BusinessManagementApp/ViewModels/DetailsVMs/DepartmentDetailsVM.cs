@@ -174,10 +174,11 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private async Task SaveDepartment()
         {
-            BusyIndicatorUtils.SetBusyIndicator(true);
             ValidateAllProperties();
             if (HasErrors)
                 return;
+
+            BusyIndicatorUtils.SetBusyIndicator(true);
 
             var department = new Department()
             {

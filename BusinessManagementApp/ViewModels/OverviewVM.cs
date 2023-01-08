@@ -34,6 +34,8 @@ namespace BusinessManagementApp.ViewModels
         private ObservableValue todayRevenue = new() { Value = 0 };
         public IEnumerable<ISeries> TodayRevenue { get; }
 
+        public Employee CurrentUser { get; }
+
         private Timer currentTimeTimer = new();
 
         private DateTime currentTime = DateTime.Now;
@@ -46,11 +48,13 @@ namespace BusinessManagementApp.ViewModels
 
         public ICommand NewOrder { get; }
 
-        public OverviewVM(OverviewRepo overviewRepo)
+        public OverviewVM(OverviewRepo overviewRepo, SessionsRepo sessionsRepo)
         {
             this.overviewRepo = overviewRepo;
 
-            NewOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateTo(WorkspaceViewName.OrderDetails));
+            CurrentUser = sessionsRepo.CurrentUser;
+
+            NewOrder = new RelayCommand(() => WorkspaceNavUtils.NavigateToWithBackstack(WorkspaceViewName.OrderDetails));
 
             currentTimeTimer.Interval = 1;
             currentTimeTimer.Elapsed += CurrentTimeTimer_Elapsed;

@@ -136,12 +136,13 @@
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <!-- Set the columns to display here. -->
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="150" />
                 <DataGridTextColumn Header="Customer" Binding="{Binding Customer.Name}" Width="*" />
-                <DataGridTextColumn Header="Creation time" Binding="{Binding CreationTime, StringFormat='d'}" Width="150" />
-                <DataGridTextColumn Header="Completion time" Binding="{Binding CompletionTime, StringFormat='d'}" Width="150" />
-                <DataGridTextColumn Header="Address" Binding="{Binding Address}" Width="*" />
-                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*" />
+                <DataGridTextColumn Header="Created at" Binding="{Binding CreationTime, StringFormat='d'}" Width="150" />
+                <DataGridTextColumn Header="Completed at" Binding="{Binding CompletionTime, StringFormat='d'}" Width="150" />
+                <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeInCharge.Name}" Width="*" />
+                <DataGridTextColumn Header="Total Amount" Binding="{Binding TotalAmount,StringFormat=c}" Width="*" />
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="100" />
 
                 <!-- Edit button -->
                 <DataGridTemplateColumn Width="60">
