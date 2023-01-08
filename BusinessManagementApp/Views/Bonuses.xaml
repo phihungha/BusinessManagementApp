@@ -52,7 +52,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <ComboBox Margin="10" HorizontalAlignment="Stretch" 
-                                      IsReadOnly="{Binding AllowEdit}" 
+                                      IsReadOnly="{Binding DataContext.AllowEdit, RelativeSource={RelativeSource FindAncestor,
+                                                   AncestorType=DataGrid}}"
                                       ItemsSource="{Binding BonusTypes}"
                                       SelectedItem="{Binding BonusType, UpdateSourceTrigger=PropertyChanged}" 
                                       DisplayMemberPath="Name" />
