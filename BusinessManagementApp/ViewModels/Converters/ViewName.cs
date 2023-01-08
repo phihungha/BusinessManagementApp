@@ -147,7 +147,7 @@ namespace BusinessManagementApp.ViewModels.Converters
                     return App.Current.FindResource("DepartmentsWhiteIcon");
 
                 case WorkspaceViewName.Config:
-                    return App.Current.FindResource("OverviewWhiteIcon");
+                    return App.Current.FindResource("SettingsWhiteIcon");
 
                 default:
                     return null;
