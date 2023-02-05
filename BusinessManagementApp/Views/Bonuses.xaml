@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1290">
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -40,6 +40,22 @@
                       SelectedValuePath="Value"
                       DisplayMemberPath="Description"
                       SelectedValue="{Binding SearchBy}" />
+
+            <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
+                Month
+            </TextBlock>
+
+            <ComboBox Margin="10,0,0,0" Width="100"
+                      ItemsSource="{Binding MonthSelections}"
+                      SelectedItem="{Binding Month}" />
+
+            <TextBlock VerticalAlignment="Center" Margin="15,0,0,0" FontSize="16">
+                Year
+            </TextBlock>
+
+            <ui:NumberBox Margin="10,0,0,0" Width="100"
+                          Minimum="1900" Maximum="{Binding MaxYear}"
+                          Value="{Binding Year}" />
         </StackPanel>
 
         <DataGrid ItemsSource="{Binding BonusesView, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"
