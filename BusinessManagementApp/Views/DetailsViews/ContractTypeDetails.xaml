@@ -47,7 +47,7 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1000" Value="{Binding BaseSalary}" />
+                <ui:NumberBox IsEnabled="{Binding AllowEdit}" Minimum="1" Value="{Binding BaseSalary}" />
                 <TextBlock Grid.Column="1"  Style="{StaticResource TextBoxLeftLabel}" 
                            Margin="5,0,0,0" Text="{x:Static app:App.CurrencySymbol}" />
             </Grid>
