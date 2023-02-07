@@ -11,6 +11,6 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("level")] public SkillLevel Level { get; set; }
 
-        [JsonProperty("last_updated_time")] public DateTime LastUpdatedTime { get; set; }
+        [JsonProperty("updated_at")] public DateTime LastUpdatedTime { get; set; }
     }
 }
