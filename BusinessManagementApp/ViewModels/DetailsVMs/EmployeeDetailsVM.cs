@@ -134,9 +134,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             set => SetProperty(ref department, value);
         }
 
-        private Position position = new();
+        private Position? position = new();
 
-        public Position Position
+        public Position? Position
         {
             get => position;
             set => SetProperty(ref position, value);
@@ -146,9 +146,9 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         public ObservableCollection<Contract> Contracts { get; } = new();
 
-        private Contract contract = new();
+        private Contract? contract = new();
 
-        public Contract Contract
+        public Contract? Contract
         {
             get => contract;
             set => SetProperty(ref contract, value);
@@ -422,12 +422,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         private void ExecuteRenewCurrentContract()
         {
-            if (Contract.EndDate == null)
+            if (Contract?.EndDate == null)
                 throw new InvalidOperationException("Cannot renew a permanent contract. Consider terminate it then create a new one.");
 
             NewContractType = Contract.Type;
             NewContractStartDate = (DateTime)Contract.EndDate;
-            NewContractEditorDisplayed = true;
+            NewContractEditorDisplayed = !NewContractEditorDisplayed;
         }
 
         private void ExecuteTerminateCurrentContract()
@@ -505,21 +505,21 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             catch (ApiException err)
             {
                 BusyIndicatorUtils.SetBusyIndicator(false);
-                if (err.Message.Contains("same phone number"))
+                if (err.Message.Contains("phone_number"))
                 {
                     var dialog = new ErrorDialog(
                         "Phone number already exists",
                         "There is already an employee with this phone number.");
                     dialog.Show();
                 }
-                else if (err.Message.Contains("same citizen ID"))
+                else if (err.Message.Contains("citizen_id"))
                 {
                     var dialog = new ErrorDialog(
                         "Citizen ID already exists",
                         "There is already an employee with this citizen ID.");
                     dialog.Show();
                 }
-                else if (err.Message.Contains("same user name"))
+                else if (err.Message.Contains("username"))
                 {
                     var dialog = new ErrorDialog(
                         "User name already exists",
