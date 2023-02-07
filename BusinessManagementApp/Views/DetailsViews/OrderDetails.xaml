@@ -86,7 +86,7 @@
                                       IsReadOnly="{Binding ReadOnly}"
                                       ItemsSource="{Binding Gender, Converter={converters:EnumToCollection}, Mode=OneTime}"
                                       SelectedValuePath="Value"
-                                      DisplayMemberPath="Description"                                    
+                                      DisplayMemberPath="Description"
                                      SelectedValue="{Binding Gender}" />
                         </StackPanel>
 
@@ -139,12 +139,12 @@
 
                             <StackPanel Margin="0,5,15,0">
                                 <TextBlock  Text="Status" />
-                                <TextBox IsEnabled="{Binding IsEnable}" IsReadOnly="True" Text="{Binding Status}" />
+                                <TextBlock FontSize="24" Text="{Binding Status}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Margin="15,5,0,0">
-                                <TextBlock  Text="Employee in charge" />
-                                <TextBox IsReadOnly="True" Text="{Binding EmployeeInCharge.Name}" />
+                                <TextBlock Text="Employee in charge" />
+                                <TextBlock FontSize="24" Text="{Binding EmployeeInCharge.Name}" />
                             </StackPanel>
                         </Grid>
                     </Grid>
@@ -167,7 +167,7 @@
                                     Background="#FF358AFF" Foreground="White"
                                     VerticalAlignment="Stretch" Command="{Binding SelectProducts}" />
 
-                        <ListBox ItemsSource="{Binding OrderItemVMs}" IsEnabled="{Binding IsEnable}" Margin="0,20,0,0" 
+                        <ListBox ItemsSource="{Binding OrderItemVMs}" IsEnabled="{Binding IsEnable}" Margin="0,20,0,0"
                                  Grid.Row="1" Grid.ColumnSpan="2" MaxHeight="500"
                                  HorizontalContentAlignment="Stretch"
                                  Background="White" d:ItemsSource="{d:SampleData ItemCount=2}">
@@ -350,8 +350,6 @@
                         <TextBlock FontSize="16">Save</TextBlock>
                     </StackPanel>
                 </Button>
-
-                
 
                 <Button Command="{Binding Cancel}" Margin="5"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

@@ -362,20 +362,22 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         {
             BusyIndicatorUtils.SetBusyIndicator(true);
 
+            if (AllowEdit)
+                CanSave = true;
+
             if (id != null)
             {
                 await LoadOrder((int)id);
 
                 if (AllowEdit)
-                {
                     IsEditMode = true;
-                }
             }
 
-            if (AllowEdit)
-                CanSave = true;
-            if (IsEditMode == true)
+            if (IsEditMode || !AllowEdit)
                 IsEnable = false;
+
+            EnableStatusButtons();
+
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -396,6 +398,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 CustomerAddress = customer.Address;
                 Email = customer.Email;
                 Phone = customer.Phone;
+                ReadOnly = true;
             }
             else if (prevViewName == WorkspaceViewName.SelectProductOrderItems)
             {
@@ -433,7 +436,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             TotalAmount = order.TotalAmount;
 
             Status = order.Status;
-            EnableStatusButtons();
         }
 
         private void CreateOrderItemVMs()
@@ -463,7 +465,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                     CanReturn = true;
                 }
             }
-            if(Status == OrderStatus.Completed || Status == OrderStatus.Canceled || Status == OrderStatus.Returned)
+
+            if (Status != OrderStatus.Pending)
             {
                 CanSave = false;
             }
