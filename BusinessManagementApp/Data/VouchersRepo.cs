@@ -26,7 +26,7 @@ namespace BusinessManagementApp.Data
 
         public IObservable<List<Voucher>> CreateVouchers(Voucher voucher, int number)
         {
-            return api.GenerateVouchers(voucher.Type, number);
+            return api.GenerateVouchers(voucher, number);
         }
 
         public IObservable<List<Voucher>> DeleteVouchers(IEnumerable<string> ids)

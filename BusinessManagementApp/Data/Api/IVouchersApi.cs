@@ -14,7 +14,7 @@ namespace BusinessManagementApp.Data.Api
         IObservable<Voucher> GetVoucher(string id);
 
         [Post("/")]
-        IObservable<List<Voucher>> GenerateVouchers([Body] VoucherType voucherType, int numOfVouchers);
+        IObservable<List<Voucher>> GenerateVouchers([Body] Voucher voucherType, int amount);
 
         [Delete("/")]
         IObservable<List<Voucher>> DeleteVouchers([Body] IEnumerable<string> voucherIds);

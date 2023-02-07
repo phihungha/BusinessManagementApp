@@ -10,11 +10,11 @@ namespace BusinessManagementApp.Data.Model
         [JsonProperty("code")] public string Code { get; set; }
 
         // Only returns Id, Name on list. Return everything on details.
-        [JsonProperty("type")] public VoucherType Type { get; set; }
+        [JsonProperty("voucher_type")] public VoucherType Type { get; set; }
 
         [JsonProperty("release_date")] public DateTime ReleaseDate { get; set; }
 
-        [JsonProperty("expiry_date")] public DateTime ExpiryDate { get; set; }
+        [JsonProperty("expire_date")] public DateTime ExpiryDate { get; set; }
 
         public bool Equals(Voucher? other)
         {
@@ -34,19 +34,19 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("discount_type")] public DiscountType DiscountType { get; set; }
 
-        [JsonProperty("discount_value")] public decimal DiscountValue { get; set; }
+        [JsonProperty("discount")] public decimal DiscountValue { get; set; }
 
         // Min total price
         [JsonProperty("min_net_price")] public decimal MinNetPrice { get; set; }
 
         // Only return Id and Name
-        [JsonProperty("applied_products")] public List<Product> AppliedProducts { get; set; }
+        [JsonProperty("require_product")] public List<Product> AppliedProducts { get; set; }
     }
 
     public enum DiscountType
     {
-        [Description("Percentage")] Percent,
+        [Description("Percentage")] Percentage,
 
-        [Description("Raw value")] Raw
+        [Description("Raw value")] Amount
     }
 }

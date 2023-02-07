@@ -25,10 +25,11 @@ namespace BusinessManagementApp.Utils
         /// <typeparam name="T"></typeparam>
         /// <param name="observableCollection">Collection to add into</param>
         /// <param name="items">Items to add</param>
-        public static void ClearAndAddRange<T>(this ObservableCollection<T> observableCollection, IEnumerable<T> items)
+        public static void ClearAndAddRange<T>(this ObservableCollection<T> observableCollection, IEnumerable<T>? items)
         {
             observableCollection.Clear();
-            observableCollection.AddRange(items);
+            if (items != null)
+                observableCollection.AddRange(items);
         }
     }
 }

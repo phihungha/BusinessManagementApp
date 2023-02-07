@@ -9,6 +9,6 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("date")] public DateTime Date { get; set; }
 
-        [JsonProperty("num_of_hours")] public int NumOfHours { get; set; }
+        [JsonProperty("hours")] public int NumOfHours { get; set; }
     }
 }

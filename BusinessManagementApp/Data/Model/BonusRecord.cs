@@ -9,7 +9,7 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("employee")] public Employee Employee { get; set; }
 
-        [JsonProperty("type")] public BonusType Type { get; set; }
+        [JsonProperty("bonus_type")] public BonusType Type { get; set; }
 
         [JsonProperty("amount")] public decimal Amount { get; set; }
     }

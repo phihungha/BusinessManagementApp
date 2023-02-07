@@ -544,7 +544,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
         private decimal CalcDiscountPriceFromVoucher(VoucherType voucherType, decimal originalPrice)
         {
             decimal discountValue = voucherType.DiscountValue;
-            if (voucherType.DiscountType == DiscountType.Raw)
+            if (voucherType.DiscountType == DiscountType.Amount)
             {
                 return discountValue;
             }

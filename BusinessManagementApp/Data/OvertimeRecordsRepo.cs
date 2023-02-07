@@ -16,7 +16,7 @@ namespace BusinessManagementApp.Data
 
         public IObservable<List<OvertimeOverview>> GetOvertimeOverviews(int year, int month)
         {
-            return api.GetOvertimeOverviews(month, year);
+            return api.GetOvertimeOverviews(year, month);
         }
 
         public IObservable<OvertimeOverview> GetOvertimeDetails(string employeeId, int year, int month)

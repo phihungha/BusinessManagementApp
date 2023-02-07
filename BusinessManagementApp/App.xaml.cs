@@ -34,6 +34,7 @@ namespace BusinessManagementApp
             {
                 e.Handled = true;
                 BusyIndicatorUtils.SetBusyIndicator(false);
+                Console.Out.WriteLine(apiErr);
                 new ErrorDialog("API Error", apiErr.Message).Show();
             }
         }

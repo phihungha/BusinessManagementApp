@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Refit;
 using System;
 using System.Windows;
+using Newtonsoft.Json.Converters;
 
 namespace BusinessManagementApp
 {
@@ -69,7 +70,11 @@ namespace BusinessManagementApp
 
                 var jsonSettings = new JsonSerializerSettings()
                 {
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Converters =
+                    {
+                        new StringEnumConverter()
+                    }
                 };
                 RefitSettings settings = new RefitSettings(new NewtonsoftJsonContentSerializer(jsonSettings));
 

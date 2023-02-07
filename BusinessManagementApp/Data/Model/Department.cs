@@ -14,7 +14,7 @@ namespace BusinessManagementApp.Data.Model
         [JsonProperty("phone_number")] public string PhoneNumber { get; set; }
 
         // Only include Id and Name
-        [JsonProperty("head")] public Employee Head { get; set; }
+        [JsonProperty("head_employee")] public Employee Head { get; set; }
 
         // Supports WPF ComboBox binding.
         // Comparing Id is usually enough.
