@@ -370,13 +370,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 await LoadOrder((int)id);
 
                 if (AllowEdit)
+                {
                     IsEditMode = true;
+                    EnableStatusButtons();
+                }
             }
 
             if (IsEditMode || !AllowEdit)
                 IsEnable = false;
-
-            EnableStatusButtons();
 
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
