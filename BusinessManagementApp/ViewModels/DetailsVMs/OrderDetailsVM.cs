@@ -453,7 +453,6 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             {
                 CanComplete = true;
                 CanCancel = true;
-                CanSave = false;
             }
 
             if (Status == OrderStatus.Completed)
