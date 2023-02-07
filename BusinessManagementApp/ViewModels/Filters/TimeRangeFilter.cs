@@ -5,7 +5,7 @@ namespace BusinessManagementApp.ViewModels.Filters
 {
     public class TimeRangeFilter<T> : AbstractFilter<T>
     {
-        public delegate DateTime GetTime(T value);
+        public delegate DateTime? GetTime(T value);
 
         public GetTime GetTimeFunc { get; set; }
 
@@ -26,7 +26,12 @@ namespace BusinessManagementApp.ViewModels.Filters
 
         protected override bool PerformFiltering(T input)
         {
-            DateTime time = GetTimeFunc(input);
+            DateTime? time = GetTimeFunc(input);
+
+            if (time == null)
+            {
+                return false;
+            }
 
             bool startTimeFilterPassed = false;
             if (!StartTimeFilterEnabled || time >= StartTime)

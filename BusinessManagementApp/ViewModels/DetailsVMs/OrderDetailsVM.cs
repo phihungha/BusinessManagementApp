@@ -243,6 +243,14 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
         #region Button enable/disable logic
 
+        private bool isEnable = true;
+
+        public bool IsEnable
+        {
+            get => isEnable;
+            private set => SetProperty(ref isEnable, value);
+        }
+
         private bool readOnly = false;
 
         public bool ReadOnly
@@ -366,7 +374,8 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
 
             if (AllowEdit)
                 CanSave = true;
-
+            if (IsEditMode == true)
+                IsEnable = false;
             BusyIndicatorUtils.SetBusyIndicator(false);
         }
 
@@ -453,6 +462,10 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
                 {
                     CanReturn = true;
                 }
+            }
+            if(Status == OrderStatus.Completed || Status == OrderStatus.Canceled || Status == OrderStatus.Returned)
+            {
+                CanSave = false;
             }
         }
 

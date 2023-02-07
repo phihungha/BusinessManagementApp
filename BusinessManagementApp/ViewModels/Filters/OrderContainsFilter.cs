@@ -26,8 +26,6 @@ namespace BusinessManagementApp.ViewModels.Filters
 
         public string SearchText { get; set; } = string.Empty;
 
-        public OrderStatus Status { get; set; }
-
         public OrderContainsFilter(AbstractFilter<Order>? filter = null)
         : base(filter) { }
 

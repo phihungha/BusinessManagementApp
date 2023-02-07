@@ -207,7 +207,7 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             catch (ApiException err)
             {
                 BusyIndicatorUtils.SetBusyIndicator(false);
-                if (err.Message.Contains("same phone number"))
+                if (err.Message.Contains("phone"))
                 {
                     var dialog = new ErrorDialog(
                         "Phone number already exists",

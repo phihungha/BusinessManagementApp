@@ -252,7 +252,7 @@
                         <TextBlock Grid.Row="1" Style="{StaticResource TextBoxLeftLabel}">
                             Start date
                         </TextBlock>
-                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,5,0,5"
+                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="0,5,0,0"
                                     HorizontalAlignment="Stretch"
                                     SelectedDate="{Binding NewContractStartDate}"
                                     DisplayDateStart="{Binding Contract.EndDate}" />
@@ -306,7 +306,7 @@
                                 <ui:SimpleStackPanel Grid.Column="1" Margin="15,0,0,0" VerticalAlignment="Center">
                                     <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
                                         <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
-                                                   FontSize="16" Text="{Binding Id, StringFormat=ID: {0}}" />
+                                                   FontSize="16" Text="{Binding Id, StringFormat=(ID: {0})}" />
                                         <TextBlock Style="{Binding IsCurrent, Converter={converters:BoolToCurrentRecordItemStyle}}"
                                                    FontSize="16" Text="{Binding Type.Name}" />
                                         <TextBlock Visibility="{Binding IsCurrent,Converter={StaticResource BoolToVisibilityConverter}}"
