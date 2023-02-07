@@ -28,7 +28,7 @@ namespace BusinessManagementApp.ViewModels.Filters
         {
             DateTime? time = GetTimeFunc(input);
 
-            if (time == null)
+            if (time == null && (StartTimeFilterEnabled || EndTimeFilterEnabled))
             {
                 return false;
             }
