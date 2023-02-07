@@ -108,7 +108,9 @@ namespace BusinessManagementApp.ViewModels
                     BusyIndicatorUtils.SetBusyIndicator(true);
 
                     var Ids = SelectedVouchers.Select(x => x.Code).ToList();
-                    vouchers.ClearAndAddRange(await vouchersRepo.DeleteVouchers(Ids));
+                    await vouchersRepo.DeleteVouchers(Ids);
+                    // Band-aid fix: Back-end returns invalid data after deletion
+                    vouchers.ClearAndAddRange(await vouchersRepo.GetVouchers());
 
                     BusyIndicatorUtils.SetBusyIndicator(false);
                 }
