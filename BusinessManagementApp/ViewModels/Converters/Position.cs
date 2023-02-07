@@ -10,7 +10,9 @@ namespace BusinessManagementApp.ViewModels.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value == null ? "Now" : ((DateTime)value).ToString("d");
+            // Band-aid fix: Backend returns incorrect date for current position
+            return (value == null || (DateTime)value == new DateTime(3000, 2, 1)) 
+                    ? "Now" : ((DateTime)value).ToString("d");
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

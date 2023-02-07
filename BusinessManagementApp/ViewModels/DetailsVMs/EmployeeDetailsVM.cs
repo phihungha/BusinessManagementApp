@@ -360,8 +360,12 @@ namespace BusinessManagementApp.ViewModels.DetailsVMs
             Email = employee.Email;
             Address = employee.Address;
             Department = employee.Department;
+
             Position = employee.CurrentPosition;
+            // Band-aid fix: Back-end returns position list in incorrect order
+            employee.PositionRecords.Reverse();
             PositionRecords.AddRange(employee.PositionRecords);
+
             Contracts.AddRange(employee.Contracts);
             Contract = employee.CurrentContract;
 
