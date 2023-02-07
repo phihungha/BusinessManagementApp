@@ -70,7 +70,7 @@
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <!-- Set the columns to display here. -->
-                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="50" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="250" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Employee.Name}" Width="*" />
                 <DataGridTextColumn Header="Number of overtime days" Binding="{Binding NumOfOvertimeDays}" Width="200" />
                 <DataGridTextColumn Header="Average overtime duration" Binding="{Binding AvgOvertimeDuration}" Width="200" />

@@ -62,7 +62,7 @@
                   Margin="0,15,0,0" Background="White"
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="50" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="250" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Employee.Name}" Width="*" />
                 <DataGridTemplateColumn Header="Bonus type" Width="200">
                     <DataGridTemplateColumn.CellTemplate>

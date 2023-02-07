@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1290">
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -54,7 +54,7 @@
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <!-- Set the columns to display here. -->
-                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="50" />
+                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="250" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Employee.Name}" Width="*" />
                 <DataGridTextColumn Header="Last updated at" Binding="{Binding LastUpdatedTime}" Width="300" />
 

@@ -56,14 +56,14 @@
                   AutoGenerateColumns="False" IsReadOnly="True" SelectionChanged="VouchersDataGrid_SelectionChanged">
             <DataGrid.Columns>
                 <!-- Set the columns to display here. -->
-                <DataGridTextColumn Header="Code" Binding="{Binding Code}" Width="*" />
+                <DataGridTextColumn Header="Code" Binding="{Binding Code}" Width="400" />
                 <DataGridTextColumn Header="Type" Binding="{Binding Type.Name}" Width="*" />
                 <DataGridTextColumn Header="Release Date" Binding="{Binding ReleaseDate, StringFormat='d'}" Width="*" />
                 <DataGridTextColumn Header="Expiry Date" Binding="{Binding ExpiryDate, StringFormat='d'}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <UniformGrid IsEnabled="{Binding AllowAdd}" Grid.Row="3" Columns="2"
+        <UniformGrid IsEnabled="{Binding AllowEdit}" Grid.Row="3" Columns="2"
                      VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="350">
             <Button Grid.Column="1" Margin="5" Command="{Binding DeleteVouchers}"
                     HorizontalAlignment="Stretch" Height="45"
