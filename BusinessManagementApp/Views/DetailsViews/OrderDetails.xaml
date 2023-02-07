@@ -6,7 +6,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:converters="clr-namespace:BusinessManagementApp.ViewModels.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="1500" d:DesignWidth="1290">
+             d:DesignHeight="1600" d:DesignWidth="1290">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid Margin="15">
             <Grid.RowDefinitions>
@@ -139,12 +139,12 @@
 
                             <StackPanel Margin="0,5,15,0">
                                 <TextBlock  Text="Status" />
-                                <TextBlock FontSize="24" Text="{Binding Status}" />
+                                <TextBlock FontSize="20" Text="{Binding Status}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Margin="15,5,0,0">
                                 <TextBlock Text="Employee in charge" />
-                                <TextBlock FontSize="24" Text="{Binding EmployeeInCharge.Name}" />
+                                <TextBlock FontSize="20" Text="{Binding EmployeeInCharge.Name}" />
                             </StackPanel>
                         </Grid>
                     </Grid>
