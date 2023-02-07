@@ -67,7 +67,7 @@
                                 <TextBlock Text="Customer information" Margin="0,20,0,0"  FontSize="30" />
                             </StackPanel>
                             <DockPanel Grid.Row="0" Grid.Column="1" LastChildFill="False" HorizontalAlignment="Right">
-                                <Button IsEnabled="{Binding AllowEdit}" Margin="10,20,10,0" Height="40" Content="Choose Customer"
+                                <Button IsEnabled="{Binding IsEnable}" Margin="10,20,10,0" Height="40" Content="Choose Customer"
                                 Background="#FF358AFF" Foreground="White"
                                 VerticalAlignment="Center" HorizontalAlignment="Stretch"
                                 Command="{Binding SelectCustomer}" />
