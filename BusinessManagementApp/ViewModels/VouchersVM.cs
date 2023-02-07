@@ -3,7 +3,6 @@ using BusinessManagementApp.Data.Model;
 using BusinessManagementApp.Utils;
 using BusinessManagementApp.ViewModels.BusyIndicator;
 using BusinessManagementApp.ViewModels.Navigation;
-using BusinessManagementApp.Views;
 using BusinessManagementApp.Views.Dialogs;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -12,7 +11,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -87,10 +85,10 @@ namespace BusinessManagementApp.ViewModels
             switch (SearchBy)
             {
                 case VoucherInfoSearchBy.Code:
-                    return voucher.Code.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+                    return voucher.Code?.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) ?? false;
 
                 case VoucherInfoSearchBy.Type:
-                    return voucher.Type.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase);
+                    return voucher.Type?.Name.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase) ?? false;
 
                 default:
                     return false;
