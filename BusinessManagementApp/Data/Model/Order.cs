@@ -10,7 +10,7 @@ namespace BusinessManagementApp.Data.Model
 
         [JsonProperty("creation_time")] public DateTime CreationTime { get; set; }
 
-        [JsonProperty("completion_time")] public DateTime CompletionTime { get; set; }
+        [JsonProperty("completion_time")] public DateTime? CompletionTime { get; set; }
 
         // Only include Id and Name
         [JsonProperty("employee_in_charge")] public Employee EmployeeInCharge { get; set; }
