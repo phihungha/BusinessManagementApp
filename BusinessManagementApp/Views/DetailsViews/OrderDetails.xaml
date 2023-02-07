@@ -76,7 +76,7 @@
 
                         <StackPanel Grid.Row="1" Margin="0,10,0,0" Grid.ColumnSpan="2">
                             <TextBlock  Text="Name" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding Name}" />
+                            <TextBox IsEnabled="{Binding IsEnable}" IsReadOnly="{Binding ReadOnly}" Text="{Binding Name}" />
                         </StackPanel>
 
                         <StackPanel Grid.Row="2" Margin="0,10,15,0">
@@ -97,17 +97,17 @@
 
                         <StackPanel Margin="15,5,0,0" Grid.Row="3" Grid.Column="1">
                             <TextBlock  Text="Phone number" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding Phone}" />
+                            <TextBox IsEnabled="{Binding IsEnable}" IsReadOnly="{Binding ReadOnly}" Text="{Binding Phone}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,5,15,0" Grid.Row="3" Grid.Column="0">
                             <TextBlock  Text="Email" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding Email}" />
+                            <TextBox IsEnabled="{Binding IsEnable}" IsReadOnly="{Binding ReadOnly}" Text="{Binding Email}" />
                         </StackPanel>
 
                         <StackPanel Margin="0,10,0,0" Grid.Row="4" Grid.ColumnSpan="2">
                             <TextBlock  Text="Address" />
-                            <TextBox IsReadOnly="{Binding ReadOnly}" Text="{Binding CustomerAddress}" />
+                            <TextBox IsEnabled="{Binding IsEnable}" IsReadOnly="{Binding ReadOnly}" Text="{Binding CustomerAddress}" />
                         </StackPanel>
                     </Grid>
                 </Border>
